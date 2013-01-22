@@ -1,0 +1,190 @@
+\chapter{Domestic Water System - Cold Side}
+
+\newthought{The Domestic Water System} is physically completed, with the exception of piping in Merweb Tower and final fix, where we are currently following the Main Contractor's progress. Commissioning can partially, proceed without the final fix be completed. However, we would prefer to have the installation fully completed. The Kahraama connection must also be completed, in order to properly disinfect the systems. Target dates for setting the systems into operation are shown below:
+
+\begin{center}
+           \begin{table} 
+	    \begin{tabular}{lcl}
+	      \toprule
+	      Plantroom   &  Details & Milestone Date  \\
+	      \midrule
+	      B3 Domestic plantroom      &  $26^{th}$ Sep 2010  \\
+	      L4 Domestic plantroom      &  20th Sep 2010  \\
+	      Interconnections           &  15th August 2010  \\
+	      Final fix  && \\ 
+	      \bottomrule
+	    \end{tabular}
+           \caption{Domestic water sub-systems}
+            \end{table}
+   \end{center}
+
+
+\section{Current Status}
+
+All water tanks have been installed at Level 4. These remain to be fully tested and inspected. The physical installation is completed substantially. 
+
+\section{Outstanding Works, impeding commissioning}
+
+\begin{table}[ht]
+\begin{tabular}{lll}
+1  &BMS Connections & \\
+2  &Testing of Water tanks &Constraint is with Metito\\
+3  &Other                  &\\
+4  &Covers for water tanks &\\
+5  &Side Access Doors to water tanks   &\\
+\end{tabular}
+\caption{Summary of Outstanding Works}
+\end{table}
+
+\section{Constraints}
+Current constraints revolve around Main Contractor's and fit-out Contractors final fix activities. There are still information issues constraining the Rotana Domestic Water system. There are also constraints due to financial reasons.
+
+
+\begin{tabular}{lllp{3.5cm}}
+\toprule
+1  &Submittal 1143   &Water Meters & Needs to be ordered. issues with location to be resolved.\\
+\midrule
+\bottomrule
+\end{tabular}
+
+%TODO
+%
+%Gas Detection throughout, Gasco Level 24 Merweb.
+
+\section{Closure Sequence}
+
+The Closure and Commissioning sequence will follow the overall pattern for the Building. 
+\bigskip
+
+
+
+\begin{fullwidth}
+\begin{tikzpicture}[scale=1.15]
+\begin{ganttchart}[vgrid,hgrid,x unit=3.5mm,
+   y unit chart=3.5mm, bar height=0.5, bar label font=\footnotesize,
+   ]{12}
+\gantttitle{Domestic Water 2012}{12} \\
+\gantttitlelist{1,...,12}{1} \\
+\ganttgroup{Closure}{1}{7} \\
+\ganttbar{Water Tanks Testing}{1}{2} \\
+\ganttlinkedbar{Overall pressure test}{3}{7} \ganttnewline
+\ganttmilestone[milestone={fill=purple}]{Milestone}{7} \ganttnewline
+\ganttbar[bar={fill=orange, draw=none}]{Final Task}{8}{12}\\
+\ganttlink{elem2}{elem3}
+\ganttlink{elem3}{elem4}
+\activity{Pump alignment}{5}{1}
+\activity{Circulate to towers}{6}{}
+\activity{Controls}{7}{}
+\activity{HX Commissioning}{7}{1}
+\activity{Disinfection}{8}{1}
+\activity{Flush}{9}{10}
+\activity{Set to operation}{9}{10}
+\end{ganttchart}
+\end{tikzpicture}
+\begin{tikzpicture}[scale=1.15]
+\begin{ganttchart}[vgrid,hgrid,x unit=3.5mm,
+   y unit chart=3.5mm, bar height=0.5, bar label font=\footnotesize,
+   ]{12}
+\gantttitle{Domestic Water 2012}{12} \\
+\gantttitlelist{1,...,12}{1} \\
+\ganttgroup{Closure}{1}{7} \\
+\ganttbar{Water Tanks Testing}{1}{2} \\
+\ganttlinkedbar{Overall pressure test}{3}{7} \ganttnewline
+\ganttmilestone[milestone={fill=purple}]{Milestone}{7} \ganttnewline
+\ganttbar[bar={fill=orange, draw=none}]{Final Task}{8}{12}\\
+\ganttlink{elem2}{elem3}
+\ganttlink{elem3}{elem4}
+\activity{Pump alignment}{5}{1}
+\activity{Circulate to towers}{6}{}
+\activity{Controls}{7}{}
+\activity{HX Commissioning}{7}{1}
+\activity{Disinfection}{8}{1}
+\activity{Flush}{9}{10}
+\activity{Set to operation}{9}{10}
+\end{ganttchart}
+\end{tikzpicture}
+\end{fullwidth}
+
+\begin{fullwidth}
+\begin{figure*}
+\begin{tikzpicture}[scale=1.15]
+\begin{ganttchart}[vgrid,hgrid,x unit=3.5mm,
+   y unit chart=3.5mm, bar height=0.5, bar label font=\footnotesize,
+   ]{12}
+%\begin{ganttitle}
+%   \newcounter{weekcount}
+%   \setcounter{weekcount}{1}
+%   \whiledo{\value{weekcount}<13}
+%  {%
+%   \mon{\theweekcount}%
+%   \numtitle{1}{1}{4}{1}
+%   \stepcounter{weekcount}% 
+%  }      
+%\end{ganttitle}
+% 
+%% We define some new colors
+\definecolor{red}{rgb}{1,0,0}
+% activities are plotted here
+\xdef\prop{color=orange}
+
+\ganttbar[bar={fill =green}]{GR-RO-ECU-1 - horizontal}{0}{8}\\
+\ganttbar[bar={fill =DarkGreen}]{GR-RO-ECU-1 - vertical}{0}{8}\\
+
+\ganttbar[bar={fill =green}]{L1-RO-ECU-1 - horizontal}{8}{6}\\
+\ganttbar[bar={fill =purple}]{L1-RO-ECU-1 - vertical}{7}{6}\\
+
+%\ganttbar[color=blue]{L1-RO-ECU-2 - horizontal}{0}{6}
+%%% Level 6
+%\ganttbar[color=violet]{L6-RO-ECU-1 - horizontal}{5}{4}
+%\ganttbar[color=purple]{L6-RO-ECU-1 - vertical}{0}{8}
+%
+%\ganttbar[color=blue]{L6-RO-ECU-2 (horizontal)}{8}{6}
+%\ganttbar[color=violet]{L6-RO-ECU-2 (vertical)}{8}{6}
+%
+%
+%\ganttbar[color=orange]{L6-RO-ECU-4 (horizontal)}{5}{6}
+%\ganttbar[color=DarkGreen]{L6-RO-ECU-4 (vertical)}{7}{6}
+%
+%
+%\ganttbar[color=purple]{L7-RO-ECU-1}{4}{3}
+%
+%\ganttbar[color=brown]{Commissioning}{16}{6}
+
+\end{ganttchart}
+\end{tikzpicture}
+\colorbox{green}{\textcolor{black}{Team-1}} Currently working in B1 (Andreas)\\[3pt]
+\colorbox{DarkGreen}{\textcolor{white}{Team-2}} Currently working in L6 shafts going down (Fitos)\\[3pt]
+\colorbox{purple}{\textcolor{white}{Team-3}} Currently working in L6 shafts going down (Fitos)\\[3pt]
+\colorbox{blue}{\textcolor{white}{Team-4}} Currently working in B1 to be moved to L1 (Andreas)\\[3pt]
+\colorbox{violet}{\textcolor{white}{Team-5}} New Team HS, (Fitos)\\[3pt]
+\colorbox{orange}{\textcolor{white}{Team-6}} New Team HS, (Andreas)\\[3pt]
+\caption{Rotana installation and commissioning program.}
+\label{plan}
+\end{figure*}
+
+\end{fullwidth}
+
+
+EI-Python systems for all Hotels affects ceilings.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

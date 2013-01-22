@@ -1,0 +1,105 @@
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+\usepackage{datatool}
+\usepackage{fancyvrb}
+\DefineShortVerb{\|}
+\begin{document}
+
+\makeatletter
+
+
+LaTeX's  low-level programming is rather poorly documented and the section on what is called control commands is even more so. The current LaTeX team are trying to provide some proper looping structures in LaTeX3. 
+
+If you want to loop over comma-lists, LaTeX provides the |\@for| macro. This works by repeatedly assigning list items to a temporary variable:
+
+\let\dotlessi\i
+
+\i
+
+\newcommand*{\mathList}{\alpha,\beta,\gamma,
+               \delta,\epsilon,\zeta,\theta, }
+
+\newcommand{\commaless}{
+\@for\i:=\mathList\do{%
+  \ensuremath \i \space 
+ }}
+
+
+\commaless
+
+\mathList
+%\i  this will give an error at end of loop \i is \@nil
+
+\let\i\dotlessi
+
+\i
+
+
+\ for NAME := LIST \ do {BODY} : Assumes that LIST expands to $a_1,a_2,\ldots,a_n$ 
+
+Executes BODY n times, with NAME = Ai on the i-th
+iteration. Optimized for the normal case of n = 1. It also works for an empty list i.e for  $n=0$.
+
+The syntax for this macro is a bit different you do need to use the ":=". The method for implementing these loops is  found in |ltcntrl.dtx| in the |source2e| file. 
+
+Defining loops to use a different delimiter is probably easiest done by copy-pasting the latex.ltx code (using new names for the macros) and replacing the "," in the definitions with whatever you want as a delimiter. Unfortunately, this is not easy code to read. 
+
+You can avoid the extra comma by testing for an empty list before adding to it:
+
+
+
+\newcommand*{\AddToCommaList}[1]{%
+  \ifx\mathList\@empty
+    \def\mathList{#1}%
+  \else
+     \expandafter\def\expandafter\mathList\expandafter
+      {\mathList,#1}%
+  \fi
+}
+
+
+\AddToCommaList{\iota}
+\AddToCommaList{\kappa}
+
+
+\[ \mathList  \]
+
+
+
+I've avoid \ edef here a some things do not like it, and the \ expandafter run here will expand \ CommaList exactly once, which is what we really need to do in this context.
+
+Having said all of that, I would probably not code much myself here. The datatool package covers much of this type of thing in an easy-to-use way. A quick version using datatool:
+
+
+
+
+\DTLnewdb{revisions}
+\newcommand*{\revision}[3]{%
+  \DTLnewrow{revisions}%
+  \DTLnewdbentry{revisions}{Date}{#1}%
+  \DTLnewdbentry{revisions}{Author}{#2}%
+  \DTLnewdbentry{revisions}{Comment}{#3}%
+}
+
+\revision{{\today}}{O'riginal AuthorName}{Created document!}
+\revision{2008--02--02}{Second AuthorName}{Added some stuff. Much better now.}
+\revision{2010--02--02}{Second AuthorName}{Added some stuff. Much better now.}
+
+\DTLdisplaydb{revisions}
+
+
+
+
+\makeatother
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

@@ -1,0 +1,99 @@
+\chapter{Car Park Ventilation}
+
+\newthought{The Car Park ventilation system} is not expected to be completed by the \deadline. However, we expect to have large sections of it at an advance stage. Current delays revolve around remain the difficulty in working in the remaining sections, such as Level 5, where we need to work over the site offices and 
+the sourcing of fire painted ductwork. The latter ductwork has been manufactured and only needs to be
+fire rated. There are both human resource as commercial resources slowing down these works.
+
+\section{Current Status}
+
+The current status of completion, has been divided into three main section. Jet Fan ventilators, Supply and Exhaust Ductwork. The current status in percentages is shown below:
+
+\subsection{Fire Rated Ductwork}
+
+The Fire rated duct work, is estimates at 2000$m^2$. Currently the site has a capacity of approximately 80-100$m^2$ per day. Should the ducting become available, installation can then be scheduled and works accelerated.
+
+
+
+
+\section{Constraints}
+Constraints revolve around the detailing of the Car Park ventilation,  main fans, location etc. It is likely that there will be a need to order new equipment, both Jet fans as well as Extract fans. The condition of some of the fans is suspect and remedial works might be necessary. Sound attenuators have not been ordered and can take a while.
+
+The Jet Fan system employed needs to be validated via CFD studies. These can only be completed when the full design is complete. At the moment we have been informed that this is on hold.
+
+This is also affecting the \texttt{CO} System, which is dependent on the location of the Jet Fans. In addition all the MCC Panels have still not been finalized for the same reason.
+
+Co-ordination for all these equipment and ductwork is difficult as no primary co-ordination has been done by the Engineer. Headroom restrictions prohibit an easy and quick installation.
+
+Based on these constraints and the delivery of balance of equipement, we estimate that the earliest date for completion of these systems will be the end of December. \out{Car Park Ventilation}{30 Dec 2010}
+\out{Car Park CO System}{30 Dec 2010}
+
+\section{Balance of works sequence}
+
+The sequence of completion for these works is shown in \ref{fig:carparkplan}. The major constraint in completing these works earlier is human resources. Mechanical works are currently under progress, but electrical works have not yet started due to constraints. Fresh air and Smoke Exhausts are also behind due to material shortages. 
+
+
+\begin{fullwidth}
+\begin{figure}
+\hspace*{-1cm}\begin{tikzpicture}
+\begin{ganttchart}[vgrid,hgrid,x unit=5mm,
+   y unit chart=3.5mm, bar height=0.5, bar label font=\footnotesize, include title in canvas=true
+   ]{16}
+\gantttitle[title height=1.,title top shift=0.001,title={draw=none,font=\footnotesize}]{\parbox{4cm}{\centering\bf  Car Park\\ Jet Fans}
+}{16} \\
+%\gantttitle[title height={0.25},title top shift=-0.3,title={draw=none}]{Jet Fans}{12}\\
+\gantttitlelist{1,...,16}{1} \\
+\ganttgroup{\small Mechanical Installation}{1}{6} \\ %elem0
+%\ganttmilestone[milestone={fill=purple}]{\bf Physical works}{7} \ganttnewline
+\activity{Level 5}{1}{1} %elem1
+\activity{Level 4}{2}{2} %elem2
+\ganttlink[link mid=0.8]{elem1}{elem2}
+\activity{Level 3}{3}{3}
+\activity{B2}{4}{4}
+\activity{B1}{5}{5}
+\activity{B3}{6}{6}
+\ganttlink[link mid=0.8]{elem2}{elem3}
+\ganttlink[link mid=0.8]{elem3}{elem4}
+\ganttlink[link mid=0.8]{elem4}{elem5}
+\ganttlink[link mid=0.8]{elem5}{elem6}
+%
+\ganttgroup{\small Electrical Installation}{1}{6} \\ %elem0
+\activity[purple]{Level 5}{1}{1} %elem1
+\activity[purple]{Level 4}{2}{2} %elem2
+\activity[purple]{Level 3}{3}{3}
+\activity[purple]{B2}{4}{4}
+\activity[purple]{B1}{5}{5}
+\activity[purple]{B3}{6}{6}
+\ganttlink[link mid=0.8]{elem8}{elem9}
+\ganttlink[link mid=0.8]{elem9}{elem10}
+\ganttlink[link mid=0.8]{elem10}{elem11}
+\ganttlink[link mid=0.8]{elem11}{elem12}
+\ganttlink[link mid=0.8]{elem12}{elem13}
+\ganttgroup{\small CO System}{1}{6} \\
+\activity[orange]{Level 5}{1}{1} %elem1
+\activity[orange]{Level 4}{2}{2} %elem2
+\activity[orange]{Level 3}{3}{3}
+\activity[orange]{B2}{4}{4}
+\activity[orange]{B1}{5}{5}
+\activity[orange]{B3}{6}{6}
+\ganttgroup{\small Commissioning}{4}{10}\\
+\activity[blue]{Pre-commissioing}{4}{8}
+\activity[blue]{Set to operation}{6}{10}
+%% integration
+\activity[teal]{BMS integration}{6}{10}
+\activity[teal]{FA integration}{6}{10}
+%% Commissioning
+\ganttgroup{\small Documentation}{4}{10}\\
+\activity[violet]{O\&M manuals}{4}{4}
+\activity[violet]{Mechanical as fitted-drawings}{4}{4}
+\activity[violet]{Electrical as fitted-drawings}{4}{4}
+\ganttmilestone[milestone={fill=purple}]{\small\bf CDD Inspection}{13} \ganttnewline
+\end{ganttchart}
+\end{tikzpicture}
+\caption{Sequence of completion for Car Park ventilation systems. The installation of the mechanical works will be completed first (jet fans), followed by electrical connections and testing. The CO system will then be wired up and commissioning can be achieved. Note activities have been linked due to limits on the number of teams available for these works.}
+\end{figure}
+\label{fig:carparkplan}
+\end{fullwidth}
+
+
+
+

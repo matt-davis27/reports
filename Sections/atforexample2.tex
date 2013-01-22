@@ -1,0 +1,12 @@
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+\begin{document}
+\makeatletter
+\let\dotlessi\i
+\newcommand*{\mathList}{\alpha,\beta,\gamma,
+               \delta,\epsilon,\zeta,\theta, }
+\@for\i:=\mathList\do{%
+  \ensuremath \i \space 
+ }
+\let\i\dotlessi
+\makeatother
+\end{document}

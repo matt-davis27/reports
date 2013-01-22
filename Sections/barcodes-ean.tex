@@ -1,0 +1,82 @@
+% barcodes
+\documentclass{article}
+\usepackage{booktabs,program,lipsum}
+%% Olmex script
+\usepackage{epiolmec}
+%\usepackage{trajan}
+\usepackage[ISBN=978-80-85955-35-4,SC0]{ean13isbn}
+\begin{document}
+\ISBN
+
+\EANisbn[SC5b,ISBN=9780552151740]
+
+\EOtze\\
+\EOsacrifice
+
+ \begin{table}
+   \caption{Starch Content of Foods}
+   \label{tab:starch}
+   %\tbfont
+   \begin{tabular}{@{}lr}
+     \toprule
+      Product        &  Starch Content, \% \\ 
+     \midrule
+      Bran (wheat)           & 23.0\\
+      Brown rice (raw)       & 80.0\\
+      Brown bread (average)  & 41.3\\
+      White bread (average)  & 46.7\\
+     \bottomrule
+   \end{tabular}
+ \end{table}
+
+ \begin{table}
+   \caption{Starch Content of Foods}
+   \label{tab:starch}
+   %\tbfont
+   \begin{tabular}{lr}
+     \toprule
+      Product        &  Starch Content, \% \\ 
+     \midrule
+      Bran (wheat)           & 23.0\\
+      Brown rice (raw)       & 80.0\\
+      Brown bread (average)  & 41.3\\
+      White bread (average)  & 46.7\\
+     \bottomrule
+   \end{tabular}
+ \end{table}
+\makeatletter
+{\bf\huge THIS IS A TEST FOT SOMETHING VII}
+
+\begin{trjnfamily}
+{\bf\huge THIS IS A TEST FOR SOMETHING VII}
+\end{trjnfamily}
+
+
+  \@tempdimc=1000000000 sp 
+  %\strip@pt\@tempdimc\\ 
+
+  \the\@tempdimc
+
+
+
+
+\obeylines\obeyspaces
+\(\IF x \ne 0 \THEN |long_name|_{123} = x^y \FI
+	\T est
+    \R  a=50  z>12
+
+\)
+
+\(a^2\)
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
