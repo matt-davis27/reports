@@ -29,7 +29,7 @@
 
 \usepackage{verbatim}
 \usepackage{caption}
-\DeclareCaptionFont{blue}{\color{blue}}
+\DeclareCaptionFont{blue}{\color{black}}
 \captionsetup{justification=raggedright, singlelinecheck=false,font={blue,sf,small}}
 
 \usepackage{pgfplots}
@@ -150,25 +150,6 @@
 \marginpar{\hlred{#1~package}}
 }% package name
 
-%% Provide a command for document cls - do not add to index
-%
-\newcommand{\doccls}[1]{\texttt{#1}}% document class name
-
-
-\newcommand{\docclsopt}[1]{\texttt{#1}\index{#1 class option@\texttt{#1} class option}\index{class options!#1@\texttt{#1}}}% document class option name
-\newcommand{\docclsoptdef}[1]{\hlred{\texttt{#1}}\label{clsopt:#1}\index{#1 class option@\texttt{#1} class option}\index{class options!#1@\texttt{#1}}}% document class option name defined
-\newcommand{\docmsg}[2]{\bigskip\begin{fullwidth}\noindent\ttfamily#1\end{fullwidth}\medskip\par\noindent#2}
-\newcommand{\docfilehook}[2]{\texttt{#1}\index{file hooks!#2}\index{#1@\texttt{#1}}}
-\newcommand{\doccounter}[1]{\texttt{#1}\index{#1 counter@\texttt{#1} counter}}
-
-%% margin document commands
-%
-\newcommand{\margindoc}[1]{\marginpar[]{\doccmd{#1}}}
-
-\newcommand{\sidebarcolor}[1]{\textcolor{darkgray}{\sidenote[]{#1}}}
-
-%% alias of \doccmnd
-\newcommand{\cmd}[1]{\doccmd{#1} \marginpar[]{\hlred{\doccmd{#1}}}}
 
 
 %% Set up the epigraph to be a bit wider
@@ -197,42 +178,14 @@
 \immediate\write\tempfile{\noexpand\keydate{ #1}{#2}}}}
 
 
-
-
 %% We open the file to  to write the key-dates
 %% we will use it later to import
 \newwrite\tempfile
 \immediate\openout\tempfile=keydates.tex
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-%experimental
-
-%\usepackage{grid}
-% \IfFileExists{txfonts.sty}
-%  {\usepackage{txfonts}}
-%  {\usepackage{times}}
-
-%\usepackage[fontsize=10pt,baseline=14pt,lines=53]{grid}
-%\usepackage{siunitx}
-
 \usepackage{fancyvrb}
-\usepackage{float}
-\usepackage{wrapfig}
+
 
 %% Using amsmath and amssymbols for 
 %% mathematics
@@ -247,19 +200,8 @@
 %% Eventually beginning the document
 %% 
 
-\newenvironment{thecode}
-{\noindent\rule{10cm}{0.1pt}\verbatim} %before
-{\endverbatim\noindent\rule{10cm}{0.1pt}}   %after
 
 \usepackage{longtable}
-
-
-\begin{comment}
-
-
-\end{comment}
-%%% COMMENTED OUT
-%\usepackage{inconsolata}  % alternative tt font
 
 %% Set some local commands and colors
 \usepackage{colortbl}
