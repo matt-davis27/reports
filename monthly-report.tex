@@ -1,23 +1,17 @@
 % !TEX TS-program = pdflatex
 % !TEX encoding = UTF-8 Unicode
 
-% Example of the Memoir class, an alternative to the default LaTeX classes such as article and book, with many added features built into the class itself.
 
-\documentclass[a4paper, oneside, justified=true, sfsidenotes]{tufte-book} % for a long document
-%\documentclass[12pt,a4paper, showtrims]{memoir} % for a short document
+\documentclass[a4paper, oneside, justified=true, sfsidenotes]{tufte-book} 
 
 \usepackage[utf8]{inputenc} % set input encoding to utf8
 \usepackage[greek, french,english]{babel}[2005/11/23]
 \usepackage{lipsum}
 \usepackage{listings}
-\usepackage{lineno}
 \usepackage{xcolor}
 \usepackage{booktabs}
 %% Bibliography
 \usepackage{natbib}
-
-\usepackage{shapepar}
-
 
 \bibliographystyle{plainnat} % note the change here
 \bibpunct{(}{)}{;}{a}{,}{,}
@@ -28,15 +22,11 @@
 
 \usepackage{alltt}[1997/06/16]   %% boilerplate, credits, license
 \usepackage{epigraph}
-% use courier acrobat fonts rather than the type writer font
-%\usepackage{courier}
+
 \usepackage{shapepar}
 \usepackage{lettrine}
 \usepackage{graphicx}
 
-%% Use some archaic fonts for fun
-\usepackage{cypriot}
-\usepackage{hieroglf}
 \usepackage{verbatim}
 \usepackage{caption}
 \DeclareCaptionFont{blue}{\color{blue}}
@@ -56,7 +46,7 @@
 %%% CHAPTER STYLES AND SECTION STYLES
 \pagestyle{fancy}
 \renewcommand{\chaptermark}[1]%
-{\markboth{\MakeUppercase{\chaptertitlename\ \thechapter\ #1}}{}} %no dot here
+{\markboth{\MakeUppercase{\chaptertitlename\ \thechapter\ #1}}{}} 
 \renewcommand{\sectionmark}[1]%
 {\markright{\MakeUppercase{\thesection~\ #1}}}
 \renewcommand{\headrulewidth}{0.5pt}
@@ -70,10 +60,7 @@
 
 %%hyperref
 \hypersetup{urlcolor=green, colorlinks=true}  % Colours hyperlinks in blue, but this can be distracting if there are many links
-\urlstyle{sf}  %set url as sans-serif font (in url? find how to do with hyperref)
-
-
-
+\urlstyle{sf}  %set url as sans-serif font 
 
 
 % Typesets the font size, leading, and measure in the form of 10/12x26 pc.
@@ -106,11 +93,6 @@
 \newcommand{\eg}{\textit{e.\hairsp{}g.}\xspace}
 
 
-%\newcommand{\na}{\quad--}% used in tables for N/A cells
-
-\providecommand{\XeLaTeX}{X\lower.5ex\hbox{\kern-0.15em\reflectbox{E}}\kern-0.1em\LaTeX}
-\newcommand{\tXeLaTeX}{\XeLaTeX\index{XeLaTeX@\protect\XeLaTeX}}
-% \index{\texttt{\textbackslash xyz}@\hangleft{\texttt{\textbackslash}}\texttt{xyz}}
 
 %% define backsalsh
 %% you can also use \textbackslash
@@ -197,22 +179,6 @@
 
 
 
-
-
-
-\newcommand{\latex}{\LaTeX}
-\newcommand{\tex}{\TeX}
-\newcommand{\texbook}{\tex book\  }
-
-\newcommand{\bs}{$backslash$}
-
-\newcommand{\BC}{\textsc{bc}}
-\newcommand{\AD}{\textsc{ad}}
-
-\title{CONSTRUCTION \\ STRATEGY FOR MEP}
-\author{City Center Phase 3a \&3b}
-\publisher{AL HABTOOR-Specon}
-\date{January 2011} % Delete this line to display the current date
 
 
 % Generates the index we use before the
@@ -306,16 +272,15 @@
 
 %% Use the graphics package
 % For graphics / images
-\usepackage{graphicx}
+\usepackage[demo]{graphicx}
 \setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio}
 \graphicspath{{graphics/}}
 
 
 \usepackage[some]{background}
-\usepackage{soul}
 
-%% hack not to leave blank pages before chapters
-%%
+% We use for highlighting text
+\usepackage{soul}
 
 
 \makeatletter
@@ -326,8 +291,13 @@
 \makeatother
 
 
+\title{CONSTRUCTION \\ STRATEGY FOR MEP}
+\author{City Center Phase 3a \&3b}
+\publisher{Habtoor Leighton Specon llc}
+\date{January 2011} % Delete this line to display the current date
 
-
+\newcounter{step}{0}
+\def\inc{\stepcounter{step}\thestep}
 
 \begin{document}
 
