@@ -214,7 +214,7 @@
 
 %% Use the graphics package
 % For graphics / images
-\usepackage[demo]{graphicx}
+\usepackage{graphicx}
 \setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio}
 \graphicspath{{graphics/}}
 
@@ -238,14 +238,14 @@
 \publisher{Habtoor Leighton Specon llc}
 \date{January 2011} % Delete this line to display the current date
 
-\newcounter{step}{0}
+\newcounter{step}
 \def\inc{\stepcounter{step}\thestep}
 
 \begin{document}
 
 \input{./Sections/definitions}
 
-\SetBgContents{Update $13^{th}$ Jan}
+\SetBgContents{Update $26^{th}$ Jan}
 \BgThispage
 % Front matter
 \frontmatter
@@ -265,21 +265,27 @@
 \listoftables
 
 \input{./Sections/update-04}
+\mainmatter
+\input{./Sections/HVAC}
+\input{./Sections/towers-rotana-02}
+\input{./Sections/towers-shangrila-02}
+\input{./Sections/towers-merweb-02}
+\end{document}
 %Main files start here
 \mainmatter %% Very important to include
 %\input{./Sections/CTC}
 %\input{./Sections/Materials}
 \input{./Sections/introduction}
 %\input{./Sections/towers}
-\input{./Sections/towers-rotana-02}
-%\input{./Sections/towers-shangrila}
-%\input{./Sections/towers-merweb}
+
+%
+%
 \input{./Sections/Podium-03}
 %
 \input{./Sections/chilledwater}
 %\input{./Sections/kahraama}
 %
-\input{./Sections/HVAC}
+
 %
 \input{./Sections/carparkventilation-02}
 \input{./Sections/staircasepressurization-01}
