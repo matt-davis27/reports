@@ -59,7 +59,8 @@
 \fancyhead[RE]{\helv \leftmark}
 
 %%hyperref
-\hypersetup{urlcolor=green, colorlinks=true}  % Colours hyperlinks in blue, but this can be distracting if there are many links
+\hypersetup{urlcolor=green, colorlinks=true}  % Colours hyperlinks in blue, but this can be 
+                                              % distracting if there are many links
 \urlstyle{sf}  %set url as sans-serif font 
 
 
@@ -67,9 +68,6 @@
 \newcommand{\measure}[3]{#1/#2$\times$\unit[#3]{pc}}
 
 % Macros for typesetting the documentation
-
-\newcommand{\fox}{\medskip  "The quick brown fox jumps over the lazy dog"\medskip} % mini lorem
-\newcommand{\dogs}{The sentence is often mistakenly rendered as "The quick brown fox jumped over the lazy dog," which does not include an s. However, this can be corrected by typing: "The quick brown fox jumped over the lazy dogs".}
 
 
 \newcommand{\hlred}[1]{\textcolor{Maroon}{#1}}% prints in red
@@ -94,73 +92,10 @@
 
 
 
-%% define backsalsh
-%% you can also use \textbackslash
-\newcommand{\tuftebs}{\symbol{'134}}% a backslash in tt type in OT1/T1
-
-\newcommand{\doccmdnoindex}[2][]{\texttt{\tuftebs#2}}% command name -- adds backslash automatically (and doesn't add cmd to the index)
-
-\newcommand{\doccmddef}[2][]{%
-  \hlred{\texttt{\tuftebs#2}}\label{cmd:#2}%
-  \ifthenelse{\isempty{#1}}%
-    {% add the command to the index
-      \index{#2 command@\protect\hangleft{\texttt{\tuftebs}}\texttt{#2}}% command name
-    }%
-    {% add the command and package to the index
-      \index{#2 command@\protect\hangleft{\texttt{\tuftebs}}\texttt{#2} (\texttt{#1} package)}% command name
-      \index{#1 package@\texttt{#1} package}\index{packages!#1@\texttt{#1}}% package name
-    }%
-}% command name -- adds backslash automatically
-
-%% doc commands
-% % adds hem automatically to index
-
-\newcommand{\doccmd}[2][]{%
-  \texttt{\hlred{\tuftebs#2}}%
-    \ifthenelse{\isempty{#1}}%
-    {% add the command to the index
-      \index{#2 command@\protect\hangleft{\texttt{\tuftebs}}\texttt{#2}}% command name
-      % \marginpar{\hlred{#1}}
-    }%
-    {% add the command and package to the index
-      \index{#2 command@\protect\hangleft{\texttt{\tuftebs}}\texttt{#2} (\texttt{#1} package)}% command name
-     \index{#1 package@\texttt{#1} package}\index{packages!#1@\texttt{#1}}% package name
-    }%
-}% command name -- adds backslash automatically
-
-
-
-%% doc options
-%
-\newcommand{\docopt}[1]{\ensuremath{\langle}\textrm{\textit{#1}}\ensuremath{\rangle}}% optional command argument
-
-
-\newcommand{\docarg}[1]{\textrm{\textit{#1}}}% (required) command argument
-\newenvironment{docspec}{\begin{quotation}\ttfamily\parskip0pt\parindent0pt\ignorespaces}{\end{quotation}}% command specification environment
-
-
-\newcommand{\docenv}[1]{\texttt{#1}\index{#1 environment@\texttt{#1} environment}\index{environments!#1@\texttt{#1}}}% environment name
-
-
-\newcommand{\docenvdef}[1]{\hlred{\texttt{#1}}\label{env:#1}\index{#1 environment@\texttt{#1} environment}\index{environments!#1@\texttt{#1}}}% environment name
-
-%% Provide a  command to add packages to index
-%
-\newcommand{\docpkg}[1]{\hlred{\texttt{#1}}\index{#1 package@\texttt{#1} package}\index{packages!#1@\texttt{#1}}
-\marginpar{\hlred{#1~package}}
-}% package name
-
-
-
 %% Set up the epigraph to be a bit wider
 \setlength{\epigraphwidth}{8cm} 
 \setlength{\epigraphrule}{0pt}
 \newcommand{\theepigraph}[2]{\epigraphhead[30]{\epigraph{#1}{\textit{#2}}}}
-
-
-
-
-
 
 % Generates the index we use before the
 % out
@@ -219,7 +154,7 @@
 \graphicspath{{graphics/}}
 
 
-\usepackage[some]{background}
+\usepackage{background}
 
 % We use for highlighting text
 \usepackage{soul}
@@ -250,15 +185,6 @@
 % Front matter
 \frontmatter
 
-% r.1 blank page
-%\blankpage
-
-
-% r.3 full title page
-
-
-
-% r.5 contents
 \maketitle
 \tableofcontents
 \listoffigures
