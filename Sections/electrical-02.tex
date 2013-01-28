@@ -20,12 +20,12 @@ Ref	&Package	&Commiss.	&Perc. & Commissioning Status\\
 2.00	&\textbf{Electrical}		&& 70\% complete\\
 2.01	&Standby Generators	&Specialist&100\% & Started on flushing for cooling towers. Commercial issues to be sorted out. (See section for details on Generators.)\\	
 2.02	&Medium Voltage System	&HS&25\% & Good progress all over. Panels missing and on order.\\	
-2.03	&Low Voltage System		&HS&25\% & Started and commissioning progressively.\\
+2.03	&Low Voltage System		&HS&25\% & Started and being commissioning progressively.\\
 2.04	&Earthing \& Lightning Protection &HS&100\% &earthing mostly completed. Lightning protection, missing parts arrived and installed. \\		
 2.05	&Lighting \& Emergency Lighting  &HS&100\% & Where possible started. Fit-out needs to be completed in a few areas.\\		
-2.06	&Aircraft Warning System &HS&100\% & Ready. Supplier requested to visit and commission. Merweb still to be done.\\		
+2.06	&Aircraft Warning System &HS&100\% & Ready. Supplier requested to visit and commission. \\		
 2.07	&UPS System	&Specialist&100\% & Not started.\\	
-2.08 &Power Factor  &Specialist &100\% & Not started. Commercial issue.\\
+2.08  &Power Factor  &Specialist &100\% & Completed.\\
 \midrule
 \end{longtable}
 \egroup
@@ -35,28 +35,32 @@ Ref	&Package	&Commiss.	&Perc. & Commissioning Status\\
 \section{Current Status}
 \subsection{MCB SMDBs MCC Panels}
 
-{\RaggedRight
-\begin{tabular}{llp{3cm}p{3cm}}
+
+\begin{table}[htbp]
+\begin{tabular}{lllp{4.5cm}}
 \toprule
-Item &Detail &Remarks &Milestone\\
-\midrule
-1    &SMDB-RO7-LP1 &Site modifications necessary 
-     & Reminder sent to Supplier 31.12.2013 \\
+Item &Detail &Floor  & Remarks\\
+
 \bottomrule
 \end{tabular}
-}
+\caption{Final Snag List Electrical, Rotana}
+\end{table}
+
+
+
 
 \subsection{Earthing \& Lightning Protection}
 
 \begin{table}[h]
 {\RaggedRight
-\begin{tabular}{llp{3cm}p{3cm}}
+\begin{tabular}{lp{3cm}lp{3cm}}
 \toprule
-Item &Detail &Remarks &Milestone\\
+Item &Detail &T\&C & Remarks\\
 \midrule
-1    & Rotana & T\&C completed & \\
-2    & Shangrila & T\&C completed & \\
-3    & Merweb & T\&C completed & \\   
+1    & Rotana & \checkmark  & \\
+2    & Shangrila & \checkmark & \\
+3    & Merweb & \checkmark & \\ 
+4    & Overall earthing resistance measurement & x & 13.0.2.13\\  
 \bottomrule
 \end{tabular}
 \caption{Earthing Testing and Commissioning}
@@ -78,9 +82,36 @@ Item &Detail &Installation &T\&C &Milestone\\
 }
 \end{table}
 
-\subsection{Emergency Lighting}
-Emergency Lighting has been completed in the majority of areas. Any balance works
-will be completed based on the area plan as outlined earlier.
+\subsection{Exit Signage}
+Exit signage first and second fix installations have been
+completed and inspected. 
+
+\setcounter{step}{0}
+\begin{longtable}{llllp{3.8cm}}
+\toprule
+S/No &Level &Final Fix  & T\&C & Remarks\\
+\midrule
+\inc &7     &\checkmark       &      &        \\ 
+\inc &6     &\checkmark       &      &       \\
+\inc &5     &\checkmark       &      & Remaining areas are in current contractor offices.       \\
+\inc &4     &\checkmark       &      &Remaining works are in stores and offices.       \\
+\inc &3     &\checkmark       &      &Remaining works in stores and offices       \\
+\inc &2     &\checkmark       &      &Teatro restaurant, Teatro kitchen, Meeting rooms (Dragoni constraints).       \\
+\inc &1     &       &      &       \\
+\inc &GR    &partial       &      & Dragoni       \\
+\inc &B1    &partial       &      & 7.02.2013       \\
+\inc &B2    &\checkmark       &      &       \\
+\inc &B3    &\checkmark      &      &       \\
+\bottomrule
+\caption{Exit Signage status.}
+\end{longtable}
+
+\subsection{Constraints}
+
+
+
+
+
 \begin{table}[h]
 {\RaggedRight
 \begin{tabular}{lllll}
@@ -97,9 +128,56 @@ Item &Detail &Installation &T\&C &Milestone\\
 \end{table}
 
 
+\def\panel#1{{\small\texttt{#1}}}
+
+
+\begin{longtable}{p{2cm}lllllllp{3.8cm}}
+
+\toprule
+Floor/Activity& &\textcircled{1}&\textcircled{2}
+               &\textcircled{3}&\textcircled{4}
+             
+               &\textcircled{5}&\textcircled{6}&Remarks\\
+\midrule
+Level 7       &\panel{SMDB-RO7EPP1}&\checkmark&\checkmark&\checkmark&\checkmark
+&\checkmark&\checkmark&\\
+
+             &\panel{SMDB-RO7EPP1}&\checkmark&\checkmark&\checkmark&\checkmark
+&\checkmark&\checkmark&\\
+
+&\panel{SMDB-RO7LP1}&\checkmark&\checkmark&\checkmark&\checkmark
+&\checkmark&&\\
+
+&\panel{SMDB-RO7UP1}&\checkmark&\checkmark&\checkmark&\checkmark
+&\checkmark& &\\
 
 
 
+Level 6        &\panel{SMDB-RO6LP1}&\checkmark&\checkmark&\checkmark&\checkmark
+&\checkmark&\checkmark&\\
+
+&\panel{SMDB-RO6LP2}&\checkmark&\checkmark&\checkmark&\checkmark
+&\checkmark&\checkmark&\\
+
+&\panel{SMDB-RO6ELP1}&\checkmark&\checkmark&\checkmark&\checkmark
+&\checkmark& &\\
+
+&\panel{SMDB-RO6EEP1}&\checkmark&\checkmark&\checkmark&\checkmark
+&\checkmark& &\\
+
+&\panel{SMDB-ROPL6}&\checkmark&\checkmark&\checkmark&\checkmark
+&\checkmark& &\\
+
+&\panel{SMDB-ROPL13}&\checkmark&\checkmark&\checkmark&\checkmark
+&\checkmark& &\\
+
+Level 5        &&&&&&&\\
+Level 4        &&&&&&&&\\
+
+
+\bottomrule
+\end{longtable}
+\captionof{table}{Testing and Commissioning of Rotana SMDB \& MCC Panels, Podium}
 
 
 
