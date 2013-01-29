@@ -1,21 +1,18 @@
 % !TEX TS-program = pdflatex
 % !TEX encoding = UTF-8 Unicode
-
-
 \documentclass[a4paper, oneside, justified=true, sfsidenotes]{tufte-book} 
-
 \usepackage[utf8]{inputenc} % set input encoding to utf8
-\usepackage[greek, french,english]{babel}[2005/11/23]
-\usepackage{lipsum}
+\usepackage[greek, french, english]{babel}[2005/11/23]
+\usepackage{phd}
+
+
 \usepackage{listings}
 \usepackage{xcolor}
-\usepackage{booktabs}
 \usepackage{siunitx}
 \usepackage{textcomp}
 %% Bibliography
 \usepackage{natbib}
-% useful to write files on the fly
-\usepackage{filecontents}
+
 
 \bibliographystyle{plainnat} % note the change here
 \bibpunct{(}{)}{;}{a}{,}{,}
@@ -27,15 +24,12 @@
 \usepackage{alltt}[1997/06/16]   %% boilerplate, credits, license
 \usepackage{epigraph}
 
-\usepackage{shapepar}
-\usepackage{lettrine}
-
 
 \usepackage{verbatim}
-\usepackage{caption}
+
+\RequirePackage{caption}
 \DeclareCaptionFont{blue}{\color{black}}
 \captionsetup{justification=raggedright, singlelinecheck=false,font={blue,sf,small}}
-
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.3}
 
@@ -275,7 +269,7 @@
 \immediate\closeout\tempfile
 \input{keydates}
 
-
+\lipsum[1]
 
 \backmatter
 %\bibliography{sample-handout}
