@@ -14,7 +14,7 @@
 %% 
 
 \input docstrip.tex
-\keepsilent
+
 \askforoverwritefalse
 \preamble
 ----------------------------------------------------------------
@@ -46,9 +46,10 @@ and the derived files           phd.ins,
 
 \endpostamble
 \usedir{tex/latex/phd}
-\generate{
-  \file{\jobname.sty}{\from{\jobname.dtx}{package}}}
+\generate{\file{\jobname.sty}{\from{\jobname.dtx}{package}}}
+
 \endbatchfile
+%%
 
 %% 
 %% Copyright (C) 2011 by Dr. Yiannis Lazarides <yannislaz@gmail.com>

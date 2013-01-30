@@ -7,9 +7,7 @@
 
 
 \usepackage{listings}
-\usepackage{xcolor}
 \usepackage{siunitx}
-\usepackage{textcomp}
 %% Bibliography
 \usepackage{natbib}
 
@@ -18,20 +16,18 @@
 \bibpunct{(}{)}{;}{a}{,}{,}
 
 
-\usepackage{amsmath}[2000/07/18] %% Displayed equations
-\usepackage{amssymb}[2002/01/22] %% and additional symbols
 
-\usepackage{alltt}[1997/06/16]   %% boilerplate, credits, license
+
+\usepackage{alltt}[1997/06/16]   
 \usepackage{epigraph}
 
 
-\usepackage{verbatim}
 
 \RequirePackage{caption}
 \DeclareCaptionFont{blue}{\color{black}}
 \captionsetup{justification=raggedright, singlelinecheck=false,font={blue,sf,small}}
 \usepackage{pgfplots}
-\pgfplotsset{compat=1.3}
+
 
 
 
@@ -120,42 +116,8 @@
 \usepackage{fancyvrb}
 
 
-%% Using amsmath and amssymbols for 
-%% mathematics
-%% they have better macros that those provided in LaTex or TeX
-%
-\usepackage{amsfonts}
-
-\usepackage{amsmath}
-\usepackage{amssymb}[2002/01/22] %% and additional symbols
-
-
-%% Eventually beginning the document
-%% 
-
-
-\usepackage{longtable}
-
-%% Set some local commands and colors
-\usepackage{colortbl}
-\definecolor{green}{rgb}{0.1,0.1,0.1}
-%\color{green!40!yellow})
-
-\newcommand{\done}{\cellcolor{teal}done}  %{0.9}
-\newcommand{\partialdone}{\cellcolor{yellow}done}
-\newcommand{\hcyan}[1]{{\color{teal} #1}}
-
-%% Use the graphics package
-% For graphics / images
-\usepackage{graphicx}
-\setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio}
-\graphicspath{{graphics/}}
-
-
-%\usepackage{background}
 
 % We use for highlighting text
-\usepackage{soul}
 
 
 \makeatletter
@@ -171,8 +133,7 @@
 \publisher{Habtoor Leighton Specon llc}
 \date{January 2011} % Delete this line to display the current date
 
-\newcounter{step}
-\def\inc{\stepcounter{step}\thestep}
+
 
 % shorthands for typing equipment numbers
 % that make sense.

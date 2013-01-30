@@ -12,24 +12,15 @@ See http://www.latex-project.org/lppl.txt
 This file provides a phd for defining a class.
 %</readme>
 %<*readmemd>
-## The phd LaTeX package
-The `combo` package, provides a small utility to
-overlay text over an image for LaTeX documents.  The
-package provides a user interface using a key value, interface
-that closely follows css styling. If you familiar with
-web development, you might find this approach easier to remember.
 
-The package is released under the LaTeX Project Public License v1.3c or later
-See http://www.latex-project.org/lppl.txt
-
-This work consists of the file  `combo.dtx`,
+This work consists of the file  `phd.dtx`,
 and the derived files   `combo.ins`,  `combo.pdf`, and `combo.sty`.
 
 ###Installation
 
 run
           
-           pdflatex combo.dtx
+           pdflatex phd.dtx
            makeindex -s gind.ist combo.idx
 
 If you have any difficulties with the package come and join us at
@@ -51,7 +42,7 @@ add tcolorbox support
 %</internal>
 %<*install>
 \input docstrip.tex
-\keepsilent
+
 \askforoverwritefalse
 \preamble
 ----------------------------------------------------------------
@@ -83,17 +74,16 @@ and the derived files           phd.ins,
 
 \endpostamble
 \usedir{tex/latex/phd}
-\generate{
-  \file{\jobname.sty}{\from{\jobname.dtx}{package}}}
+\generate{\file{\jobname.sty}{\from{\jobname.dtx}{package}}}
+
 %</install>
 %<install>\endbatchfile
-
 %<*internal>
-
 \usedir{source/phd}
 \generate{
   \file{\jobname.ins}{\from{\jobname.dtx}{install}}
 }
+
 \nopreamble\nopostamble
 \usedir{doc/phd}
 \generate{
@@ -109,13 +99,14 @@ and the derived files           phd.ins,
 \generate{
   \file{TODO.tex}{\from{\jobname.dtx}{TODO}}
 }
+
 \ifx\fmtname\nameofplainTeX
   \expandafter\endbatchfile
 \else
   \expandafter\endgroup
 \fi
 
-%<*/internal>
+%</internal>
 %<*driver>
 
 \documentclass{ltxdoc}
@@ -198,13 +189,12 @@ and the derived files           phd.ins,
 %
 % \abstract{This is a helper package to compliment standard classes by
 % pre-loading a set of packages and providing some opiniated settings. Pretty
-% much work in progress, and currently supplements, the tufte-class well.
-} 
+% much work in progress, and currently supplements, the tufte-class well.}
 % \section{Introduction}
 %
 % 
 % This manual is typeset according to the conventions of the
-% \LaTeX{} \textsc{docstrip} utility which enables the automatic
+% \LaTeX \textsc{docstrip} utility which enables the automatic
 % extraction of the \LaTeX{} macro source files~\cite{GOOSSENS94}.
 %
 % \section{Use of boxes}
@@ -231,10 +221,7 @@ and the derived files           phd.ins,
 %
 % \StopEventually{}
 
-% \iffalse
 %<*package>
-% \fi
-
 % \section{Implementation}
 %
 %    Standard file identification. We first announce the package and require that it be used with LaTeX2e. 
@@ -243,7 +230,8 @@ and the derived files           phd.ins,
 [1994/12/01]% LaTeX date must be December 1994 or later
 \ProvidesPackage{phd}[2013/01/26 v1.0 useful utilities]
 %    \end{macrocode}
-% 
+%<*package> 
+
 % \subsection{Call some other packages}
 % We need to use the pgf, overpic, picture, xcolor and ragged2e packages.
 %    \begin{macrocode}
@@ -253,7 +241,6 @@ and the derived files           phd.ins,
 \RequirePackage{xcolor}
 \RequirePackage{ragged2e}
 %    \end{macrocode}
-
 % \section{Lipsum}
 % The package |lipsum| is used to create nonsense text, for testing purposes.
 %    \begin{macrocode}
@@ -261,19 +248,30 @@ and the derived files           phd.ins,
 %    \end{macrocode}
 %
 % \section{tables}
-%
+% \begin{macro}{\inc}
+% \begin{macro}{\resetinc}
 % It is highly unlikely that a publication, would not have a table
 % somewhere, to make life easier we use |booktabs|.
 %    \begin{macrocode}
 \RequirePackage{booktabs}
+\RequirePackage{longtable}
+\RequirePackage{colortbl}
+\newcounter{step}
+\def\resetinc{\setcounter{step}{0}}
+\def\inc{\stepcounter{step}\thestep}
 %    \end{macrocode}
-%
+% \end{macro}
+% \end{macro}
 % \section{Graphics}
 % We load the package |graphicx| with no options. We let |graphicx|, to 
 % handle any draft options via the class itself. We load the package |caption|
 % for any captions outside floats. (Needs checking where to place).
+% \href{test}{http://tex.stackexchange.com/questions/3131/graphicspath-for-miktex} check
+% adds figures etc to paths
 %    \begin{macrocode}
 \RequirePackage{graphicx}
+\setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio}
+\graphicspath{{graphics/}{graphics//}{images//}{./graphics/}{../graphics/}}
 %    \end{macrocode}
 %
 % \section{filecontents}
@@ -282,13 +280,47 @@ and the derived files           phd.ins,
 %    \begin{macrocode}
 \RequirePackage{filecontents}
 %    \end{macrocode}
+%
+% \section{Maths}
+%    \begin{macrocode}
+\RequirePackage{amsfonts}
+\RequirePackage{amsmath}[2000/07/18] 
+\RequirePackage{amssymb}[2002/01/22]
+\RequirePackage{amsthm}[2002/01/22]
+%    \end{macrocode}
+% The package |stmaryrd| can be used for additional symbols. 
+%    \begin{macrocode}
+\RequirePackage{stmaryrd}
+%    \end{macrocode}
+%
+% \section{Special Symbols}
+% We use the texcomp package for special symbols, such as |\checkmark|
+%    \begin{macrocode}
+\RequirePackage{textcomp}
+%    \end{macrocode}
+%
+% \section{Highlighting}
+%
+%    \begin{macrocode}
+\RequirePackage{soul}
+%    \end{macrocode}
+%
+% \section{Color Definitions}
+%    \begin{macrocode}
+\definecolor{green}{rgb}{0.1,0.1,0.1}
+\newcommand{\done}{\cellcolor{teal}done}  %{0.9}
+\newcommand{\partialdone}{\cellcolor{yellow}done}
+\newcommand{\hcyan}[1]{{\color{teal} #1}}
+%    \end{macrocode}
 
-
-% \iffalse
+% \section{Epigraphs and quotations}
+% \subsection{Epigraphs}
+%
+%    \begin{macrocode}
+\usepackage{epigraph}
+%    \end{macrocode}
 %</package>
-% \fi
-\Finale
-\endinput
+
 % \section{Test macros}
 % \iffalse
 %<*test-01>
