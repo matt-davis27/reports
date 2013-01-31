@@ -162,7 +162,7 @@
 % and typesets the date. It leaves the correct amount of space 
 % below it.
 %    \begin{macrocode}
-\newcommand{\Date}[2][\today]{
+\newcommand{\Date}[2][\today]{%
  \if!#2! #1 \else\today \fi
  \vspace{2\baselineskip}
 }
