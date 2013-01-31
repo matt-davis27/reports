@@ -276,6 +276,8 @@ and the derived files              phd.ins,
 \RequirePackage{graphicx}
 \setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio}
 \graphicspath{{graphics/}{graphics//}{images//}{./graphics/}{../graphics/}}
+\usepackage{wrapfig}
+\usepackage{rotating}
 %    \end{macrocode}
 %
 % \section{filecontents}
@@ -291,11 +293,18 @@ and the derived files              phd.ins,
 \RequirePackage{amsmath}[2000/07/18] 
 \RequirePackage{amssymb}[2002/01/22]
 \RequirePackage{amsthm}[2002/01/22]
+\RequirePackage{mathtools}
 %    \end{macrocode}
 % The package |stmaryrd| can be used for additional symbols. 
 %    \begin{macrocode}
 \RequirePackage{stmaryrd}
 %    \end{macrocode}
+% For calligraphic fonts we load the package |eucal|
+%    \begin{macrocode}
+\RequirePackage{eucal}
+%    \end{macrocode}
+
+
 %
 % \section{Special Symbols}
 % We use the texcomp package for special symbols, such as |\checkmark|
@@ -330,6 +339,22 @@ and the derived files              phd.ins,
 \sisetup{fixed-exponent =0,scientific-notation = false}%
 \RequirePackage{numprint}
 %    \end{macrocode}
+%
+% \section{Utilities for programming}
+% The below packages offer some good utilities that you may find useful, if you are
+% going to program and develop additional macros.
+% |\strictpagecheck| can be used effectively for a number of situations, where you need to 
+% know if you are on an odd or even page.
+%    \begin{macrocode}
+\usepackage{changepage}    % checks if page is odd or not
+\usepackage{keyval}
+\RequirePackage{ifmtarg}
+\RequirePackage{fp}
+\RequirePackage{ifthen}
+\RequirePackage{xstring}
+\RequirePackage{cool, coolstr}
+%    \end{macrocode}
+%
 %</package>
 
 % \section{Test macros}
