@@ -1,0 +1,199 @@
+\ProvidesFile{phd.filelist}[2013/02/01 --- automatically generated filelist]
+\LTleft=0pt\LTright=0pt\begin{longtable}{lrll>{\raggedright\arraybackslash}X}\textbf{file name} &\textbf{page} & \textbf{release date} & \textbf{version} & \textbf{description} \endhead
+ ltxdoc.cls  & 0 & 2007/11/11 & v2.0u & Standard LaTeX documentation class    \relax \\
+ article.cls  & 0 & 2007/10/19 & v1.4h & Standard LaTeX document class    \relax \\
+ size10.clo  & 0 & 2007/10/19 & v1.4h & Standard LaTeX file (size option)    \relax \\
+ doc.sty  & 0 & 2010/02/04 & v2.1e & Standard LaTeX documentation package (FMi)    \relax \\
+ multicol.sty  & 0 & 2011/06/27 & v1.7a & multicolumn formatting (FMi)    \relax \\
+ fontenc.sty  & 0 & --- \\
+ t1enc.def  & 0 & 2005/09/27 & v1.99g & Standard LaTeX file    \relax \\
+ lmodern.sty  & 0 & 2009/10/30 & v1.6 & Latin Modern Fonts    \relax \\
+ microtype.sty  & 0 & 2010/01/10 & v2.4 & Micro-typography with pdfTeX (RS)    \relax \\
+ keyval.sty  & 0 & 1999/03/16 & v1.13 & key=value parser (DPC)    \relax \\
+ microtype.cfg  & 0 & 2010/01/10 & v2.4 & microtype main configuration file (RS)    \relax \\
+ dateiliste.sty  & 0 & 2012/10/13 & v0.6 & Ausgabe der Dateiliste (PE)    \relax \\
+ rcsinfo.sty  & 0 & 2005/02/20 & v1.10{} &    \relax \\
+ rcsinfo.cfg  & 0 & --- \\
+ ltxtable.sty  & 0 & 1995/12/11 & v0.2 & longtable/tabularx merge (DPC)    \relax \\
+ tabularx.sty  & 0 & 1999/01/07 & v2.07 & `tabularx' package (DPC)    \relax \\
+ array.sty  & 0 & 2008/09/09 & v2.4c & Tabular extension package (FMi)    \relax \\
+ longtable.sty  & 0 & 2004/02/01 & v4.11 & Multi-page Table package (DPC)    \relax \\
+ phd.sty  & 0 & 2013/01/26 & v1.0 & useful utilities    \relax \\
+ pgf.sty  & 0 & 2008/01/15 & v2.10 & (rcs-revision 1.12)    \relax \\
+ pgfrcs.sty  & 0 & 2010/10/25 & v2.10 & (rcs-revision 1.24)    \relax \\
+ everyshi.sty  & 0 & 2001/05/15 & v3.00 & EveryShipout Package (MS)    \relax \\
+ pgfrcs.code.tex  & 0 & --- \\
+ pgfcore.sty  & 0 & 2010/04/11 & v2.10 & (rcs-revision 1.7)    \relax \\
+ graphicx.sty  & 0 & 1999/02/16 & v1.0f & Enhanced LaTeX Graphics (DPC,SPQR)    \relax \\
+ graphics.sty  & 0 & 2009/02/05 & v1.0o & Standard LaTeX Graphics (DPC,SPQR)    \relax \\
+ trig.sty  & 0 & 1999/03/16 & v1.09 & sin cos tan (DPC)    \relax \\
+ graphics.cfg  & 0 & 2007/01/18 & v1.5 & graphics configuration of teTeX/TeXLive    \relax \\
+ pdftex.def  & 0 & 2011/05/27 & v0.06d & Graphics/color for pdfTeX    \relax \\
+ infwarerr.sty  & 0 & 2010/04/08 & v1.3 & Providing info/warning/error messages (HO)    \relax \\
+ ltxcmds.sty  & 0 & 2011/11/09 & v1.22 & LaTeX kernel commands for general use (HO)    \relax \\
+ pgfsys.sty  & 0 & 2010/06/30 & v2.10 & (rcs-revision 1.37)    \relax \\
+ pgfsys.code.tex  & 0 & --- \\
+ pgfsyssoftpath.code.tex  & 0 & 2008/07/18 &  & (rcs-revision 1.7)    \relax \\
+ pgfsysprotocol.code.tex  & 0 & 2006/10/16 &  & (rcs-revision 1.4)    \relax \\
+ xcolor.sty  & 0 & 2007/01/21 & v2.11 & LaTeX color extensions (UK)    \relax \\
+ color.cfg  & 0 & 2007/01/18 & v1.5 & color configuration of teTeX/TeXLive    \relax \\
+ pgfcore.code.tex  & 0 & --- \\
+ pgfcomp-version-0-65.sty  & 0 & 2007/07/03 & v2.10 & (rcs-revision 1.7)    \relax \\
+ pgfcomp-version-1-18.sty  & 0 & 2007/07/23 & v2.10 & (rcs-revision 1.1)    \relax \\
+ overpic.sty  & 0 & 2010/09/13 & v0.53 &  Overwriting graphics    \relax \\
+ epic.sty  & 0 &  &  &   \relax \\
+ picture.sty  & 0 & 2009/10/11 & v1.3 & Dimens for picture macros (HO)    \relax \\
+ ragged2e.sty  & 0 & 2009/05/21 & v2.1 & ragged2e Package (MS)    \relax \\
+ everysel.sty  & 0 & 2011/10/28 & v1.2 & EverySelectfont Package (MS)    \relax \\
+ lipsum.sty  & 0 & 2011/04/14 & v1.2 & 150 paragraphs of Lorem Ipsum dummy text    \relax \\
+ booktabs.sty  & 0 & 2005/04/14 & v1.61803 & publication quality tables    \relax \\
+ dcolumn.sty  & 0 & 2001/05/28 & v1.06 & decimal alignment package (DPC)    \relax \\
+ colortbl.sty  & 0 & 2012/02/13 & v1.0a & Color table columns (DPC)    \relax \\
+ wrapfig.sty  & 0 & 2003/01/31 &  & v 3.6    \relax \\
+ rotating.sty  & 0 & 2009/03/28 & v2.16a & rotated objects in LaTeX    \relax \\
+ ifthen.sty  & 0 & 2001/05/26 & v1.1c & Standard LaTeX ifthen package (DPC)    \relax \\
+ filecontents.sty  & 0 & 2011/10/08 & v1.3 & Create an external file from within a LaTeX document    \relax \\
+ amsfonts.sty  & 0 & 2009/06/22 & v3.00 & Basic AMSFonts support    \relax \\
+ amsmath.sty  & 0 & 2000/07/18 & v2.13 & AMS math features    \relax \\
+ amstext.sty  & 0 & 2000/06/29 & v2.01{} &    \relax \\
+ amsgen.sty  & 0 & 1999/11/30 & v2.0{} &    \relax \\
+ amsbsy.sty  & 0 & 1999/11/29 & v1.2d{} &    \relax \\
+ amsopn.sty  & 0 & 1999/12/14 & v2.01 & operator names    \relax \\
+ amssymb.sty  & 0 & 2009/06/22 & v3.00{} &    \relax \\
+ amsthm.sty  & 0 & 2004/08/06 & v2.20{} &    \relax \\
+ mathtools.sty  & 0 & 2012/04/24 & v1.12 & mathematical typesetting tools    \relax \\
+ calc.sty  & 0 & 2007/08/22 & v4.3 & Infix arithmetic (KKT,FJ)    \relax \\
+ mhsetup.sty  & 0 & 2010/01/21 & v1.2a & programming setup (MH)    \relax \\
+ stmaryrd.sty  & 0 & 1994/03/03 & St & Mary's Road symbol package    \relax \\
+ eucal.sty  & 0 & 2009/06/22 & v3.00 & Euler Script fonts    \relax \\
+ textcomp.sty  & 0 & 2005/09/27 & v1.99g & Standard LaTeX package    \relax \\
+ ts1enc.def  & 0 & 2001/06/05 & v3.0e & (jk/car/fm) Standard LaTeX file    \relax \\
+ soul.sty  & 0 & 2003/11/17 & v2.4 & letterspacing/underlining (mf)    \relax \\
+ epigraph.sty  & 0 & 2009/09/02 & v1.5c & typesetting epigraphs    \relax \\
+ siunitx.sty  & 0 & 2013/01/09 & v2.5o & A comprehensive (SI) units package    \relax \\
+ expl3.sty  & 0 & 2012/12/21 & v4390 & L3 Experimental code bundle wrapper    \relax \\
+ l3names.sty  & 0 & 2012/12/07 & v4346 & L3 Namespace for primitives    \relax \\
+ l3bootstrap.sty  & 0 & 2012/07/16 & v3991 & L3 Experimental bootstrap code    \relax \\
+ etex.sty  & 0 & 1998/03/26 & v2.0 & eTeX basic definition package (PEB)    \relax \\
+ l3basics.sty  & 0 & 2012/11/24 & v4339 & L3 Basic definitions    \relax \\
+ l3expan.sty  & 0 & 2012/08/28 & v4149 & L3 Argument expansion    \relax \\
+ l3tl.sty  & 0 & 2012/11/24 & v4339 & L3 Token lists    \relax \\
+ l3seq.sty  & 0 & 2012/11/24 & v4339 & L3 Sequences and stacks    \relax \\
+ l3int.sty  & 0 & 2012/09/26 & v4237 & L3 Integers    \relax \\
+ l3quark.sty  & 0 & 2012/11/04 & v4268 & L3 Quarks    \relax \\
+ l3prg.sty  & 0 & 2012/11/24 & v4339 & L3 Control structures    \relax \\
+ l3clist.sty  & 0 & 2012/11/24 & v4339 & L3 Comma separated lists    \relax \\
+ l3token.sty  & 0 & 2012/12/20 & v4384 & L3 Experimental token manipulation    \relax \\
+ l3prop.sty  & 0 & 2012/09/09 & v4212 & L3 Property lists    \relax \\
+ l3msg.sty  & 0 & 2012/09/09 & v4212 & L3 Messages    \relax \\
+ l3file.sty  & 0 & 2012/12/20 & v4377 & L3 File and I/O operations    \relax \\
+ l3skip.sty  & 0 & 2012/11/04 & v4260 & L3 Dimensions and skips    \relax \\
+ l3keys.sty  & 0 & 2012/11/02 & v4256 & L3 Experimental key-value interfaces    \relax \\
+ l3fp.sty  & 0 & 2012/11/10 & v4305 & L3 Floating points    \relax \\
+ l3box.sty  & 0 & 2012/12/08 & v4347 & L3 Experimental boxes    \relax \\
+ l3coffins.sty  & 0 & 2012/09/09 & v4212 & L3 Coffin code layer    \relax \\
+ l3color.sty  & 0 & 2012/08/29 & v4156 & L3 Experimental color support    \relax \\
+ l3luatex.sty  & 0 & 2012/08/03 & v4049 & L3 Experimental LuaTeX-specific functions    \relax \\
+ l3candidates.sty  & 0 & 2012/12/20 & v4383 & L3 Experimental additions to l3kernel    \relax \\
+ ifpdf.sty  & 0 & 2011/01/30 & v2.3 & Provides the ifpdf switch (HO)    \relax \\
+ xparse.sty  & 0 & 2012/12/21 & v4390 & L3 Experimental document command parser    \relax \\
+ l3keys2e.sty  & 0 & 2012/12/21 & v4390 & LaTeX2e option processing using LaTeX3 keys    \relax \\
+ translator.sty  & 0 & 2007/03/11 & ver & 1.00    \relax \\
+ translator-language-mappings.tex  & 0 & --- \\
+ numprint.sty  & 0 & 2012/08/20 & v1.39 & Print numbers (HH)    \relax \\
+ changepage.sty  & 0 & 2009/10/20 & v1.0c & check page and change page layout    \relax \\
+ ifmtarg.sty  & 0 & 2000/03/24 & v1.2 & check for an empty argument    \relax \\
+ fp.sty  & 0 & 1995/04/02{} &  &   \relax \\
+ defpattern.sty  & 0 & 1994/10/12{} &  &   \relax \\
+ fp-basic.sty  & 0 & 1996/05/13{} &  &   \relax \\
+ fp-addons.sty  & 0 & 1995/03/15{} &  &   \relax \\
+ fp-snap.sty  & 0 & 1995/04/05{} &  &   \relax \\
+ fp-exp.sty  & 0 & 1995/04/03{} &  &   \relax \\
+ fp-trigo.sty  & 0 & 1995/04/14{} &  &   \relax \\
+ fp-pas.sty  & 0 & 1994/08/29{} &  &   \relax \\
+ fp-random.sty  & 0 & 1995/02/23{} &  &   \relax \\
+ fp-eqn.sty  & 0 & 1995/04/03{} &  &   \relax \\
+ fp-upn.sty  & 0 & 1996/10/21{} &  &   \relax \\
+ fp-eval.sty  & 0 & 1995/04/03{} &  &   \relax \\
+ xstring.sty  & 0 & 2013/1/13 &  & v1.7 String manipulations (C Tellechea)    \relax \\
+ cool.sty  & 0 & 2006/12/29 & v1.35 & COntent Oriented LaTeX    \relax \\
+ coollist.sty  & 0 & 2009/09/20 & v1.4 & COntent Oriented LaTeX Lists    \relax \\
+ coolstr.sty  & 0 & 2009/09/09 & v2.2 & COntent Oriented LaTeX Strings    \relax \\
+ forloop.sty  & 0 & 2006/09/18 & v3.0 & For Loops for LaTeX    \relax \\
+ bbm.sty  & 0 & 1999/03/15 & V & 1.2 provides fonts for set symbols - TH    \relax \\
+ etoolbox.sty  & 0 & 2011/01/03 & v2.1 & e-TeX tools for LaTeX    \relax \\
+ listings.sty  & 0 & 2007/02/22 & 1.4 & (Carsten Heinz)    \relax \\
+ lstmisc.sty  & 0 & 2007/02/22 & 1.4 & (Carsten Heinz)    \relax \\
+ listings.cfg  & 0 & 2007/02/22 & 1.4 & listings configuration    \relax \\
+ tikz.sty  & 0 & 2010/10/13 & v2.10 & (rcs-revision 1.76)    \relax \\
+ pgffor.sty  & 0 & 2010/03/23 & v2.10 & (rcs-revision 1.18)    \relax \\
+ pgfkeys.sty  & 0 &  &  &   \relax \\
+ pgfkeys.code.tex  & 0 & --- \\
+ pgffor.code.tex  & 0 & --- \\
+ tikz.code.tex  & 0 & --- \\
+ tcolorbox.sty  & 0 & 2012/04/20 & version & 1.30 text color boxes    \relax \\
+ verbatim.sty  & 0 & 2003/08/22 & v1.5q & LaTeX2e package for verbatim enhancements    \relax \\
+ lstlang1.sty  & 0 & 2004/09/05 & 1.3 & listings language file    \relax \\
+ lstlang2.sty  & 0 & 2004/09/05 & 1.3 & listings language file    \relax \\
+ lstlang3.sty  & 0 & 2004/09/05 & 1.3 & listings language file    \relax \\
+ lstmisc.sty  & 0 & 2007/02/22 & 1.4 & (Carsten Heinz)    \relax \\
+ lstlang1.sty  & 0 & 2004/09/05 & 1.3 & listings language file    \relax \\
+ lstlang2.sty  & 0 & 2004/09/05 & 1.3 & listings language file    \relax \\
+ lstlang3.sty  & 0 & 2004/09/05 & 1.3 & listings language file    \relax \\
+ hyperref.sty  & 0 & 2012/11/06 & v6.83m & Hypertext links for LaTeX    \relax \\
+ hobsub-hyperref.sty  & 0 & 2012/04/25 & v1.12 & Bundle oberdiek, subset hyperref (HO)    \relax \\
+ hobsub-generic.sty  & 0 & 2012/04/25 & v1.12 & Bundle oberdiek, subset generic (HO)    \relax \\
+ hobsub.sty  & 0 & 2012/04/25 & v1.12 & Construct package bundles (HO)    \relax \\
+ ifluatex.sty  & 0 & 2010/03/01 & v1.3 & Provides the ifluatex switch (HO)    \relax \\
+ ifvtex.sty  & 0 & 2010/03/01 & v1.5 & Detect VTeX and its facilities (HO)    \relax \\
+ intcalc.sty  & 0 & 2007/09/27 & v1.1 & Expandable calculations with integers (HO)    \relax \\
+ etexcmds.sty  & 0 & 2011/02/16 & v1.5 & Avoid name clashes with e-TeX commands (HO)    \relax \\
+ kvsetkeys.sty  & 0 & 2012/04/25 & v1.16 & Key value parser (HO)    \relax \\
+ kvdefinekeys.sty  & 0 & 2011/04/07 & v1.3 & Define keys (HO)    \relax \\
+ pdftexcmds.sty  & 0 & 2011/11/29 & v0.20 & Utility functions of pdfTeX for LuaTeX (HO)    \relax \\
+ pdfescape.sty  & 0 & 2011/11/25 & v1.13 & Implements pdfTeX's escape features (HO)    \relax \\
+ bigintcalc.sty  & 0 & 2012/04/08 & v1.3 & Expandable calculations on big integers (HO)    \relax \\
+ bitset.sty  & 0 & 2011/01/30 & v1.1 & Handle bit-vector datatype (HO)    \relax \\
+ uniquecounter.sty  & 0 & 2011/01/30 & v1.2 & Provide unlimited unique counter (HO)    \relax \\
+ letltxmacro.sty  & 0 & 2010/09/02 & v1.4 & Let assignment for LaTeX macros (HO)    \relax \\
+ hopatch.sty  & 0 & 2011/06/24 & v1.1 & Wrapper for package hooks (HO)    \relax \\
+ xcolor-patch.sty  & 0 & 2011/01/30 & xcolor & patch    \relax \\
+ atveryend.sty  & 0 & 2011/06/30 & v1.8 & Hooks at the very end of document (HO)    \relax \\
+ atbegshi.sty  & 0 & 2011/10/05 & v1.16 & At begin shipout hook (HO)    \relax \\
+ refcount.sty  & 0 & 2011/10/16 & v3.4 & Data extraction from label references (HO)    \relax \\
+ hycolor.sty  & 0 & 2011/01/30 & v1.7 & Color options for hyperref/bookmark (HO)    \relax \\
+ ifxetex.sty  & 0 & 2010/09/12 & v0.6 & Provides ifxetex conditional    \relax \\
+ auxhook.sty  & 0 & 2011/03/04 & v1.3 & Hooks for auxiliary files (HO)    \relax \\
+ kvoptions.sty  & 0 & 2011/06/30 & v3.11 & Key value format for package options (HO)    \relax \\
+ pd1enc.def  & 0 & 2012/11/06 & v6.83m & Hyperref: PDFDocEncoding definition (HO)    \relax \\
+ hyperref.cfg  & 0 & 2002/06/06 & v1.2 & hyperref configuration of TeXLive    \relax \\
+ url.sty  & 0 & 2006/04/12 &  & ver 3.3 Verb mode for urls, etc.    \relax \\
+ hpdftex.def  & 0 & 2012/11/06 & v6.83m & Hyperref driver for pdfTeX    \relax \\
+ rerunfilecheck.sty  & 0 & 2011/04/15 & v1.7 & Rerun checks for auxiliary files (HO)    \relax \\
+ fancyvrb.sty  & 0 & 2008/02/07{} &  &   \relax \\
+ t1lmr.fd  & 0 & 2009/10/30 & v1.6 & Font defs for Latin Modern    \relax \\
+ ot1lmr.fd  & 0 & 2009/10/30 & v1.6 & Font defs for Latin Modern    \relax \\
+ omllmm.fd  & 0 & 2009/10/30 & v1.6 & Font defs for Latin Modern    \relax \\
+ omslmsy.fd  & 0 & 2009/10/30 & v1.6 & Font defs for Latin Modern    \relax \\
+ omxlmex.fd  & 0 & 2009/10/30 & v1.6 & Font defs for Latin Modern    \relax \\
+ umsa.fd  & 0 & 2009/06/22 & v3.00 & AMS symbols A    \relax \\
+ umsb.fd  & 0 & 2009/06/22 & v3.00 & AMS symbols B    \relax \\
+ ustmry.fd  & 0 & --- \\
+ phd.filelist  & 13 & 2013/02/01 & --- & automatically generated filelist    \relax \\
+ ts1cmr.fd  & 13 & 1999/05/25 & v2.5h & Standard LaTeX font definitions    \relax \\
+ mt-cmr.cfg  & 13 & 2009/11/09 & v2.0 & microtype config. file: Computer Modern Roman (RS)    \relax \\
+ supp-pdf.mkii  & 14 & --- \\
+ translator-basic-dictionary-English.dict  & 14 &  &  &   \relax \\
+ siunitx-abbreviations.cfg  & 14 & 2013/01/09 & v2.5o & siunitx: Abbreviated units    \relax \\
+ nameref.sty  & 14 & 2012/10/27 & v2.43 & Cross-referencing by name of section    \relax \\
+ gettitlestring.sty  & 14 & 2010/12/03 & v1.4 & Cleanup title references (HO)    \relax \\
+ phd.out  & 14 & --- \\
+ phd.out  & 14 & --- \\
+ mt-msa.cfg  & 14 & 2006/02/04 & v1.1 & microtype config. file: AMS symbols (a) (RS)    \relax \\
+ mt-msb.cfg  & 14 & 2005/06/01 & v1.0 & microtype config. file: AMS symbols (b) (RS)    \relax \\
+ ot1lmss.fd  & 14 & 2009/10/30 & v1.6 & Font defs for Latin Modern    \relax \\
+ ot1lmtt.fd  & 14 & 2009/10/30 & v1.6 & Font defs for Latin Modern    \relax \\
+ phd.dtx  & 14 & --- \\
+ t1lmss.fd  & 14 & 2009/10/30 & v1.6 & Font defs for Latin Modern    \relax \\
+ t1cmtt.fd  & 14 & 1999/05/25 & v2.5h & Standard LaTeX font definitions    \relax \\
+\end{longtable}
