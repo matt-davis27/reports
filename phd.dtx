@@ -75,17 +75,19 @@ and the derived files              phd.ins,
 \endpostamble
 \usedir{tex/latex/phd}
 \generate{\file{\jobname.sty}{\from{\jobname.dtx}{package}}}
-
+\generate{
+  \file{MWE-02.tex}{\from{\jobname.dtx}{MWE-02}}
+}
 %</install>
 %<install>\endbatchfile
 %<*internal>
-\usedir{source/phd}
+\usedir{tex/latex/phd}
 \generate{
   \file{\jobname.ins}{\from{\jobname.dtx}{install}}
 }
 
 \nopreamble\nopostamble
-\usedir{doc/phd}
+\usedir{source/phd}
 \generate{
   \file{README.txt}{\from{\jobname.dtx}{readme}}
 }
@@ -93,11 +95,13 @@ and the derived files              phd.ins,
   \file{README.md}{\from{\jobname.dtx}{readmemd}}
 }
 
-\generate{
-  \file{test-01.tex}{\from{\jobname.dtx}{test-01}}
-}
+
 \generate{
   \file{TODO.tex}{\from{\jobname.dtx}{TODO}}
+}
+
+\generate{
+  \file{MWE-01.tex}{\from{\jobname.dtx}{MWE-01}}
 }
 
 \ifx\fmtname\nameofplainTeX
@@ -112,12 +116,13 @@ and the derived files              phd.ins,
 \documentclass{ltxdoc}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
-%\usepackage{morefloats}
 \usepackage{tikz}
 \usepackage[listings,theorems]{tcolorbox}
 \tcbset{before={\par\medskip\pagebreak[0]\noindent},after={\par\medskip}}%
 \usepackage{\jobname}
-\usepackage[numbered]{hypdoc}
+\newcommand*{\file}[1]{\texttt{#1}}
+\newcommand*{\pkg}[1]{\texttt{#1}}
+%\usepackage[numbered]{hypdoc}
 \definecolor{lstbgcolor}{rgb}{0.9,0.9,0.9} 
  
 \usepackage{listings}
@@ -125,13 +130,12 @@ and the derived files              phd.ins,
 \lstset{breakatwhitespace=true,breaklines=true,language=TeX}
  
 \usepackage{fancyvrb}
-\newcommand*{\Lpack}[1]{\textsf {#1}}           % typeset a package
+\newcommand*{\Lpack}[1]{\textsf {#1}}           
 \newenvironment{example}
   {\VerbatimEnvironment
    \begin{VerbatimOut}[gobble=2]{example.out}}
   {\end{VerbatimOut}
    \begin{center}
-%   \setlength{\parindent}{0pt}
    \fbox{\begin{minipage}{.9\linewidth}
      \lstset{breakatwhitespace=true,breaklines=true,language=TeX,basicstyle=\small}
      \lstinputlisting[]{example.out}
@@ -192,6 +196,9 @@ and the derived files              phd.ins,
 % \abstract{This is a helper package to compliment standard classes by
 % pre-loading a set of packages and providing some opiniated settings. Pretty
 % much work in progress, and currently supplements, the tufte-class well.}
+% 
+% \tableofcontents
+% 
 % \section{Introduction}
 %
 % 
@@ -232,7 +239,8 @@ and the derived files              phd.ins,
 [1994/12/01]% LaTeX date must be December 1994 or later
 \ProvidesPackage{phd}[2013/01/26 v1.0 useful utilities]
 %    \end{macrocode}
-%<*package> 
+
+
 
 % \subsection{Call some other packages}
 % We need to use the pgf, overpic, picture, xcolor and ragged2e packages.
@@ -279,7 +287,7 @@ and the derived files              phd.ins,
 \usepackage{wrapfig}
 \usepackage{rotating}
 %    \end{macrocode}
-%
+
 % \section{filecontents}
 % We ue the filecontents package, to open and write files on disk on the fly.
 % See the sample manual as to how to use.
@@ -289,7 +297,7 @@ and the derived files              phd.ins,
 %
 % \section{Maths}
 %    \begin{macrocode}
-\RequirePackage{amsfonts}
+\RequirePackage{amsfonts}[2009/06/22]
 \RequirePackage{amsmath}[2000/07/18] 
 \RequirePackage{amssymb}[2002/01/22]
 \RequirePackage{amsthm}[2002/01/22]
@@ -305,15 +313,14 @@ and the derived files              phd.ins,
 %    \end{macrocode}
 
 
-%
 % \section{Special Symbols}
-% We use the texcomp package for special symbols, such as |\checkmark|
+% We use the \pkg{texcomp} package for special symbols, such as |\checkmark|
 %    \begin{macrocode}
 \RequirePackage{textcomp}
 %    \end{macrocode}
-%
+
 % \section{Highlighting}
-%
+
 %    \begin{macrocode}
 \RequirePackage{soul}
 %    \end{macrocode}
@@ -325,414 +332,226 @@ and the derived files              phd.ins,
 \newcommand{\partialdone}{\cellcolor{yellow}done}
 \newcommand{\hcyan}[1]{{\color{teal} #1}}
 %    \end{macrocode}
-
 % \section{Epigraphs and quotations}
 % \subsection{Epigraphs}
 %    \begin{macrocode}
-\usepackage{epigraph}
+\RequirePackage{epigraph}
+%% Set up the epigraph to be a bit wider
+\setlength{\epigraphwidth}{8cm} 
+\setlength{\epigraphrule}{0pt}
+\newcommand{\theepigraph}[2]{\epigraphhead[30]{\epigraph{#1}{\textit{#2}}}}
 %    \end{macrocode}
-
 % \section{Units and formatting of numbers and dates}
-
 %    \begin{macrocode}
 \RequirePackage{siunitx}
-\sisetup{fixed-exponent =0,scientific-notation = false}%
+  \sisetup{fixed-exponent =0,
+           scientific-notation = false}
 \RequirePackage{numprint}
 %    \end{macrocode}
-%
+%    
+%    
 % \section{Utilities for programming}
 % The below packages offer some good utilities that you may find useful, if you are
 % going to program and develop additional macros.
 % |\strictpagecheck| can be used effectively for a number of situations, where you need to 
 % know if you are on an odd or even page.
 %    \begin{macrocode}
-\usepackage{changepage}    % checks if page is odd or not
-\usepackage{keyval}
+\RequirePackage{changepage}    
+\RequirePackage{keyval}
 \RequirePackage{ifmtarg}
 \RequirePackage{fp}
 \RequirePackage{ifthen}
 \RequirePackage{xstring}
 \RequirePackage{cool, coolstr}
+\RequirePackage{etoolbox}
+\RequirePackage{listings}
+\RequirePackage{tikz}
 %    \end{macrocode}
-%
-%</package>
+%    
+% \section{Code Typesetting}
+% 	A lot of users use LaTeX for computer related code we include all the necessary
+% 	code to use the |listings| package. We also provide some predefined environments.
+% 	
+% 	
+%    \begin{macrocode}
+\RequirePackage[listings,theorems]{tcolorbox}
+\lstdefinelanguage{Verse}%
+{morekeywords={poemtitle, poemtoc, versewidth, vin, poemlines,poemtitlefont, 
+ProvidesClass,IfFileExists,RequirePackage,ifthenelse,chapter,includegraphics, newarray,readarray,of
+}}
 
+\lstloadlanguages{[LaTeX]TeX, [primitive]TeX, Verse}
+
+\lstset{%
+	%%frame=tblr,
+     framesep=5pt,
+	basicstyle=\normalsize\ttfamily,
+	showstringspaces=false,
+	keywordstyle=\ttfamily\color{blue},
+	identifierstyle=\ttfamily,
+	stringstyle=\color{maroon},
+	commentstyle=\color{black},
+	rulecolor=\color{gray!10},
+	xleftmargin=5pt,
+	xrightmargin=5pt,
+	aboveskip=\bigskipamount,
+	belowskip=\bigskipamount,
+            %%backgroundcolor=\color{LightGray!.50}
+}
+%    \end{macrocode}
+%	
+%	
+% \begin{environment}{teX}	
+% 	The environment |\begin{TeX}..\end{TeX}| provides a listings environment
+% 	for typesetting, either TeX or LaTeX code.
+% 	
+%    \begin{macrocode}
+\lstnewenvironment{teX}[1][]
+  {\lstset{language=[LaTeX]TeX}\lstset{escapeinside={(*@}{@*)},
+   numbers=left,numberstyle=\normalsize,stepnumber=1,numbersep=5pt,
+   breaklines=true,
+   %firstnumber=last,
+       %frame=tblr,
+       framesep=5pt,
+       basicstyle=\normalsize\ttfamily,
+       showstringspaces=false,
+       keywordstyle=\ttfamily\color{blue},
+      %identifierstyle=\ttfamily,
+       stringstyle=\color{maroon},
+	commentstyle=\color{black},
+	rulecolor=\color{gray!10},
+	xleftmargin=0pt,
+	xrightmargin=0pt,
+	aboveskip=\medskipamount,
+	belowskip=\medskipamount,
+           backgroundcolor=\color{gray!10}, #1
+}}
+{}
+
+\lstnewenvironment{teXX}[1][]
+  {\lstset{language=[LaTeX]TeX}\lstset{%
+      breaklines=true,
+      framesep=5pt,
+      basicstyle=\normalsize\ttfamily,
+      showstringspaces=false,
+      keywordstyle=\ttfamily\color{blue},
+      stringstyle=\color{maroon},
+	 commentstyle=\color{black},
+	 rulecolor=\color{gray!10},
+      breakatwhitespace=true,
+	 xleftmargin=0pt,
+	 xrightmargin=5pt,
+	 aboveskip=\medskipamount,
+	 belowskip=\medskipamount,
+      backgroundcolor=\color{gray!10}, #1
+}}
+{}
+
+%% Emphasis
+\renewcommand{\ttdefault}{cmtt}			% prefer old tt font
+\newcommand\emphasis[2][red]{\lstset{emph={write,void,writeln,#2},
+   emphstyle={\ttfamily\textcolor{#1}}}}%
+\lstnewenvironment{teXXX}[1][]
+  {\lstset{language=[LaTeX]TeX}\lstset{%
+      escapeinside={{(*@}{@*)}},
+      breaklines=true,
+      framesep=5pt,
+      basicstyle=\ttfamily,
+      showstringspaces=false,
+      keywordstyle=\ttfamily\textcolor{blue},
+      stringstyle=\color{orange},
+	 commentstyle=\color{black},
+	 rulecolor=\color{gray!10},
+      breakatwhitespace=true,
+      showspaces=false,  % shows spacing symbol
+	 xleftmargin=0pt,
+	 xrightmargin=5pt,
+	 aboveskip=0pt, % compact the code looks ugly in type
+	 belowskip=0pt,  % user responsible to insert any skips
+      backgroundcolor=\color{gray!15}, #1
+}}
+{}
+%
+%    \end{macrocode}
+% \end{environment}    
+%    
+%	
+% \begin{macro}{\continuelinenumber} 
+% \begin{macro}{\startnumberat} 
+%  The macro \cs{continueLineNumber}, provides a command
+%  to start the next block of code with the code numbers continuing.
+%  This requires the |listings| which is already included.
+%  
+%    \begin{macrocode}
+% Always I forget this so I created some aliases
+\newcommand\continuelinenumber{\lstset{firstnumber=last}}
+\newcommand\startlineat[1]{\lstset{firstnumber=#1}}
+\let\numberlineat\startlineat
+\let\startnumberat\numberlineat
+\RequirePackage[pdftex,
+  hyperfootnotes=false,
+  pdftitle={Your book title here},
+  pdfauthor={Yiannis Lazarides},
+  pdfkeywords={maths, table of equations},
+  pdfstartview=Fit,    % default value
+  pdfstartpage=1,      % default value
+  pdfpagemode=UseNone, % default value
+  bookmarks=true,      % default value
+  linktocpage=false,   % default value
+  pdfpagelayout=SinglePage,
+  pdfdisplaydoctitle,
+  pdfpagelabels=true,
+  bookmarksopen=true,
+  bookmarksopenlevel=0,
+  colorlinks=true,
+  linkcolor= blue]{hyperref}[2007/02/07]
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%\iffalse
+%</package>
+%\fi
 % \section{Test macros}
+% We provide a series of MWE for testing purposes.
+% \subsection{Letter MWE}
 % \iffalse
-%<*test-01>
+%<*MWE-01>
 % \fi
-%   \begin{macrocode}
+% \subsection{Listings MWE-02}
+%    \begin{macrocode}
+%% This is an example using the default |lstlisting|
+%% environment.
 \documentclass{article}
-\usepackage{graphicx}
-\usepackage{lipsum}
-\usepackage{HS}
-\begin{letter}
-\DATE{13.01.2011}
-\RE{My first letter}
-\lipsum[1-2]
-\SIGNATURE
-\CC{WH, GG, ML}
-\ENCL
-\end{letter}
+\usepackage{phd}
+\begin{document}
+  \begin{lstlisting}
+    \def\test{This is a test.}  
+  \end{lstlisting}
+  \begin{teX}
+    \def\test{This is a test.} 
+  \end{teX}
+  \begin{teXX}
+    \def\test{This is a test.} 
+  \end{teXX}
+  
+  \startnumberat{25}
+  \begin{teX}
+    \def\test{This is a test.} 
+  \end{teX}
+  
+  \startnumberat{35}
+  \begin{teX}
+    \def\test{This is a test.} 
+  \end{teX}
+\end{document}
 %    \end{macrocode}
 % \iffalse  
-%</test-01>
+%</MWE-01>
 % \fi
-
-% The end of the configuration file code
-%
-% \bibliographystyle{alpha}
-% \begingroup
-% \raggedright
-% \begin{thebibliography}{GMSN94A}
-%
-%
-%    \bibitem[ABH90]{bk:Impatient}
-%      Paul W.~Abrahams, Karl Berry and Kathryn A.~Hargreaves.
-%      \newblock \emph{TeX{} for the Impatient}.
-%      \newblock
-%       Addison-Wesley, Reading, Massachusetts, 1990.
-%      \newblock (Available from CTAN in \texttt{info/impatient})
-%
-% \bibitem[Ars01a]{TITLEREF}
-% Donald Arseneau.
-% \newblock \emph{\Lpack{Titleref} package (version 3.1)}.
-% \newblock April 2001.
-% \newblock (Available from CTN as
-%            \texttt{macros/latex/contrib/misc/titleref.sty})
-%
-% \bibitem[Ars01b]{CHAPTERBIB}
-% Donald Arseneau.
-% \newblock \emph{\Lpack{Chapterbib} package (version 1.9)}.
-% \newblock September 2001.
-% \newblock (Available from CTN as
-%            \texttt{macros/latex/contrib/misc/chapterbib.sty})
-%
-% \bibitem[Ars03]{FRAMED}
-% Donald Arseneau.
-% \newblock \emph{\Lpack{Framed} package (version 0.8a)}.
-% \newblock July 2003.
-% \newblock (Available from CTAN as
-%            \texttt{macros/latex/contrib/misc/framed.sty})
-%
-% \bibitem[Ars05]{PLACEINS}
-% Donald Arseneau.
-% \newblock \emph{\Lpack{Placeins} package (version 2.2)}.
-% \newblock May 2005.
-% \newblock (Available from CTN as
-%            \texttt{macros/latex/contrib/placeins/placeins.sty})
-%  
-%
-% \bibitem[ArWi00]{IFMTARG}
-% Donald Arseneau and Peter Wilson.
-% \newblock \emph{The ifmtarg package}.
-% \newblock March, 2000.
-% \newblock (Available from CTAN in 
-%            \texttt{/macros/latex/contrib/misc})
-%
-%
-%  \bibitem[Car94]{DELARRAY}
-%  David Carlisle.
-%  \newblock \emph{The \Lpack{delarray} package}.
-%  \newblock March 1994.
-%  \newblock (Available from CTAN in
-%             \texttt{/macros/latex/required/tools})
-%
-%
-% \bibitem[Car98a]{ENUMERATE}
-% David Carlisle.
-% \newblock \emph{The enumerate package}.
-% \newblock August, 1998.
-% \newblock (Available from CTAN in 
-%            \texttt{/macros/latex/required/tools})
-%
-% \bibitem[Car98b]{REMRESET}
-% David Carlisle.
-% \newblock \emph{The remreset package}.
-% \newblock August, 1998.
-% \newblock (Available from CTAN in 
-%            \texttt{/macros/latex/contrib/carlisle})
-%
-%  \bibitem[Car99]{TABULARX}
-%  David Carlisle.
-%  \newblock \emph{The \Lpack{tabularx} package}.
-%  \newblock January 1999.
-%  \newblock (Available from CTAN in
-%             \texttt{/macros/latex/required/tools})
-%
-%  \bibitem[Car01]{DCOLUMN}
-%  David Carlisle.
-%  \newblock \emph{The \Lpack{dcolumn} package}.
-%  \newblock May 2001.
-%  \newblock (Available from CTAN in
-%             \texttt{/macros/latex/required/tools})
-%
-% \bibitem[Coc02]{SUBFIGURE}
-% Steven Douglas Cochran.
-% \newblock \emph{The subfigure package}.
-% \newblock March, 2002.
-% \newblock (Available from CTAN in 
-%            \texttt{/macros/latex/contrib/subfigure})
-%
-% \bibitem[Dal99]{NATBIB}
-% Patrick W. Daly.
-% \newblock \emph{Natural Sciences Citations and References}.
-% \newblock May, 1999.
-% \newblock (Available from CTAN in 
-%            \texttt{/macros/latex/contrib/natbib})
-%
-% \bibitem[Dow00]{PATCHCMD}
-% Michael J. Downes
-% \newblock \emph{The patchcmd package}.
-% \newblock July 2000.
-% \newblock (Available from CTAN in
-%            \texttt{/macros/latex/contrib/patchcmd})
-%
-% \bibitem[Fai98]{MOREVERB}
-% Robin Fairbairns.
-% \newblock \emph{The moreverb package}.
-% \newblock December, 1998.
-% \newblock (Available from CTAN in 
-%            \texttt{/macros/latex/contrib/moreverb})
-%
-% \bibitem[Fai03]{FOOTMISC}
-% Robin Fairbairns.
-% \newblock \emph{\Lpack{footmisc} --- a portmanteau package for 
-%            customising footnotes in LaTeX}.
-% \newblock February 2003.
-% \newblock (Available from CTAN in
-%            \texttt{macros/latex/contrib/footmisc})
-%
-%
-%    \bibitem[Fea03]{BOOKTABS}
-%      Simon Fear.
-%      \newblock \emph{Publication quality tables in \LaTeX}.
-%       \newblock March, 2003.
-%      \newblock (Available from CTAN in 
-%                 \texttt{macros/latex/contrib/booktabs})
-%
-% \bibitem[Fra00]{CROP}
-% Melchior Franz.
-% \newblock \emph{The crop package}.
-% \newblock February, 2000.
-% \newblock (Available from CTAN in 
-%            \texttt{/macros/latex/contrib/crop})
-%
-%
-% \bibitem[GMS94]{GOOSSENS94}
-% Michel Goossens, Frank Mittelbach, and Alexander Samarin.
-% \newblock {\em The LaTeX Companion}.
-% \newblock Addison-Wesley Publishing Company, 1994.
-%
-%
-%
-%  \bibitem[Knu84]{bk:knuth}  
-%       Donald E. Knuth.
-%  \newblock  \emph{The \TeX{}book}.
-%  \newblock
-%       Addison-Wesley, Reading, Massachusetts, 1984.
-%
-%
-% \bibitem[KWG]{TUFTE}
-% Bil Kleb, Bill Wood, and Kevin Godby.
-% \newblock \emph{Tufte LaTeX}.
-% \newblock December 2009.
-% \newblock (Available from CTAN in \texttt{macros/latex/contrib/tufte-latex/})
-% 
-%    \bibitem[Lam94]{bk:lamport} 
-%       Leslie Lamport.
-%       \newblock  \emph{\LaTeX\ --- A Document Preparation System}.
-%       \newblock
-%       Addison-Wesley, Reading, Massachusetts, 1994.
-%
-% \bibitem[LMB99]{CLASSES}
-% Leslie Lamport, Frank Mittelbach and Johannes Braams.
-% \newblock \emph{Standard Document Classes for LaTeX version 2e}.
-% \newblock September, 1999.
-% \newblock (Available from CTAN as 
-%            \texttt{/macros/latex/base/classes.dtx})
-%
-%  \bibitem[MC98]{ARRAY}
-%  Frank Mittelbach and David Carlisle.
-%  \newblock \emph{A new implementation of LaTeX's tabular and array 
-%                  environment}
-%  \newblock May 1998.
-%  \newblock (Available from CTAN in
-%             \texttt{/macros/latex/required/tools})
-%
-% \bibitem[Oos96]{FANCYHDR}
-% Piet van Oostrum.
-% \newblock \emph{Page layout in LaTeX}.
-% \newblock June, 1996.
-% \newblock (Available from CTAN in 
-%            \texttt{/macros/latex/contrib/fancyhdr})
-%
-%
-% \bibitem[Rah01]{NAMEREF}
-% Sebastian Rahtz.
-% \newblock \emph{Section name references in LaTeX}.
-% \newblock January 2001.
-% \newblock (Available from CTAN in
-%            \texttt{/macros/latex/contrib/hyperref})
-%
-% \bibitem[Rah02]{HYPERREF}
-% Sebastian Rahtz.
-% \newblock \emph{Hypertext marks in LaTeX}.
-% \newblock March 2002.
-% \newblock (Available from CTAN in
-%            \texttt{/macros/latex/contrib/hyperref})
-%
-%
-% \bibitem[Sch98]{EVERYSHI}
-% Martin Schr\"{o}der.
-% \newblock \emph{The everyshi package}.
-% \newblock August, 1998.
-% \newblock (Available from CTAN in 
-%            \texttt{/macros/latex/contrib/ms})
-%
-% \bibitem[SRR01]{VERBATIM}
-% Rainer Sch\"{o}pf, Bernd Raichle and Chris Rowley.
-% \newblock \emph{A new implementation of LaTeX's verbatim and verbatim*
-%                 environments}.
-% \newblock March, 2001.
-% \newblock (Available from CTAN in 
-%            \texttt{/macros/latex/required/tools})
-%
-% \bibitem[Wil99]{TOCVSEC2}
-% Peter Wilson.
-% \newblock \emph{The tocvsec2 package}.
-% \newblock January, 1999.
-% \newblock (Available from CTAN in 
-%            \texttt{/macros/latex/contrib/tocvsec2})
-%
-% \bibitem[Wil00a]{EPIGRAPH}
-% Peter Wilson.
-% \newblock \emph{The epigraph package}.
-% \newblock February, 2000.
-% \newblock (Available from CTAN in 
-%            \texttt{/macros/latex/contrib/epigraph})
-%
-% \bibitem[Wil00b]{ISOCLASS}
-% Peter Wilson.
-% \newblock \emph{LaTeX files for typesetting ISO standards}.
-% \newblock February, 2000.
-% \newblock (Available from CTAN in 
-%            \texttt{/macros/latex/contrib/isostds/iso})
-%
-% \bibitem[Wil00c]{NEXTPAGE}
-% Peter Wilson.
-% \newblock \emph{The nextpage package}.
-% \newblock February, 2000.
-% \newblock (Available from CTAN in 
-%            \texttt{/macros/latex/contrib/misc})
-%
-% \bibitem[Wil00d]{NEEDSPACE}
-% Peter Wilson.
-% \newblock \emph{The needspace package}.
-% \newblock March, 2000.
-% \newblock (Available from CTAN in 
-%            \texttt{/macros/latex/contrib/misc})
-%
-% \bibitem[Wil01a]{ABSTRACT}
-% Peter Wilson.
-% \newblock \emph{The abstract package}.
-% \newblock February, 2001.
-% \newblock (Available from CTAN in 
-%            \texttt{/macros/latex/contrib/abstract})
-%
-% \bibitem[Wil01b]{CHNGPAGE}
-% Peter Wilson.
-% \newblock \emph{The chngpage package}.
-% \newblock February, 2001.
-% \newblock (Available from CTAN in 
-%            \texttt{/macros/latex/contrib/misc})
-%
-% \bibitem[Wil01c]{APPENDIX}
-% Peter Wilson.
-% \newblock \emph{The appendix package}.
-% \newblock March, 2001.
-% \newblock (Available from CTAN in 
-%            \texttt{/macros/latex/contrib/appendix})
-%
-% \bibitem[Wil01d]{CCAPTION}
-% Peter Wilson.
-% \newblock \emph{The ccaption package}.
-% \newblock March, 2001.
-% \newblock (Available from CTAN in 
-%            \texttt{/macros/latex/contrib/ccaption})
-%
-% \bibitem[Wil01e]{CHNGCNTR}
-% Peter Wilson.
-% \newblock \emph{The chngcntr package}.
-% \newblock March, 2001.
-% \newblock (Available from CTAN in 
-%            \texttt{/macros/latex/contrib/misc})
-%
-% \bibitem[Wil01f]{HANGING}
-% Peter Wilson.
-% \newblock \emph{The hanging package}.
-% \newblock March, 2001.
-% \newblock (Available from CTAN in 
-%            \texttt{/macros/latex/contrib/hanging})
-%
-% \bibitem[Wil01g]{TITLING}
-% Peter Wilson.
-% \newblock \emph{The titling package}.
-% \newblock March, 2001.
-% \newblock (Available from CTAN in 
-%            \texttt{/macros/latex/contrib/titling})
-%
-% \bibitem[Wil01h]{TOCBIBIND}
-% Peter Wilson.
-% \newblock \emph{The tocbibind package}.
-% \newblock April, 2001.
-% \newblock (Available from CTAN in 
-%            \texttt{/macros/latex/contrib/tocbibind})
-%
-% \bibitem[Wil01i]{TOCLOFT}
-% Peter Wilson.
-% \newblock \emph{The tocloft package}.
-% \newblock April, 2001.
-% \newblock (Available from CTAN in 
-%            \texttt{/macros/latex/contrib/tocloft})
-%
-% \bibitem[Wil01j]{VERSE}
-% Peter Wilson.
-% \newblock \emph{Typesetting simple verse with LaTeX}.
-% \newblock August, 2001.
-% \newblock (Available from CTAN in 
-%            \texttt{/macros/latex/contrib/verse})
-%
-%
-% \bibitem[Wil03]{LEDMAC}
-% Peter Wilson.
-% \newblock \emph{\Lpack{ledmac}: A presumptuous attempt to port EDMAC and
-%                 TABMAC to LaTeX}. 
-% \newblock August 2003.
-% \newblock (Available from CTAN in
-%            \texttt{macros/latex/contrib/ledmac})
-%
-% \bibitem[Wil07]{GLISTER07}
-% Peter Wilson.
-% \newblock `Glisterings' \emph{TUGboat}, 28(2):229--232,
-% \newblock 2007.
-%
-% \bibitem[Wil08]{GLISTER08}
-% Peter Wilson.
-% \newblock `Glisterings' \emph{TUGboat}, 29(2):324--327,
-% \newblock 2008.
-%
-%
-%
-%
-%
-% \end{thebibliography}
-% \endgroup
-%
-
 
 
 % \Finale
+% \PrintIndex
 \endinput
 
 
