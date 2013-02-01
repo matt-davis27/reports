@@ -117,6 +117,7 @@ and the derived files              phd.ins,
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
 \usepackage{microtype}
+\usepackage[toc,lof,lot]{multitoc}
 %\usepackage{dateiliste}
 \usepackage{\jobname}
 
@@ -128,10 +129,7 @@ and the derived files              phd.ins,
 \newcommand*{\pkg}[1]{\texttt{#1}}
 %\usepackage[numbered]{hypdoc}
 \definecolor{lstbgcolor}{rgb}{0.9,0.9,0.9} 
- 
-
- 
-\usepackage{fancyvrb}
+ \usepackage{fancyvrb}
 \newcommand*{\Lpack}[1]{\textsf {#1}}           
 \newenvironment{example}
   {\VerbatimEnvironment
@@ -150,12 +148,11 @@ and the derived files              phd.ins,
 }
 %%http://tex.stackexchange.com/questions/75055/print-filelist-to-pdf/75064#75064
 %\printFileList
-
 \EnableCrossrefs
 \CodelineIndex
 \RecordChanges
 \begin{document}
-  \DocInput{\jobname.dtx}
+   \DocInput{\jobname.dtx}
 \end{document}
 %</driver>
 % \fi
@@ -200,9 +197,24 @@ and the derived files              phd.ins,
 % pre-loading a set of packages and providing some opiniated settings. Pretty
 % much work in progress, and currently supplements, the tufte-class well.}
 % 
-% \begin{multicols}{2}
+% ^^A Table of contents in two columns --- borrowed from the standard 
+% ^^A package of ``doc.dtx''
+% 
+% \newif\ifmulticols
+% \IfFileExists{multicol.sty}{\multicolstrue}{}
+%
+% ^^A\ifmulticols
+% ^^A\addtocontents{toc}{\protect\begin{multicols}{2}}
+% ^^A\fi
+%
+% {\parskip 0pt                ^^A We have to reset \parskip
+%                              ^^A (bug in \LaTeX)
 % \tableofcontents
-% \end{multicols}
+% \listoftables
+% \listoffigures
+% }
+% 
+% 
 % 
 % \section{Introduction}
 %
@@ -216,6 +228,20 @@ and the derived files              phd.ins,
 % All color definitions are of the form |the<color>|. So the setting for |theblue| is called
 % |theblue|. This provides easy to remember commands.
 % 
+% \section{Document Structure}
+% We do not load too many packages for document structure, a these are expected to be
+% treated at class level.
+% \begin{table}[ht]
+% \centering
+% \caption{Packages used for structure.}
+% \begin{tabular}{ll}
+%   \toprule
+%   Package  & Default\\
+%   \midrule
+%   |multicol| & called by author  \\
+%   \bottomrule
+% \end{tabular}
+% \end{table}
 % \section{Use of boxes}
 % You can use the |tcolorbox| package to create nicely formatted boxes for examples.
 %\newcounter{texercise}[section]
@@ -233,7 +259,7 @@ and the derived files              phd.ins,
 %\multicolumn{4}{l}{Median of triangle on side $a$,} \\
 %& $m$ &=& \( \frac{1}{2} \sqrt{2(b^2+c^2) - a^2} \) & \ \\
 %\multicolumn{5}{l}{\hspace{-2ex}\textbf{Areas.}} \\
-%Rectangle,     & $S$ &=& $b\times h$ &  \\
+%Rectangle,      & $S$ &=& $b\times h$ &  \\
 %Square,         & $S$ &=& $b^2$        &  \\
 %\end{tabular}
 %\end{tcolorbox}
@@ -510,6 +536,14 @@ ProvidesClass,IfFileExists,RequirePackage,ifthenelse,chapter,includegraphics, ne
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
+% 
+% \section{Common packages for structuring documents}
+% The structuring commands, should ideally be loaded by the class. In case the class
+% does not loaded them. We use the \pkg{multicol}, for multiple columns.
+%    \begin{macrocode}
+\RequirePackage{multicol}
+\RequirePackage[toc]{multitoc}
+%    \end{macrocode}    
 %\iffalse
 %</package>
 %\fi
@@ -519,10 +553,10 @@ ProvidesClass,IfFileExists,RequirePackage,ifthenelse,chapter,includegraphics, ne
 % \iffalse
 %<*MWE-01>
 % \fi
-% \subsection{Listings MWE-02}
+% \subsection{MWE-01, using \texttt{multicol} and \texttt{multitoc}}
 %    \begin{macrocode}
-%% This is an example using the default |lstlisting|
-%% environment.
+%^^A This is an example using the default |lstlisting|
+%^^A environment.
 \documentclass{article}
 \usepackage{phd}
 \begin{document}
@@ -551,13 +585,55 @@ ProvidesClass,IfFileExists,RequirePackage,ifthenelse,chapter,includegraphics, ne
 % \iffalse  
 %</MWE-01>
 % \fi
+% \iffalse
+%<*MWE-02>
+% \fi
+% \subsection{Listings MWE-02}
+%    \begin{macrocode}
+%% Example using |multitoc|
+\documentclass{article}
+\usepackage{phd}
+\renewcommand{\multicolumntoc}{2}
+\title{Typesetting the Table of Contents in Multiple Columns}
+\author{Dr Y. Lazarides}
+\begin{document}
+\maketitle
+\tableofcontents
+\section{First section}
+\begin{multicols}{3}
+\lipsum[1-2]
+\end{multicols}
+\subsection{First subsection}
+\subsection{Second subsection}
+\subsection{Third subsection}
+\subsection{Last subsection}
+\section{Second section}
+\subsection{First subsection}
+\subsection{Second subsection}
+\subsection{Third subsection}
+\subsection{Last subsection}
+\section{Last section}
+\subsection{First subsection}
+\subsection{Second subsection}
+\subsection{Third subsection}
+\subsection{Last subsection}
+\end{document}
+%    \end{macrocode}
+% \iffalse  
+%</MWE-02>
+% \fi
 
-
+% 
+% 
+% ^^A\addtocontents{toc}{\protect\end{multicols}}
 % \Finale
 % \PrintIndex
 \endinput
 
 
+%% One can use the multitoc for two column toc lof etc also see doc.dtx
+
+%% Use ^^A for % sign otherwise it gives you problems
 
 
 

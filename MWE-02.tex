@@ -15,6 +15,34 @@
 
 %%
 
+%% Example using |multitoc|
+\documentclass{article}
+\usepackage{phd}
+\renewcommand{\multicolumntoc}{2}
+\title{Typesetting the Table of Contents in Multiple Columns}
+\author{Dr Y. Lazarides}
+\begin{document}
+\maketitle
+\tableofcontents
+\section{First section}
+\begin{multicols}{3}
+\lipsum[1-2]
+\end{multicols}
+\subsection{First subsection}
+\subsection{Second subsection}
+\subsection{Third subsection}
+\subsection{Last subsection}
+\section{Second section}
+\subsection{First subsection}
+\subsection{Second subsection}
+\subsection{Third subsection}
+\subsection{Last subsection}
+\section{Last section}
+\subsection{First subsection}
+\subsection{Second subsection}
+\subsection{Third subsection}
+\subsection{Last subsection}
+\end{document}
 
 %% 
 %% Copyright (C) 2011 by Dr. Yiannis Lazarides <yannislaz@gmail.com>
