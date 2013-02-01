@@ -77,6 +77,7 @@ and the derived files              phd.ins,
 \generate{\file{\jobname.sty}{\from{\jobname.dtx}{package}}}
 \generate{
   \file{MWE-02.tex}{\from{\jobname.dtx}{MWE-02}}
+  \file{MWE-03.tex}{\from{\jobname.dtx}{MWE-03}}
 }
 %</install>
 %<install>\endbatchfile
@@ -924,6 +925,35 @@ ProvidesClass,IfFileExists,RequirePackage,ifthenelse,chapter,includegraphics, ne
 % \fi
 
 % 
+% \subsection{Listings MWE-03}
+% 
+% \iffalse
+%<*MWE-03>
+% \fi
+%    \begin{macrocode}
+%% example for using encoded commands such as guillemets. (If you need
+%% shorthands you need to load babel.
+%%
+\documentclass{article}
+\usepackage{phd}
+\newcommand{\encone}[1]{{\fontencoding{T1}\selectfont#1}}
+\begin{document}
+\def\Kt#1{{\encone{#1}} &{\small\ttfamily\string#1}}
+
+\noindent\begin{tabular}{@{}*8l@{}}
+\toprule
+\Kt\guillemotleft  & \Kt\guilsinglleft & \Kt\quotedblbase & \Kt\textquotedbl \\
+\Kt\guillemotright & \Kt\guilsinglright & \Kt\quotesinglbase \\
+\bottomrule
+\end{tabular}
+\medskip
+
+\lipsum[1]
+\end{document}
+%    \end{macrocode}
+% \iffalse  
+%</MWE-03>
+% \fi
 % 
 % ^^A\addtocontents{toc}{\protect\end{multicols}}
 % \Finale
