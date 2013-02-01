@@ -210,7 +210,7 @@
 \RequirePackage{fp}
 \RequirePackage{ifthen}
 \RequirePackage{xstring}
-\RequirePackage{cool, coolstr}
+%% \RequirePackage{cool, coolstr} conflicts to be resolved.
 \RequirePackage{etoolbox}
 \RequirePackage{listings}
 \RequirePackage{tikz}
@@ -312,6 +312,16 @@ ProvidesClass,IfFileExists,RequirePackage,ifthenelse,chapter,includegraphics, ne
 \RequirePackage[toc]{multitoc}
 \RequirePackage{ragged2e}
 \RequirePackage{soul}
+\renewcommand{\topfraction}{.85}
+\renewcommand{\bottomfraction}{.7}
+\renewcommand{\textfraction}{.15}
+\renewcommand{\floatpagefraction}{.66}
+\renewcommand{\dbltopfraction}{.66}
+\renewcommand{\dblfloatpagefraction}{.66}
+\setcounter{topnumber}{9}
+\setcounter{bottomnumber}{9}
+\setcounter{totalnumber}{20}
+\setcounter{dbltopnumber}{9}
 
 %% 
 %% Copyright (C) 2011 by Dr. Yiannis Lazarides <yannislaz@gmail.com>
