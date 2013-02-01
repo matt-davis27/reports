@@ -19,11 +19,11 @@
 
 \NeedsTeXFormat{LaTeX2e}% LaTeX 2.09 can't be used (nor non-LaTeX)
 [1994/12/01]% LaTeX date must be December 1994 or later
-\ProvidesPackage{phd}[2013/01/26 v1.0 useful utilities]
-\RequirePackage[l2tabu,orthodox]{nag}% Old habits die hard. All the same, there are
-                                     % commands, classes and packages which are
-                                     % outdated and superseded. nag provides routines
-                                     % to warn the user about the use of those.
+\ProvidesPackage{phd}[2013/2/26 v1.0 less preamble (YL)]
+\RequirePackage[l2tabu,orthodox]{nag} % Old habits die hard. All the same, there are
+                                      % commands, classes and packages which are
+                                      % outdated and superseded. nag provides routines
+                                      % to warn the user about the use of those.
 \RequirePackage{fixltx2e}
 \RequirePackage[all,error]{onlyamsmath}  % Error on deprecated math commands like $$ $$.
 \RequirePackage{pgf}[2008/01/15]
@@ -54,6 +54,49 @@
 \usepackage{wrapfig}
 \usepackage{rotating}
 
+\newcommand*{\savesymbol}[1]{%
+  \expandafter\let\csname orig#1\expandafter\endcsname\csname#1\endcsname
+  \expandafter\let\csname #1\endcsname\relax
+}
+\newcommand*{\restoresymbol}[2]{%
+  \expandafter\global\expandafter\let\csname#1#2\expandafter\endcsname%
+    \csname#2\endcsname
+  \expandafter\global\expandafter\let\csname#2\expandafter\endcsname%
+    \csname orig#2\endcsname
+}
+\newcommand*{\renamerobustsymbol}[2]{%
+  \expandafter\let\expandafter\origrealcommand
+    \csname #2\space\endcsname
+  \expandafter\global\expandafter\let\csname#1#2\endcsname=\origrealcommand
+}
+\def\ifnotsavedsym@helper#1#2!{\expandafter\ifx\csname orig#2\endcsname\relax}
+\newcommand*{\ifnotsavedsym}[1]{%
+  \expandafter\ifnotsavedsym@helper\string#1!%
+}
+\newif\ifcomplete
+\newif\ifloadpackages
+\loadpackagestrue
+\newcommand{\missingpkgs}{}
+\newcommand{\foundpkgs}{}
+\newcommand{\if@sty@file@exists@star}[3]{%
+  \ifloadpackages
+    \IfFileExists{#1.sty}{#2}{#3}%
+  \else
+    #3%
+  \fi
+}
+\newcommand{\if@sty@file@exists}[3]{%
+  \ifloadpackages
+    \IfFileExists{#1.sty}%
+                 {#2\@cons\foundpkgs{{#1}}}%
+                 {#3\completefalse\@cons\missingpkgs{{#1}}}%
+  \else
+    #3\completefalse\@cons\missingpkgs{{#1}}%
+  \fi
+}
+\newcommand{\IfStyFileExists}{%
+  \@ifstar{\if@sty@file@exists@star}{\if@sty@file@exists}%
+}
 \RequirePackage{filecontents}
 \RequirePackage{amsfonts}[2009/06/22]
 \RequirePackage{amsmath}[2000/07/18]
@@ -61,10 +104,69 @@
 \RequirePackage{amsthm}[2002/01/22]
 \RequirePackage{mathtools}
 \RequirePackage{stmaryrd}
-\RequirePackage{eucal}
+\newif\ifEU
+\IfStyFileExists{euscript}
+  {\EUtrue\RequirePackage[mathcal]{euscript}
+   \renewcommand{\mathcal}[1]{\mbox{\usefont{U}{eus}{m}{n}##1}}
+  }
+  {\let\CMcal\mathcal}
 
 \RequirePackage{textcomp}
+\RequirePackage{latexsym}
+\newif\ifWASY
+\newcommand\WASY{\pkgname{wasysym}}
+\IfStyFileExists{wasysym}
+  {\WASYtrue
+   \savesymbol{lightning}
+   \savesymbol{Box}
+   \savesymbol{Diamond}
+   \savesymbol{clock}
+   \RequirePackage{wasysym}
+   \restoresymbol{WASY}{lightning}
+   \restoresymbol{WASY}{Box}
+   \restoresymbol{WASY}{Diamond}
+   \restoresymbol{WASY}{clock}
+  }
+  {}
+\newif\ifPI
+\newcommand\PI{\pkgname{pifont}}
+\IfStyFileExists{pifont}
+  {\PItrue\usepackage{pifont}}
+  {}
+\newif\ifMARV
+\newcommand\MARV{\pkgname{marvosym}}
+\makeatletter
+\IfStyFileExists*{marvosym}
+  {\RequirePackage{marvosym}[2000/05/01]  % Major rewrite at this version.
+   \global\MARVtrue
+   \@ifundefined{Denarius}            % \Denarius is a newer symbol.
+     {\global\MARVfalse}
+     {}
+   \@ifundefined{MVRightarrow}        % \Mvrightarrow is an even newer symbol.
+     {\global\MARVfalse}
+     {}
+  }
+  {}
+\newif\ifMAN
+\newcommand\MAN{\pkgname{manfnt}}
+\IfStyFileExists{manfnt}
+  {\MANtrue\usepackage{manfnt}}
+  {}
 
+\newif\ifDING
+\newcommand\DING{\pkgname{bbding}}
+\IfStyFileExists{bbding}
+  {\DINGtrue
+   \savesymbol{Cross} \savesymbol{Square}
+   \usepackage{bbding}
+   \restoresymbol{ding}{Cross} \restoresymbol{ding}{Square}
+  }
+  {}
+\newif\ifUTILD
+\newcommand\UTILD{\pkgname{undertilde}}
+\IfStyFileExists{undertilde}
+  {\UTILDtrue\usepackage{undertilde}}
+  {}
 \definecolor{green}{rgb}{0.1,0.1,0.1}
 \newcommand{\done}{\cellcolor{teal}done}
 \newcommand{\partialdone}{\cellcolor{yellow}done}
@@ -77,7 +179,7 @@
 \RequirePackage{siunitx}
   \sisetup{fixed-exponent =0,
            scientific-notation = false}
-\RequirePackage{numprint}
+\RequirePackage{numprint} % only for formatting large numbers?
 \RequirePackage{changepage}
 \RequirePackage{keyval}
 \RequirePackage{ifmtarg}
@@ -109,7 +211,7 @@ ProvidesClass,IfFileExists,RequirePackage,ifthenelse,chapter,includegraphics, ne
       commentstyle=\color{black},
       rulecolor=\color{theshade},
       breakatwhitespace=true,
-     showspaces=false,
+      showspaces=false,
       xleftmargin=0pt,
       xrightmargin=5pt,
       aboveskip=3pt plus1pt minus1pt,

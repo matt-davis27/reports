@@ -125,18 +125,18 @@ and the derived files              phd.ins,
 \usepackage[listings,theorems]{tcolorbox}
 \tcbset{before={\par\medskip\pagebreak[0]\noindent},after={\par\medskip}}%
 \usepackage{multicol}
-\usepackage{hyperref}
+\usepackage{hypdoc}
 \hypersetup{pdftex,
   bookmarks,
   raiselinks,
   pageanchor,
   hyperindex,
   colorlinks,
-  allcolors=cyan, 
+  allcolors=theblue, 
   %anchorcolor= blue,
   %filecolor=blue,
   urlcolor=theblue,
-  %linkcolor= blue
+  linkcolor= cyan,
   pdftitle={My Title},
  }
 
@@ -286,36 +286,40 @@ and the derived files              phd.ins,
 %\end{tcolorbox}
 %
 % \section{Version control with Git and Github}
-% What is the difference between Git and GitHub?
+% If you are involved with code or a publication that will have frequent changes, you should consider
+% some type of version control system. My own recommendation is to use |git| and an online repository such
+% as |github|. The latter is currently very fashionable and makes sharing code easier. Note that the |github|
+% offers both public as well as private repositories. The general recommendation is that for unpublished work
+% such as a thesis or code under development, it is preferable to go for a private repository. 
+% 
+% \subsection*{What is the difference between Git and GitHub?}
 %git is a version control, system think of it as a series of snapshots (commits) of your code. You see 
 %a path of this snapshots, in which order they where created. You can make branches to experiment and come back to snapshots you took.
 %GitHub, is a web-page on which you can publish your git repositories and collaborate with other people.
 %
-%Is git saving every repository locally (in the user's machine) and in GitHub?
+% \subsection*{Is git saving every repository locally (in the user's machine) and in GitHub?}
 %
-%No, it's only local. You can decide to push (publish) some branches on GitHub.
+% No, it's only local. You can decide to push (publish) some branches on GitHub.
 %
-%Can you use Git without GitHub? If yes, what would be the benefit for using GitHub?
+% \subsection*{Can you use Git without GitHub? If yes, what would be the benefit for using GitHub?}
 %
-%Yes, it runs local. You could back it up with dropbox
+% Yes, it runs local. You could back it up with dropbox. See also \href{http://dotmonster.co/backup-and-sync-folders-with-dropbox-and-symbolic-links/}{how to sync your git folders to dropbox}.
 %
-%How does Git compare to a backup system such as Time Machine?
+%\subsection*{How does Git compare to a backup system such as Time Machine?}
 %
 %It's a different thing, git lets you track changes and your development process. If you use git with GitHub, it becomes effectively a backup. However usually you would not push all the time to GitHub, at which point you do not have a full backup if things go wrong. I use git in a folder that is synchronized with dropbox.
 %
-%Is this a manual process, in other words if you don't commit you wont have a new version of the changes made?
+%\subsection*{Is this a manual process, in other words if you don't commit you wont have a new version of the changes made?}
 %
 %Yes, commiting and pushing are both manual.
 %
-%If are not collaborating and you are already using a backup system why would you use Git?
+%\subsection*{If are not collaborating and you are already using a backup system why would you use Git?}
 %
-%You program worked. You developed more, your program does not work. git diff, shows you the difference between the current code and the last working commit.
+% You program worked. You developed more, your program does not work. git diff, shows you the difference between the current code and the last working commit.
 %
-%Or you just go back to the last working
-%
-%You want to try a change, but are not sure it really will work. You create a branch, test you code change. If it works fine, you merge it to the main branch. If it does not you throw the branch away and go back to the main branch.
-%
-%You did some debugging. Before you commit you always look at the changes from the last commit. You see your debug print statement that you forgot to delete.
+% Or you just go back to the last working. You want to try a change, but are not sure it really will work. 
+% You create a branch, test you code change. If it works fine, you merge it to the main branch. If it does not you throw the branch away and go back to the main branch.
+% You did some debugging. Before you commit you always look at the changes from the last commit. You see your debug print statement that you forgot to delete.
 %
 %Make sure you check gitimmersion.com.
 % 
@@ -328,18 +332,18 @@ and the derived files              phd.ins,
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}% LaTeX 2.09 can't be used (nor non-LaTeX)
 [1994/12/01]% LaTeX date must be December 1994 or later
-\ProvidesPackage{phd}[2013/01/26 v1.0 useful utilities]
+\ProvidesPackage{phd}[2013/2/26 v1.0 less preamble (YL)]
 %    \end{macrocode}
 %    
 % \section{Good practices} 
-% We load a few packages for fixes and errors and nagg if outdated packages are used.
+% We load a few packages for fixes and errors and |nag| if outdated packages are used.
 % Modify to suit your requirements.  
 % \url{http://tex.stackexchange.com/questions/19264/techniques-and-packages-to-keep-up-with-good-practices?rq=1}
 %    \begin{macrocode}
-\RequirePackage[l2tabu,orthodox]{nag}% Old habits die hard. All the same, there are
-                                     % commands, classes and packages which are 
-                                     % outdated and superseded. nag provides routines
-                                     % to warn the user about the use of those.
+\RequirePackage[l2tabu,orthodox]{nag} % Old habits die hard. All the same, there are
+                                      % commands, classes and packages which are 
+                                      % outdated and superseded. nag provides routines
+                                      % to warn the user about the use of those.
 \RequirePackage{fixltx2e}
 \RequirePackage[all,error]{onlyamsmath}  % Error on deprecated math commands like $$ $$.
 %    \end{macrocode}
@@ -396,7 +400,107 @@ and the derived files              phd.ins,
 \usepackage{wrapfig}
 \usepackage{rotating}
 %    \end{macrocode}
+%    
+% \section{Package Management}    
+% Each of the packages used by this document is loaded conditionally.
+% However, it might be nice to know if we have a complete set.  So we
+% define |\ifcomplete| which starts true, but gets set to false if any
+% package is missing. Some code is necessary in order to manage the complexity.
+% I am idebted to the source of symbols.tex for some of the macros.
+% 
+% There are a number of symbols (e.g., \cmd{\Square}) that are defined by      
+% multiple packages.  In order to typeset all the variants in this       
+% document, we have to give glyph a unique name.  To do that, we define  
+% \cmd{\savesymbol{XXX}}, which renames a symbol from \cmd{\XXX} to \cmd{\origXXX}, and    
+% \cmd{\restoresymbols{yyy}{XXX}}, which renames \cmd{\origXXX} back to \cmd{\XXX} and     
+% defines a new command, |\yyyXXX|, which corresponds to the most recently 
+% loaded version of |\XXX|.                                                
+%                                                                        
+% This implementation of \savesymbol and \restoresymbol was copied from  
+% the savesym package, which started with symbol.tex's old definitions   
+% of those macros and improved upon them.  However, \renamerobustsymbol  
+% and \ifnotsavedsym are new to this set.                                
+%                                                                        
 
+% Save a symbol that we know is going to get redefined.
+%    \begin{macrocode}
+\newcommand*{\savesymbol}[1]{%
+  \expandafter\let\csname orig#1\expandafter\endcsname\csname#1\endcsname
+  \expandafter\let\csname #1\endcsname\relax
+}
+%    \end{macrocode}
+%    
+% Restore a previously saved symbol, and rename the current one.
+%    \begin{macrocode}
+\newcommand*{\restoresymbol}[2]{%
+  \expandafter\global\expandafter\let\csname#1#2\expandafter\endcsname%
+    \csname#2\endcsname
+  \expandafter\global\expandafter\let\csname#2\expandafter\endcsname%
+    \csname orig#2\endcsname
+}
+%    \end{macrocode}   
+% Rename a robust command.
+%    \begin{macrocode}
+\newcommand*{\renamerobustsymbol}[2]{%
+  \expandafter\let\expandafter\origrealcommand
+    \csname #2\space\endcsname
+  \expandafter\global\expandafter\let\csname#1#2\endcsname=\origrealcommand
+}
+%    \end{macrocode}
+% Test if a symbol is not saved.
+%    \begin{macrocode}
+\def\ifnotsavedsym@helper#1#2!{\expandafter\ifx\csname orig#2\endcsname\relax}
+\newcommand*{\ifnotsavedsym}[1]{%
+  \expandafter\ifnotsavedsym@helper\string#1!%
+}
+%    \end{macrocode}
+% \begin{macro}{\ifcomplete}
+%    \begin{macrocode}
+\newif\ifcomplete
+%    \end{macrocode}
+% \end{macro}    
+%    
+% For debugging purposes we define a switch that enables us to toggle
+% on and off the loading of packages.
+% 
+%    \begin{macrocode}
+\newif\ifloadpackages
+\loadpackagestrue
+%    \end{macrocode}
+%    
+% |\IfStyFileExists*| is just like |\IfFileExists|, except that it appends
+% ".sty" to its first argument.  |\IfStyFileExists| is the same as
+% |\IfStyFileExists*|, but it additionally adds its first argument to a list
+% (|\missingpkgs|) and marks the document as incomplete (with
+% |\completefalse|) if the |.sty| file doesn't exist.
+% 
+% \begin{macro}{\missingpkgs}
+% \begin{macro}{\foundpkgs}
+%   \begin{macrocode}
+\newcommand{\missingpkgs}{}
+\newcommand{\foundpkgs}{}
+\newcommand{\if@sty@file@exists@star}[3]{%
+  \ifloadpackages
+    \IfFileExists{#1.sty}{#2}{#3}%
+  \else
+    #3%
+  \fi
+}
+\newcommand{\if@sty@file@exists}[3]{%
+  \ifloadpackages
+    \IfFileExists{#1.sty}%
+                 {#2\@cons\foundpkgs{{#1}}}%
+                 {#3\completefalse\@cons\missingpkgs{{#1}}}%
+  \else
+    #3\completefalse\@cons\missingpkgs{{#1}}%
+  \fi
+}
+\newcommand{\IfStyFileExists}{%
+  \@ifstar{\if@sty@file@exists@star}{\if@sty@file@exists}%
+}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
 % \section{filecontents}
 % We ue the filecontents package, to open and write files on disk on the fly.
 % See the sample manual as to how to use.
@@ -416,19 +520,96 @@ and the derived files              phd.ins,
 %    \begin{macrocode}
 \RequirePackage{stmaryrd}
 %    \end{macrocode}
-% For calligraphic fonts we load the package |eucal|
+% For calligraphic fonts we load the package |eucal|. The package is not actually needed, if 
+% amsfonts are loaded? Consider removing.
 %    \begin{macrocode}
-\RequirePackage{eucal}
+\newif\ifEU
+\IfStyFileExists{euscript}
+  {\EUtrue\RequirePackage[mathcal]{euscript}
+   \renewcommand{\mathcal}[1]{\mbox{\usefont{U}{eus}{m}{n}##1}}
+  }
+  {\let\CMcal\mathcal}
 %    \end{macrocode}
 
 
 % \section{Special Symbols}
+% The Comprehensive LaTeX Symbols guide, has numerous symbols \ldots
 % We use the \pkg{texcomp} package for special symbols, such as |\checkmark|
 %    \begin{macrocode}
 \RequirePackage{textcomp}
+\RequirePackage{latexsym}
+\newif\ifWASY
+\newcommand\WASY{\pkgname{wasysym}}
+\IfStyFileExists{wasysym}
+  {\WASYtrue
+   \savesymbol{lightning}
+   \savesymbol{Box}
+   \savesymbol{Diamond}
+   \savesymbol{clock}
+   \RequirePackage{wasysym}
+   \restoresymbol{WASY}{lightning}
+   \restoresymbol{WASY}{Box}
+   \restoresymbol{WASY}{Diamond}
+   \restoresymbol{WASY}{clock}
+  }
+  {}
+\newif\ifPI
+\newcommand\PI{\pkgname{pifont}}
+\IfStyFileExists{pifont}
+  {\PItrue\usepackage{pifont}}
+  {}  
 %    \end{macrocode}
+%    
+% marvosym underwent a major rewrite for the 2000/05/01 version, adding
+% a large number of new symbols.  If it looks like we have only the
+% older version, pretend we don't have it at all.
+%    \begin{macrocode}  
+\newif\ifMARV
+\newcommand\MARV{\pkgname{marvosym}}
+\makeatletter
+\IfStyFileExists*{marvosym}
+  {\RequirePackage{marvosym}[2000/05/01]  % Major rewrite at this version.
+   \global\MARVtrue
+   \@ifundefined{Denarius}            % \Denarius is a newer symbol.
+     {\global\MARVfalse}
+     {}
+   \@ifundefined{MVRightarrow}        % \Mvrightarrow is an even newer symbol.
+     {\global\MARVfalse}
+     {}
+  }
+  {}
+%    \end{macrocode}
+% 
+%    \begin{macrocode}       
+\newif\ifMAN
+\newcommand\MAN{\pkgname{manfnt}}
+\IfStyFileExists{manfnt}
+  {\MANtrue\usepackage{manfnt}}
+  {}
 
+\newif\ifDING
+\newcommand\DING{\pkgname{bbding}}
+\IfStyFileExists{bbding}
+  {\DINGtrue
+   \savesymbol{Cross} \savesymbol{Square}
+   \usepackage{bbding}
+   \restoresymbol{ding}{Cross} \restoresymbol{ding}{Square}
+  }
+  {}
+%    \end{macrocode}
+%    
+% \subsection{The \texttt{undertilde} package}      
+%    \begin{macrocode}    
+\newif\ifUTILD
+\newcommand\UTILD{\pkgname{undertilde}}
+\IfStyFileExists{undertilde}
+  {\UTILDtrue\usepackage{undertilde}}
+  {}
+%    \end{macrocode}
 %
+%                    
+%    \[ \utilde{aqqbqqcqq} \]
+%    
 % \section{Color Definitions}
 %    \begin{macrocode}
 \definecolor{green}{rgb}{0.1,0.1,0.1}
@@ -450,7 +631,7 @@ and the derived files              phd.ins,
 \RequirePackage{siunitx}
   \sisetup{fixed-exponent =0,
            scientific-notation = false}
-\RequirePackage{numprint}
+\RequirePackage{numprint} % only for formatting large numbers?
 %    \end{macrocode}
 %    
 %    
