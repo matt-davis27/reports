@@ -335,10 +335,11 @@ and the derived files              phd.ins,
 \ProvidesPackage{phd}[2013/2/26 v1.0 less preamble (YL)]
 %    \end{macrocode}
 %    
-% \section{Good practices} 
+% \section{Best practices} 
 % We load a few packages for fixes and errors and |nag| if outdated packages are used.
 % Modify to suit your requirements.  
 % \url{http://tex.stackexchange.com/questions/19264/techniques-and-packages-to-keep-up-with-good-practices?rq=1}
+% and \href{http://stackoverflow.com/questions/193298/best-practices-in-latex}{best practices in LaTeX.}
 %    \begin{macrocode}
 \RequirePackage[l2tabu,orthodox]{nag} % Old habits die hard. All the same, there are
                                       % commands, classes and packages which are 
@@ -578,6 +579,8 @@ and the derived files              phd.ins,
      {}
   }
   {}
+  
+  
 %    \end{macrocode}
 % 
 %    \begin{macrocode}       
@@ -605,6 +608,29 @@ and the derived files              phd.ins,
 \IfStyFileExists{undertilde}
   {\UTILDtrue\usepackage{undertilde}}
   {}
+\newif\ifIFS
+\newcommand\IFS{\pkgname{ifsym}}
+\IfStyFileExists{ifsym}
+  {\IFStrue
+   \savesymbol{Letter} \savesymbol{Square} \savesymbol{Cross} \savesymbol{Sun}
+   \savesymbol{TriangleUp} \savesymbol{TriangleDown} \savesymbol{Circle}
+   \savesymbol{Lightning}
+   \usepackage[alpine,clock,electronic,geometry,misc,weather]{ifsym}[2000/04/18]
+   \restoresymbol{ifs}{Letter} \restoresymbol{ifs}{Square}
+   \restoresymbol{ifs}{Cross} \restoresymbol{ifs}{Sun}
+   \restoresymbol{ifs}{TriangleUp} \restoresymbol{ifs}{TriangleDown}
+   \restoresymbol{ifs}{Circle} \restoresymbol{ifs}{Lightning}
+   \DeclareRobustCommand{\allCubes}{%
+     \Cube{1}~%
+     \Cube{2}~%
+     \Cube{3}~%
+     \Cube{4}~%
+     \Cube{5}~%
+     \Cube{6}%
+   }
+  }
+  {}  
+  
 %    \end{macrocode}
 %
 %                    
