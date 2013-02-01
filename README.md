@@ -15,6 +15,8 @@ add a comment at http://tex.stackexchange.com/a/45023/963.
 or send me a message at  yannislaz at gmail.com
 
 
+%% \CheckSum{200}
+%% \CharacterTable
 %%
 
 

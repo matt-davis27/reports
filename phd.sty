@@ -13,12 +13,19 @@
 %% ----------------------------------------------------------------
 %% 
 
+%% \CheckSum{200}
+%% \CharacterTable
 %%
 
 \NeedsTeXFormat{LaTeX2e}% LaTeX 2.09 can't be used (nor non-LaTeX)
 [1994/12/01]% LaTeX date must be December 1994 or later
 \ProvidesPackage{phd}[2013/01/26 v1.0 useful utilities]
-
+\RequirePackage[l2tabu,orthodox]{nag}% Old habits die hard. All the same, there are
+                                     % commands, classes and packages which are
+                                     % outdated and superseded. nag provides routines
+                                     % to warn the user about the use of those.
+\RequirePackage{fixltx2e}
+\RequirePackage[all,error]{onlyamsmath}  % Error on deprecated math commands like $$ $$.
 \RequirePackage{pgf}[2008/01/15]
 \RequirePackage{overpic}
 \RequirePackage{picture}
@@ -37,6 +44,7 @@
 \RequirePackage{dcolumn}
 \RequirePackage{longtable}
 \RequirePackage{colortbl}
+\RequirePackage{multirow}
 \newcounter{step}
 \def\resetinc{\setcounter{step}{0}}
 \def\inc{\stepcounter{step}\thestep}
@@ -57,10 +65,8 @@
 
 \RequirePackage{textcomp}
 
-
-\RequirePackage{soul}
 \definecolor{green}{rgb}{0.1,0.1,0.1}
-\newcommand{\done}{\cellcolor{teal}done}  %{0.9}
+\newcommand{\done}{\cellcolor{teal}done}
 \newcommand{\partialdone}{\cellcolor{yellow}done}
 \newcommand{\hcyan}[1]{{\color{teal} #1}}
 \RequirePackage{epigraph}
@@ -178,6 +184,8 @@ ProvidesClass,IfFileExists,RequirePackage,ifthenelse,chapter,includegraphics, ne
 \let\startnumberat\numberlineat
 \RequirePackage{multicol}
 \RequirePackage[toc]{multitoc}
+\RequirePackage{ragged2e}
+\RequirePackage{soul}
 
 %% 
 %% Copyright (C) 2011 by Dr. Yiannis Lazarides <yannislaz@gmail.com>

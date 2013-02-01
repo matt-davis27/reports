@@ -121,10 +121,29 @@ and the derived files              phd.ins,
 %\usepackage{dateiliste}
 \usepackage{\jobname}
 
-\usepackage[pdftex,bookmarks,raiselinks,pageanchor,hyperindex,colorlinks, linkcolor= theblue]{hyperref}
+
 \usepackage[listings,theorems]{tcolorbox}
 \tcbset{before={\par\medskip\pagebreak[0]\noindent},after={\par\medskip}}%
 \usepackage{multicol}
+\usepackage{hyperref}
+\hypersetup{pdftex,
+  bookmarks,
+  raiselinks,
+  pageanchor,
+  hyperindex,
+  colorlinks,
+  allcolors=cyan, 
+  %anchorcolor= blue,
+  %filecolor=blue,
+  urlcolor=theblue,
+  %linkcolor= blue
+  pdftitle={My Title},
+ }
+
+% add pdfinfo  
+% 
+% 
+
 %\newcommand*{\file}[1]{\texttt{#1}}
 \newcommand*{\pkg}[1]{\texttt{#1}}
 %\usepackage[numbered]{hypdoc}
@@ -148,6 +167,8 @@ and the derived files              phd.ins,
 }
 %%http://tex.stackexchange.com/questions/75055/print-filelist-to-pdf/75064#75064
 %\printFileList
+%
+
 \EnableCrossrefs
 \CodelineIndex
 \RecordChanges
@@ -157,8 +178,8 @@ and the derived files              phd.ins,
 %</driver>
 % \fi
 %
-% \CheckSum{57}
-% \CharacterTable
+%% \CheckSum{200}
+%% \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
 %   Digits        \0\1\2\3\4\5\6\7\8\9
@@ -176,7 +197,7 @@ and the derived files              phd.ins,
 %
 %
 % \changes{1.0}{2013/01/26}{Converted to DTX file}
-%
+% \changes{1.01}{2013/01/27}{Added multicol}
 % \DoNotIndex{\newcommand,\newenvironment}
 % \GetFileInfo{phd.dtx}
 % \providecommand*{\url}{\texttt}
@@ -264,6 +285,40 @@ and the derived files              phd.ins,
 %\end{tabular}
 %\end{tcolorbox}
 %
+% \section{Version control with Git and Github}
+% What is the difference between Git and GitHub?
+%git is a version control, system think of it as a series of snapshots (commits) of your code. You see 
+%a path of this snapshots, in which order they where created. You can make branches to experiment and come back to snapshots you took.
+%GitHub, is a web-page on which you can publish your git repositories and collaborate with other people.
+%
+%Is git saving every repository locally (in the user's machine) and in GitHub?
+%
+%No, it's only local. You can decide to push (publish) some branches on GitHub.
+%
+%Can you use Git without GitHub? If yes, what would be the benefit for using GitHub?
+%
+%Yes, it runs local. You could back it up with dropbox
+%
+%How does Git compare to a backup system such as Time Machine?
+%
+%It's a different thing, git lets you track changes and your development process. If you use git with GitHub, it becomes effectively a backup. However usually you would not push all the time to GitHub, at which point you do not have a full backup if things go wrong. I use git in a folder that is synchronized with dropbox.
+%
+%Is this a manual process, in other words if you don't commit you wont have a new version of the changes made?
+%
+%Yes, commiting and pushing are both manual.
+%
+%If are not collaborating and you are already using a backup system why would you use Git?
+%
+%You program worked. You developed more, your program does not work. git diff, shows you the difference between the current code and the last working commit.
+%
+%Or you just go back to the last working
+%
+%You want to try a change, but are not sure it really will work. You create a branch, test you code change. If it works fine, you merge it to the main branch. If it does not you throw the branch away and go back to the main branch.
+%
+%You did some debugging. Before you commit you always look at the changes from the last commit. You see your debug print statement that you forgot to delete.
+%
+%Make sure you check gitimmersion.com.
+% 
 % \StopEventually{}
 
 %<*package>
@@ -275,9 +330,19 @@ and the derived files              phd.ins,
 [1994/12/01]% LaTeX date must be December 1994 or later
 \ProvidesPackage{phd}[2013/01/26 v1.0 useful utilities]
 %    \end{macrocode}
-
-
-
+%    
+% \section{Good practices} 
+% We load a few packages for fixes and errors and nagg if outdated packages are used.
+% Modify to suit your requirements.  
+% \url{http://tex.stackexchange.com/questions/19264/techniques-and-packages-to-keep-up-with-good-practices?rq=1}
+%    \begin{macrocode}
+\RequirePackage[l2tabu,orthodox]{nag}% Old habits die hard. All the same, there are
+                                     % commands, classes and packages which are 
+                                     % outdated and superseded. nag provides routines
+                                     % to warn the user about the use of those.
+\RequirePackage{fixltx2e}
+\RequirePackage[all,error]{onlyamsmath}  % Error on deprecated math commands like $$ $$.
+%    \end{macrocode}
 % \subsection{Call some other packages}
 % We need to use the pgf, overpic, picture, xcolor and ragged2e packages.
 %    \begin{macrocode}
@@ -311,6 +376,7 @@ and the derived files              phd.ins,
 \RequirePackage{dcolumn}
 \RequirePackage{longtable}
 \RequirePackage{colortbl}
+\RequirePackage{multirow}
 \newcounter{step}
 \def\resetinc{\setcounter{step}{0}}
 \def\inc{\stepcounter{step}\thestep}
@@ -321,7 +387,7 @@ and the derived files              phd.ins,
 % We load the package |graphicx| with no options. We let |graphicx|, to 
 % handle any draft options via the class itself. We load the package |caption|
 % for any captions outside floats. (Needs checking where to place).
-% \href{test}{http://tex.stackexchange.com/questions/3131/graphicspath-for-miktex} check
+% \href{http://tex.stackexchange.com/questions/3131/graphicspath-for-miktex}{graphicspath for MikTeX} check
 % adds figures etc to paths
 %    \begin{macrocode}
 \RequirePackage{graphicx}
@@ -362,16 +428,11 @@ and the derived files              phd.ins,
 \RequirePackage{textcomp}
 %    \end{macrocode}
 
-% \section{Highlighting}
-
-%    \begin{macrocode}
-\RequirePackage{soul}
-%    \end{macrocode}
 %
 % \section{Color Definitions}
 %    \begin{macrocode}
 \definecolor{green}{rgb}{0.1,0.1,0.1}
-\newcommand{\done}{\cellcolor{teal}done}  %{0.9}
+\newcommand{\done}{\cellcolor{teal}done}  
 \newcommand{\partialdone}{\cellcolor{yellow}done}
 \newcommand{\hcyan}[1]{{\color{teal} #1}}
 %    \end{macrocode}
@@ -438,7 +499,7 @@ ProvidesClass,IfFileExists,RequirePackage,ifthenelse,chapter,includegraphics, ne
       commentstyle=\color{black},
       rulecolor=\color{theshade},
       breakatwhitespace=true,
-     showspaces=false, 
+      showspaces=false, 
       xleftmargin=0pt,
       xrightmargin=5pt,
       aboveskip=3pt plus1pt minus1pt, 
@@ -543,7 +604,18 @@ ProvidesClass,IfFileExists,RequirePackage,ifthenelse,chapter,includegraphics, ne
 %    \begin{macrocode}
 \RequirePackage{multicol}
 \RequirePackage[toc]{multitoc}
-%    \end{macrocode}    
+%    \end{macrocode} 
+%    
+% \section{Common packages for Typography}
+% We load package for typography
+%    \begin{macrocode}
+\RequirePackage{ragged2e}
+%    \end{macrocode}
+% \subsection{Highlighting}
+%    \begin{macrocode}
+\RequirePackage{soul}
+%    \end{macrocode}  
+%          
 %\iffalse
 %</package>
 %\fi
