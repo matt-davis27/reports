@@ -245,6 +245,15 @@ and the derived files              phd.ins,
 % \LaTeX \textsc{docstrip} utility which enables the automatic
 % extraction of the \LaTeX{} macro source files~\cite{GOOSSENS94}.
 %
+% \section{Ordering of Packages}
+% \href{http://tex.stackexchange.com/questions/96350/problem-with-algorithmic-and-hyperref}{problem with algorithmic and hyperref}
+% \begin{verbatim}
+%\usepackage{float}  % load float package first!
+%
+%\usepackage{hyperref} % let hyperref patch the float package stuff
+%.
+% \usepackage{algorithm} % let algorithm use the patched version of the float package
+% \end{verbatim}
 % \section{Conventions}
 % \subsection{Defining Colors}
 % All color definitions are of the form |the<color>|. So the setting for |theblue| is called
