@@ -20,24 +20,34 @@
 \NeedsTeXFormat{LaTeX2e}% LaTeX 2.09 can't be used (nor non-LaTeX)
 [1994/12/01]% LaTeX date must be December 1994 or later
 \ProvidesPackage{phd}[2013/2/26 v1.0 less preamble (YL)]
-\RequirePackage[l2tabu,orthodox]{nag} % Old habits die hard. All the same, there are
-                                      % commands, classes and packages which are
-                                      % outdated and superseded. nag provides routines
-                                      % to warn the user about the use of those.
-\RequirePackage{fixltx2e}
-\RequirePackage[all,error]{onlyamsmath}  % Error on deprecated math commands like $$ $$.
-\RequirePackage{pgf}[2008/01/15]
-\RequirePackage{overpic}
-\RequirePackage{picture}
-\RequirePackage{xcolor}
+
+\RequirePackage{fixltx2e}                % LaTeX2e fixes
+\RequirePackage[l2tabu, orthodox]{nag}   % Old habits die hard. All the same, there are
+                                                               % commands, classes and packages which are
+                                                               % outdated and superseded. nag provides routines
+                                                               % to warn the user about the use of those.
+
+\RequirePackage[all, error]{onlyamsmath}  % Error on deprecated math commands like $$ $$.
+\RequirePackage{graphicx}
+\setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio}
+\graphicspath{{graphics/}{graphics//}{images//}{./graphics/}{../graphics/}}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\@ifpackageloaded{xcolor}{}%
+ {\RequirePackage[fixpdftex, xtable, usenames, dvipsnames,
+                    svgnames, x11names]{xcolor}}
+
 \definecolor{theblue} {rgb}{0.02,0.04,0.48}
 \definecolor{thered}  {rgb}{0.65,0.04,0.07}
 \definecolor{thegreen}{rgb}{0.06,0.44,0.08}
 \definecolor{thegrey} {gray}{0.5}
 \definecolor{theshade}{gray}{0.94}
 \definecolor{theframe}{gray}{0.75}
+\RequirePackage{pgf}[2008/01/15]
+\newcommand{\done}{\cellcolor{teal}done}
+\newcommand{\partialdone}{\cellcolor{yellow}done}
+\newcommand{\hcyan}[1]{{\color{teal} #1}}
 
-\RequirePackage{ragged2e}
 \RequirePackage{lipsum}
 \RequirePackage{booktabs}
 \RequirePackage{tabularx}
@@ -48,11 +58,7 @@
 \newcounter{step}
 \def\resetinc{\setcounter{step}{0}}
 \def\inc{\stepcounter{step}\thestep}
-\RequirePackage{graphicx}
-\setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio}
-\graphicspath{{graphics/}{graphics//}{images//}{./graphics/}{../graphics/}}
-\usepackage{wrapfig}
-\usepackage{rotating}
+
 
 \newcommand*{\savesymbol}[1]{%
   \expandafter\let\csname orig#1\expandafter\endcsname\csname#1\endcsname
@@ -97,7 +103,7 @@
 \newcommand{\IfStyFileExists}{%
   \@ifstar{\if@sty@file@exists@star}{\if@sty@file@exists}%
 }
-\RequirePackage{filecontents}
+
 \RequirePackage{amsfonts}[2009/06/22]
 \RequirePackage{amsmath}[2000/07/18]
 \RequirePackage{amssymb}[2002/01/22]
@@ -133,11 +139,12 @@
 \IfStyFileExists{pifont}
   {\PItrue\usepackage{pifont}}
   {}
+
 \newif\ifMARV
 \newcommand\MARV{\pkgname{marvosym}}
-\makeatletter
 \IfStyFileExists*{marvosym}
-  {\RequirePackage{marvosym}[2000/05/01]  % Major rewrite at this version.
+  {\savesymbol{CheckedBox}
+   \RequirePackage{marvosym}[2000/05/01]  % Major rewrite at this version.
    \global\MARVtrue
    \@ifundefined{Denarius}            % \Denarius is a newer symbol.
      {\global\MARVfalse}
@@ -163,6 +170,7 @@
    \restoresymbol{ding}{Cross} \restoresymbol{ding}{Square}
   }
   {}
+
 \newif\ifUTILD
 \newcommand\UTILD{\pkgname{undertilde}}
 \IfStyFileExists{undertilde}
@@ -191,10 +199,7 @@
   }
   {}
 
-\definecolor{green}{rgb}{0.1,0.1,0.1}
-\newcommand{\done}{\cellcolor{teal}done}
-\newcommand{\partialdone}{\cellcolor{yellow}done}
-\newcommand{\hcyan}[1]{{\color{teal} #1}}
+
 \RequirePackage{epigraph}
 %% Set up the epigraph to be a bit wider
 \setlength{\epigraphwidth}{8cm}
@@ -204,6 +209,7 @@
   \sisetup{fixed-exponent =0,
            scientific-notation = false}
 \RequirePackage{numprint} % only for formatting large numbers?
+\RequirePackage{filecontents}
 \RequirePackage{changepage}
 \RequirePackage{keyval}
 \RequirePackage{ifmtarg}
@@ -322,7 +328,6 @@ ProvidesClass,IfFileExists,RequirePackage,ifthenelse,chapter,includegraphics, ne
 \setcounter{bottomnumber}{9}
 \setcounter{totalnumber}{20}
 \setcounter{dbltopnumber}{9}
-
 %% 
 %% Copyright (C) 2011 by Dr. Yiannis Lazarides <yannislaz@gmail.com>
 %% 

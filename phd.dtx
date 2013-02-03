@@ -79,6 +79,11 @@ and the derived files              phd.ins,
   \file{MWE-02.tex}{\from{\jobname.dtx}{MWE-02}}
   \file{MWE-03.tex}{\from{\jobname.dtx}{MWE-03}}
 }
+\generate{
+  \file{test-tufte.tex}{\from{\jobname.dtx}{test-tufte}}
+  \file{test-memoir.tex}{\from{\jobname.dtx}{test-memoir}}
+  \file{test-scrartcl.tex}{\from{\jobname.dtx}{test-scrartcl}}
+ }
 %</install>
 %<install>\endbatchfile
 %<*internal>
@@ -148,7 +153,8 @@ and the derived files              phd.ins,
 %\newcommand*{\file}[1]{\texttt{#1}}
 \newcommand*{\pkg}[1]{\texttt{#1}}
 %\usepackage[numbered]{hypdoc}
-\definecolor{lstbgcolor}{rgb}{0.9,0.9,0.9} 
+\definecolor{lstbgcolor}{rgb}{0.9,0.9,0.9}
+ 
  \usepackage{fancyvrb}
 \newcommand*{\Lpack}[1]{\textsf {#1}}           
 \newenvironment{example}
@@ -236,16 +242,34 @@ and the derived files              phd.ins,
 % \listoffigures
 % }
 % 
-% 
-% 
 % \section{Introduction}
-%
+% 
+% It is quite common during the writing of a thesis or book
+% for the author to keep on adding macros and packages
+% at the pre-amble of the document. In most cases this can
+% be satisfactory but in many others it leads to
+% incompatibilities and errors. This package aims at
+% minimizing one's preamble, by prefetching a number of
+% commonly used packages. It also aims at loading them
+% in the right order and providing patches for some of them.
+% 
+% I am hoping that using this package, will lead to less
+% frustrations with the intricacies of LaTeXe packages.
+% 
+% \input{packages-table}
+% 
+% \section{Ordering of Packages}
+% 
+% One package that normally leads to errors is the 
+% |hyperref|. As a lot of internal commands of the kernel
+% and of some packages it has to be loaded at the end
+% of the preable with the exception of some packages! 
 % 
 % This manual is typeset according to the conventions of the
 % \LaTeX \textsc{docstrip} utility which enables the automatic
 % extraction of the \LaTeX{} macro source files~\cite{GOOSSENS94}.
 %
-% \section{Ordering of Packages}
+% 
 % \href{http://tex.stackexchange.com/questions/96350/problem-with-algorithmic-and-hyperref}{problem with algorithmic and hyperref}
 % \begin{verbatim}
 %\usepackage{float}  % load float package first!
@@ -346,41 +370,86 @@ and the derived files              phd.ins,
 %    \end{macrocode}
 %    
 % \section{Best practices} 
+% 
 % We load a few packages for fixes and errors and |nag| if outdated packages are used.
 % Modify to suit your requirements.  
+% Package management is a bit complex to avoid errors
+% with options.
+%To find out if a package has already been loaded, use
+%|\@ifpackageloaded|\meta{package}\meta{true}\meta{false}.
+%|\@ifpackagelater| To find out if a package has already been loaded with a version more recent
+%|\@ifclasslater| than hversioni, use |\@ifpackagelater|\meta{hpackagei}\meta{hversioni}\meta{htruei}\meta{hfalsei}.
+%|\@ifpackagewith| To find out if a package has already been loaded with at least the options
+%hoptionsi, use |\@ifpackagewith|\meta{hpackagei}\meta{hoptionsi}\meta{htruei}\meta{hfalsei}. 
+%There exists one package that can't be tested with the above commands: the
+%fontenc package pretends that it was never loaded to allow for repeated reloading
+%with different options (see ltoutenc.dtx for details).
+
 % \url{http://tex.stackexchange.com/questions/19264/techniques-and-packages-to-keep-up-with-good-practices?rq=1}
 % and \href{http://stackoverflow.com/questions/193298/best-practices-in-latex}{best practices in LaTeX.}
 %    \begin{macrocode}
-\RequirePackage[l2tabu,orthodox]{nag} % Old habits die hard. All the same, there are
-                                      % commands, classes and packages which are 
-                                      % outdated and superseded. nag provides routines
-                                      % to warn the user about the use of those.
-\RequirePackage{fixltx2e}
-\RequirePackage[all,error]{onlyamsmath}  % Error on deprecated math commands like $$ $$.
+\RequirePackage{fixltx2e}                % LaTeX2e fixes
+\RequirePackage[l2tabu, orthodox]{nag}   % Old habits die hard. All the same, there are
+                                                               % commands, classes and packages which are 
+                                                               % outdated and superseded. nag provides routines
+                                                               % to warn the user about the use of those.
+
+\RequirePackage[all, error]{onlyamsmath}  % Error on deprecated math commands like $$ $$.
 %    \end{macrocode}
 % \subsection{Call some other packages}
-% We need to use the pgf, overpic, picture, xcolor and ragged2e packages.
+% 
+% \section{Graphics}
+% 
+% We load the package |graphicx| with no options. We let |graphicx|, to 
+% handle any draft options via the class itself. We load the package |caption|
+% for any captions outside floats. (Needs checking where to place).
+% \href{http://tex.stackexchange.com/questions/3131/graphicspath-for-miktex}{graphicspath for MikTeX} check
+% adds figures etc to paths
+% 
 %    \begin{macrocode}
-\RequirePackage{pgf}[2008/01/15]
-\RequirePackage{overpic}
-\RequirePackage{picture}
-\RequirePackage{xcolor}
+\RequirePackage{graphicx}
+\setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio}
+\graphicspath{{graphics/}{graphics//}{images//}{./graphics/}{../graphics/}}
+\usepackage{wrapfig}
+\usepackage{rotating}
+%    \end{macrocode} 
+% 
+% \section{Color Management}
+% Most classes load the |xcolor| package, including
+% it here, should either be able to check if it was 
+% loaded by the class or to pass the options before
+% the class itself.
+%    \begin{macrocode}
+\@ifpackageloaded{xcolor}{}%
+ {\RequirePackage[fixpdftex, xtable, usenames, dvipsnames,  
+                    svgnames, x11names]{xcolor}}
+
 \definecolor{theblue} {rgb}{0.02,0.04,0.48}
 \definecolor{thered}  {rgb}{0.65,0.04,0.07}
 \definecolor{thegreen}{rgb}{0.06,0.44,0.08}
 \definecolor{thegrey} {gray}{0.5}
 \definecolor{theshade}{gray}{0.94}
 \definecolor{theframe}{gray}{0.75}
-
-\RequirePackage{ragged2e}
+\RequirePackage{pgf}[2008/01/15]
+%    \end{macrocode}
+% 
+%    \begin{macrocode}
+\newcommand{\done}{\cellcolor{teal}done}  
+\newcommand{\partialdone}{\cellcolor{yellow}done}
+\newcommand{\hcyan}[1]{{\color{teal} #1}}
 %    \end{macrocode}
 % \section{Lipsum}
-% The package |lipsum| is used to create nonsense text, for testing purposes.
+% In publishing and graphic design, lorem ipsum is placeholder text (filler text) commonly used to demonstrate the graphics elements of a document or visual presentation, such as font, typography, and layout, by removing the distraction of meaningful content. The lorem ipsum text is typically a section of a Latin text by Cicero with words altered, added and removed that make it nonsensical in meaning and not proper Latin. Other packages exist such as |kantlipsum| and |blindtext|, however,
+%both result in somewhat legible texts, which defeats the purpose of providing texts that the reader is not going to read. the extensions |lipsumx| aim at
+%providing a gap between the three packages. It provides extensions
+% for full document testing.
+
 %    \begin{macrocode}
 \RequirePackage{lipsum}
 %    \end{macrocode}
 %
 % \section{tables}
+% 
 % \begin{macro}{\inc}
 % \begin{macro}{\resetinc}
 % It is highly unlikely that a publication, would not have a table
@@ -398,21 +467,11 @@ and the derived files              phd.ins,
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
-% \section{Graphics}
-% We load the package |graphicx| with no options. We let |graphicx|, to 
-% handle any draft options via the class itself. We load the package |caption|
-% for any captions outside floats. (Needs checking where to place).
-% \href{http://tex.stackexchange.com/questions/3131/graphicspath-for-miktex}{graphicspath for MikTeX} check
-% adds figures etc to paths
-%    \begin{macrocode}
-\RequirePackage{graphicx}
-\setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio}
-\graphicspath{{graphics/}{graphics//}{images//}{./graphics/}{../graphics/}}
-\usepackage{wrapfig}
-\usepackage{rotating}
-%    \end{macrocode}
+% 
+
 %    
-% \section{Package Management}    
+% \section{Package Management} 
+%    
 % Each of the packages used by this document is loaded conditionally.
 % However, it might be nice to know if we have a complete set.  So we
 % define |\ifcomplete| which starts true, but gets set to false if any
@@ -512,12 +571,7 @@ and the derived files              phd.ins,
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
-% \section{filecontents}
-% We ue the filecontents package, to open and write files on disk on the fly.
-% See the sample manual as to how to use.
-%    \begin{macrocode}
-\RequirePackage{filecontents}
-%    \end{macrocode}
+
 %
 % \section{Maths}
 %    \begin{macrocode}
@@ -570,6 +624,8 @@ and the derived files              phd.ins,
   {\PItrue\usepackage{pifont}}
   {}  
 %    \end{macrocode}
+
+
 %    
 % marvosym underwent a major rewrite for the 2000/05/01 version, adding
 % a large number of new symbols.  If it looks like we have only the
@@ -577,9 +633,9 @@ and the derived files              phd.ins,
 %    \begin{macrocode}  
 \newif\ifMARV
 \newcommand\MARV{\pkgname{marvosym}}
-\makeatletter
 \IfStyFileExists*{marvosym}
-  {\RequirePackage{marvosym}[2000/05/01]  % Major rewrite at this version.
+  {\savesymbol{CheckedBox}
+   \RequirePackage{marvosym}[2000/05/01]  % Major rewrite at this version.
    \global\MARVtrue
    \@ifundefined{Denarius}            % \Denarius is a newer symbol.
      {\global\MARVfalse}
@@ -589,8 +645,7 @@ and the derived files              phd.ins,
      {}
   }
   {}
-  
-  
+
 %    \end{macrocode}
 % 
 %    \begin{macrocode}       
@@ -610,6 +665,8 @@ and the derived files              phd.ins,
   }
   {}
 %    \end{macrocode}
+
+
 %    
 % \subsection{The \texttt{undertilde} package}      
 %    \begin{macrocode}    
@@ -645,14 +702,9 @@ and the derived files              phd.ins,
 % The |ifsym| package can produce some fancy symbols such as \Cube{1},\Cube{6} etc.
 %                    
 %    \[ \utilde{aqqbqqcqq} \]
-%    
-% \section{Color Definitions}
-%    \begin{macrocode}
-\definecolor{green}{rgb}{0.1,0.1,0.1}
-\newcommand{\done}{\cellcolor{teal}done}  
-\newcommand{\partialdone}{\cellcolor{yellow}done}
-\newcommand{\hcyan}[1]{{\color{teal} #1}}
-%    \end{macrocode}
+
+
+
 % \section{Epigraphs and quotations}
 % \subsection{Epigraphs}
 %    \begin{macrocode}
@@ -669,7 +721,13 @@ and the derived files              phd.ins,
            scientific-notation = false}
 \RequirePackage{numprint} % only for formatting large numbers?
 %    \end{macrocode}
-%    
+% 
+% \section{filecontents}
+% We ue the filecontents package, to open and write files on disk on the fly.
+% See the sample manual as to how to use.
+%    \begin{macrocode}
+\RequirePackage{filecontents}
+%    \end{macrocode}   
 %    
 % \section{Utilities for programming}
 % The below packages offer some good utilities that you may find useful, if you are
@@ -932,7 +990,6 @@ ProvidesClass,IfFileExists,RequirePackage,ifthenelse,chapter,includegraphics, ne
 % \iffalse  
 %</MWE-02>
 % \fi
-
 % 
 % \subsection{Listings MWE-03}
 % 
@@ -964,6 +1021,50 @@ ProvidesClass,IfFileExists,RequirePackage,ifthenelse,chapter,includegraphics, ne
 %</MWE-03>
 % \fi
 % 
+% \iffalse
+%<*test-tufte>
+% \fi
+%    \begin{macrocode}
+% clashes with options
+\documentclass{tufte-book}
+\usepackage{phd}
+\begin{document}
+\lipsum[1]
+\end{document}
+%    \end{macrocode}
+% \iffalse  
+%</test-tufte>
+% \fi
+%
+% \iffalse
+%<*test-memoir>
+% \fi
+%    \begin{macrocode}
+% clashes with options
+\documentclass{memoir}
+\usepackage{phd}
+\begin{document}
+\lipsum[1]
+\end{document}
+%    \end{macrocode}
+% \iffalse  
+%</test-memoir>
+% \fi
+%
+%\iffalse
+%<*test-scrartcl>
+% \fi
+%    \begin{macrocode}
+% clashes with options
+\documentclass{scrartcl}
+\usepackage{phd}
+\begin{document}
+\lipsum[1]
+\end{document}
+%    \end{macrocode}
+% \iffalse  
+%</test-scrartcl>
+% \fi
 % ^^A\addtocontents{toc}{\protect\end{multicols}}
 % \Finale
 % \PrintIndex
