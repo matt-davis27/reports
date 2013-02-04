@@ -336,6 +336,12 @@ ProvidesClass,IfFileExists,RequirePackage,ifthenelse,chapter,includegraphics, ne
 \newcommand\startlineat[1]{\lstset{firstnumber=#1}}
 \let\numberlineat\startlineat
 \let\startnumberat\numberlineat
+\newif\ifALGORITHM
+\@ifpackageloaded{hyperref}{%
+  \RequirePackage{algorithms}
+ }
+ {\typeout{Algorithm loaded}}
+\RequirePackage{algorithm2e}
 \RequirePackage{multicol}
 \RequirePackage[toc]{multitoc}
 \RequirePackage{ragged2e}
@@ -485,8 +491,8 @@ ProvidesClass,IfFileExists,RequirePackage,ifthenelse,chapter,includegraphics, ne
 %% 
 %% This work consists of the file  phd.dtx
 %% and the derived files              phd.ins,
-%%                                            phd.pdf, and
-%%                                            phd.sty.
+%%                                    phd.pdf, and
+%%                                    phd.sty.
 %% 
 %%
 %% End of file `phd.sty'.
