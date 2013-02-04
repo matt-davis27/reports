@@ -1,0 +1,605 @@
+\documentclass[oneside]{tufte-book}
+\usepackage{lipsum}
+\usepackage{personnel}
+\usepackage{fancyhdr}
+
+\usepackage{graphics}
+\usepackage{booktabs}
+\usepackage{intcalc}
+\usepackage{soul}
+\usepackage{microtype}
+
+
+\def\Z{\phantom{Z}}
+
+%%totalizers
+\newcounter{grandtotal} \addtocounter{grandtotal}{0}
+\newcounter{tsup} \addtocounter{tsup}{0}
+
+%%Management
+\newcounter{pdirector} \addtocounter{pdirector}{0}
+\newcounter{pmanager} \addtocounter{pmanager}{0}
+\newcounter{commercialmanager} \addtocounter{commercialmanager}{0}
+\newcounter{designmanager} \addtocounter{designmanager}{0}
+
+
+%%CAD Management
+\newcounter{cadmanager} \addtocounter{cadmanager}{0}
+
+
+%% Mechanical Disciplines
+\newcounter{mech} \addtocounter{mech}{0}
+\newcounter{fire} \addtocounter{fire}{0}
+\newcounter{drainage} \addtocounter{drainage}{0}
+
+
+%% QA/QC
+\newcounter{qaqc} \addtocounter{qaqc}{0}
+
+
+\newcounter{elec} \addtocounter{elec}{0}
+\newcounter{over} \addtocounter{over}{0}
+\newcounter{cadmech} \addtocounter{cadmech}{0}
+\newcounter{cadelec} \addtocounter{cadelec}{0}
+\newcounter{qs} \addtocounter{qs}{0}
+\newcounter{accounts} \addtocounter{accounts}{0}
+\newcounter{admin} \addtocounter{admin}{0}
+\newcounter{procurement} \addtocounter{procurement}{0}
+\newcounter{planning} \addtocounter{planning}{0}
+\newcounter{safetyofficer} \addtocounter{safetyofficer}{0}
+%% Supervision
+\newcounter{seniorsupervisormechanical} \addtocounter{seniorsupervisormechanical}{0}
+
+\newcounter{seniorsupervisorelectrical} \addtocounter{seniorsupervisorelectrical}{0}
+
+\newcounter{foremanelectrical} \addtocounter{foremanelectrical}{0}
+\newcounter{foremanmechanical} \addtocounter{foremanmechanical}{0}
+\newcounter{foremanplumbing} \addtocounter{foremanplumbing}{0}
+\newcounter{foremanducting} \addtocounter{foremanducting}{0}
+\newcounter{foremanpiping} \addtocounter{foremanpiping}{0}
+
+\newcounter{acmechanic} \addtocounter{acmechanic}{0}
+
+
+\newcounter{supervisorelectrical} \addtocounter{supervisorelectrical}{0}
+\newcounter{supervisormechanical} \addtocounter{supervisormechanical}{0}
+\newcounter{supervisorducting} \addtocounter{supervisorducting}{0}
+\newcounter{supervisorplumbing} \addtocounter{supervisorplumbing}{0}
+
+\newcounter{electrician} \addtocounter{electrician}{0}
+
+
+
+
+%% Inc
+\def\incGrand{\addtocounter{grandtotal}{1}}%
+
+\def\incMech{\addtocounter{mech}{1}}%
+\def\incElec{\addtocounter{elec}{1}}%
+\def\incOver{\addtocounter{over}{1}}%
+\def\incCADMech{\addtocounter{cadmech}{1}}
+\def\incCADElec{\addtocounter{cadelec}{1}}
+\def\incQS{\addtocounter{qs}{1}}
+\def\incAccounts{\addtocounter{accounts}{1}}
+\def\incAdmin{\addtocounter{admin}{1}}
+\def\incProcurement{\addtocounter{procurement}{1}}
+\def\incFire{\addtocounter{fire}{1}}
+\def\incDrainage{\addtocounter{drainage}{1}}
+\def\incQA{\addtocounter{qaqc}{1}}
+\def\incPM{\addtocounter{pmanager}{1}}
+\def\incCADManager{\addtocounter{cadmanager}{1}}
+\def\incSeniorSupervisorMechanical{\addtocounter{seniorsupervisormechanical}{1}}
+\def\incSeniorSupervisorElectrical{\addtocounter{seniorsupervisorelectrical}{1}}
+\def\incForemanElec{\addtocounter{foremanelectrical}{1}}
+\def\incForemanMech{\addtocounter{foremanmechanical}{1}}
+\def\incForemanPlumbing{\addtocounter{foremanplumbing}{1}}
+\def\incForemanDucting{\addtocounter{foremanducting}{1}}
+\def\incSupervisorElec{\addtocounter{supervisorelectrical}{1}}
+\def\incSupervisorMech{\addtocounter{supervisormechanical}{1}}
+\def\incSupervisorDucting{\addtocounter{supervisorducting}{1}}
+\def\incSupervisorPlumbing{\addtocounter{supervisorplumbing}{1}}
+\def\incForemanPiping{\addtocounter{foremanpiping}{1}}
+
+\def\incCommercialManager{\addtocounter{commercialmanager}{1}}
+\def\incPlanning{\addtocounter{planning}{1}}
+\def\incACMechanic{\addtocounter{acmechanic}{1}}
+\def\incDesignManager{\addtocounter{designmanager}{1}}
+\def\incSafetyOfficer{\addtocounter{safetyofficer}{1}}
+\def\incDirector{\addtocounter{pdirector}{1}}
+\def\incSup{\addtocounter{tsup}{1}}
+\def\incElectrician{\addtocounter{electrician}{1}}
+
+
+
+%% Colors
+\def\DefaultMechColor{black}
+\def\DefaultElecColor{black}
+\def\DefaultAdminColor{black}
+
+
+%% Engineers
+\def\addElec#1{\textcolor{\DefaultElecColor}{#1}(Elec Eng)\incElec \incGrand}
+\def\addMech#1{\textcolor{\DefaultMechColor}{#1}(Mech Eng)\incMech \incGrand}
+\def\addFire#1{\textcolor{\DefaultMechColor}{#1}(Fire Prot. Eng)\incFire \incGrand}
+\def\addPlumb#1{\textcolor{\DefaultMechColor}{#1}(Plumbing Eng)\incDrainage \incGrand}
+\def\addQA#1{\textcolor{\DefaultMechColor}{#1}(QA/QC)\incQA \incGrand}
+
+%% CAD Mechanical
+\def\addCADMech#1{\textcolor{blue}{#1}(CAD Mech) \incCADMech \incGrand}
+\def\addCADElec#1{\textcolor{magenta}{#1}(CAD Elec) \incCADElec \incGrand}
+
+%% CAD Management
+\def\addCADManager#1{\textcolor{magenta}{#1}(CAD Manager) \incCADManager \incGrand}
+
+
+%% QS staff
+\def\addQS#1{\textcolor{\DefaultAdminColor}{#1}(QS) \incQS \incGrand}
+
+%%Planning
+\def\addPlanningEngineer#1{\textcolor{magenta}{#1}(Planning Engineer) \incPlanning \incGrand}
+
+%% Safety department
+\def\addSafetyOfficer#1{\textcolor{\DefaultMechColor}{#1}(Safety Officer) \incSafetyOfficer \incGrand}
+
+%% Accounts Staff
+\def\addAccounts#1{\textcolor{\DefaultAdminColor}{#1}(Accounts) \incAccounts \incGrand}
+
+%% Define admin staff
+\def\addAdmin#1{\textcolor{\DefaultAdminColor}{#1}(Admin) \incAdmin \incGrand }
+
+%% Define Procurement Staff
+\def\addProc#1{\textcolor{magenta}{#1}(Procurement) \incProcurement \incGrand }
+
+%% Project Management
+\def\addDirector#1{\textcolor{\DefaultMechColor}{#1} (Project Director) \incDirector \incGrand }
+\def\addPM#1{\textcolor{magenta}{#1}(Project Manager) \incPM \incGrand }
+\def\addCommercialManager#1{\textcolor{magenta}{#1}(Commercial Manager) \incCommercialManager \incGrand }
+\def\addDesignManager#1{\textcolor{\DefaultElecColor}{#1}(Snr Design Manager) \incDesignManager \incGrand}
+
+
+%% Supervision
+%% Supervisors
+%%
+%% We now define all the supervisors
+%
+\def\addSeniorSupervisorMechanical#1{\textcolor{\DefaultMechColor}{#1}(Senior Supervisor Mechanical) \incSeniorSupervisorMechanical \incGrand \incSup}
+
+\def\addSeniorSupervisorElectrical#1{\textcolor{\DefaultElecColor}{#1}(Senior Supervisor Electrical) \incSeniorSupervisorElectrical \incGrand \incSup}
+
+\def\addForemanElec#1{\textcolor{\DefaultElecColor}{#1}(Electrical Foreman) \incForemanElec\incGrand \incSup}
+
+\def\addForemanMech#1{\textcolor{\DefaultMechColor}{#1}(Mechanical Foreman) \incForemanMech\incGrand \incSup}
+
+\def\addForemanPlumbing#1{\textcolor{\DefaultMechColor}{#1}(Plumbing Foreman) \incForemanPlumbing \incGrand \incSup }
+
+\def\addForemanDucting#1{\textcolor{\DefaultMechColor}{#1}(Plumbing Foreman) \incForemanDucting \incGrand \incSup }
+
+\def\addForemanPiping#1{\textcolor{\DefaultMechColor}{#1}(Piping Foreman) \incForemanPiping \incGrand \incSup}
+
+\def\addACMechanic#1{\textcolor{\DefaultMechColor}{#1}(AC Foreman) \incForemanMech \incGrand \incSup}
+
+\def\addSupervisorElec#1{\textcolor{\DefaultElecColor}{#1}(Electrical Supervisor) \incSupervisorElec \incGrand \incSup}
+
+\def\addSupervisorMech#1{\textcolor{\DefaultMechColor}{#1}(Mechanical Supervisor) \incSupervisorMech \incGrand \incSup}
+
+\def\addSupervisorDucting#1{\textcolor{\DefaultMechColor}{#1}(Ducting Supervisor) \incSupervisorDucting \incGrand \incSup}
+
+\def\addSupervisorPlumbing#1{\textcolor{\DefaultMechColor}{#1}(Plumbing Supervisor) \incSupervisorPlumbing \incGrand \incSup}
+
+
+%% Technicians
+%% Add technician
+%% Technicians are broadly added by category
+%% Maintenance of this without a front end can be problematic
+%% Thinking a bit more for this is necessary
+
+\def\addElectrician#1{#1 (Electrician) \incElectrician \incGrand }
+
+
+\def\hl#1{#1}
+\begin{document}
+
+
+\chapter{Site Organization}
+\newthought{The current organization chart} is shown below. The chart shows all staff up to supervisor level. From charge-hand and below they are summarized in Tables \ref{manpower1} and \ref{manpower2} \sidenote{Names in  highlighted as \textcolor{blue}{\hl{name}} are personnel with a Mechanical background, and \textcolor{magenta}{\hl{name}} with Electrical background. These are expected to stay on until the completion of Commissioning, handover and final accounts. Grayed names are personnel that are expected to be demobilized soon.}. 
+
+
+\bigskip
+
+%% Start drawing Chart
+\dirtree{%
+.1 \addDirector{Y Lazarides}.
+.2 ENGINEERING  COMMISSIONING DOCS DEPARTMENT.
+.3 \addDesignManager{Shadi Alashkar}.
+.4 \addMech{Jabir Chakkumpurauli}.
+.4 \addCADMech{Jacinda Taberdo}.
+.4 \addElec{Glenn Mahtani}. 
+.4 \addCADElec{Ferdinand Cacha}.
+.2 COMMERCIAL. 
+.3 \addCommercialManager{\hl{Warren Harris}}.
+%.4 \addQS{\hl{Tan Yong Oon}}. 
+%.4 \addQS{\hl{Naseeb Rahman}}. 
+%.4 \addQS{\hl{Fazli Farook}}. 
+%.4 \addQS{\hl{August Trecelyn Mallot}}.
+.4 PLANNING.
+%.5 \addPlanningEngineer{\hl{Arwin Alvarez}}. 
+%.5 \addPlanningEngineer{Enamutu Sankaran}.
+.4 ACCOUNTS.
+.5 \addAccounts{\textcolor{Gray}{Mohammed Amin}}. 
+%.5 \addAccounts{\hl{Beena Diwakar}}.
+.2 ADMINISTRATION \& HR.
+.3 \addAdmin{\hl{Ahmad Elzein}}.
+%.4 \addAdmin{\hl{Seraj Ahmad}}.
+.5 \addAdmin{\textcolor{Gray}{Mohammed Farooq Ali Ateeq}} (Network Administrator).
+%.5 \addAdmin{\hl{Marilou Triguero}} (Secretary).
+.5 \addAdmin{\hl{Karthikeyan Punnian}}(Time keeper).
+.5 \addAdmin{\hl{Anil Dinny Mon}} (Time keeper).
+.5 \addAdmin{\textcolor{Gray}{Mohammad Nadeem}}(Ass time-keeper). 
+.4 \addAdmin{\hl{Naser Ahmed}}(Driver).
+%.4 \addAdmin{\hl{Noel Bulaclac}}(Office Assistant).
+.4 DOCUMENT CONTROL.
+%.5 \addAdmin{\hl{Maeclaire Naag}}.
+.5 \addAdmin{\hl{Swami Nath}}.
+.5 \addAdmin{\hl{Khiraj Syed}}.
+.5 \addAdmin{\hl{Vipin Kondayil}}.
+.2 PROCUREMENT.
+.3 \addProc{\hl{Anand Laxminaraya}} (Electrical Engineer). 
+.4 \addProc{\hl{Padmavathiamma Hariharan}}(Procurement Officer).
+%.4 \addProc{\textcolor{Gray}{Ali Sobhi Shour}}.
+%.4 \addProc{\textcolor{Gray}{Gautham Raj}}.
+.4 STORES.
+.5  \addAdmin{\hl{Syed Saleem Pasha}}. 
+.5  \addAdmin{\hl{Kannan Murugesan}} (Store-keeper). 
+.5  \addAdmin{\hl{Mirazuddin Syed}} (Assistant Store keeper). 
+.4  \addAdmin{\hl{Paranjothi Jaganathan}} (Driver). 
+.2 PODIA.
+.3 \addPM{\hl{Rabieh Wehbe}} (Podia).
+.4 \addMech{\hl{Venchito Galvez}} (B1,B2,B3).
+.4 \addMech{\hl{Ritchie Argota}} (GF,L1,L2,L3).
+.4 \addMech{Ashraf Al Masri}.
+.4 \addElec{\hl{Thaha Mahmoud Ammar}}.
+%.5 \addElec{Ali Shawar Taha}.
+.5 \addElec{\hl{Rahul Krishnan}}.
+.5 \addElec{\hl{Rahul Sivaraman}}.
+%.5 \addElec{\hl{Solomon Alphonse}}.
+.4 \addFire{\hl{Jeffrey Magaoay}}.
+%.5 \addFire{\textcolor{Gray}{Satish Pai Kasturi}}.
+.4 \addPlumb{\hl{Sripanthy Nagaraj}}.
+.5 \addPlumb{Velmurugan Annamalai}.
+.3 SAFETY.
+%.4 \addSafetyOfficer{\hl{Sajilal Gopalakrishnan}}.
+%.4 \addSafetyOfficer{\hl{Thomas Francis}}(Junior).
+.2 TOWERS.
+.3 \addPM{\hl{Nidhal Hammadi}}. 
+%.4 \addElec{\textcolor{Gray}{Martiniano Lompot Tan}}.
+%.4 \addElec{\hl{Pedro Jr Zacarias Reyes}}.
+%.4 \addMech{\hl{Irwin Quirong}} (L6,L5,L4).
+%.4 \addMech{\textcolor{Gray}{Varughese Raju}} (demob).
+%.4 \addMech{\textcolor{Gray}{Sobhi Qussini}}.
+.2 COMMISSIONING AND MECH PLANTROOMS.
+.3 \addPM{\textcolor{Gray}{George Georgiou}}(Plantrooms).
+.4 \addMech{\hl{Moideen Kallikatte}}.
+%.4 \addElec{\hl{Nebu Kunjanchan John}}.
+.2 QA/QC.
+.3 \addQA{\hl{Patel Jashvantkumar}} (Senior QA/QC Engineer).
+.4 \addQA{\hl{Justo Laconsay Caliguiran}}.
+%.4 \addMech{\textcolor{Gray}{Laiju Varghese}}.
+.4 \addQA{\hl{Mohammed Siyas}}.
+.2 ENGINEERING OFFICE.
+.3 CADD OFFICE.
+.4 MECHANICAL.
+.5 \addCADManager{\hl{Indra Adnani}} (Chief Draftsman).
+.6 \addCADMech{\hl{Anthony Tiapson}}.
+.6 \addCADMech{\hl{Dhanish Chandran}}.
+.6 \addCADMech{\hl{Sogy George}}.
+.6 \addCADMech{\hl{Jhonas Marquez}}.
+.6 \addCADMech{\hl{Prasad Balakrishnan}}.
+.6 \addCADMech{\textcolor{Gray}{Saleem Purayil}}.
+.6 \addCADMech{\hl{Rogelio Deleon}}.
+.6 \addCADMech{\textcolor{Gray}{Imran Mukadam}}.  
+.6 \addCADMech{\textcolor{Gray}{Rajaian Steephaen}}. 
+.4 ELECTRICAL.
+.5 \addCADManager{\hl{Vipin Kollamparambi}}(Lead{.}Draftsman).
+.6 \addCADElec{\hl{Sundeesh Mohanan}}.
+.6 \addCADElec{\hl{Sujith Sivan}}.
+.6 \addCADElec{\hl{Dhaneesh Kundani}}.
+.6 \addCADElec{\hl{Thyagarajan Polassery}}.
+.6 \addCADElec{\hl{Ghangadharan Kollamparambil}}.
+.6 \addCADElec{\hl{Shineesh Varghese}}.
+%.6 \addCADElec{\textcolor{Gray}{Vijayakumar Narayanan}}.
+.6 PRINTING AND RECORDS.
+%.6 \addAdmin{\hl{Jherico Mejia Lapid}}.
+}
+\pagebreak
+\subsection*{Site Supervision}
+
+\dirtree{%
+.1 ELECTRICAL SUPERVISORS.
+%.2 \addSeniorSupervisorElectrical{\textcolor{Gray}{Loukas Christoforou}}.
+      .5 \addForemanElec{Jacob Mathew}.
+          .6 \addElectrician{Mohhamad Imam}.
+          .6 \addElectrician{Mohammad Tanweer Alam}.
+          .6 \addElectrician{Swapan Bhaumik}.
+          .6 \addElectrician{Laimain Chauhan}.
+          .6 \addElectrician{Vinod Madhusoodanan}.
+          .6 \addElectrician{Vijay Kumar Soni}.
+          .6 \addElectrician{Subrahmanyam Gubbala}.
+          .6 \addElectrician{Ram Babu Angarapu}.
+          .6 \addElectrician{Arun Kumar}.
+          .6 \addElectrician{Samim Mondhal}.
+          .6 \addElectrician{Shyam Sunder}.
+          .6 \addElectrician{Sahabuddin Ansari}.
+          .6 \addElectrician{Primil Joseph}.
+          .6 \addElectrician{Mahendra Kumar}.
+          .6 \addElectrician{Raheem Shaikh}.
+          .6 \addElectrician{Siva Krishna veera malla}.
+          .6 \addElectrician{Sahid Ansari}.
+          .6 \addElectrician{Renjith Raveendran Nair}.
+          .6 \addElectrician{Mohammad Shahabuddin}.
+          .6 \addElectrician{Ayub Ali Nur Mohhamad}.
+      .5 \addForemanElec{Unnikrishna Kurup}.
+          .6 \addElectrician{Ranjan Hira}.
+          .6 \addElectrician{Nabi Khan Noorkhan}.
+          .6 \addElectrician{Md Forhad Hossin}.
+          .6 \addElectrician{Mohsin Hosain Aziaul}.
+          .6 \addElectrician{Mohammad Hushamul Hague}.
+          .6 \addElectrician{Amarjith Singh}.
+          .6 \addElectrician{Noman Alan}.
+          .6 \addElectrician{Rafik Sekh}.
+          .6 \addElectrician{Pritam Singh}.
+          .6 \addElectrician{Madhavan Balachandran}.
+          .6 \addElectrician{Kushwaha Dilip Kumar}.
+      .5 \addForemanElec{Mohannan Pillai}.
+         .6 \addElectrician{Iftikar Faiz Darekhan}.
+         .6 \addElectrician{Stalin Alby Joris}.
+         .6 \addElectrician{Senthilkumar Uthirapathi}.
+         .6 \addElectrician{Rex Anthony Lazer}.
+         .6 \addElectrician{Yousef Syed}.
+         .6 \addElectrician{Rajesh Kumar}.
+	    .6 \addElectrician{Muqeed Mohammad}.
+         .6 \addElectrician{Thonthali Velumani}.
+         .6 \addElectrician{Mathivanan Ayyasamy}.
+         .6 \addElectrician{Baraneeswaran Mahadevan}.
+         .6 \addElectrician{Ponnappan Kamaraj}.
+         .6 \addElectrician{Jagdish Lal}.
+         .6 \addElectrician{Balakrishnan Baluchamy}.
+         .6 \addElectrician{Asaithambi Chinnadurai}.
+         .6 \addElectrician{Sivakumar Sethuraman}.
+         .6 \addElectrician{Ganesh}.
+         .6 \addElectrician{Anis Bashir Darekhan}.
+         .6 \addElectrician{Govindasamy Sethuramar}.
+         .6 \addElectrician{Veeramani Ponnaian}.
+         .6 \addElectrician{Ameer Yunus}.
+         .6 \addElectrician{Manivannan Mathaiyan}.
+         .6 \addElectrician{Kuldip Ram}.
+         .6 \addElectrician{Ismail Khan}.
+         .6 \addElectrician{Ramesh Lal}.
+         .6 \addElectrician{Nurislam Seikh}.
+         .6 \addElectrician{Muthuramalingham Sathiah}.
+         .6 \addElectrician{Narashimha Murthy}.
+      .5 \addForemanElec{Regi Thomas}(under Solomon El{.} Eng{.}).
+      .5 \addForemanElec{Anil Kumar Velaudihan}(under Solomon El{.} Eng{.}).
+.3 \addSeniorSupervisorElectrical{\hl{Andreas Ourris}}.
+   .4 \addSupervisorElec{Zanzirrkar Maqbool}.
+   .5 \addForemanElec{Jayarajan Pillai}. 
+.3 \addSeniorSupervisorElectrical{\hl{Charalambos Charalambous}}.
+.4 \addSupervisorElec{Jagnathan Ponnusamy}.
+    .5 \addForemanElec{Raghbir Singh}.
+    .5 \addForemanElec{Kuriakose Antony}.
+          .6 \addElectrician{Mohammed Zafar}.
+          .6 \addElectrician{Thamothiren Rashaiah}.
+          .6 \addElectrician{Ramesh Gangamuthu}.
+          .6 \addElectrician{Mohm Shahid}.
+          .6 \addElectrician{Parej Alam}.
+          .6 \addElectrician{Mohammad Isteyyak Beg}.
+          .6 \addElectrician{Rejimo Das}.
+          .6 \addElectrician{Ginu Koshy}.
+          .6 \addElectrician{Mohammad Mojahi}.
+    .5 \addForemanElec{Samuel Villuri}.
+    .5 \addForemanElec{Narayanan Veetil}.
+		.6 \addElectrician{Santosh Gupta}.
+          .6 \addElectrician{Chauhan Chandradev}.
+          .6 \addElectrician{Rama Sah}.
+          .6 \addElectrician{Kaleem Pasha}.
+          .6 \addElectrician{Harpreet Kumar}.
+          .6 \addElectrician{Surendra Singh Chauhan}.
+          .6 \addElectrician{Susheel Kumar}.
+          .6 \addElectrician{Mohammad Kausar}.
+          .6 \addElectrician{Tej Bahadur}.
+          .6 \addElectrician{Charan Bahadur}.
+    .5 \addForemanElec{Jiyauddin Ahamad}.
+         .6 \addElectrician{Subrata Biswas}.
+         .6 \addElectrician{Ramkumar Kaliyaperumal}.
+         .6 \addElectrician{Rajendiran Chakkaravarthi}.
+         .6 \addElectrician{Karthikeysan Rethinam}.
+         .6 \addElectrician{Sekender Ali Late}.
+         .6 \addElectrician{Sumon Reja Mannan}.
+         .6 \addElectrician{Joy Biswas}.
+         .6 \addElectrician{Mohammed Ayub Ali}.
+         .6 \addElectrician{Yamabahadur}.
+         .6 \addElectrician{Pema Lama}.
+         .6 \addElectrician{Abdul Muqthar}.
+.3 \addSupervisorElec{\hl{Stavros Fokou}}.
+  .4 \addSupervisorElec{Ravi Retnam}.
+     .5 \addForemanElec{Jarnail Singh}.
+        .6 \addElectrician{Shari Chand}.
+        .6 \addElectrician{Hari Kumar Singh}.
+        .6 \addElectrician{Safikul Gazi}.
+        .6 \addElectrician{Samaiya kumar Thangaraj}.
+        .6 \addElectrician{Binod Kumar}.
+        .6 \addElectrician{Dharmedra Yadav}.
+        .6 \addElectrician{Mohanraju Kola}.
+     .5 \addForemanElec{Ashok Selvaraj}.
+     .5 \addForemanElec{Harikumar Nair}.
+}
+
+\medskip
+\dirtree{%
+.1 MECHANICAL SUPERVISORS.
+.3 \addSeniorSupervisorMechanical{\hl{Soterios Charalambous}}.
+    .5 \addACMechanic{\hl{Biju Joseph}} (A/C Foreman).
+    .5 \addForemanDucting{Fayaz Ahmed}.
+    .5 \addForemanDucting{Danilo Albina}.
+    .5 \addForemanMech{Vijay Kumar Mehta}.
+    .5 \addForemanPiping{Rajesh Nair}.
+    .5 \addForemanMech{Irshad Hussain}.
+.3 \addSeniorSupervisorMechanical{\hl{Andreas Hadjigiakoumi}}.
+  .4 \addSupervisorDucting{Belishkumar Nair}(Ritzie).
+  .4 \addSupervisorMech{Pavlos Pavlou}. 
+     .5 \addForemanMech{Sharfudheen Moochi}. 
+     .5 \addForemanMech{Robert Thomas}(under Ritzie Mec Eng).
+     .5 \addForemanDucting{Muktar Sattar}.
+     .5 \addForemanMech{Akhtar Husain}(Ritzie).
+     .5 \addForemanMech{Suresh Govindan}.
+  .4 \addSupervisorDucting{Mohhamad Rahman}.
+%.3 \addSeniorSupervisorMechanical{\textcolor{Gray}{Andreas Pavlides}}.
+%   .3 \addSeniorSupervisorMechanical{\hl{Neophytos Kastanias}}.
+.3 PLUMBING (all areas).                                                        
+   .4 \addSupervisorMech{\hl{Mohhamad Amir}}(Sripanthy).
+      .5 \addForemanMech{Mohhamad Husain} (Sripanthy).
+	 .5 \addForemanPlumbing{Abdul Subahan}(Sripanthy).
+      .5 \addForemanPlumbing{\textcolor{Gray}{Suku Sivaraman}}(release).
+      .5 \addForemanPlumbing{Kashi Nath Gosh}(Sripanthy).
+   .4 \addSupervisorPlumbing{Abdul Gaffur Karim}(Sripanthy).
+       .5 \addForemanPlumbing{Rejimon Krishnan}(Sripanthy).
+      .5 \addForemanPlumbing{Pathrose Lonappan}(sripanthy).
+      .5 \addForemanPlumbing{Sunil Skariya}(Sripanthy).
+      .5 \addForemanPlumbing{Shine Sukumaran Achari}(Sripanthy).
+      .5 \addForemanMech{Abdul Kalam}(Sripanthy).
+  % .4 \addSupervisorMech{\hl{Edilberto Salas}}(Piping)(Jeffrey).
+      .5 \addForemanMech{Krishna Anil Kumar}(Ritzie).
+      .5 \addForemanPiping{Istiyaq Ahmad}(Jeffrey).
+      .6 \addForemanPiping{\textcolor{Gray}{Jeffrey Diokno}}(Jeffrey).  
+   .3 \addSupervisorMech{\hl{N Mathews}}(Closure/start-up).
+     .5 \addForemanMech{Prakash Kumar Swain}.  
+}
+
+
+\begin{table}[htbp]
+\begin{center}
+\begin{tabular}{lrr}
+\toprule
+\textit{Management}&&\\
+\Z Project Director          &\thepdirector &\\
+\Z Project Managers          &\thepmanager &\\
+\Z Design Manager            &\thedesignmanager &\intcalcAdd{\thepmanager}{\thedesignmanager+\thepdirector}\\
+\midrule 
+\textit{Engineers}&&\\
+\Z Mechanical Engineers      &\themech &\\
+\Z Electrical Engineers      &\theelec &\\
+\Z Fire Protection Engineers & \thefire &\\
+\Z Health Services Engineers & \thedrainage &\intcalcAdd{\themech+\theelec}{\thefire+\thedrainage}\\
+\midrule
+\textit{Ancillary Departments} &&\\
+\Z QA/QC Engineers           & \theqaqc &\\
+\Z Planning Engineers        &\theplanning &\\
+\Z Safety Officers           &\thesafetyofficer&\intcalcAdd{\theqaqc+\theplanning}{\thesafetyofficer} \\
+\midrule
+\textit{Drawing Office} & & \\
+\Z CAD Management            &\thecadmanager &\\
+\Z\Z Electrical CAD Operators  &\thecadelec &\\
+\Z\Z Mechanical CAD Operators  & \thecadmech &\intcalcAdd{\thecadmanager}{\thecadelec+\thecadmech}\\
+\midrule
+\textit{Site Overhead}             & &\\
+\Z Quantity Surveyors     & \theqs &\\
+\Z Accounts               & \theaccounts &\\
+\Z Procurement            & \theprocurement &\\
+\Z Administrative         & \theadmin & \intcalcAdd{\theqs+\theaccounts}{\theprocurement+\theadmin}\\
+\midrule 
+\textit{Supervision Mechanical} &&\\
+\Z Senior Mechanical Supervisors   &\theseniorsupervisormechanical &\\
+\Z\Z Mechanical Supervisors   &\thesupervisormechanical &\\
+\Z\Z\Z Mechanical Foremen       &\theforemanmechanical &\\ 
+\Z\Z Ducting Supervisors          &\thesupervisorducting &\\
+\Z\Z\Z Ducting Foremen          &\theforemanducting &\\
+\Z\Z Plumbing Supervisors     &\thesupervisorplumbing&\\
+\Z\Z\Z Plumbing Foremen          &\theforemanplumbing &\\
+\Z\Z\Z Piping Foremen           &\theforemanpiping &\\
+\textit{Supervision Electrical}      &&\\
+\Z Senior Electrical Supervisors   &\theseniorsupervisorelectrical &\\
+\Z\Z Electrical Supervisors   &\thesupervisorelectrical &\\
+\Z\Z\Z Electrical Foremen       &\theforemanelectrical &\thetsup\\
+                          & &\\
+Grand Total               & & \thegrandtotal\\
+\midrule
+\end{tabular}
+\end{center}
+\caption{HS Workforce - Management and Supervision}
+\end{table}
+
+\chapter*{Active Manpower}
+
+The current tradesmen employed by HS and hired manpower is shown in Table \ref{manpower1}. The current demobilization status in Table \ref{manpower2}. Since the 5th of October a reduction of 79.92\% in hired manpower was achieved and a 14.72\% in HS manpower. Both are expected to go lower with HS manpower having to return to UAE for visas (approximately 50 people).
+
+Number of electricians \theelectrician
+
+
+
+\begin{fullwidth}
+\begin{table}
+\small
+\hskip-1.2cm\begin{tabular}{l c c c c c c c  c c}
+\toprule
+Details & HS & Deotech  & Exbl. & GVG & Thermo & ERE & Supplier & Grand\\
+~       &    &          		   &          &     &        &     & Total &  Total\\
+\midrule
+Mech. Char. & 21 & 0 &  0 & 0 & 0 & 0 &0   &21\\
+A/C Mech.   & 16 & 0 &  0 & 0 & 0 & 0 &0   &16\\
+Duct Erect. & 40 & 6 &  0 & 0 & 0  &17 &23  &63\\
+Duct. Fabr. & 6  & 0 &  17 & 0 & 0  &17 &17  &23\\
+Duct. man.  & 7  & 0 &  23 & 0 & 5  &0 &28  &35\\
+Insulator   & 45  & 10  & 29  & 0 & 0  &2 &6   &47\\
+Pipe Fabr.  & 1  & 0  & 0  & 0 & 0  &0 &0   &1\\
+Pipe Fitter  & 35  & 5  & 0  & 0 & 0  &16 &23   &58\\
+Plumber     & 131  & 0  & 0  & 0 & 0  &25 &26   &157\\
+Welder      & 24  & 1  & 0  & 0 & 1  &3 &5   &29\\
+6G Welder   & 0  & 0  & 0  & 10 & 0  &0 &10   &10\\
+Helper      & 8  & 8  & 0  & 0 & 0  &0 &8   &16\\
+\midrule
+Elec. Char. & 11  & 0  & 0  & 0 & 0  &0 &0   &11\\
+Electrician & 245  & 15  & 0  & 0 & 10  &16 &41   &286\\
+\midrule
+Office      & 5  & 0  & 0  & 0 & 0  &0 &0   &5\\
+Camp        & 5  & 0  & 0  & 0 & 0  &0 &0   &5\\
+Stores \& Log. & 14  & 0  & 0  & 0 & 0  &0 &0   &14\\
+\midrule
+Total      & 614  & 45  & 69 &10 &21 &83 &228  &842\\
+\bottomrule
+\end{tabular}
+\caption{Specon and hired manpower 5th Dec. 2010}
+\label{manpower1}
+\end{table}
+\end{fullwidth}
+\bigskip
+
+
+\begin{table}[htbp]
+\begin{center}
+\begin{tabular}{l l l c}
+\toprule
+Company     & Manpower & Manpower & Reduction\\
+            & 5th Oct 2010 & 5th Dec 2010     & (\%)\\
+\midrule
+Specon      & 720   & 614  & 14.72\\
+Supplier    & 753   & 228  & 79.92\\
+\midrule  
+Grand Total & 1473   & 842 & 43.00 \\ 
+\bottomrule
+\end{tabular}
+\end{center}
+\caption{Summary of manpower status 04.12.2010 }
+\label{manpower2}
+\end{table}
+
+
+
+
+\end{document}
+
+
+
+
+
+
+
+

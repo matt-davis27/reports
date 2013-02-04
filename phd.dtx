@@ -122,12 +122,9 @@ and the derived files              phd.ins,
 \documentclass{ltxdoc}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
-\usepackage{microtype}
 \usepackage[toc,lof,lot]{multitoc}
 %\usepackage{dateiliste}
 \usepackage{\jobname}
-
-
 \usepackage[listings,theorems]{tcolorbox}
 \tcbset{before={\par\medskip\pagebreak[0]\noindent},after={\par\medskip}}%
 \usepackage{multicol}
@@ -393,7 +390,7 @@ and the derived files              phd.ins,
                                                                % commands, classes and packages which are 
                                                                % outdated and superseded. nag provides routines
                                                                % to warn the user about the use of those.
-
+\RequirePackage{microtype}
 \RequirePackage[all, error]{onlyamsmath}  % Error on deprecated math commands like $$ $$.
 %    \end{macrocode}
 % \subsection{Call some other packages}
@@ -461,6 +458,9 @@ and the derived files              phd.ins,
 \RequirePackage{longtable}
 \RequirePackage{colortbl}
 \RequirePackage{multirow}
+\RequirePackage{lscape}
+\RequirePackage{threeparttable}
+
 \newcounter{step}
 \def\resetinc{\setcounter{step}{0}}
 \def\inc{\stepcounter{step}\thestep}
@@ -585,6 +585,33 @@ and the derived files              phd.ins,
 %    \begin{macrocode}
 \RequirePackage{stmaryrd}
 %    \end{macrocode}
+%    
+% \subsection{xpfeil}
+% The package |extpfeil| loads |stmaryd| with limited options
+% we temporarily make |RequirePckage| a no-op to prevent
+% LaTeX from complaining.
+% 
+%    \begin{macrocode}   
+\newif\ifXPFEIL
+\newcommand\XPFEIL{\pkgname{extpfeil}}
+\IfStyFileExists{extpfeil}
+  {\XPFEILtrue
+   % extpfeil tries to do a \RequirePackage of stmaryrd with
+   % conflicting options from what we used to load stmaryd.  We
+   % therefore temporarily make \RequirePackage a no-op to prevent LaTeX
+   % from complaining.
+   \let\origRequirePackage=\RequirePackage
+   \renewcommand*{\RequirePackage}[2][]{}
+   \savesymbol{xlongequal}
+   \savesymbol{xmapsto}
+   \usepackage{extpfeil}
+   \restoresymbol{XPFEIL}{xlongequal}
+   \restoresymbol{XPFEIL}{xmapsto}
+   \let\RequirePackage=\origRequirePackage
+  }
+  {}
+%    \end{macrocode}
+%      
 % For calligraphic fonts we load the package |eucal|. The package is not actually needed, if 
 % amsfonts are loaded? Consider removing.
 %    \begin{macrocode}
@@ -594,6 +621,9 @@ and the derived files              phd.ins,
    \renewcommand{\mathcal}[1]{\mbox{\usefont{U}{eus}{m}{n}##1}}
   }
   {\let\CMcal\mathcal}
+\RequirePackage{bm}
+\RequirePackage{bbm}
+\RequirePackage{upgreek}
 %    \end{macrocode}
 
 
@@ -891,6 +921,158 @@ ProvidesClass,IfFileExists,RequirePackage,ifthenelse,chapter,includegraphics, ne
 \RequirePackage{ulem}
 %    \end{macrocode}  
 %
+% \section{Miscellaneous}
+% 
+%    \begin{macrocode} 
+\newif\ifCCLIC
+\newcommand\CCLIC{\pkgname{cclicenses}}
+\IfStyFileExists{cclicenses}
+  {\CCLICtrue
+   \usepackage{cclicenses}
+   % cclicenses doesn't get along with textcomp's remapping of
+   % \textcircled to the TS1 font encoding.  Mapping it back doesn't
+   % _seem_ to cause any problems.
+   \DeclareTextAccentDefault{\textcircled}{OMS}
+  }
+  {}
+%    \end{macrocode}
+%  
+% \subsection{Ornaments}      
+% 
+% Fourier defines a lot of math symbols, but we care about only a few of
+% them.  Hence, we load only the fourier-orns package and manually
+% define everything else as text-mode symbols.
+% 
+%    \begin{macrocode} 
+\newif\ifFOUR
+\newcommand\FOUR{\pkgname{fourier}}
+\IfStyFileExists{fourier}
+  {\FOURtrue
+   \usepackage{fourier-orns}
+
+   % Define single-glyph symbols.
+   \DeclareFontEncoding{FMS}{}{}
+   \DeclareFontSubstitution{FMS}{futm}{m}{n}
+   \DeclareFontEncoding{FML}{}{}
+   \DeclareFontSubstitution{FML}{futmi}{m}{it}
+   \newcommand{\fourierdef}[6]{%
+     \DeclareRobustCommand{##1}{{\usefont{##2}{##3}{##4}{##5}\char##6}}}
+   \fourierdef{\parallelslant}{FMS}{futm}{m}{n}{134}
+   \fourierdef{\nparallelslant}{FMS}{futm}{m}{n}{143}
+   \fourierdef{\FOURrho}{FML}{futmi}{m}{it}{26}
+   \fourierdef{\FOURvarrho}{FML}{futmi}{m}{it}{37}
+   \fourierdef{\varvarrho}{FML}{futmi}{m}{it}{129}
+   \fourierdef{\FOURpi}{FML}{futmi}{m}{it}{25}
+   \fourierdef{\FOURvarpi}{FML}{futmi}{m}{it}{36}
+   \fourierdef{\varvarpi}{FML}{futmi}{m}{it}{131}
+   \fourierdef{\FOURpartial}{FML}{futmi}{m}{it}{64}
+   \fourierdef{\varpartialdiff}{FML}{futmi}{m}{it}{130}
+   \fourierdef{\FOURtexteuro}{TS1}{futx}{m}{n}{191}
+
+   % Fake a math accent with text-mode commands.
+   \DeclareRobustCommand{\FOURfakewidetopaccent}[5]{%
+     \setbox0=\hbox{\ensuremath{##1}}%
+     \setbox1=\hbox{\ensuremath{abc}}%
+     \leavevmode
+     \ifdim\wd0<\wd1
+       \kern1pt
+       \rlap{\raisebox{##2}{\makebox[\wd0]{\usefont{FMX}{futm}{m}{n}\char##3}}}%
+       \kern-0.1em
+       \box0
+     \else
+       \rlap{\raisebox{##4}{\makebox[\wd0]{\usefont{FMX}{futm}{m}{n}\char##5}}}%
+       \box0
+     \fi
+   }
+
+   % Manually define Fourier's extensible accents.  Note that we don't
+   % bother trying to use Fourier's \mathring to construct the
+   % \FOURwidering symbol.
+   \DeclareFontEncoding{FMX}{}{}
+   \DeclareFontSubstitution{FMX}{futm}{m}{n}
+   \DeclareRobustCommand{\FOURwidearc}[1]{%
+     \FOURfakewidetopaccent{##1}{0ex}{216}{0.5ex}{217}}
+   \DeclareRobustCommand{\FOURwideOarc}[1]{%
+     \FOURfakewidetopaccent{##1}{0ex}{228}{0.5ex}{229}}
+   \DeclareRobustCommand{\FOURwideparen}[1]{%
+     \FOURfakewidetopaccent{##1}{0ex}{148}{0.5ex}{150}}
+   \DeclareRobustCommand{\FOURwidering}[1]{\overset{\smash{\vbox to .2ex{%
+     \hbox{$\mathring{}$}}}}{\FOURwideparen{##1}}}
+
+   % Manually define Fourier's variable-sized delimiters.
+   \newcommand{\fouriercdef}[6]{%
+     \DeclareRobustCommand{##1}{%
+       \textvcenter{\usefont{##2}{##3}{##4}{##5}\char##6}}}
+   \fouriercdef{\FOURtllbracket}{FMX}{futm}{m}{n}{133}
+   \fouriercdef{\FOURdllbracket}{FMX}{futm}{m}{n}{139}
+   \fouriercdef{\FOURtrrbracket}{FMX}{futm}{m}{n}{134}
+   \fouriercdef{\FOURdrrbracket}{FMX}{futm}{m}{n}{140}
+   \newcommand*{\FOURverticals}[1]{%
+     \vbox{%
+       \baselineskip=-\maxdimen
+       \lineskiplimit=\maxdimen
+       \lineskip=0pt%
+       \usefont{FMX}{futm}{m}{n}%
+       \ialign{####\cr##1}%
+     }%
+   }
+   \DeclareRobustCommand{\FOURtVERT}{%
+     \raisebox{0.5ex}{\textvcenter{\FOURverticals{\char147\cr\char147\cr}}}}
+   \DeclareRobustCommand{\FOURdVERT}{%
+     \raisebox{0.5ex}{\textvcenter{\FOURverticals{\char147\cr\char147\cr\char147\cr\char147\cr}}}}
+  }
+  {}
+%    \end{macrocode} 
+%
+%    \begin{macrocode}
+\RequirePackage{dirtree}
+%    \end{macrocode}
+%    
+% \section{Archaic Symbols}     
+%
+%    \begin{macrocode}  
+\newif\ifLINA
+\newcommand\LINA{\pkgname{linearA}}
+\IfStyFileExists{linearA}
+  {\LINAtrue\usepackage{linearA}}
+  {}
+
+\newif\ifLINB
+\newcommand\LINB{\pkgname{linearb}}
+\IfStyFileExists{linearb}
+  {\LINBtrue\usepackage{linearb}}
+  {}
+
+\newif\ifCYPR
+\newcommand\CYPR{\pkgname{cypriot}}
+\IfStyFileExists{cypriot}
+  {\CYPRtrue\usepackage{cypriot}}
+  {}
+
+\newif\ifSARAB
+\newcommand\SARAB{\pkgname{sarabian}}
+\IfStyFileExists{sarabian}
+  {\SARABtrue\usepackage{sarabian}}
+  {}
+
+% Cuneiform -- not sure if this is appropriate for the list so it's
+% commented out for now.
+\newif\ifPRSN
+\newcommand\PRSN{\pkgname{oldprsn}}
+%\IfStyFileExists{oldprsn}
+%  {\PRSNtrue\usepackage{oldprsn}}
+%  {}
+
+% Cuneiform -- not sure if this is appropriate for the list so it's
+% commented out for now.
+\newif\ifUGAR
+\newcommand\UGAR{\pkgname{ugarite}}
+%\IfStyFileExists{ugarite}
+%  {\UGARtrue\usepackage{ugarite}}
+%  {}
+%  
+%    \end{macrocode}
+%     
 % \section{Floats settings}                    
 % Use Donald Arseneau's improved float parameters. I am not too sure when this was first referenced
 % once I find it, will provide a citation and or a link.
@@ -1060,6 +1242,8 @@ ProvidesClass,IfFileExists,RequirePackage,ifthenelse,chapter,includegraphics, ne
 \usepackage{phd}
 \begin{document}
 \lipsum[1]
+
+\textcypr{cypriote}
 \end{document}
 %    \end{macrocode}
 % \iffalse  
@@ -1074,7 +1258,8 @@ ProvidesClass,IfFileExists,RequirePackage,ifthenelse,chapter,includegraphics, ne
 %% One can use the multitoc for two column toc lof etc also see doc.dtx
 
 %% Use ^^A for % sign otherwise it gives you problems
-
+% For epigraphs
+% http://tex.stackexchange.com/questions/53377/inspirational-quote-at-start-of-chapter
 
 
 
