@@ -17,9 +17,8 @@ new things.}{Donald Knuth}
 \index{Classes!\textbackslash ProvideClass}
 
 \section{Introduction}
-\printlayout
 
-To \emph{make} a book is an interesting and somewhat involved process \cite{town}. The text is set in type and printed on pages, the pages are gathered and folded into signatures and these are gathered and folded into signatures and these are then bound and covered. Many of the aspects of this process that has passed down to us by previous generations is discussed extensively in other sections of this book.  Class authors have to distill this knowledge in a set of typographical rules to be described in a class file. The first thing such an author must do is to describe the \emph{rationale} of developing such a class. The \doccls{octavo}\cite{octavo} class was developed to enable printing books in dimensions that follow traditional styles. The \doccls{memoir}\cite{memoir}  class to offer a flexible system on which other classes could be based. The \doccls{tufte-book} and \doccls{tufte-handout} classes to provide a style that resembles those found in Tufte books. Many Universities offer \emph{Thesis} classes to standardize the way these are produced. Many of these Universities, translated the styles previously typed and the results are a typographical disaster, only mitigated by the ability to display beautiful mathematics. As these are printed on standard \emph{photocopy paper} one cannot do much with the layout. 
+To \emph{make} a book is an interesting and somewhat involved process\cite{town}. The text is set in type and printed on pages, the pages are gathered and folded into signatures and then bound and covered. Many of the aspects of this process that has passed down to us by previous generations is discussed extensively in other sections of this book.  Class authors have to distill this knowledge in a set of typographical rules to be described in a class file. The first thing such an author must do is to describe the \emph{rationale} of developing such a class. The \doccls{octavo}\cite{octavo} class was developed to enable printing books in dimensions that follow traditional styles. The \doccls{memoir}\cite{memoir}  class to offer a flexible system on which other classes could be based. The \doccls{tufte-book} and \doccls{tufte-handout} classes to provide a style that resembles those found in Tufte books. Many Universities offer \emph{Thesis} classes to standardize the way these are produced. Many of these Universities, translated the styles previously typed and the results are a typographical disaster, only mitigated by the ability to display beautiful mathematics. As these are printed on standard \emph{photocopy paper} one cannot do much with the layout. 
 
 %\begin{figure}[htp]
 %\includegraphics[width=0.9\textwidth]{./graphics/children-book}
@@ -42,8 +41,8 @@ gives the class name. It can be found in the preable of most well written classe
 \end{teX}
 
 The above syntax must be followed exactly so that this information can be
-used by \texttt{LoadClass} or \texttt{documentclass} (for classes) or \cmd{RequirePackage}
- or\cmd{usepackage} (for packages) to test that the release is not too old.
+used by \texttt{LoadClass} or \cs{documentclass} (for classes) or \cs{RequirePackage}
+ or\cs{usepackage} (for packages) to test that the release is not too old.
 The whole of this $<release-info>$ information is displayed by \cmd{listfiles} and
 should therefore not be too long.
 
