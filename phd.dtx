@@ -140,7 +140,7 @@ and the derived files              phd.ins,
   %anchorcolor= blue,
   %filecolor=blue,
   urlcolor=theblue,
-  linkcolor= cyan,
+  linkcolor= theblue,
   pdftitle={My Title},
  }
 
@@ -173,7 +173,8 @@ and the derived files              phd.ins,
 %%http://tex.stackexchange.com/questions/75055/print-filelist-to-pdf/75064#75064
 %\printFileList
 %
-
+% COMMENT THE NEXT LINE TO INCLUDE THE CODE
+% \AtBeginDocument{\OnlyDescription}
 \EnableCrossrefs
 \CodelineIndex
 \RecordChanges
@@ -428,6 +429,7 @@ and the derived files              phd.ins,
 \definecolor{thegrey} {gray}{0.5}
 \definecolor{theshade}{gray}{0.94}
 \definecolor{theframe}{gray}{0.75}
+\definecolor{lightgray}{gray}{0.6}
 \RequirePackage{pgf}[2008/01/15]
 %    \end{macrocode}
 % 
