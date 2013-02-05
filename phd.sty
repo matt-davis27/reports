@@ -137,7 +137,30 @@
   {\let\CMcal\mathcal}
 \RequirePackage{bm}
 \RequirePackage{bbm}
-\RequirePackage{upgreek}
+\RequirePackage[Euler]{upgreek}
+%%\newif\ifUPGR
+%%\newcommand\UPGR{\pkgname{upgreek}}
+%%\IfStyFileExists{upgreek}
+%%  {% We're painfully low on math alphabets so we define upgreek's symbols
+%%   % in text mode.
+%%   \UPGRtrue
+%%   \let\origDeclareSymbolFont=\DeclareSymbolFont
+%%   \let\origDeclareMathSymbol=\DeclareMathSymbol
+%%   \let\origSetSymbolFont=\SetSymbolFont
+%%   \renewcommand{\DeclareSymbolFont}[5]{}
+%%   \renewcommand{\DeclareMathSymbol}[4]{%
+%%     \newcommand{##1}{{\usefont{U}{psy}{m}{n}\char##4}}%
+%%   }
+%%   \renewcommand{\SetSymbolFont}[6]{}
+%%   \RequirePackage{upgreek}
+%%   \DeclareFontFamily{U}{eur}{\skewchar\font'177}
+%%   \DeclareFontShape{U}{eur}{m}{n}{%
+%%     <-6> eurm5 <6-8> eurm7 <8-> eurm10}{}
+%%   \let\DeclareSymbolFont=\origDeclareSymbolFont
+%%   \let\DeclareMathSymbol=\origDeclareMathSymbol
+%%   \let\SetSymbolFont=\origSetSymbolFont
+%%  }
+%%  {}
 
 \RequirePackage{textcomp}
 \RequirePackage{latexsym}
@@ -338,7 +361,7 @@ ProvidesClass,IfFileExists,RequirePackage,ifthenelse,chapter,includegraphics, ne
 \let\startnumberat\numberlineat
 \newif\ifALGORITHM
 \@ifpackageloaded{hyperref}{%
-  \RequirePackage{algorithms}
+  %%\RequirePackage{algorithms}
  }
  {\typeout{Algorithm loaded}}
 \RequirePackage{algorithm2e}

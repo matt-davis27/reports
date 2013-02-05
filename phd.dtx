@@ -624,9 +624,36 @@ and the derived files              phd.ins,
   {\let\CMcal\mathcal}
 \RequirePackage{bm}
 \RequirePackage{bbm}
-\RequirePackage{upgreek}
+\RequirePackage[Euler]{upgreek}
 %    \end{macrocode}
-
+%
+% \subsection{Too many alphabets}
+% 
+%    \begin{macrocode} 
+%%\newif\ifUPGR
+%%\newcommand\UPGR{\pkgname{upgreek}}
+%%\IfStyFileExists{upgreek}
+%%  {% We're painfully low on math alphabets so we define upgreek's symbols
+%%   % in text mode.
+%%   \UPGRtrue
+%%   \let\origDeclareSymbolFont=\DeclareSymbolFont
+%%   \let\origDeclareMathSymbol=\DeclareMathSymbol
+%%   \let\origSetSymbolFont=\SetSymbolFont
+%%   \renewcommand{\DeclareSymbolFont}[5]{}
+%%   \renewcommand{\DeclareMathSymbol}[4]{%
+%%     \newcommand{##1}{{\usefont{U}{psy}{m}{n}\char##4}}%
+%%   }
+%%   \renewcommand{\SetSymbolFont}[6]{}
+%%   \RequirePackage{upgreek}
+%%   \DeclareFontFamily{U}{eur}{\skewchar\font'177}
+%%   \DeclareFontShape{U}{eur}{m}{n}{%
+%%     <-6> eurm5 <6-8> eurm7 <8-> eurm10}{}
+%%   \let\DeclareSymbolFont=\origDeclareSymbolFont
+%%   \let\DeclareMathSymbol=\origDeclareMathSymbol
+%%   \let\SetSymbolFont=\origSetSymbolFont
+%%  }
+%%  {}
+%    \end{macrocode}
 
 % \section{Special Symbols}
 % The Comprehensive LaTeX Symbols guide, has numerous symbols \ldots
@@ -910,7 +937,7 @@ ProvidesClass,IfFileExists,RequirePackage,ifthenelse,chapter,includegraphics, ne
 %    \begin{macrocode} 
 \newif\ifALGORITHM
 \@ifpackageloaded{hyperref}{%
-  \RequirePackage{algorithms}
+  %%\RequirePackage{algorithms}
  }
  {\typeout{Algorithm loaded}}
 \RequirePackage{algorithm2e} 
@@ -1258,7 +1285,7 @@ ProvidesClass,IfFileExists,RequirePackage,ifthenelse,chapter,includegraphics, ne
 \begin{document}
 \lipsum[1]
 
-\textcypr{cypriote}
+\[ A = \upalpha r^2/4\]
 \end{document}
 %    \end{macrocode}
 % \iffalse  

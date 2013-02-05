@@ -10,7 +10,6 @@
 %% Bibliography
 \usepackage{natbib}
 % useful to write files on the fly
-\usepackage{filecontents}
 
 \bibliographystyle{plainnat} % note the change here
 \bibpunct{(}{)}{;}{a}{,}{,}
@@ -53,11 +52,6 @@
 \fancyhead[LO]{\helv \rightmark}
 \fancyhead[RE]{\helv \leftmark}
 
-%%hyperref
-\hypersetup{urlcolor=green, colorlinks=true}  % Colours hyperlinks in blue, but this can be 
-                                              % distracting if there are many links
-\urlstyle{sf}  %set url as sans-serif font 
-
 
 % Typesets the font size, leading, and measure in the form of 10/12x26 pc.
 \newcommand{\measure}[3]{#1/#2$\times$\unit[#3]{pc}}
@@ -87,10 +81,7 @@
 
 
 
-%% Set up the epigraph to be a bit wider
-\setlength{\epigraphwidth}{8cm} 
-\setlength{\epigraphrule}{0pt}
-\newcommand{\theepigraph}[2]{\epigraphhead[30]{\epigraph{#1}{\textit{#2}}}}
+
 
 % Generates the index we use before the
 % out
@@ -117,40 +108,15 @@
 \usepackage{fancyvrb}
 
 
-%% Using amsmath and amssymbols for 
-%% mathematics
-%% they have better macros that those provided in LaTex or TeX
-%
-\usepackage{amsfonts}
-
-\usepackage{amsmath}
-\usepackage{amssymb}[2002/01/22] %% and additional symbols
 
 
-%% Eventually beginning the document
-%% 
-
-
-\usepackage{longtable}
-
-%% Set some local commands and colors
-\usepackage{colortbl}
-\definecolor{green}{rgb}{0.1,0.1,0.1}
-%\color{green!40!yellow})
+%%% Set some local commands and colors
+%\usepackage{colortbl}
+%\definecolor{green}{rgb}{0.1,0.1,0.1}
+%%\color{green!40!yellow})
 
 
 
-%% Use the graphics package
-% For graphics / images
-\usepackage{graphicx}
-\setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio}
-\graphicspath{{graphics/}}
-
-
-%\usepackage{background}
-
-% We use for highlighting text
-\usepackage{soul}
 
 
 \makeatletter

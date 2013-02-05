@@ -1,0 +1,31 @@
+%SIZE OF caption fonts and labels
+
+\renewcommand{\captionfont}{\footnotesize}
+\renewcommand{\captionlabelfont}{\footnotesize}
+\hypersetup{pageanchor=false}
+
+% Fix unicode errors:
+
+\PrerenderUnicode{ó}
+\PrerenderUnicode{â}
+\PrerenderUnicode{í}
+\PrerenderUnicode{ã}
+\PrerenderUnicode{õ}
+
+
+% fix bug with hyperref that doesn't link to the figure but the section it belongs to.
+\AtBeginEnvironment{figure}{\phantomsection}
+\AtBeginEnvironment{table}{\phantomsection}
+
+%Show number in chapters, sections and subsections
+\setcounter{secnumdepth}{2}
+
+% Adjust number position in chapters and a a \rceil symbol to separate the number from the title
+\titleformat{\chapter}%
+  [hang]% shape
+  {\relax\ifthenelse{\NOT\boolean{@tufte@symmetric}}{\begin{fullwidth}}{}}% format applied to label+text
+  {\itshape\huge\thechapter$\rceil$}% label
+  {2pt}% horizontal separation between label and title body
+  {\huge\rmfamily\itshape}% before the title body
+  [\ifthenelse{\NOT\boolean{@tufte@symmetric}}{\end{fullwidth}}{}]% after the title body
+
