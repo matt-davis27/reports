@@ -1,7 +1,7 @@
 \part{The \LaTeX\ standard class}
 \parindent0pt
 \setlength\columnsep{2em}
-\def\Paragraph#1{{\bf #1}\quad}
+\def\Paragraph#1{\noindent \textbf{#1}\quad}
 \chapter{The book.cls}
 \clearpage
 
@@ -1103,7 +1103,7 @@ We then define the margin and the dotsep. We also set the toc counter to whateve
 \end{teX}
 
 
-\Paragraph{Defining the  contents table.} The author is provided with the author command |\tableofcontents|. All format information is provided at theis point.
+\Paragraph{Defining the  contents table.} The author is provided with the author command |\cs{tableofcontents}. All format information is provided at this point.
 
 
 \begin{teX}
