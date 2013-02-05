@@ -1,0 +1,157 @@
+
+%\makeatletter
+%
+%\def\xdots{%
+%  \newif\if@found
+%  \@foundfalse
+%  \def\ifPlus{\@ifnextchar+{\cdots}{\ifDot}}
+%  \def\ifDot{\@ifnextchar.{\ldots\@foundtrue}{\ifSemicolon}}
+%  \def\ifSemicolon{\@ifnextchar;{\cdots\@foundtrue}{\ifLeftBracket}}
+%  \def\ifLeftBracket{\@ifnextchar){\ldots\,\@foundtrue}{\ifOpenBracket}}
+%  \def\ifOpenBracket{\@ifnextchar({\dots\@foundtrue}{\ifNotFound}}
+%  \def\ifNotFound{\if@found\relax\else\ldots\fi}
+%  \ifPlus
+%}
+
+\section{Elisions in mathematics}
+
+Continuations and omissions in mathematics are denoted by three dots. Unlike elisions in text, mathematical ellipses come in different flavours. To further complicate matters there is no general agreement as to what is an acceptable  style.
+
+
+\begin{enumerate}
+\item if an elision is between the signs plus or minus signs then use \verb+\cdots+. \TeX\ will work out the spaces correctly in this case.
+
+\[{k\brack k-j}=p_{j1}{k\choose j+1}+p_{j2}{k\choose j+2}+\cdots
++p_{jj}{k\choose 2j}\,,\]
+
+
+\[{k\brack k-j}=p_{j1}{k\choose j+1}+p_{j2}{k\choose j+2}+\dots
++p_{jj}{k\choose 2j}\,,\]
+
+
+%\[\ln F=(F-I)-{\textstyle{1\over 2}}(F-I)^2+{\text{\frac{1}{3}}(F-I)^3-\cdots\]
+
+\item if it is followed by a right open bracket then use \verb+ldots+ with a thin space after it (\verb+\,+).
+
+\begin{align*}
+e^{xf(z)}-1
+&=(z,z^2\!/2!,z^3\!/3!,\ldots\,)\,F\,(x,x^2,x^3,\ldots\,)^{\rm T}\\
+\noalign{\smallskip}
+e^{xg(z)}-1
+&=(z,z^2\!/2!,z^3\!/3!,\ldots\,)\,G\,(x,x^2,x^3,\dots)^{\rm T}
+\end{align*}
+
+
+\item if it is between a closing bracket ``)" and an open bracket ``(" then use \verb|\ldots| with thin space before and after the \verb|ldots|.
+
+$${n\brace n-k}={k-n\brack
+-n}=(k-n)(k-1-n)\,\ldots\,(-n)\,\sigma_k(k-n)\,.$$
+
+
+\item if it is followed by a comma and other punctuation marks use \verb+\ldots+. Similarly for the $\geq, \leq, =$ and other similar symbols. A space equal to \verb|\;| is allowed after it.
+
+$$f_{nk}=\sum\,{\frac{n!}{
+1!^{k_1}\,k_1!\,2!^{k_2}\,k_2!\,3!^{k_3}\,k_3!\,\ldots}}\; 
+f_1^{k_1}f_2^{k_2}f_3^{k_3}\ldots\;,$$
+summed over all $k_1,k_2,k_3,\ldots\geq 0$ 
+
+
+
+
+Exceptions abound: if preceded by a plus or minus sign, the rules in item 1) apply.
+
+\[1+f(z)\,G_1(x)+{\frac{f(z)^2}{2!}}\;2!\,G_2(x)+{\frac{f(z)^3}{3!}}\,3!\,G_3(x)+\cdots\;,\]
+
+\item if it is after fraction use \verb+\cdots+ and the rules in 1~). In most cases this will be a polynomial expansion using plus or minuses.
+
+
+%$${\cal B}_{1/2}(z)=\left(\frac{z+\sqrt{4+z^2}}{2}\right)^2=1+z+{\frac{z^2}
+%{2}}+{\frac{z^3}{2^3}}-{\frac{z^5}{2^7}}+{\frac{2z^7}{2^{11}}}-{\frac{5z^9}{
+%{2^{15}}}+{\frac{14z^{11}}{2^{19}}}-\cdots\,,$$
+%\
+
+
+\item if they are in a tabular use |\ldots|
+$$\vcenter{\halign{
+\hfil#\quad
+&\hfil#\quad
+&\hfil#\quad
+&\hfil#\quad
+&\hfil#\quad
+&\hfil#\quad
+&\hfil#\quad
+&\hfil#\quad
+&\hfil#\quad
+&\hfil#\quad
+&\hfil#\cr
+$\ldots$&1\cr
+$\ldots$&12&1\cr
+$\ldots$&36&6&1\cr
+$\ldots$&24&6&2&1\cr
+}}$$
+
+\item Almost identical rules apply for subscripts and superscripts
+\end{enumerate}
+
+%\sum_{k_1,k_2,k_3,\ldots\geq 0}x^{k_1+k_2+k_3+\cdots}\;
+%{f_1^{k_1}f_2^{k_2}f_3^{k_3}\ldots\over
+%1!^{k_1}\,k_1!\,2!^{k_2}\,k_2!\,3!^{k_3}\,k_3!\,\ldots\,}\;
+%z^{k_1+2k_2+3k_3+\cdots}\,;
+
+
+
+\section{Using dots macros}
+
+When Michael Spivak helped develop AmsTex, he defined a number of commands to cater for different types of situations. He also developed an algorithm that determines the best possible option, if it cannot decide on what type of dots to use.
+
+\begin{table}[htbp]
+\begin{tabular}{ll}
+\toprule
+$a_i\dotsc a_n,$ & for ``dots with commas''\\
+$a_1+a_2+\dotsb+a_n$ &for “dots with binary operators/relations”\\
+$a_1a_2\dotsm a_n$ &for ``multiplication dots''\\
+$\int_{A_1}\int_{A_2}\dotsi$ &for ``dots with integrals''\\
+$\dotso$ &for “other dots” (none of the above)\\
+\bottomrule
+\end{tabular}
+\caption{Summary of dots provided by amstex}
+\end{table}
+
+instead of \verb+\ldots+ and \verb+\cdots+, you make it possible for your document to be adapted to
+different conventions on the fly, in case (for example) you have to submit it to a publisher who insists on following house tradition in this respect. The default treatment for the various kinds follows American Mathematical Society conventions:
+
+{
+We have the series $A_1,A_2,\dotsc$,
+the regional sum $A_1+A_2+\dotsb$,
+the orthogonal product $A_1A_2\dotsm$,
+and the infinite integral
+\[\int_{A_1}\int_{A_2}\dotsi\].}
+
+
+Some of the difficulties in developing an algorithm to cater for the correct usage of ellipses were outlined by Michael Spivak in his book \textit{The joy of TEX: a gourmet guide to typesetting with the AMS-TEX macro package}. On page 152 he writes,
+
+\begin{quotation}
+\normalsize
+There's one situation when even right-thinking people may disagree on the use of dots. Consider the sencence
+
+
+  The quadrilateral \(A_1A_2A_3A_4\) clearly has area \(x_1x_2x-3\ldots x_n\), and in general the $n$-gon $A_1A_2A_3 \ldots A_n$ has area $x_1x_2x_3\cdots x_n$
+
+
+In the formula $A_1A_2A_3A_4$,  the juxtaposition of the letters $A_a, A_2, A_3$ and $A_4$ has no special significance---they are simply being listed one after the other. But in the formula $x_1x_2x_3x_4$ the juxtaposition of symbols indicate multiplication---this formula is an abbreviation for $x_1\times x_2\times x_3\times x_4$ or
+
+\end{quotation}
+
+In a footnote in the same book Spivak politely notes that he disagrees with the author of \TeX itself, when it comes to the binary operation of multiplication.
+
+\begin{quotation}
+
+\dots some authors like to type |$x_1x2x_3\dotsb x_n$| in order to get $x_1x2x_3\dotsb x_n$.
+\end{quotation}
+
+
+
+
+
+
+

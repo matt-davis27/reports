@@ -1,0 +1,161 @@
+\chapter{Arrays}
+
+One of the big advantages of the \alltex system over common interactive software for text processing is that it offer,
+also, a programming language, which give, to people who have some knowledge in the algorithmic and programming
+fields, an exceptional flexibility and power.
+
+Nevertheless, \tex is a rather specific programming language, based on macro expansion, which implements a lot of
+unusual constructs but lacks some that are very familiar in the classical procedural languages, as arrays to store and
+retrieve arbitrary pieces of data, stored in a structured way. 
+
+Nevertheless, one of the few applications where this is straightforward to use them is to program a
+mailing system, where nearly the same information is to be formatted several times, depending of values which can
+be simply retrieved from an array of data. This was the goal of the \docpkg{formlett} package [7], written in 1993-1995 by
+Zhuhan Jiang\people{Zhuhan Jiang} for dealing with mass letters, invoices and similar tasks of some duplicative nature. It implemented a
+small but powerful set of macros to manage arrays, which have been extracted to form the  \docpkg{arrayjobx} package.
+
+The arrays can be mono or bi-dimensional\cite{becht1993} and they are dynamically allocated (so we do not have to declare their
+dimension statically.). Stephan von Bechtolsheim [1, Volume III, paragraph 20.3, page 136] also demonstrated such macros for array management in the third
+volume of his huge book, but it was limited to mono-dimensional arrays. 
+
+Array structures are, at the opposite of text management, often very useful in graphic programming. This is why
+the (Al)DraTEX package from Eitan Gurari [4] (see also [5]) integrate such functionality (but which is bundled inside
+this package and could not be extracted easily from it), and this is also the case for the METAPOST package [6] (but
+this one do not use TEX as programming language)3. This fact explain why most of our examples in this documentation
+will concern the area of graphic programming (here using the PSTricks package from Timothy van Zandt [9]).
+
+\tex does not provide any array structure, the \docpkg{arrayjobx} package provides some rudimentary structure\sidenote{Supercedes \texttt{arrayjob} package.}. To create a new array we use the \cmd{newarray}
+
+Another problem with arrays is the need for iteration. Again \alltex does not provide an out of the box solution, but many packages and constructs are available to build macros for iteration (see \cite{repeat}).
+
+
+\begin{teX}
+\newarray\Actors
+\newarray\Dates
+\newarray\Sexes
+\end{teX}
+
+The \cmd{readarray}, stores consecutive values of the  array element specified by the indices. In the last case, the content is inserted at the current point. The trailing points are also significant. You can also use \latex macros inside the values.
+
+%% Define the example
+\newarray\Actors
+\readarray{Actors}{Louise Brooks&Marlene Dietrich&Clark Gable}
+
+\begin{teX}
+\newarray\Actors
+\readarray{Actors}{Louise Brooks&Marlene Dietrich&Clark Gable}
+\end{teX}
+
+Note that the values are separated by \& characters.\sidenote{It is fairly trivial to replace this with commas}
+
+%show the example
+\newarray\Values
+\readarray{Values}{A&B&C&D}
+
+\Values(3)+ =\Values(3)
+
+\newarray\Actors
+
+\readarray{Actors}{Louise Brooks&Marlene Dietrich&Clark Gable}
+\verb+\Actors(1)+ = \Actors(1)
+
+\verb+\Actors(2)+ = \Actors(2)
+
+\verb+\Actors(3)+ = \Actors(3)
+
+You can insert values like in most procedural languages by simply typing the value in the assignment:
+
+\begin{teX}
+\Actors(4)={\textit{\underline{Ida Lupino}}}
+\end{teX}
+
+\Actors(4)={\textit{\underline{Ida Lupino}}}
+\verb+\Actors(4)+ = \Actors(4)
+
+
+
+\newarray\Letters
+ \readarray{Letters}{A&B&C&D&E&F&G&H&I&J}
+ \dataheight=5
+
+ % Default is \normalindexfalse
+ \verb+\Letters(1,2)=+\Letters(1,2)\\
+ \verb+\Letters(2,1)=+\Letters(2,1)\\
+ \normalindextrue
+ \verb+\Letters(1,2)=+\Letters(1,2)\\
+ \verb+\Letters(2,1)=+\Letters(2,1)\\
+
+
+  [\BS FormatTeXMacro\{check\}] Get the content of the array element specified
+  by the indice(s) and store the result in the macro \doccmd{cachedata}
+
+  [\BS FormatTeXMacro\{cachedata\}] Macro where the content is stored after
+  a |check| request.
+
+  [\BS FormatTeXMacro\{ifemptydata\}] True if the last \doccmd{check} request
+  has given an empty result.
+
+
+
+
+\section{Examples}
+
+In this example we will create three arrays using the |newarray| macro, we will
+then populate them with some data using |\readarray| and then print them within a display environment.
+As you will see the paradigm is straight from any procedural language.
+
+\newarray\Actors
+\newarray\Dates
+\newarray\Sexes
+\readarray{Actors}{Louise Brooks&Marlene Dietrich&Clark Gable}
+\readarray{Dates}{1906--1985&1902--1992&1901--1960}
+\readarray{Sexes}{2&2&1}
+
+\begin{teX}
+\newarray\Actors
+\newarray\Dates
+\newarray\Sexes
+\readarray{Actors}{Louise Brooks&Marlene Dietrich&Clark Gable}
+\readarray{Dates}{1906--1985&1902--1992&1901--1960}
+\readarray{Sexes}{2&2&1}
+
+%Place results in a description environment
+
+  \item[\Actors(1)] : \Dates(1)
+  \item[\Actors(2)] : \Dates(2)
+  \item[\Actors(3)] : \Dates(3)
+
+\end{teX}
+
+\begin{teX}
+\item[\Actors(1)] : \Dates(1)
+\item[\Actors(2)] : \Dates(2)
+\item[\Actors(3)] : \Dates(3)
+\end{teX}
+
+
+\section*{Iterating through the array values}
+We can use a general loop macro to make life easier, either \doccmd{multido} from the package \docpkg{multido} or the \cmd{whiledo} \index{iteration!whiledo} from the \docpkg{ifthen} package.
+
+
+\def\NumberActors{3}
+\begin{teX}
+
+   \multido{\iActor=1+1}{\NumberActors}{%
+   \item[\Actors(\iActor)] : \Dates(\iActor)}
+
+\end{teX}
+
+
+
+\newcounter{acounter}
+
+\whiledo{\value{acounter}<4}{
+   \stepcounter{acounter}
+   $\bullet$  \Actors(\value{acounter})\par }
+
+
+
+
+
+\chapter{Fun}

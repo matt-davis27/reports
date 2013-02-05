@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage{amsmath}
+\makeatletter
+
+\def\xdots{%
+  \newif\if@found
+  \@foundfalse
+  \def\ifPlus{\@ifnextchar+{\cdots}{\ifDot}}
+  \def\ifDot{\@ifnextchar.{\ldots\@foundtrue}{\ifSemicolon}}
+  \def\ifSemicolon{\@ifnextchar;{\cdots\@foundtrue}{\ifLeftBracket}}
+  \def\ifLeftBracket{\@ifnextchar){\ldots\,\@foundtrue}{\ifOpenBracket}}
+  \def\ifOpenBracket{\@ifnextchar({\dots\@foundtrue}{\ifNotFound}}
+  \def\ifNotFound{\if@found\relax\else\ldots\fi}
+  \ifPlus
+}
+
+\makeatother
+\begin{document}
+\begin{align*}
+e^{xf(z)}-1
+&=(z,z^2\!/2!,z^3\!/3!,\ldots\,)\,F\,(x,x^2,x^3,\xdots)^{\rm T}\\
+\noalign{\smallskip}
+e^{xg(z)}-1
+&=(z,z^2\!/2!,z^3\!/3!,\ldots\,)\,G\,(x,x^2,x^3,\xdots)^{\rm T}
+\end{align*}
+
+\makeatletter
+\newif\test
+\@testtrue
+
+\if@test needs dotsa \else dots b\fi
+
+\[\prod_{j\ge0}\biggl(\sum_{k\ge0}a_{jk}z^k\biggr)
+=\sum_{n\ge0}z^n\,\Biggl(\sum_
+{\scriptstyle k_0,k_1,\ldots\ge0\atop
+\scriptstyle k_0+k_1+\cdots=n}
+a_{0k_0}a_{1k_1}\ldots\,\Biggr).\]
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+

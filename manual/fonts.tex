@@ -1,0 +1,2073 @@
+%\chapter{Fonts}
+%\begin{marginfigure}%
+%  \includegraphics[width=1.1\linewidth]{./graphics/forum}
+%  \caption{Forum, a Classic Roman type, designed by Mr. F. W. Goudy. }
+%  \label{fig:marginfig1}
+%\end{marginfigure}
+
+%\begin{marginfigure}%
+%  \includegraphics[width=1.1\linewidth]{./graphics/cocacola}
+%  \caption{An 1890s advertisement showing model Hilda Clark in formal 19th century attire. The ad is entitled Drink Coca-Cola 5\protect\textcent.} 
+%  \label{fig:cocacola}
+%\end{marginfigure}
+%\begin{marginfigure}
+%\includegraphics[width=\linewidth]{./graphics/bodoni}
+%\caption{Portrait of Bodoni (c. 1805-1806), by Giuseppe Lucatelli. \textit{Museo Glauco Lombardi}.}
+%\end{marginfigure}
+
+\newgeometry{left=1.5cm,right=1.5cm,top=1.5cm,bottom=1in}
+\index{fonts} %\people{Hilda Clark}
+\index{fondue}
+\setlength{\columnsep}{2em}
+\begin{multicols}{2}
+\parskip1em
+The term font is a doublet of the word {\em fondue}. It derives from Middle French font\'e, meaning "(something that has been) melt(ed)", referring to type produced by casting molten metal at a type foundry. English-speaking printers have used the term fount for centuries to refer to the multi-part metal type used to assemble and print in a particular size and typeface.
+
+\index{fonts!computer modern}
+
+The Computer Modern\sidenote{These fonts have been originally designed by Donald Knuth} Metafont fonts come in a fixed number of sizes, with each size
+being subtly different in shape so that they blend harmoniously. Traditionally, characters
+were designed for each size to be cut, and Computer Modern follows the traditional type
+design. For example, the smaller the size the more likely that the characters will have a
+relatively larger width. Outline fonts can be scaled to any size, but as the scaling is typically
+linear, different sizes do not visually match quite as well.
+
+
+
+Computer Modern fonts come in twelve sizes which, rounded to a point, are: 5, 6, 7,
+8, 9, 10, 11, 12, 14, 17, 20 and 25pt. In \latex the size for a particular font is specifed by
+a macro name like \cs{scriptsize } and not by points; for example \cs{\scriptsize}, not 7pt.1
+\sidenote{The point system was invented by Pierre Fournier le jeune in 1737 with a length of
+0.349mm. Later in the same century Fran\k{c}ois-Ambroise Didot introduced his point system
+with a length of 0.3759mm. This is the value still used in Europe. Much later, in 1886,
+the American Type Founders Association settled on 0.013837in as the standard size for the
+point, and the British followed in 1898. Conveniently for those who are not entirely metric
+in their thinking this means that six picas are approximately equal to one inch.
+The big point is somewhat of an anomaly in that it is a recent invention. It tends to
+be used in page markup languages, like PostScript4, in order to make calculations quicker
+and easier.}
+
+The above units are all constant in value. There are also some units whose value depends
+on the particular font being used. The {\em em} is the nominal height of the current font;
+it is used as a width measure. An {\em en} is half an {\em em}. The \textit{ex} is nominally the height of the
+letter ‘x’ in the current font. You may also come across the term {\em quad}, often as in a phrase
+like ‘starts with a quad space’. It is a length defined in terms of an em, often a quad is 1em.
+\bigskip
+
+\onelineheader{FONT SIZES}
+\medskip
+
+The actual size of, say, \cs{scriptsize} characters, is not fixed but depends on the type size
+option given for the document.
+
+
+Standard LaTeX provides ten declarations, illustrated in Table \ref{tbl:latexfontsizes}, for setting the type
+size, which means that two of the sizes are not easily accessible. Which two depend on the
+class and the selected point size option. However, for normal typesetting four different
+sizes should cover the majority of needs, so there is plenty of scope with a mere ten to
+choose from.
+
+
+The \cmd{normalsize} is the size that is set as the class option and is the size used for the
+body text. The \cmd{footnotesize} is the size normally used for typesetting footnotes. The
+standard classes use the other sizes, usually the larger ones, for typesetting certain aspects
+of a document, for example sectional headings.
+\end{multicols}
+
+\begin{center}
+\captionof{table}{Standard font size declarations}
+\begin{tabular}{llll}
+\toprule
+    \cs{tiny}  &\tiny tiny &\cs{scriptsize} &\scriptsize scriptsize\\
+    \cs{footnotesize} &\sidenotesize footnotesize &\cs{small}  &\small small\\
+    \cs{normalsize} &\normalsize normalsize &\cs{large} &\large large\\
+    \cs{Large} &\Large Large &\cs{LARGE} &\LARGE LARGE\\
+   \cs{huge} &\huge huge &\cs{Huge} &\Huge Huge\\
+\bottomrule
+\end{tabular}
+\end{center}
+\label{tbl:latexfontsizes}
+
+
+
+\begin{multicols}{2}
+Finally, to obtain 11/13 type in American printer's points, in Postcript points, in Didot points:
+\end{multicols}
+
+\topline
+
+\noindent\textit{Example:}
+\begin{teXXX}
+\fontsize{11}{13}\selectfont 11/13 type in American printer's points, 
+\fontsize{11bp}{13bp}\selectfont in Postcript points, 
+\fontsize{11dd}{13dd}\selectfont in Didot points. 
+\end{teXXX}
+\textit{produces:}
+
+\begin{minipage}{5cm}
+\fontsize{11}{13}\selectfont 11/13 type in American printer's points, 
+\fontsize{11bp}{13bp}\selectfont in Postcript points, 
+\fontsize{11dd}{13dd}\selectfont in Didot points. 
+\end{minipage}
+\bottomline
+
+
+
+The example clearly illustrates the small but perceptible differences between the three different definitions of a printer's point.
+
+\clearpage
+
+\setlength{\columnsep}{1em}
+\begin{multicols}{3}
+
+
+\includegraphics[width=\linewidth]{./graphics/nocomment}
+
+\captionof{figure}{Simple typography in a poster}
+
+\bigskip
+
+{\small
+
+
+\hbox to \linewidth{\colorbox{black}{\fboxsep3pt \fbox{\large\bf \color{white}\textsf{\textcolor{yellow}{Up}right shape
+\texttt{\bf \textbackslash upshape}}
+}}}
+
+\hbox to \linewidth{\colorbox{purple}{\fboxsep3pt \fbox{\it \large\bf \color{white}\textsf{\textcolor{yellow}{It}alic shape
+\texttt{\bf \textbackslash itshape}}
+}\hfill\hfill\hbox{2pt}}}
+
+Slanted shape          {\slshape Slanted shape}\\
+
+SMALL CAPS SHAPE  {\scshape Small Caps shape}\\
+}
+
+\columnbreak
+
+\onelineheader{FONT SHAPES}
+
+\lettrine{O}{ther} characteristics of font families is their shape such as italic, slanted etc.
+
+
+\parindent1em
+
+
+
+%\section{Font weight}
+%{ \centering
+%\includegraphics[width=0.85\linewidth]{./graphics/helvetica}
+%\captionof{figure}{Helvetica weights see also url(http://en.wikipedia.org/wiki/Font)}
+% }
+
+The weight of a particular font is the thickness of the character outlines relative to their height.
+
+A typeface may come in fonts of many weights, from ultra-light to extra-bold or black; four to six weights are not unusual, and a few typefaces have as many as a dozen. Many typefaces for office, Web and non-professional use come with just a normal and a bold weight. If no bold weight is provided, many renderers (browsers, word processors, graphic and DTP programs) support faking a bolder font by rendering the outline a second time at an offset, or just smearing it slightly at a diagonal angle.
+
+The base weight differs among typefaces; that means one normal font may appear bolder than some other normal font. For example, fonts intended to be used in posters are often quite bold by default while fonts for long runs of text are rather light. Therefore weight designations in font names may differ in regard to the actual absolute stroke weight or density of glyphs in the font.
+
+Attempts to systematize a range of weights led to a numerical classification first used by Adrian Frutiger with the Univers typeface, although originally only ranging from 3 to 8 - e.g.: 35 Extra Light; 45 Light; 55 Medium or Regular; 65 Bold, 75 Extra Bold; 85 Extra Bold; 95 Ultra Bold or Black.
+
+Deviants of these were the "6 series" (italics) - e.g.: 36 Ultra Light Italics; 46 Light Italics, 56 Medium Italics, 66 bold italics, etc. etc. The "7 series" (condensed versions) - e.g.: 37 Extra Light Condensed, 47 Light Condensed, 57 Medium Condensed, etc.
+
+From this numerical system it is easier (less words) to determine exactly what a font's characteristics are. For instance: "Helvetica 67" (code HE67) translates to "Helvetica Bold Condensed" (or HE68 if bold condensed italics).
+
+The TrueType font format introduced a scale from 100 through 900, where 400 is regular, which also used in CSS and OpenType. The first algorithmic description of fonts was perhaps made by Donald Knuth in his Metafont and TeX system of programs.
+
+There are many names used to describe the weight of a font in its name, differing among type foundries and designers, but their relative order is usually fixed, something like this:
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{l}
+Hairline\\
+Thin\\
+Ultra-light\\
+Extra-light\\
+Light\\
+Book\\
+Normal / regular / Roman / plain\\
+Medium \\
+Demi-bold / semi-bold\\
+Bold\\
+Extra-bold / extra\\
+Heavy\\
+Black\\
+Extra-black\\
+Ultra-black / ultra\\
+\end{tabular}
+\end{table}
+
+\end{multicols}
+
+
+
+\onelineheader{FONTS AND  \LaTeX}
+
+\begin{multicols}{2}
+Having read any \latex introduction of your choice (for instance, [1]), you should
+be familiar with the basic commands for font selection. To start with, let’s summarize
+them once again.
+
+The following declarations let you choose between three pre-defined font families:
+
+\cmd{rmfamily} selects a roman (i.e., serifed) font family
+
+\cmd{sffamily} selects a sans serif font family
+
+\cmd{ttfamily} selects a monospaced (``typewriter'') font family
+
+Within each font family, the following declarations select the ``series'' (i.e., darkness
+or stroke width),
+
+\cmd{mdseries} regular
+
+\cmd{bfseries} bold
+
+and the ``shape'' (i.e., the form of the letters):
+
+
+\begin{tabular}{ll}
+\cs{upshape} &upright  \\
+\cs{slshape}  &slanted  \\
+\cs{itshape}  &italic \\
+\cs{scshape} &Caps and Small Caps \\
+\end{tabular}
+
+Computer fonts are difficult and cumbersome to change and manipulate in  \LaTeXe\ as compared to other DTP systems.  Two commands can be used on for medium series and one for bold font series. You can use \doccmd{mdseries} or \doccmd{bfseries}. 
+\sidenote{Medium series {\mdseries Medium series}
+Bold series {\bfseries Bold series}}
+
+
+
+\section{Encoding}
+
+\begin{tabular}{ll}
+ 7t (OT1)& 7-bit text (standard)\\
+ 9t (OT1)& 7-bit text (standard + expert)\\
+ 9o (OT1)& 7-bit text (standard + expert + oldstyle)\\
+ 8t (T1) & 8-bit text (standard)\\
+ 9e (T1) & 8-bit text (standard + expert)\\
+ 9d (T1) & 8-bit text (standard + expert + oldstyle)\\
+ 8c (TS1)& 8-bit text symbols (standard)\\
+ 9c (TS1)& 8-bit text symbols (standard + expert)\\
+ 8i (TS0)& 8-bit text symbols subset (standard)\\
+ 9i (TS0X)& 8-bit text symbols subset (standard + expert)\\
+\end{tabular}
+
+
+
+\section{Letterspacing}
+
+\subsection{Typefaces}\label{sec:typefaces}\index{typefaces}
+If the Palatino, \textsf{Helvetica}, and \texttt{Bera Mono} typefaces are installed, this style
+will use them automatically.  Otherwise, we'll fall back on the Computer Modern
+typefaces.
+
+\subsection{Letterspacing}\label{sec:letterspacing}
+This document class includes two new commands and some improvements on
+existing commands for letterspacing.
+
+When setting strings of \allcaps{ALL CAPS} or \smallcaps{small caps}, the
+letter-spacing---that is, the spacing between the letters---should be
+increased slightly.\cite{Bringhurst2005}  The \doccmd{allcaps} command has proper letterspacing for
+strings of \allcaps{FULL CAPITAL LETTERS}, and the \doccmd{smallcaps} command
+has letterspacing for \smallcaps{small capital letters}.  These commands
+will also automatically convert the case of the text to upper- or
+lowercase, respectively.
+
+The \doccmd{textsc} command has also been redefined to include
+letterspacing.  The case of the \doccmd{textsc} argument is left as is,
+however.  This allows one to use both uppercase and lowercase letters:
+\textsc{The Initial Letters Of The Words In This Sentence Are Capitalized.}
+  
+
+\newthought{You can use color with your text} by using the 
+\doccls{xcolor} package, developed by  Dr. Uwe Kern\sidenote{A very appropriate name} provides easy driver-independent access to several kinds of colors,
+tints, shades, tones, and mixes of arbitrary colors by means of color expressions 
+like \doccmd{color\{red!50!green!20!blue\}}. 
+
+The package allows to select a document-
+wide target color model and offers tools for automatic color schemes, conver-
+sion between twelve color models, alternating table row colors, color blending
+and masking, color separation, and color wheel calculations.
+%\sidebarcolor{\textcolor{gray}{\lipsum[2]}}
+
+The sidenotes look a bit better - to me in any case - if they are in a lighter color than the main body of the text,
+although, I must admit that sidenotes do attract the eye. I normally would read them first.
+\sidenote{
+\doccmd {poopp}
+}
+\end{multicols}
+
+\clearpage
+
+{\Large{\bf HANDLING CURRENCIES AND
+\vskip3.5pt
+ SPECIAL SYMBOLS}}
+\bigskip
+
+\begin{multicols}{2}
+\colorbox{gray!20}{\hfill\vbox{\par\hangindent2em\hangafter0 Most standard keyboards provide the dollar sign (\$), which, of course, is a special symbol in \tex\ so it needs to be
+prefaced with a backslash. This symbol works well both in text mode and math mode.\par}\hfill}
+
+The pound sign (\pounds) can be obtained by the standard command \cmd{pounds}. Additionallystandard \latex\ provides two commands for these signs:
+
+{\obeylines
+\cmd{textdollar} which renders as \textdollar, and 
+\cmd{textsterling} which renders as \textsterling.
+}
+
+\medskip
+\large{\bf The Euro}
+\medskip
+
+The European Commission spent their tax-payers money creatively in producing yet another standard to
+define the looks of the euro.
+
+\bigskip
+\includegraphics[width=0.67\linewidth]{./graphics/euro}
+\captionof{figure}{Construction of the Euro sign}
+%  \label{fig:euro}
+\medskip
+
+Whilst the Commission intended the logo to be a prescribed glyph shape, many font designers did 
+what they normally do and just went ahead and produced their own. Inspiration for the \texteuro symbol itself came
+from the Greek epsilon ($\epsilon$)  a referenceand the first letter of the word Europe,
+crossed by two parallel lines to `certify'
+the stability of the euro. Given the current `Greek Crisis' that threatens the stability of the Europe even my grandmother will
+be laughing if she could read this sentence.
+
+For currencies in other parts of the world you can use the \docpkg{textcomp} package, which besides many other symbols it provides symbols for many common currencies such as the Yen {\textyen}. Some of the symbols though gave me problems when types in.
+
+And then there is the \docpkg{marvosym} package which
+has these symbols:
+\medskip
+
+\begin{tabular}{lp{5.0cm}}
+\toprule
+Symbol    &Use\\
+\midrule
+\Denarius  & \textbackslash \texttt{Denarius}, obsolete symbol for the German pfennig\\
+\texteuro  &\textbackslash \texttt{EUR}\\
+\textcent  & \textcent \\
+\bottomrule
+\end{tabular}
+\medskip
+
+The font was designed by Martin Vogel. See \url{http://www.marvosym.de/}. the macros and documentation
+were written by Thomas Henlich, who also converted the font to a Type 1 font.
+
+The font has many special symbols such as these warning signs
+
+
+
+{\Huge
+\begin{tabular}{llll}
+\Stopsign &\CEsign &\Estatically &\Explosionsafe\\
+\Laserbeam &\Biohazard &\textcolor{red}{\Radioactivity} &\BSEfree\\
+\end{tabular}
+\captionof{table}{Warning symbols provided by the marvosym pakage}
+}
+
+In conclusion, \latex\  caters for all common, and
+some not so common, currency symbols. Unicode,
+however, has a few additional ones, and is far better
+documented even \Denarius .
+
+\section{Astronomical and astrological symbols}
+
+\newcommand*{\fytext}{\fontencoding{OT1}\selectfont
+ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrs{}tuvwxyz\\
+0123456789 \textonequarter \textonehalf \textthreequarters \textsurd \texttimes
+\textdiv \textpm\ \& \texteuro \textcent \textsterling \textcurrency \textyen
+\textflorin \textdollar\ \textregistered \textcopyright \texttrademark
+\textestimated \textnumero\ \textohm \textmu\ \textsection \textparagraph\
+\textdagger \textdaggerdbl\ \textcelsius\\
+Sphinx of black quartz, judge my vow.\\
+The quick brown fox jumps over the lazy dog.\\
+The quick bronzing wax lay over the impish fjord.\\
+A churlish skittish bespectacled clerk strictly slacks.}
+\newcommand*{\fytest}{\fytext\\[.5em]\textswash{\fytext}}
+%\textsf{%
+%\fytest\\[1em]
+%\textit{\fytest}\\[1em]
+%\textbf{\fytest}\\[1em]
+%\textbf{\textit{\fytest}}}
+
+
+\large{\bf \textsf{THE WASYSYM PACKAGE}}
+    
+This file defines the package |wasysym| which makes some
+    additional characters available that come from the \texttt{wasy} fonts.
+    These fonts were provided by Roland Waldi, Universit\"at Karlsruhe, 
+    Germany.  
+   
+    Some of the symbols below are already provided in the \texttt{T1} or \texttt{TS1} 
+    (textcompanion) encodings, and |wasysm| serves only to make them 
+    available also with the traditional (OT1-encoded) CM-Roman fonts. 
+    
+Other symbols are  provided in the AMS symbol fonts, too, and can
+    be accessed using either the |amssymb| or the |amsfonts| package.
+\medskip
+\topline
+
+  \subsection{Astronomical symbols}
+   \begin{quote}
+  |\vernal|~\vernal \quad
+  |\ascnode|~\ascnode \quad
+  |\descnode|~\descnode \quad
+  |\fullmoon|~\fullmoon \quad
+  |\newmoon|~\newmoon \quad
+  |\leftmoon|~\leftmoon \quad
+  |\rightmoon|~\rightmoon \quad
+  |\astrosun|~\astrosun \quad
+  |\mercury|~\mercury \quad
+  |\venus|~\venus \quad
+  |\earth|~\earth \quad
+  |\mars|~\mars \quad
+  |\jupiter|~\jupiter \quad
+  |\saturn|~\saturn \quad
+  |\uranus|~\uranus \quad
+  |\neptune|~\neptune \quad
+  |\pluto|~\pluto
+   \end{quote}
+
+   \subsection{Astrological symbols and the zodiacal symbols}
+
+    \begin{quote}
+  |\aries|~\aries \quad
+  |\taurus|~\taurus \quad
+  |\gemini|~\gemini \quad
+  |\cancer|~\cancer \quad
+  |\leo|~\leo \quad
+  |\virgo|~\virgo \quad
+  |\libra|~\libra \quad
+  |\scorpio|~\scorpio \quad
+  |\sagittarius|~\sagittarius \quad
+  |\capricornus|~\capricornus \quad
+  |\aquarius|~\aquarius \quad
+  |\pisces|~\pisces \quad
+  |\conjunction|~\conjunction \quad
+  |\opposition|~\opposition
+   \end{quote}
+\end{multicols}
+\bottomline
+
+
+
+For example, this is from some real text from a google books, we set the text in a tabular.
+
+\begin{quote}
+\begin{tabular}{lp{7cm}}
+Venus: \large{\bf \venus}  &The Crescent of the Soul moving to the Cross of Matter, the soul entering and working through matter.\\
+Aries: \large{\bf \aries}  &The Crescent of the Soul moving to the Cross of Matter, the soul entering and working through matter.\\
+Jupiter: \large{\bf \jupiter}  &The Crescent of the Soul moving to the Cross of Matter, the soul entering and working through matter.\\
+Virgo: \large{\bf \virgo}  &The Crescent of the Soul moving to the Cross of Matter, the soul entering and working through matter.\\
+\end{tabular}
+\end{quote}
+
+Highly unlikely you will ever use them, but nevertheless they are here if you need them.
+
+\section{Some useful utilities}
+
+\begin{multicols}{2}
+If you wish to print a table for a particular font you can use the package \texttt{fonttable}. The command
+below will print the font table for the |Computer Modern Roman 10pt| font. Another control sequence |knutext|, provided with the book, will print a particular tortuous test to see that everything prints, correctly.
+
+
+\begin{teX}
+\fonttable{cmr10}
+\end{teX}
+\end{multicols}
+
+
+\begin{multicols}{2}
+{\footnotesize \knutext\par }
+\end{multicols}
+
+
+%% full size
+\begin{table}[htbp]
+\fonttable{ygoth}
+\caption{Font table for ygoth font}
+\end{table}
+
+
+
+\begin{table}[htbp]
+\caption{Font table for \texttt{wasysym wasy10} font.}
+\fonttable{wasy10}
+\end{table}
+
+
+
+%%% HOW TO LOAD A NEW FONT
+\bigskip
+\centerline{\Large How to load a new font}
+\bigskip
+
+\begin{multicols*}{2}
+A new font can be loaded (globally) using the following:\index{Fonts!loading, new}
+
+\begin{teX}
+\fontencoding{OT1}%
+\fontfamily{cmss}
+\fontseries{m}
+\fontshape{it}
+\fontsize{17pt}{21pt}
+\selectfont
+\end{teX}
+
+Once the font family is loaded, it will remain in force until it is changed again. You can revert back to the font defined in the preamble by using:
+
+\begin{teX}
+\normalfont\normalsize
+\end{teX}
+
+A short hand for the equivalent |\font...|  commands followed by a call to
+|\selectfont|, is \doccmd{usefont}.
+
+\begin{teX}
+\usefont {OT1}{cmr}{m}{n}
+\end{teX}
+
+\usefont {OT1}{cmr}{m}{n}
+\fox
+
+whereas \verb+ \usefont {OT1}{cmr}{m}{it}+ , will produce:
+
+\usefont {OT1}{cmr}{m}{it}
+\fox
+%% back to normal
+\normalfont\normalsize
+
+You will find that the most difficult part, of using a font is remembering the Berry name. A summary of the most commonly used fonts is shown in Table 23.  This is why it is not recommended that you use these commands directly, but rather use a semantic name for where you are using them. This is how  \alltex i.e, defining them for a particular purpose. If you want a special font for a headline you can define it as follows:--- \index{fonts!semantic definition}
+
+\begin{teX}
+\newcommand{\headline}[1]{\fontencoding{OT1}%
+   \fontfamily{cmss}\fontseries{m}\fontshape{it}%
+   \fontsize{17pt}{21pt}\selectfont #1 
+   \normalfont\normalsize}
+\headline{A Headline for You}
+\end{teX}
+
+\noindent This will produce:
+
+\newcommand{\headline}[1]{\fontencoding{OT1}%
+\fontfamily{cmss}\fontseries{m}\fontshape{it}%
+\fontsize{17pt}{21pt}\selectfont #1 \normalfont\normalsize}
+
+\headline{A Headline for You}
+
+\end{multicols*}
+
+
+
+\begin{teX}
+\fonttable{pnsl10}  %Pandora slanted 10pt
+\end{teX}
+
+\fonttable{psyro}  %helvetica
+
+\fonttable{phvb}  %helvetica
+
+\fonttable{aer10}\sidenote{Font aer10}  %helvetica
+
+The xfontable command can also pick up the encoding etc
+
+\begin{teXXX}
+\xfonttable{U}{pzd}{m}{n}
+\end{teXXX}
+
+\xfonttable{U}{pzd}{m}{n}
+
+There a number of useful utilities
+
+\fonttext{pbkdo8t}
+
+\fonttext{ptmr}
+
+
+\clearpage
+
+\onelineheader{THE BERRY FILENAME CONVENTIONS}
+
+\setlength{\columnsep}{2em}
+\begin{multicols}{2}
+\index{fonts!naming conventions}
+\lettrine{O}{ne} of the most frustrating aspects of using fonts with \latex is trying to remember the different names for fonts. These names, starting from the original \tex are normally named using a combination of letters and numerals. Due to the proliferation of fonts and conflicting names a namng convention was developed by Karl Berry. This naming scheme for (the base part of) external \tex font filenames. In the scheme filenames
+consist of only letters (monospace a-z), numerals (0-9), and underscore. All names are in lowercase so that to avoid clashes with the Window filesystems.
+
+The basic scheme is as follows (spaces are only provided for readability):
+
+\begin{Verbatim}
+    S TT W [V...] [N] [E] [DD]
+\end{Verbatim}
+
+where,
+
+
+\begin{tabular}{l p{5cm}}
+S     &represents the supplier of the font.\\
+TT    &represents the typeface name.\\
+W     &represents the weight.\\
+V. . .  &represents the variant(s), and is omitted if both it and the width are normal. Many fonts have more than one variant.\\
+N &represents the encoding, and is omitted if the encoding is nonstandard. Encodings are subsumed in the section on variants (see Section 2.4 [Variants], page 20).\\
+E &represents the width (“expansion”), and is omitted if it is normal.\\
+DD &represents the design size (in decimal), and is omitted if the font is linearly
+scaled.\\
+\end{tabular}
+
+For example the filename |phvb7t| denotes:
+
+\begin{teX}
+p    Adobe ('p' for Postcript)
+hv  helvetica
+b    (bold) weight
+7   variant 7 bit
+t   typewriter
+\end{teX}
+
+A summary of the most common font names available for \latex
+is shown below:
+
+\begin{tabular}{ll}
+\toprule
+Family       &Font Name\\
+\midrule
+pag          &Avant Garde\\
+fvs          &Bitstream Vera Sans\\
+pbk          &Bookman\\
+bch          &Charter\\
+ccr          &Computer Concrete\\
+cmr          &Computer Modern\\
+pcr          &Courier\\
+mdugm      & Garamond\\
+phv          &Helvetica\\
+fi4          &Inconsolata\\
+lmr          &Latin Modern\\
+fxb          &Linux Biolinum\\
+fxl          &Linux Libertine\\
+pnc          &New Century Schoolbook\\
+ppl          &Palatino\\
+ptm          &Times\\
+uncl         &Uncial\\
+put          &Utopia\\
+pzc          &Zapf Chancery\\
+\bottomrule
+\end{tabular}
+
+
+
+
+Testing this font we get:
+
+\fonttexts{phvb7t}{\fox}
+
+Adding an n at the end |phvb7tn| will give us the narrow version of the font.
+
+\fonttexts{phvb7tn}{\fox}
+
+\fonttexts{phvb}{\fox}
+
+\fonttexts{phvr}{\fox}\sidenote{Adobe helvetica regular \texttt{phvr}.}   %r for regular
+
+\fonttexts{phvrc}{\fox}\sidenote{Adobe helvetica regular \texttt{phvrc}. Black}   %r for regular
+
+\fonttexts{phvro}{\fox}\sidenote{Adobe helvetica regular \texttt{phvro}. Black}   %r for regular
+
+\fonttexts{phvbo}{\fox}\sidenote{Adobe helvetica regular \texttt{phvbo}. Bold}   %r for regular
+
+
+% Fix some nice shades, but use CMYK so pdflatex can grok them
+%
+\definecolor{Headings}{cmyk}{0,1,0.13,0}%{named}{RubineRed}
+\definecolor{Subheadings}{cmyk}{0.64,0,0.95,0.40}%{named}{OliveGreen}
+\definecolor{Fonts}{cmyk}{0.50,1,0,0}%{named}{Plum}
+\newcommand{\sample}{Typographia Ars Artium Omnium Conservatrix}
+%
+% Two macros to do the formatting. \thefont specifies a line in the
+% table with a default encoding, using a font family name following
+% the Karl Berry fontname conventions (breached only for some older
+% well-established Metafont fonts). \fonttitle just spans both columns
+% with a title and some vertical spacing.
+%
+\newcommand{\thefont}[4][OT1]{%
+	\textcolor{Fonts}{#2} %
+	\fontencoding{#1}\fontfamily{#3}\selectfont#4\\}
+
+\newcommand{\fonttitle}[1]{%
+	\multicolumn2{p{\columnwidth}}{\vrule height1.5pc width0pt
+	\fontseries{b}\selectfont\textcolor{Subheadings}{#1}}\\[3pt]}
+
+\newcommand{\normalencoding}{\fontencoding{OT1}}
+
+
+\thefont{Inconsolata}{fi4}{\sample, this font is particularly suited for monospaced, requirements\\
+\textbackslash thefont, \textbackslash fontseries\\
+}
+
+|\thefont, \fontseries|
+
+
+\thefont{CM `Dunhill'}{cmdh}{\sample}
+
+\thefont{Pandora}{panr}{\sample}
+\thefont{Universal}{uni}{\sample}
+\thefont{Punk}{punk}{\sample}
+\thefont{Concrete}{ccr}{\sample}
+
+\thefont{Zapf Chancery}{pzc}{\parindent1em People who know Hermann Zapf, the type designer, describe his work in terms usually reserved for fresco painters and classical composers. A legend in calligraphy and book design, Mr. Zapf, who uses passages from the writers Goethe and Hesse in his lettering samples, is equally renowned as an innovator in desktop publishing and word processing.
+
+In 1973, Mr. Zapf designed Marconi, the first font created for digital composition, where letters are printed across a grid of small boxes, some programmed to be black, others to be white. His straight, square letters, designed for the HellDigiset, a typesetting machine made by a German company, successfully accommodated the technologys limitations.
+
+Today, at 82, Mr. Zapf remains an innovator. ''Designing metal type faces was done under the technical limitations of the casting process,'' he said from Darmstadt, Germany, where he lives. ``The digital technology of today gives you freedom which you never had in the time of hot metal. But I dont use my Mac for designing types. I like to draw and to use my hand.''}
+\footnote{From a short article in New York Times, by Kathleen Carroll
+published February 04, 2001 \protect\url{http://www.nytimes.com/2001/02/04/business/responsible-party-hermann-zapf-written-on-wall-and-in-windows.html}}
+
+\end{multicols}
+
+\clearpage
+
+\onelineheader{HOW TEX HANDLES FONTS}
+
+\begin{multicols}{2}
+\parindent1em
+
+The original \tex engine and plain had a much simpler when dealing with fonts. It also had more limitations and the fonts available were mostly those that shipped with the original \tex engine.
+
+When you start plain \tex, you get Computer Modern Roman at 10 point. \tex knows this font under the name
+|\tenrm|, and the same roman font in 7 and 5 point is know as |\sevenrm| and |\fiverm|.
+
+To use 7-point roman, it's enough to type |\sevenrm|
+
+\begingroup
+  \sevenrm
+   \frogking
+\endgroup
+
+\begingroup
+  \font\tenrm=cmr10
+    \tenrm
+   \frogking
+\endgroup
+
+{\bf Loading other fonts} To use a font that has not been preloaded, you must first define a name to refer to that font.
+
+Suppose we want to define an 11pt font, which has not been preloaded.
+
+|\font\elevenrm=cmr8|
+
+Note that there is no backslash before the name. Once the registration of the font is done, you use the font
+by typing its macro name.\\
+\textit{Example:}
+\begin{teX}
+\font\elevenrm=cmr11 at 13pt
+\elevenrm
+\frogking
+\end{teX}
+\textit{produces:}
+
+\begingroup
+\font\elevenrm=cmr11 at 13pt
+\elevenrm
+\frogking
+\endgroup
+
+A common mistake with new users, is to think that when a new font is defined the system switches to that font. Unless you switch to the font by using the macro name, no font changes will occur.
+
+\section*{Scaling of fonts}
+
+If you want to use a 12-point roman font, but your \tex installation only has the 10-point font |cmr10|. You can scale up the existing font by saying
+
+|\font\twelverm=cmr12 at 12pt|
+
+This tells \tex to multiply all the dimensions of font |cmr10| by a factor of 12/10=1.2, in effect in a 12-point font.\footnote{\tex knows that the original size, or \textit{design size, of cmr10 is 10pt because this information is written in the tfm file; the name of the file is irrelevant.}}
+
+The following construction gives exactly the same result:
+
+|\font\twelverm=cmr10 scaled 1200|
+
+Scaling of fonts, is normally associated with macros that describe semantically its usage:
+
+\topline
+
+\begin{teXX}
+\font\titlefont=cmr17
+\def \title #1{ {\titlefont \centerline {#1}}}
+\end{teXX}
+
+{\font\titlefont=cmr17
+\def \title #1{ {\titlefont \centerline {#1}}}
+
+{\centering \titlefont{A Short title}\par}
+}
+\bottomline
+\medskip
+
+Typical definitions, besides the |\titlefont|, just described are:
+
+\begin{teXX}
+\font\authorfont=cmr12  
+\font\addressfont=cmti10
+\font\sectionfont=cmbx10
+\font\figfont=cmr12
+\end{teXX}
+
+
+These original fonts were all based on metafont. Although a lot of these fonts have now been superceded by newer True type fonts, some of them are still being used. Example are exotic languages, music notes, chess figures, astronomical symbols and logic gates. The most famous metafont font was the Euler family designed by
+Herman Zapf, and developed at Stanford University. It is not a true metafont, as the characters were digitized. Another family is the Gothic family, including Fractur and Scwabacher, developed by Y. Haralambous.
+
+
+\section*{Particular fonts}
+
+A list of particular fonts, normally associated with \tex is shown below:
+\medskip
+\end{multicols}
+
+\begin{multicols}{2}
+\noindent|\fivebf| use 5-point bold font\\
+|\fivei| use 5-point math italic font\\
+|\fiverm| use 5-point roman font\\
+|\fivesy| use 5-point math symbol font\\
+|\sevenbf| use 7-point bold font\\
+|\seveni| use 7-point math italic font\\
+|\sevenrm| use 7-point roman font\\
+|\sevensy| use 7-point math symbol font\\
+|\tenbf| use 10-point bold text font\\
+|\tenex| use 10-point math extension font\\
+|\teni| use 10-point math italic font\\
+|\tenrm| use 10-point roman text font\\
+|\tensl| use 10-point slanted roman font\\
+|\tensy| use 10-point math symbol font\\
+|\tenit| use 10-point italic font\\
+|\tentt| use 10-point typewriter font\\
+\end{multicols}
+
+\textbf{Handling of unknown glyphs}\quad In the early days of TeX, foreign names and languages could not.
+Knuth\footnote{D.E. Knuth, \textit{Overlapping Pfaffians, EIJC, 1995.}} in one of his papers, used a comma to design an ogonek:
+
+\topline
+\begin{teX}
+% DEAR POLISH FRIENDS: I'M DOUBLY SORRY THAT I HAVE ONLY A CRUDE
+% APPROXIMATION TO AN OGONEK --- DEK
+\def\og#1{\leavevmode\vtop{\baselineskip0pt \lineskip0pt
+  \lineskiplimit0pt \ialign{##\crcr\relax#1\cr
+                          \hidewidth\kern.2em
+           \dimen0=.0040ex \multiply\dimen0\fontdimen1\font
+           \kern-.0156\dimen0`\hidewidth\cr}}}
+W. Zaj\og{a}czkowski, ``O pewn\'ej w{\l}asno\'sci pfafianu,''
+ {\sl Rozprawy i Sprawozdania z Posiedze\'n}, Wydzia{\l}u
+ Matematyczno-Przyrodniczego Akademii Umiej\og{e}tno\'sci {\bf 7}
+(Krakow, 1880), 67--74.
+\end{teX}
+\def\og#1{\leavevmode\vtop{\baselineskip0pt \lineskip0pt
+  \lineskiplimit0pt \ialign{##\crcr\relax#1\cr
+                          \hidewidth\kern.2em
+           \dimen0=.0040ex \multiply\dimen0\fontdimen1\font
+           \kern-.0156\dimen0`\hidewidth\cr}}}
+{\font\tenrm=cmr10 \tenrm [29]
+W. Zaj\og{a}czkowski, ``O pewn\'ej w{\l}asno\'sci pfafianu,''
+ {\sl Rozprawy i Sprawozdania z Posiedze\'n}, Wydzia{\l}u
+ Matematyczno-Przyrodniczego Akademii Umiej\og{e}tno\'sci {\bf 7}
+(Krakow, 1880), 67--74.}
+
+\bottomline
+
+\begin{multicols}{2}
+\def\pfbox
+  {\hbox{\hskip 3pt\lower2pt\vbox{\hrule
+  \hbox to 5pt{\vrule height 7pt\hfill\vrule}
+  \hrule}}\hskip3pt}
+
+Similar constructions, especially for mathematics abounded in the early days of \tex, saw their way into \alltex and still being used by \latex users t to define new symbols. For example to produce the Halmo's tompstone symbol, Knuth in his papers used a |\pfbox|,
+
+\begin{teXXX}
+\def\pfbox
+  {\hbox{\hskip 3pt\lower2pt\vbox{\hrule
+  \hbox to 5pt{\vrule height 7pt\hfill\vrule}
+  \hrule}}\hskip3pt}
+\end{teXXX}
+\def\pfbox
+  {\hbox{\hskip 3pt\lower2pt\vbox{\hrule
+  \hbox to 5pt{\vrule height 7pt\hfill\vrule}
+  \hrule}}\hskip3pt}
+
+{\small It is not difficult to verify that these constructions invert each other. The
+reader will find easily, for example, that the permutation $\sigma(1)\ldots
+\sigma(9)=5\,7\,9\,2\,1\,8\,6\,4\,3$ in Table~2 leads back to
+$\pi(1)\ldots\pi(9)=5\,3\,4\,9\,1\,8\,2\,7\,6$. \ \pfbox}
+\end{multicols}
+
+\meaning\hidewidth
+
+\meaning\hideskip
+
+
+
+
+%% ensure we are in normal fonts again
+\clearpage
+
+\normalfont\normalsize
+
+\onelineheader{CHESS FONTS}
+
+\begin{multicols}{2}
+\index{fonts!chess}\index{chess}
+The fonts \texttt{SkakNew}\index{Fonts!SkakNew} and \texttt{AlphaDia}\index{Fonts!AlphaDia} developed by Ulrich Dirr\index{People!Ulrich Dirr} can be used to typeset chess boards and games. \texttt{AlphaDia} is based on the popular font \texttt{ChessAlpha} by\index{fonts!ChessAlpha} \people{Eric Bentzen}. The \texttt{SkakNew} fonts are a set of PostScript\texttrademark{} \mbox{Type-1} fonts converted by \texttt{mftrace autotrace} from \Metafont{}  sources based on the \texttt{Skak} fonts by Torben Hoffmann and Dirk B\"uchle which themselves are based on \texttt{chess} by Piet Tutelaers\index{Piet Tutelaers}.
+
+For diagrams in very small sizes there's a supplemental font\newline \texttt{SkakNew-DiagramT} with fewer \& thicker diagonal strokes.
+\end{multicols}
+
+{\centering
+
+{\setlength{\extrarowheight}{2pt}
+\begin{tabular}[t]{@{}%
+    c>{\bgroup\skndia}c<{\egroup}c>{\bgroup\skndia}c<{\egroup\qquad}%
+    c>{\bgroup\sknf}c<{\egroup}c>{\bgroup\sknf}c<{\egroup}%
+    c>{\bgroup\sknf}c<{\egroup}c>{\bgroup\sknf}c<{\egroup}%
+    @{}}\hline
+\multicolumn{4}{@{}l}{SkakNew-Diagram}&
+\multicolumn{8}{@{}c@{}}{SkakNew-Figurine (regular \& bold)}\\\hline
+0 & 0 &   &   & + & + & M & M & d & d & r & r \\
+A & A & a & a & - & - & N & N & e & e & s & s \\
+B & B & b & b & A & A & O & O & f & f & t & t \\
+J & J & j & j & B & B & P & P & g & g & u & u \\
+K & K & k & k & C & C & Q & Q & h & h & v & v \\
+L & L & l & l & D & D & R & R & i & i & x & x \\
+M & M & m & m & E & E & S & S & j & j & y & y \\
+N & N & n & n & F & F & T & T & k & k &   &   \\
+O & O & o & o & G & G & U & U & l & l &   &   \\
+P & P & p & p & H & H & V & V & m & m &   &   \\
+Q & Q & q & q & I & I & X & X & n & n &   &   \\
+R & R & r & r & J & J & a & a & o & o &   &   \\
+S & S & s & s & K & K & b & b & p & p &   &   \\
+Z & Z &   &   & L & L & c & c & q & q &   &   \\\hline
+\end{tabular}}
+
+}
+
+\vspace*{1cm}
+
+\begin{multicols}{2}
+\newgame
+\medskip
+\centerline{\smallboard\showboard}
+\centerline{\texttt{SkakNew-DiagramT} for sizes up to 16pt}
+
+\medskip
+\centerline{\normalboard\showboard}
+\centerline{\texttt{SkakNew-Diagram} for sizes from 16pt up}
+
+\bigskip
+\centerline{\texttt{AlphaDia}}
+
+\medskip
+\setboardfontfamily{AlphaDia}
+
+\centerline{\normalboard\showboard}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setboardfontfamily{alphadia}
+\setchessboard{%
+   boardfontencoding=LSBC4,
+   boardfontsize=20bp,
+%   bordercolor=black,
+   labelleftwidth=4.5mm,
+   labelbottomlift=5mm,
+   marginwidth=14.4bp, marginbottomwidth=28.8bp,
+   labelfontsize=10bp,
+   border=false,
+   linewidth=0.15mm, padding=0.50mm, pgfborder,
+   linewidth=0.30mm, padding=1.15mm, pgfborder,
+   moverstyle=olmsarrow,
+   movershift=2mm,moverbottomlift=.5mm,
+   blackfieldmaskcolor=black!25,
+   setfontcolors
+}
+\chessboard[
+   setfen=3q1r1k/4N1pp/8/2p1R3/3n4/3Q4/5PPP/6K1 w - - 0 1,
+   pgfstyle=straightmove,
+%   arrow=to,
+   linewidth=0.2ex,
+   color=red,
+%   shortenend=0.5ex,
+   markmoves={d3-h7},
+   markstyle=border,
+   padding=0pt,
+   linewidth=0.3mm,
+   markfields={d3,h7},
+   pgfstyle=color,
+   opacity=0.2,
+   markfields={g8,g6}]
+
+\end{multicols}
+
+%\normalfont\normalsize
+%This is a test
+%
+%\makeatletter
+%\newcommand{\tabitem}[2]{%
+%  \texttt{\symbol{`\\}#1} & \@nameuse{#1} & \bfseries\@nameuse{#1}&
+%  \itshape\@nameuse{#1}
+%  \ifthenelse{\equal{#2}{}}
+%  {}
+%
+%  {& \texttt{\symbol{`\\}#2} & \@nameuse{#2} & \bfseries\@nameuse{#2}
+%    & \itshape\@nameuse{#2} \\}
+%}
+%\makeatother
+%
+%\clearpage
+%
+%\fontencoding{OT1}
+%\fontfamily{cmr}\mdseries\selectfont
+%
+%\setlength{\LTleft}{0pt}%
+%\setlength{\LTright}{0pt}
+%\noindent
+%\begin{longtable}{%
+%    @{}ll@{}l@{}l@{\extracolsep{\fill}}l!{\extracolsep{0pt}}l@{}l@{}l@{}}
+%  \multicolumn{4}{c}{\textbf{Symbol}} & 
+%  \multicolumn{4}{c}{\textbf{Symbol}} \\ \hline
+%\endhead
+%  \tabitem{textquotestraightbase}{textquotestraightdblbase}
+%  \tabitem{texttwelveudash}{textthreequartersemdash}
+%  \tabitem{textleftarrow}{textrightarrow}
+%  \tabitem{textblank}{textdollar}
+%  \tabitem{textquotesingle}{textasteriskcentered}
+%  \tabitem{textdblhyphen}{textfractionsolidus}
+%  \tabitem{textzerooldstyle}{textoneoldstyle}
+%  \tabitem{texttwooldstyle}{textthreeoldstyle}
+%  \tabitem{textfouroldstyle}{textfiveoldstyle}
+%  \tabitem{textsixoldstyle}{textsevenoldstyle}
+%  \tabitem{texteightoldstyle}{textnineoldstyle}
+%  \tabitem{textlangle}{textminus}
+%  \tabitem{textrangle}{textmho}
+%  \tabitem{textbigcircle}{textohm}
+%  \tabitem{textlbrackdbl}{textrbrackdbl}
+%  \tabitem{textuparrow}{textdownarrow}
+%  \tabitem{textasciigrave}{textborn}
+%  \tabitem{textdivorced}{textdied}
+%  \tabitem{textleaf}{textmarried}
+%  \tabitem{textmusicalnote}{texttildelow}
+%  \tabitem{textdblhyphenchar}{textasciibreve}
+%  \tabitem{textasciicaron}{textgravedbl}
+%  \tabitem{textacutedbl}{textdagger}
+%  \tabitem{textdaggerdbl}{textbardbl}
+%  \tabitem{textperthousand}{textbullet}
+%  \tabitem{textcelsius}{textdollaroldstyle}
+%  \tabitem{textcentoldstyle}{textflorin}
+%  \tabitem{textcolonmonetary}{textwon}
+%  \tabitem{textnaira}{textguarani}
+%  \tabitem{textpeso}{textlira}
+%  \tabitem{textrecipe}{textinterrobang}
+%  \tabitem{textinterrobangdown}{textdong}
+%  \tabitem{texttrademark}{textpertenthousand}
+%  \tabitem{textpilcrow}{textbaht}
+%  \tabitem{textnumero}{textdiscount}
+%  \tabitem{textestimated}{textopenbullet}
+%  \tabitem{textservicemark}{textlquill}
+%  \tabitem{textrquill}{textcent}
+%  \tabitem{textsterling}{textcurrency}
+%  \tabitem{textyen}{textbrokenbar}
+%  \tabitem{textsection}{textasciidieresis}
+%  \tabitem{textcopyright}{textordfeminine}
+%  \tabitem{textcopyleft}{textlnot}
+%  \tabitem{textcircledP}{textregistered}
+%  \tabitem{textasciimacron}{textdegree}
+%  \tabitem{textpm}{texttwosuperior}
+%  \tabitem{textthreesuperior}{textasciiacute}
+%  \tabitem{textmu}{textparagraph}
+%  \tabitem{textperiodcentered}{textreferencemark}
+%  \tabitem{textonesuperior}{textordmasculine}
+%  \tabitem{textsurd}{textonequarter}
+%  \tabitem{textonehalf}{textthreequarters}
+%  \tabitem{texteuro}{texttimes}
+%  \tabitem{textdiv}{}
+%\end{longtable}
+%
+%\normalfont\normalsize
+%
+%\newpage
+
+\clearpage
+
+\onelineheader{The kpfonts}
+
+\begin{multicols}{2}
+The kpfonts\index{Fonts!kpfonts} by is a comprehensive package for \latex http://www.ctan.org/tex-archive/fonts/kpfonts/. It is very comprehensive but means you need to almost use this package, as it resets everything. On my set-up it also clashed with the textcomp package.
+\end{multicols}
+
+\bigskip
+
+\hspace{-6mm}\begin{tabular}{|c|c|c|c|c|c|}\hline
+Kp-Fonts & Kp-\textit{light} & CM & Palatino & Utopia & Times\\\hline\hline
+\scalebox{10}{a} &
+\scalebox{10}{\fontfamily{jkpl}\selectfont a} &
+\scalebox{10}{\fontfamily{lmr}\selectfont a} &
+\scalebox{10}{\fontfamily{ppl}\selectfont a} &
+\scalebox{9.2}{\rule{0pt}{1.25ex}\fontfamily{put}\selectfont a} &
+\scalebox{10}{\fontfamily{ptm}\selectfont a}\\\hline
+\end{tabular}
+
+
+\bigskip
+
+\hspace{-6mm}\begin{tabular}{|c|c|c|c|c|c|}\hline
+Helvetica & Narrow bold & est & Palatino & Utopia & Times\\\hline\hline
+\scalebox{10}{a} &
+\scalebox{10}{\fontfamily{jkpl}\fontshape{it}\selectfont a} &
+\scalebox{10}{\fontfamily{lmr}\fontshape{it}\selectfont a} &
+\scalebox{10}{\fontfamily{ppl}\fontshape{it}\selectfont a} &
+\scalebox{9.2}{\rule{0pt}{1.25ex}\fontfamily{put}\fontshape{it}\selectfont a} &
+\scalebox{10}{\fontfamily{ptm}\fontshape{it}\selectfont a}\\\hline
+\end{tabular}
+
+\bigskip
+
+\hspace{-6mm}\begin{tabular}{|c|c|c|c|c|c|}\hline
+Helvetica & Narrow bold & est & Palatino & Utopia & Times\\\hline\hline
+\scalebox{10}{a} &
+\scalebox{10}{\fontfamily{jkpl}\fontshape{sc}\selectfont a} &
+\scalebox{10}{\fontfamily{lmr}\fontshape{sc}\selectfont a} &
+\scalebox{10}{\fontfamily{ppl}\fontshape{sc}\selectfont a} &
+\scalebox{9.2}{\rule{0pt}{1.25ex}\fontfamily{put}\fontshape{sc}\selectfont a} &
+\scalebox{10}{\fontfamily{ptm}\fontshape{sc}\selectfont a}\\\hline
+\end{tabular}
+
+\bigskip
+
+
+\normalfont\normalsize
+
+The |kpfonts| \index{fonts!kpfonts} by is a comprehensive package for \latex http://www.ctan.org/tex-archive/fonts/kpfonts/. It is very comprehensive but means you need to almost use this package, as it resets everything. On my set-up it also clashed with the textcomp package.
+
+\begin{itemize}
+\item {\fontfamily{jkpos}\selectfont Queer font, queer actual aesthetic!}
+\item {\fontfamily{jkpos}\selectfont \textit{Queer font, queer actual aesthetic!}}
+\item {\fontfamily{jkpos}\selectfont \textbf{Queer font, queer actual aesthetic!}}
+\item {\fontfamily{jkpos}\selectfont \textsc{Queer font, queer actual aesthetic!}}
+\item {\fontfamily{jkpos}\selectfont \textbf{\textit{Queer font, queer actual aesthetic!}}}
+\item {\fontfamily{jkpos}\selectfont \textsc{\textbf{Queer font, queer actual aesthetic!}}}
+\end{itemize}
+
+   
+
+
+\begin{multicols}{2}
+{\textsc{Kepler} was forced, due to the counter Reformation and because he was a Lutheran, to move to Prague to work with the renowned Danish astronomer, \textsc{Tycho Brahe}. Using the data that \textsc{Tycho} had collected, \textsc{Kepler} discovered the first two laws of planetary motion (1609). And what is just as important about this work is that it is the first published account wherein a scientist documents shows how he has coped with the multitude of imperfect data to forge a theory of surpassing accuracy" (\textsc{O. Gingerich} in foreword to \textsc{Johannes Kepler} New Astronomy translated by \textsc{W. Donahue}, Cambridge Univ Press, 1992), in other words a fundamental law of nature. Today we call this the scientific method.}
+\end{multicols}
+
+%\clearpage
+%
+%\begin{figure}[p]%
+%  \includegraphics[width=0.5\linewidth]{./graphics/StCatherineSinai}
+%  \caption{Saint Catherine Monastery at Sinai}
+%  \label{fig:marginfig1}
+%\end{figure}
+
+%\begin{figure}[p]%
+%  \includegraphics[width=0.9\linewidth]{./graphics/sinaiticus}
+%  \caption{Codex Sinaiticus,  Shelfmarks and references: London, Brit. Libr., Additional Manuscripts  is an ancient hand-written copy of the Greek Bible. It is an Alexandrian text-type manuscript written in the 4th century in uncial letters on parchment. Robert Bringhurst referred to the codex as a \textit{subtle piece of craftsmanship}. More information on the \textit{codex} can be found on the Sinai Monastery website (in Greek) }
+%  \label{fig:marginfig1}
+%\end{figure}
+\index{Codex Sinaiticus}
+
+\clearpage
+
+\onelineheader{UNCIAL SCRIPT}
+
+\begin{multicols}{2}
+
+\includegraphics[width=\linewidth]{./graphics/bookofkells}
+%\captionof{figure}{The Book of Kells, circa AD 800, is lettered in a script known as insular majuscule, a variety of uncial script that originated in Ireland.}
+\medskip
+
+    The Uncial\index{Uncial} hand is a majuscule script (written entirely in capital letters) commonly used from the 3rd to 8th centuries AD by Latin and Greek scribes. Uncial letters are written in either Greek, Latin, or Gothic. which is a minuscule script, was in use. It is thought to have been   the sucessor to the Roman Rustic book-hand. Usually the lettering in a manuscript was all one size. If the scribe felt the need
+ for `capital' letters then, using the same pen, would either write a larger
+ Uncial letter or write a Roman Rustic letter. During the period when the
+ Uncial script was used the alphabet only had 23 letters. I have included
+ the missing J, U and W.
+
+    Arabic numerals were unknown at this time, so all numbers were written
+ using the roman numbering system. I have provided Uncial versions of
+ the arabic digits.
+
+    Punctuation was practically non-existant. A sentence might be ended with
+ a dot at mid-height or a paragraph ended with a colon, also at mid-height.
+ More typically, the text ran on continuously with no breaks (in the earliest 
+ uses of the script there might not be even any extra space between words).
+ Towards the end of the script's lifetime, a comma\index{punctuation!comma} was introduced which was a small
+ slash; the semi-colon \index{punctuation!comma}also made an appearance, as did the single quotation 
+ mark which was represented by a raised comma\index{punctuation!raised comma}.
+\bigskip
+
+
+\hrule
+\medskip
+
+{\scalefont{0.8}
+\textuncl{\RaggedRight \hlred{P}unctuation was practically nonexistant. A sentence might be ended with
+ a dot at mid-height or a paragraph ended with a colon, also at mid-height.
+ More typically, the text ran on continuously with no breaks (in the earliest 
+ uses of the script there might not be even any extra space between words).
+ Towards the end of the script's lifetime, a comma was introduced which was a small
+ slash;the semi-colon also made an appearance, as did the single quotation 
+ mark which was represented by a raised comma. Oedipus Aelos}
+}
+\medskip
+\hrule
+\smallskip
+\hfill\hfill \textsf{Typeset using the uncial font} \verb+ \textuncl{...} +
+
+
+\bigskip
+
+The term half-uncial or semi-uncial was first deployed by Scipione Maffei, Istoria diplomatica (Mantua, 1727); he used it to distinguish what seemed like a cut-down version of uncial in the famous Codex Basilicanus of Hilary, which contains sections in each of the two types of script. The terminology was continued in the mid-18th century by René Prosper Tassin and Charles François Toustain. Despite the common and well-fixed usage, half-uncial is a poor name to the extent that is suggests some organic debt to regular uncial, though both types share features inherited from their ancient source. See now: L. E. Boyle, “‘Basilicanus’ of Hilary Revisited,” in Integral Palaeography, with an introduction by F. Troncarelli, 105-17. Turnhout, 2001
+Like uncial, half-uncial derived from Roman cursive, but now of a later, evolved type. It was first used around the 3rd century and remained in use until the end of the 8th century. The early forms of half-uncial were used for pagan authors and Roman legal writing, while in the 6th century the script came to be used in Africa and Europe (but not as often in insular centres) to transcribe Christian texts.
+
+
+\hrule
+\medskip
+
+
+\texthuncl{\RaggedRight \hlred{P}unctuation was practically nonexistant. A sentence might be ended with
+ a dot at mid-height or a paragraph ended with a colon, also at mid-height.
+ More typically, the text ran on continuously with no breaks (in the earliest 
+ uses of the script there might not be even any extra space between words).
+ Towards the end of the script's lifetime, a comma was introduced which was a small
+ slash; the semi-colon also made an appearance, as did the single quotation 
+ mark which was represented by a raised comma. Oedipus Aelos}
+
+\medskip
+\hrule
+\smallskip
+\hfill\hfill Typeset using the half uncial font \verb+ \texthuncl{...} +
+
+
+\section{Scaling of fonts}
+
+A typical requirement of new users to \latex is if there is a way to scale a font, other than the build in commands.
+This is provided with the \cmd{scalebox}, which is part of \docpkg{scalefnt} provided with the normal \pmac{scalefnt}{scalebox}
+\latex  distributions. It can be found both in Mik\TeX\ as well as \TeX Live distributions. The macros were developed by David Carlisle.\people{David Carlisle}
+
+
+\emphasis{DeclareRobustCommand}
+\begin{teXXX}
+% This package defines a command \scalefont. After \scalefont{.75} then
+% the current font and baselineskip will be scaled to 75% of their
+% original size. Any scale factor may be specified.
+
+% If you are using traditional fd files based on bitmap font sizes,
+% LaTeX's font system will round the requested font size to the nearest
+% available size. If you are using scalable fonts, such as the psnfss
+% or type1cm packages, then the requested font size will be used exactly.
+
+% Almost all of the code here is in fact dealing with scaling the stretch
+% components of \baselineskip. This is a bit odd as 99% of documents
+% have a rigid \baselineskip, however the technique may be useful in
+% some contexts, and is left here as an example.
+
+\DeclareRobustCommand\scalefont[1]{%
+  \dimen@\z@
+  \dimen@ii\z@
+  \afterassignment\@scalefont
+              \@tempdima\the\baselineskip\relax\relax\relax\relax\relax
+  \skip@#1\@tempdima\@plus#1\dimen@\@minus#1\dimen@ii
+  \dimen@\f@size\p@
+  \dimen@#1\dimen@
+  \fontsize\dimen@\skip@\selectfont}
+
+\def\@scalefont#1#2#3#4#5{%
+ \if#1p%
+    \afterassignment\@scalefont\dimen@#5%
+ \else
+   \if#1m%
+     \dimen@ii
+   \fi
+  \fi}
+
+\end{teXXX}
+
+
+
+
+Typing,
+
+\begin{teX}
+{\texttt{\scalefont{1.1} \lorem}}
+\end{teX}
+
+\topline
+{\texttt{\scalefont{1.1} \lorem}}
+\bottomline
+
+As we did not wish to have the whole text of this book at a scaling factor of 1.1, the snippet was grouped by enclosing it, in curly brackets. 
+
+
+\section{What is the difference between TrueType, PostScript and OpenType?}
+
+Most customers who ask this question want to determine which format they should be purchasing. If this is your situation you should purchase the TrueType version (if it is available) as it is the easiest to work with and easiest to install on your computer and is well-supported by operating systems and programs.
+
+The following descriptions provide a more specific overview of the different font formats.\index{fonts!TrueType}\index{fonts!OpenType}\index{fonts!PostScript}
+
+
+\subsection{PostScript}
+
+The PostScript or “Type 1” font format was developed by Adobe\index{Adobe} in the 1980s, several years before the release of TrueType. The format is based on Adobe’s PostScript printing technology – a programming language that allows for high-resolution output of resizable graphics. PostScript has long been viewed as a reliable choice, particularly for professional designers, publishers and printers.\index{fonts!Type 1}
+
+PostScript fonts consist of two parts, which are both necessary for the font to be properly printed and displayed on screen. With most operating systems, PostScript fonts can be installed simply by being placed in the system’s font folder. However, PC users working on operating systems that predate Windows 2000, need to install the free ATM (Adobe Type Manager) utility in order to use PostScript fonts.
+
+
+
+\section{TrueType}
+\index{Fonts!TrueType}\index{Fonts!hinting}
+The TrueType format was jointly developed by Apple and Microsoft in the late 80s, several years after the release of the PostScript font format. Many of the fonts included with both the Apple and Windows operating systems are TrueType. TrueType fonts contain both the screen and printer font data in a single component, making the fonts easier to install. For this reason, TrueType is a good choice for those who have limited experience working with and installing fonts.
+
+The TrueType format, also allows for “hinting,” a process that improves the on-screen legibility of a font. On Fonts.com, fonts that have been hinted are marked as “ESQ” (Enhanced Screen Quality). ESQ fonts are excellent choices for electronic documents and other settings where lengthy blocks of text will be displayed on screen.\index{ESQ}
+
+For more information you can log onto this website for all the details about TrueType. \url{http://www.microsoft.com/typography}
+
+
+\section*{True type fundamentals}
+
+A TrueType font can originate as a new design drawn on paper or created on a computer screen. TrueType fonts can also be obtained by converting fonts from other formats. Whatever the case, it is necessary to create a TrueType font file that, among other things, describes each glyph in the font as an outline in the TrueType format. 
+
+Outlines
+In a TrueType font, glyph shapes are described by their outlines. A glyph outline consists of a series of contours. A simple glyph may have only one contour. More complex glyphs can have two or more contours. Composite glyphs can be constructed by combining two or more simpler glyphs. Certain control characters that have no visible manifestation will map to the glyph with no contours.
+\end{multicols}
+
+
+\begin{figure}[htp]%
+  \includegraphics[width=0.3\linewidth]{./graphics/outlinefonts}
+  \caption{Ouline fonts with one, two and three contours respectively.}
+  \label{fig:outline}
+\end{figure}
+
+\begin{figure}[htp]%
+  \includegraphics[width=0.45\linewidth]{./graphics/truetype-01}
+  \caption{Ouline fonts with one, two and three contours respectively.}
+  \label{fig:truetype01}
+\end{figure}
+\begin{figure}[htbp]%
+  \centering
+  \includegraphics[width=0.65\linewidth]{./graphics/truetype-02}
+  \caption{The dimensions of the em square typically are those of the full body height of a font plus some extra spacing to prevent lines of text from colliding when typeset without extra leading.}
+  \label{fig:truetype02}
+\end{figure}
+
+\begin{multicols}{2}
+Contours are composed of straight lines and curves. Curves are defined by a series of points that describe second order Bezier-splines. The TrueType Bezier spline format uses two types of points to define curves, those that are on the curve and those that are off the curve. Any combination of off and on curve points is acceptable when defining a curve. Straight lines are defined by two consecutive on curve points.
+
+
+Curves are made of a series of points which according to the specification must be numbered consecutively. It makes a difference whether the order is increasing or decreasing in determining the fill pattern of the shapes that make up the glyph. The direction of the curves has to be such that, if the curve is followed in the direction of increasing point numbers, the black space (the filled area) will always be to the right. \fref{fig:truetype01}
+
+\newthought{FUnits and the em square}
+
+In a TrueType font file point locations are described in font units, or FUnits. An FUnit is the smallest measurable unit in the em square, an imaginary square that is used to size and align glyphs. The dimensions of the em square typically are those of the full body height of a font plus some extra spacing to prevent lines of text from colliding when typeset without extra leading.
+
+
+
+While in the days of metal type, glyphs could not extend beyond the em square, digital typefaces are not so constrained. The em square may be made large enough to completely contain all glyphs, including accented glyphs. Or, if it proves convenient, portions of glyphs may extend outside the em square. TrueType fonts can handle either approach so the choice is that of the font manufacturer.
+
+The em square defines a two-dimensional coordinate grid whose x-axis describes movement in a horizontal direction and whose y-axis describes movement in a vertical direction. This is discussed in more detail in the following section.
+
+\end{multicols}
+
+\begin{figure}[htbp]%
+  \centering 
+  \includegraphics[width=0.75\linewidth]{./graphics/truetype03}
+  \caption{72 point M and 127 point M and their em squares.
+Upem equals 8 in both cases. Because FUnits are relative to the em square, a given location on a glyph will have the same coordinate location in FUnits regardless of the point size at which the font is rendered. This is convenient because it makes it possible to instruct outline points once considering only the original outline and have the changes apply to the glyph at whatever size and resolution it is ultimately rendered.}
+  \label{fig:truetype03}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+\section{OpenType}
+\index{fonts!OpenType}
+
+\begin{multicols}{2}
+The OpenType fonts, was a joint effort by Adobe and Microsoft\index{Microsoft}. This  is the latest font format to be introduced. Like TrueType, OpenType fonts contain both the screen and printer font data in a single component. However, the OpenType format has several exclusive capabilities including support for multiple platforms and expanded character sets. OpenType fonts can be used on either Macintosh or Windows operating systems. Additionally, the OpenType format permits the storage of up to 65,000 characters. This additional space provides type designers with the freedom to include add-ons such as small caps, old style figures, alternate characters and other extras that previously needed to be distributed as separate fonts.
+
+However, not all OpenType fonts contain additional characters. Many fonts have been converted from either PostScript or TrueType formats without expanded character sets to take advantage of the cross-platform functionality benefits of OpenType. Unless clearly stated otherwise, assume that the OpenType font you are purchasing features the traditional character set found in PostScript and TrueType fonts. OpenType fonts that do contain expanded character sets are referred to informally as “OpenType Pro” fonts. Support for OpenType Pro fonts is steadily increasing. 
+\end{multicols}
+
+\clearpage
+
+\onelineheader{The \latex NFSS}
+
+\begin{multicols}{2}
+How does NFSS know which font to use in order to match the user's choice? What happens if the font is not found? The system's magic is all found in its configuration. 
+
+
+\section{\protect\LaTeX\ font description files}
+\index{fonts!font description files}
+\latex needs \textit{font definition} files if it is expected to handle font changing and font sizing commands such as |\large|, |\tiny|, or shaping commands such as |\textit| and |textsc|. The font definition file specifies the sizes and shapes available for a particular font family. Another important characteristic of a font is its encoding.\index{fonts!latex}\index{fonts!font definition files}. Similarly its encoding file is will be named |yyyenc.def|. If we have a font family that consists of fonts that contain supersets of the glyphs found in more than one encoding, it is possible to create many font definition files. We will now discuss how to create a font definition file. Suppose we have a Greek font family, meaning we can use the |LGR| encoding. The first lines of the font definition file announces the file name and the font family and its encoding. This is done using \cmd{DeclareFontFamily}:
+
+\begin{teX}
+  \ProvidesFile{ot6cmr.fd}
+     [1999/06/01 v2.0 ot6cmr.fd (OT6/cmr font definition file)]
+   DeclareFontFamily{LGR}{ptm}{}
+\end{teX}
+
+
+
+For any font family |xxx| that follows the font encoding |yyy|, the font definition file is |yyyxxx.fd| 
+
+
+The |fd| for the armenian language package \docpkg{ArmTeX} is shown below fully
+\begin{teX}
+%% This file is a part of the ArmTeX 2.0
+%% [1999/06/01 v2.0 ot6cmr.fd (OT6/cmr font definition file)]
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%% Double input protection.
+%%
+\expandafter\ifx\csname ArmTeX@CmrFdLoaded\endcsname\relax
+\let\ArmTeX@CmrFdLoaded\null\else\endinput\fi
+
+%% Begining of the code.
+%%
+\ProvidesFile{ot6cmr.fd}
+  [1999/06/01 v2.0 ot6cmr.fd (OT6/cmr font definition file)]
+\providecommand{\ArmTeX@FontShape}[4]{%
+  \DeclareFontShape{OT6}{#1}{#2}{#3}%
+  {<-> #4}{}}
+\DeclareFontFamily{OT6}{cmr}{\hyphenchar\font=-1}
+\ArmTeX@FontShape{cmr}{m}{n}{artmr10}
+\ArmTeX@FontShape{cmr}{m}{sl}{artmsl10}
+\ArmTeX@FontShape{cmr}{m}{it}{artmi10}
+\ArmTeX@FontShape{cmr}{bx}{n}{artmb10}
+\ArmTeX@FontShape{cmr}{bx}{sl}{artmbs10}
+\ArmTeX@FontShape{cmr}{bx}{it}{artmbi10}
+\ArmTeX@FontShape{cmr}{b}{n}{%
+  % Same as BoldExtended (bx).
+  ssub*cmr/bx/n}
+\ArmTeX@FontShape{cmr}{b}{sl}{%
+  % Same as BoldExtended (bx).
+  ssub*cmr/bx/sl}
+\ArmTeX@FontShape{cmr}{b}{it}{%
+  % Same as BoldExtended (bx).
+  ssub*cmr/bx/it}
+
+
+%% That's all, Folks!
+%%
+\endinput
+
+\end{teX}
+
+
+Once we specify the font encoding in capital letters, you need to specify the font shape using the command \cmd{DeclareFontShape}:
+
+\begin{teX}
+\DeclareFontShape{LGR}{ptm}{m}{n}{<=> font8a}{}
+\end{teX}
+
+The command tells \latex that whenever we use the (n) shape of the medium (m) series of the |ptm| family encoded according to the |LGR| encoding, then the font to be used is |font8a|.
+
+\latex know how to use the new font(s). As we have already explained, there are three
+kinds of families: the serifed or Roman, the sans serif and the typewriter. To change a\index{font families! serified}\index{font families!default}\index{font families! typewriter}
+default font family, we need to redefine the following commands: |\rmdefault|, |\sfdefault|,
+and |\ttdefault|; these commands produce the corresponding family name
+according to \latex's conventions. Now, such redefinitions can be part of a new package
+or can appear in the preamble of a document. For example, the |times| contains
+the following code:
+
+\begin{teX}
+\renewcommand{\sfdefault}{phv}
+\renewcommand{\rmdefault}{ptm}
+\renewcommand{\ttdefault}{pcr}
+\end{teX}
+
+
+For most case the encoding file will be known. There is a very good write-up on encodings by F Mittelbach at 
+\url{http://ftp.cvut.cz/tex-archive/macros/latex/doc/encguide.pdf}
+
+\begin{teX}
+%% This file is a part of the ArmTeX 2.0
+%% [1999/06/01 v2.0 ot6enc.def (OT6 encoding definition file)]
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%% Double input protection.
+%%
+\expandafter\ifx\csname ArmTeX@EncDefLoaded\endcsname\relax
+\let\ArmTeX@EncDefLoaded\null\else\endinput\fi
+
+
+%% Begining of the code.
+%%
+\ProvidesFile{ot6enc.def}
+  [1999/06/01 v2.0 ot6enc.def (OT6 encoding definition file)]
+
+
+%% Declaring the encoding.
+%%
+\DeclareFontEncoding{OT6}{}{}
+
+
+%% Loading Font definition files.
+%%
+\newcommand{\ArmTeX@LoadFd}[1]{%
+  \InputIfFileExists{ot6#1.fd}{}
+    {\PackageError{ArmTeX}
+      {Font definition file `ot6#1.fd' not found.\MessageBreak
+       Check your installation}
+      {It seems that there is a problem with your installation.\MessageBreak
+       Normally the file `ot6#1.fd' should have been present on your system.\MessageBreak
+       But apparently it isn't !!!\MessageBreak
+       It is better to stop at this point and to check your installation.}}}
+\ArmTeX@LoadFd{cmr}
+\ArmTeX@LoadFd{cmss}
+
+
+%% Declaring default font substitution.
+%%
+\DeclareFontSubstitution{OT6}{cmr}{m}{n}
+
+
+%% Encoding specific definitions.
+%%
+
+%% The LaTeX macros "\{", "\}" and "\$" use "\text..." commands, so adjusted automaticaly.
+\DeclareTextSymbol{\textbraceleft}{OT6}{94}
+\DeclareTextSymbol{\textbraceright}{OT6}{95}
+\DeclareTextSymbol{\textdollar}{OT6}{36}
+
+%% The LaTeX macros "\#", "\%" and "\&" use current font, so not need to be adjusted.
+\DeclareTextSymbol{\texthash}{OT6}{35}
+\DeclareTextSymbol{\textpercent}{OT6}{37}
+\DeclareTextSymbol{\textand}{OT6}{38}
+
+%% The LaTeX macros "\!", "\?", "\|" and "\*" will be (re)defined.
+\DeclareTextSymbol{\textexclam}{OT6}{126}
+\DeclareTextSymbol{\textquestion}{OT6}{127}
+\DeclareTextCommand{\textanjgic}{OT6}{\leavevmode
+    \kern0.02em\vrule height0.4ex depth-0.25ex width0.8em\kern0.02em\relax}
+\DeclareTextCommand{\textbreaklig}{OT6}{{\kern0pt}}
+
+
+%% That's all, Folks!
+%%
+\endinput
+\end{teX}
+
+
+\section*{Leading}
+
+Note that leading\index{leading}\index{typography!leading} does not appear anywhere in this configuration; this is considered a global property of the document, independent of the active font. Also note that there is a fundamnetal difference between body size and the other NFSS parameters: the encoding, the family, the style and the weight take well-determined and unique values from a set of predefined ones. The body size follows a different logic. On the one hand it employs numbers with a decimal part and, therefore, there maybe very many possible values, according to the precision desired. On the other hand, we often think not in terms of specific sizes but rather in terms of intervals.
+
+
+
+\latex keeps the current values of the font attributes in the following internal macros:
+
+\begin{teX}
+\f@encoding 
+\f@family 
+\f@series 
+\f@shape 
+\f@size 
+\f@baselineskip 
+\tf@size 
+\sf@size 
+\ssf@size
+\end{teX}
+
+We can print out these values, using the following short program:
+
+\begin{teX}
+\makeatletter
+{\obeylines\noindent\obeyspaces
+The font encoding is : \f@encoding
+The font family is   : \f@family
+The font series is   : \f@series
+The font shape is    : \f@shape
+The font size is     : \f@size
+The baselineskp      : \f@baselineskip}
+\makeatother
+\end{teX}
+
+\makeatletter
+{\obeylines\noindent\obeyspaces
+The font encoding is : \f@encoding
+The font family is   : \f@family
+The font series is   : \f@series
+The font shape is    : \f@shape
+The font size is     : \f@size
+The baselineskp      : \f@baselineskip}
+\makeatother
+
+These macros hold the current values of the \textit{encoding}, the \textit{family}, the \textit{series}, the \textit{shape}, the \textit{size}, the \textit{baseline skip}, the main math size, the script math size and the scriptscript math size. The last four are accessible only within a formula; outside of it they may contain arbitrary values.
+
+For example, to set the size to 12 without changing the baseline skip:
+
+\begin{teX}
+   \fontsize{12}{\f@baselineskip}
+\end{teX}
+
+However, you should never alter the values of the internal commands directly; they must only be modified using the low-level commands like \cmd{fontfamily}, \cmd{fontseries}, etc. If you disobey this warning you might produce code that loops.
+
+We have seen the most important features of NFSS. You would have wondered so far what purpose is the last argument
+to the |\DeclareFontFamily| and |DeclareFontShape| commands which has consistently been empty in all the examples. This argument contains \tex macros or primitives that will be loaded, the first time the font will be executed when the |TFM| font is loaded. Since loading is only performed once, the firt time the font is loaded, the selection of the commands that can be executed are rather limited. The most useful of them is \cmd{hyphenchar}. This command which is in fact is a \tex primitive, changes the value of the glyph used as the \textit{end-of-line hyphen.} The command
+
+\begin{teX}
+\DeclareFontFamily{T1}{myfont}{\hyphenchar\font=127}
+\end{teX}
+
+\noindent specifies that the glyph 127 will from now on be used as the end-of-line hyphen instead of the regular hyphen, whose glyph ordinarily appears in code point 45 (corresponding to the Unicode character |0x002D HYPHEN-MINUS|.
+
+Another possibility by writing |hyphenchar=-1|, we can completely disable hyphenation\index{hyphenation!disable}. In those languages that do not employ hyphenation, it is inhibited in the linguistic configuration by writing the command \cmd{language}|\language=99|. This is independent of the font being used.
+
+
+Finally we can use \tex \cmd{fontdimen} parameter to set different values of the font dimensional parameters than those specified in the |TFM| file.\index{fonts!fontdimension}
+
+\begin{teX}
+\DeclareFontShape{T1}{timesrm}{m}{n}{<-> timesrm}{
+     \fontdimen2\font=.8\fontdimen2\font
+     \fontdimen3\font=.8\fontdimen3\font
+     \fontdimen4\font=.8\fontdimen4\font
+}
+\end{teX}
+
+\section{The structure of a TFM file}
+\index{fonts!TFM file}
+The \tex primitives for loading a font from a |TFM| file is |\font|. It can be used in three different ways:
+
+\begin{teX}
+\font\myfontA=timesten
+\font\myfontB=timesten at 12pt
+\font\myfontC=timesten scaled 1200
+\end{teX}
+
+
+\section{Map files}
+The file holds information on all the fonts and how they are linked
+
+|C:\Users\user\AppData\Local\Temp\Temp1_WindowsFonts.zip\WindowsFonts.map|
+
+{\tt
+vdnmn8t Verdana <verdana.ttf <T1-WGL4.enc\\
+vdnbn8t VerdanaBold <verdanab.ttf <T1-WGL4.enc\\
+vdnmit8t VerdanaItalique <verdanai.ttf <T1-WGL4.enc\\
+vdnbit8t VerdanaBoldItalique <verdanaz.ttf <T1-WGL4.enc\\
+}
+
+
+\section{Utilities}
+\subsection{ttf2tfm}
+The executable |ttf2tfm| converts a TrueType font to a |tfm| file for use with TeX.
+
+
+
+
+
+
+\section{The DVI file}
+
+
+\section{The dvips driver}
+
+
+\section{kpathsea}
+\index{kpathsea}
+Most \tex and \latex distributions come with a file manager that searches the paths. It is called \textit{kpathsea} from the name of the author \people{Karl Berry} and Path search.  To generate files kpathsea has three utilities.
+
+\begin{description}
+\item[mktextfm]  , which generates a missing |TFM| file. This utility is called by \tex if it cannot find the TFM file for a font used in the document.
+
+\item[mktexmf] which generates the |METAFONT| source file corresponding to the |METAFONT| used in the document if this font does not exist on the system.
+
+\item[mktexpk] which generates a bitmap font from the corresponding |METAFONT| source files.
+
+\end{description}
+
+\end{multicols}
+
+\clearpage
+
+\onelineheader{HANDLING OF NUMERALS}
+
+\begin{multicols}{2}
+The aritmetic figures are nine in number besides the cypher, or nought, which, tho' of itself it is of no significance, makes nevertheless a great increase in the figure to wj=hich it is joined, either singly or progressively. There are normally two style of numbers, called old style numerals (no-lining) and lining numerals.
+
+{\Huge\oldstylenums{1234567890}}
+
+Early printing Grammars, recommneded the use of the Figure 5, when put inverted, under a capital C, to serve as the tail to the \textit{C \`a la queue}, especially if the capital is a two-line letter, which has no Beard;
+
+Early  Printer's Grammars such as say "[\dots]One time Printers thought it is a great impropriety, to use errect figures in italic matter". 
+
+
+
+
+\subsection*{Scratched figures}
+
+\newthought{Though} Scratched Figures are not used at present, early arithmetic books can be found when describing how to do long division. A special font can be useful or one can define the letters as a combination of a slash and a number.
+
+\begin{center}\Large IV. Of Greek Numerals.\end{center}
+
+\newthought{INSTEAD} of seven letters which the Romans appropriated to numerate by, the Greeks employed their whole alphabet, and more than their alphabet, in that service: for besides that, they contrived three more symbols and made their Numerals to consist of 27 sorts, which they divided into three classes; the first of them to conatin Units ---the second, Tens; and the third, Hundreds. Accordingly the first class consists of the following Numerals, vis.
+
+\medskip
+
+\def\greeknumbers{\noindent $\hfil\alpha\hfil\beta\hfil\gamma\hfil\delta\hfil\epsilon \hfil\sigma\hfil\chi\hfil \eta\hfil \theta$\par}
+
+\def\arithmeticfigures{\noindent\hfil 1\hfil 2\hfil 3\hfil 4\hfil 5 \hfil 6\hfil 7\hfil 8\hfil 9\par}
+
+\greeknumbers
+
+
+\arithmeticfigures
+\end{multicols}
+
+
+
+\clearpage
+
+\onelineheader{KERNING}
+
+\begin{multicols}{2}
+\parindent1em
+\includegraphics[width=\linewidth]{./graphics/hamburgervons-01}
+\captionof{figure}{Kerning pairs.}
+\bigskip
+
+Kerning (less commonly mortising) is the process of adjusting the spacing between characters in a proportional font, usually to achieve a visually pleasing result. In a well kerned font, the two-dimensional blank spaces between each pair of characters all have similar area. The related term kern denotes a part of a type letter that overhangs the edge of the type block.
+
+Kerning was discovered in the early day's of typography. In \textit{Printer's Grammar} published in 1787, we read:
+
+\begin{quotation}
+\normalsize
+Kerned letters as such as have part of their face hang over, either on one, or both sides of their square metal, or shank. In the Roman, \so{{f}{f}{j}} are the only kerned letters; but in the italic, \so{{d}{g}{j}{l}{y}} are kerned on one side; and {~f~} and {~\ss~}, on both sides of their face.
+\end{quotation}
+
+\begin{figure}[htbp]
+\noindent\scalebox{5}{A{}V{A}{V}}\\[6pt]  
+\scalebox{5}{AVAV}\\[6pt]
+\scalebox{5}{\textit{{P}{A}{P}{A}}}\\[6pt]
+\scalebox{5}{\textit{PAPA}}
+\caption{}
+\end{figure}
+
+The term kern originated as a noun in the days of metal typesetting, when a kern was the part of the metal type that overhangs or extends beyond the body (also called "shank") of the metal type (also called "sort") so that it could rest on the body of an adjacent character, allowing for closer spacing and better letterfit. Although "kerning" originally referred to the cutting away of the body of the sort, "to kern" type came to mean the removal space between two characters in the above manner.
+
+\long\def\courtesy#1#2{%
+\sidenotesize 
+\leavevmode\raise2pt\vbox{\hfill\hfill\hbox{\textit{Credit}
+\href{#1}{#2}}~~~~~}}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.65]{./graphics/kerningtypes}
+\caption{The photo below is of 72 point Garamond Italic. On the left is a standard lowercase 's' and an apostrophe. In the middle is an 's' that's kerned by cutting away the side of the sort. On the right is a lowercase 'p' that's cast with the kerning of the descender included.}
+\courtesy{http://www.creativepro.com/blog/typetalk-everything-kern-kern-kern}{www.creativepro.com}
+\end{figure}
+
+In today's digital world, the meaning of kerning has expanded to include the reduction as well as the addition of space between two characters. In a digital font, the number of kern pairs built into a font include both positive and negative values. The kern feature in today's design software is capable of adding or removing space. 
+
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.65]{./graphics/kerningpositioning}
+\caption{The image shows the kerned 's' and the apostrophe locked into a form. The apostrophe and the adjacent 't' have a small amount of extra spacing between them to visually balance the space. This is achieved by inserting a six pica x 2 point piece of leading between the sorts.}
+\courtesy{http://www.creativepro.com/blog/typetalk-everything-kern-kern-kern}{www.creativepro.com} 
+\end{figure}
+
+In general kerning --especially for mathematics -- is a black art. How much is too much? Is it purely visual or can it be mathematical?
+
+While there usually are hundreds of kern pairs built into a font, sometimes you have to make manual kern adjustments -- mostly to display type -- to balance out the negative spaces between some letter combinations.
+
+Clearly kerning should be left to the expert font designer and rarely used in a document. In certain cases when you have to you can use the command \cmd{kern} both for kerning or tracking. 
+
+
+The third part of an |.afm| file consists of kerning information. Kerning is the process of adjusting
+letter spacing in a proportional font, so that the level of grey along a line of text is as homogeneously
+distributed as possible. Kerning values can be positive (increase space between character pairs) or negative
+(decrease space).
+
+In PostScript kerning is limited to pairs of individual characters, whereas with OpenType the kerning
+algorithm is generalized to the of use kerning classes, where one offset is stored for any pair of characters
+from two sets, for example (V,W) and (a,e,o). The use of kerning classes is made necessary by the
+fact that modern fonts come with several thousands of glyphs for many languages so that the
+number of kerning pairs to be specified, especially for accented letters, would becomes unmanageable.\sidenote{The LaTeX Graphics
+Companion, Supplementary material, Edited by Michel Goossens (CERN),Version February 17,2008}
+
+\emphasis{StartKernPairs,EndKernPairs,StartKernData,EndKernData}
+
+\begin{teXXX}
+Times-Bold.
+StartKernData
+StartKernPairs 496
+...
+KPX A V -145
+KPX F period -110
+KPX f quoteright 55
+...
+EndKernPairs
+EndKernData
+\end{teXXX}
+
+In Mathematical and Algebraic Works, where Letters, Figures, \texthuncl{\&c.}
+\end{multicols}
+
+
+\clearpage
+
+\includegraphics[width=\textwidth]{./graphics/babel}\par
+
+\onelineheader{NON-EUROPEAN LANGUAGES}
+
+\begin{multicols}{2}
+\includegraphics[width=\linewidth]{./graphics/koran}
+
+{Page from a Quran (`Umar-i Aqta'). Iran, Afghanistan, Timurid dynasty, circa 1400. Opaque watercolor, ink and gold on paper Muqaqqaq script. 170 $\times$ 109cm (66 15/16 $\times$ 42 15/16in). Historical region: Uzbekistan.}
+
+\columnbreak
+
+\section*{Arabic Fonts}
+These are discussed in more detail under the Languages Chapter. 
+
+\bgroup
+\setmalay
+%\vocalize
+There is a new Arab\TeX\ language mode, \verb+\setmalay+,
+for processing Old Malay texts in the extended Arabic writing.
+
+This mode works only with Arab\TeX\ version 3.06 or later.
+
+Old Malay input texts are encoded in a modification of the
+standard \ArabTeX\ encoding, see below.
+
+This language mode is strictly experimental
+and expected to contain many errors.
+Please report your experience and suggestions 
+for changes and improvements to the author.
+
+Additional encodings (note the variants):
+
+\begin{center}
+\Large
+\begin{tabular}{|cc|c|}
+\hline
+\verb+p+	&		&<p> \\
+\verb+g+	&		&<g> \\
+\verb+v+	& 		&<v> \\
+\verb+ng+	&\verb+~g+	&<ng>\\
+\verb+ny+	&\verb+~n+	&<ny>\\
+\verb+c+	&\verb+^c+	&<c> \\
+          & & <.a>\\
+\hline
+\end{tabular}
+\end{center}
+\egroup
+
+Just enclose everything in a group to avoid problems later on!
+\end{multicols}
+
+\input{./manual/languages}
+\clearpage
+
+\onelineheader{MICROTYPOGRAPHY}
+
+
+
+\includegraphics[width=\textwidth]{./graphics/collins}
+
+\captionof{figure}{Samuel Johnson A Dictionary of the English Language. Headwords and entries 10pt; quotations 7 pt. One of the surprising things about researching a new dictionary design was to discover just how little it had changed – on a macro level – over the last 250 years. There is quite a difference in feeling between Samuel Johnson’s Dictionary of 1755 and today’s Collins English Dictionary, but the structure of information and the way in which it is made visible are identical. The two- or three-column grid with its three-letter column headers, the outdented headwords, the cascade of entries and quotes; all these are familiar elements of contemporary dictionaries.}
+
+\medskip
+%http://www.typotheque.com/articles/microtypography_designing_the_new_collins_dictionaries
+\begin{multicols}{2}
+\parindent1em
+
+\lettrine{W}{hen} Knuth designed \tex it was virtually impossible, given the limitations of computers at the time to design the system to cater for such features as are normally found in what is now called microtypography. Microtypography is the name given to a range of methods for improving the readability and appearance of text, especially justified text. The methods reduce the appearance of large interword spaces and create edges to the text that appear more even. Although this is the common definition for most \alltex users, what it means, is to try and reduce the number of hyphens in justified text. Readability and appearance of text, was never an issue for \tex users, but microtypography is a welcome feature.
+
+Knuth accounted for 7 font metrics in typical fonts and for twenty-two in Mathematical fonts. Microtypography essentially deals with two subjects, tracking and protrusion. Protrusion is an interesting concept, it taht it allows a bit of spcing.
+
+Knuth designed the program so that each font is governed by |fontdimen| parameters. Each font also has at least seven |\fontdimen| parameters, which have the following significance and typical values. 
+
+
+\section*{The concept of font expansion in pdf\tex}
+
+The basic principle of the mechanism of font expansion used in pdfTEX is to maintain a 
+set of extra fonts associated with each font that is supposed to be used with expansion. 
+
+These extra fonts are usually identical to the base font, except that they are slightly wider or narrower. We call them expanded fonts. A font that has a set of associated expanded
+fonts is called an expandable font. Characters from an expandable font can be
+replaced by their counterparts from the associated expanded fonts during composing.
+
+This way, a character from an expandable font can be “stretched” or “shrunk” by using a wider or narrower alternate from the associated expanded fonts. A character from an expandable font is called an \textit{expandable character}.
+
+\begin{tabular}{ll}
+    1 &slant per pt\\
+    2 &interword space\\
+    3 &interword stretch\\
+    4 &interword shrink \\
+    5 &x-height \\
+    6 &quad width \\
+    7 &extra space \\
+\end{tabular}
+
+Math symbol fonts (i.e., fonts in family 2) are required to have at least
+22 |\fontdimen| parameters instead of the usual seven; similarly, math extension
+fonts must have at least 13.
+
+You can easily see the value if you type | \the\fontdimen2\font|:
+
+     \the\fontdimen2\font
+
+The inter-letter spacing is normally selected by the font designer and resides within the fonts. So if you can design a font you can have what you want.
+
+
+%\ftable{ppl10}{OT1}
+
+{\so{test} \textls{test} \the\fontdimen2\font }\the\fontdimen2\font
+
+\fontdimen3\font=8\fontdimen3\font
+
+\SetTracking
+  [ no ligatures  = {f},
+    spacing       = {600*,100*,
+ },
+outer spacing = {450,250,150},
+outer kerning = {*,*} ]
+{encoding = * }
+{ 160 }
+
+and then write:
+Stop \textls{stealing sheep}!
+
+\section*{The microtype package}
+
+The |microtype| package is a welcome addition to the family of packages availabel at CTAN. To use it you 
+just load it as you would normally load any other package.
+
+\begin{teXX}
+\documentclass[draft]{book}
+\usepackage{microtype}
+\usepackage{lipsum}
+\begin{document}
+\lipsum
+\end{document}
+\end{teXX}
+
+The effect of microtype can be better observed for narrow columns, where overful lines and poor hyphenation can be observed. In many english texts\footnote{Languages such as German are more difficult to hyphenate.} is not unusual for wide page widths, for all but a few hyphens to remain.
+
+the package documentation is a treasure and a must read, if you are going to use it. Some advice, especially with traditional layouts should be heeded. For example in atble of contents, in unfortunate
+situations, enabled protrusion might internally alter the line length in the TOC and
+similar lists in such a way that an excess leader dot will ﬁt in. The solution is to
+temporarily disable protrusion for the TOC:
+
+\begin{teXX}
+\microtypesetup{protrusion=false}
+\tableofcontents
+\microtypesetup{protrusion=true}
+\end{teXX}
+
+Similar precautions should be taken, in verbatim environments, ususally by employing the \latex cs,
+
+\begin{teXX}
+\g@addto@macro\@verbatim{\microtypesetup{activate=false}}
+\end{teXX}
+
+If you are using the |fancyvrb| or the listings package, this is not necessary, since
+their implementation of the corresponding environments will inhibit protrusion
+anyway
+
+\end{multicols}
+
+
+
+\clearpage
+
+\onelineheader{THE DESIGN OF TYPEFACES}
+\begin{multicols}{2}
+ \includegraphics[width=\linewidth]{./graphics/thetypographer}
+\captionof{figure}{The Typographer (Pedro), by Amedeo Modigliani, circa 1909. Oil on canvas.  
+\textit{Private collection.}}
+
+\parindent1em
+This slight staggering is important in typeface design and although at first it can be mistaken as an imperefection, a nice looking typeface is assymetrical as a beautiful face. \sidenote{Some Elements of Proportion and Optical Image Support in a Typeface by Mark Jamra.}
+
+\bgroup
+  \centering
+  \includegraphics[scale=0.8]{./graphics/X}
+  \includegraphics[scale=0.8]{./graphics/X-01}
+
+  \scalebox{9}{X}
+  \reflectbox{\rotatebox[origin=c]{180}{\scalebox{9}{X}}}
+ 
+  \captionof{figure}{When diagonal strokes cross each other, they should do so in the optical center. Placing the letter upside down illustrates this. The x-letter from Perpetua has been inverted on the right. The second box uses \so{palatino} scaled approximately to 96pt. Clearly palatino does not have the harmony of previous letters. The top is \so{perpetua} and it reverses quite well.}
+  \label{fig:truetype02}
+\egroup
+
+Letterform patterns form in our minds when we larn how to read. They dictate how we react to the various visual stimuli and how we interpret the letters. If an uppercase ~U~ with a contrast in stroke thicknesses will look disproportional if the sequence of thick to thin we reversed. This reversed form will look unnatural because of our mental image. When the impression of equal strokes is intended we need to make the right stroke slightly thinner so that both strokes will appear of equal width.
+
+
+{
+  \centering
+  \includegraphics[scale=0.39]{./graphics/staggering}
+  \captionof{figure}{Staggering is more prominent in letters such as \so{X} and \char216 .}
+  \label{fig:truetype02}
+}
+
+\newthought{Optical Compensation}
+
+Peter Karow devised an experiment in which he presented participants with a series of squares and asked to select the one that they perceived as the more accurate square. The average participant selected a square that was about 1\% higher than it was wide. The same applied to circles.
+
+Similar experiments lead to the following conclusions:
+
+\begin{enumerate}
+\item circles appear as large as squares when the diameter is 3\% greater than the length of squares.
+\item triangles appear as large as squares when the height is 3\% and their width 5\% greater than the corresponding side length of the square, this with reference to such letter forms as A and V.\footnote{From an example, to check the footnotes.}
+\end{enumerate}
+
+%\section*{Barcodes}
+%\begin{teXX}
+%\documentclass[a4paper, 12pt, parskip]{scrartcl}
+%\usepackage[utf8]{inputenc}
+%\usepackage{pst-barcode}
+%\usepackage{auto-pst-pdf}
+%\begin{document}
+%  \section{Demo}
+%  \begin{pspicture}(1.378in, 1.5in)
+%    \psbarcode[]{1}{height=1.378 width=1.378}{qrcode}
+%    {\color{white}1}
+%  \end{pspicture}
+%
+%\bigskip
+%
+%  \begin{pspicture}(1.378in, 1.5in)
+%    \psbarcode[]{2}{height=1.378 width=1.378}{qrcode}
+%    {\color{white}2}
+%  \end{pspicture}
+%\end{document}
+%\end{teXX}
+\end{multicols}
+
+
+
+
+
+
+
+
+
+
+
+

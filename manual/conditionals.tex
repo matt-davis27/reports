@@ -1,0 +1,59 @@
+\documentclass{article}
+\usepackage{lipsum,fancyvrb}
+\DefineShortVerb{\|}
+\begin{document}
+
+The ability of a computer language to provide branching commands is important. TeX provides a number of conditionals.
+
+There  are  17 control 
+sequences  that   compare  various  quantities,  and  they are  used  to   make decisions  and  to  
+implement  loops. Most  are  easy  to   use  even  for 
+beginners, but  the  three commands  |\ifx|,   |\if|   and 
+|\ifcat|   are different.  They are harder to  learn and are 
+executed in different ways, are intended for different 
+applications, and are confusing. 
+
+\def\qwe#1{#1}   
+\def\rty#1{#1}
+
+\expandafter\expandafter\expandafter\ifx\qwe{1}\rty{1} 
+{yes}\else {no}
+\fi 
+
+This   suggests  one use  for  |\ifx|  
+namely,  comparison  of  strings.  To  compare  two 
+strings,  place  them  in  macros,  and  compare  the  
+macros.  |\ifx|   is, in  f a c t ,  heavily used  in  ref.  1 for 
+this  purpose.  However
+
+
+The |if| conditional.
+
+The |if|conditional expands its arguments and then compares them. 
+
+\def\star#1{#1}
+
+\if\star{*}* True is star 
+   \else false is not start
+\fi
+
+\if\qwe{1}\rty{1} 
+{yes}\else {no}
+\fi 
+
+\def\test#1{
+\def\zero{0}
+\if\zero#1 true \else no\fi}
+
+
+\test1
+\end{document}
+
+\def\sorttext#1{\setbox0\vbox{{\language255\hsize=0pt\hfuzz\maxdimen
+\parfillskip0pt\noindent#1\par}\sortvlist\unpack}\unvbox0 }
+\def\sortvlist{{\unskip\unpenalty \setbox0\lastbox
+\ifvoid0\noindent\else\setbox0\hbox{\unhbox0\ }\sortvlist\sortin\fi}}
+\def\sortin{\setbox2\lastbox\ifdim\wd2>\wd0{\sortin}\fi\box2\box0}
+\def\unpack{{\setbox0\lastbox\ifvoid0\indent\else\unpack\unhbox0\fi}}
+\sorttext{riverrun past Eve and Adam's linsfirst loved livvy.}
+\sorttext{\lipsum[1]}

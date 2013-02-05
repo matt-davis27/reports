@@ -1,0 +1,130 @@
+
+\documentclass{article}
+\usepackage{expl3}
+\begin{document}
+\LaTeX3 implements a data type called `sequences'. These are special
+ token lists that can be accessed via special function on the `left'.
+ Appending tokens is possible at both ends. Appended token lists can be
+ accessed only as a union.  The token lists that form the individual
+ items of a sequence might contain any tokens except two internal
+ functions that are used to structure sequences (see section internal
+ functions below).  It is also possible to map functions on such
+ sequences so that they are executed for every item on the sequence.
+
+ All functions that return items from a sequence in some \emph{tl var.}~assume
+ that the \emph{tl var.}~is local. See remarks below if you need a global
+ returned value.
+
+ The defined functions are not orthogonal in the sense that every
+ possible variation possible is actually available. If you need a new
+ variant use the expansion functions described in the package
+ \texttt{l3expan} to build it.
+
+ Adding items to the left of a sequence can currently be done with
+ either something like \verb+ seq_put_left:Nn"+ or with a ``stack'' function
+ like \verb+\seq_push:Nn+ which has the same effect. Maybe one should
+ therefore remove the ``left'' functions totally.
+%
+% \section{Functions for creating/initialising sequences}
+%
+% \begin{function}{ \seq_new:N |
+%                   \seq_new:c }
+% \begin{syntax}
+%    "\seq_new:N" <sequence>
+% \end{syntax}
+% Defines <sequence> to be a variable of type "seq".
+% \end{function}
+%
+% \begin{function}{ \seq_clear:N |
+%                   \seq_clear:c |
+%                  \seq_gclear:N |
+%                  \seq_gclear:c }
+% \begin{syntax}
+%   "\seq_clear:N"  <sequence>
+% \end{syntax}
+% These functions locally or globally clear <sequence>.
+% \end{function}
+%
+% \begin{function}{ \seq_clear_new:N |
+%                   \seq_clear_new:c |
+%                  \seq_gclear_new:N |
+%                  \seq_gclear_new:c }
+% \begin{syntax}
+%   "\seq_clear_new:N"  <sequence>
+% \end{syntax}
+% These functions locally or globally clear <sequence> if it exists or 
+% otherwise allocates it.
+% \end{function}
+%
+% \begin{function}{ \seq_set_eq:NN |
+%                   \seq_set_eq:cN |
+%                   \seq_set_eq:Nc |
+%                   \seq_set_eq:cc }
+% \begin{syntax}
+%   "\seq_set_eq:NN" <seq1> <seq2>
+% \end{syntax}
+% Function that locally makes <seq1> identical to <seq2>.
+% \end{function}
+%              
+% \begin{function}{ \seq_gset_eq:NN |
+%                   \seq_gset_eq:cN |
+%                   \seq_gset_eq:Nc |
+%                   \seq_gset_eq:cc }
+% \begin{syntax}
+%   "\seq_gset_eq:NN" <seq1> <seq2>
+% \end{syntax}
+% Function that globally makes <seq1> identical to <seq2>.
+% \end{function}
+%
+% \begin{function}{%
+%                  \seq_concat:NNN |
+%                  \seq_concat:ccc |
+%                  \seq_gconcat:NNN |
+%                  \seq_gconcat:ccc |
+% }
+% \begin{syntax}
+%   "\seq_concat:NNN"  <seq1> <seq2> <seq3>
+%   "\seq_gconcat:NNN" <seq1> <seq2> <seq3>
+% \end{syntax}
+% Function that conatenates <seq2> and <seq3> and locally or globally assigns the
+% result to <seq1>.
+% \end{function}
+%
+% \section{Adding data to sequences}
+%
+% \begin{function}{%
+%                  \seq_put_left:Nn |
+%                  \seq_put_left:NV |
+%                  \seq_put_left:No |
+%                  \seq_put_left:Nx |
+%                  \seq_put_left:cn |
+%                  \seq_put_left:cV |
+%                  \seq_put_left:co |
+% }
+% \begin{syntax}
+%   "\seq_put_left:Nn" <sequence> <token list>
+% \end{syntax}
+% Locally  appends <token list> as a single item to the left
+% of <sequence>. <token list> might get expanded before
+% appending according to the variant.
+% \end{function}
+%
+
+
+\ExplSyntaxOn
+  \seq_new:N \seq_temp_a
+  \seq_put_left:Nn \seq_temp_a{\{alpha\}}
+  \seq_put_left:Nn \seq_temp_a{beta}
+  \seq_map_inline:Nn \seq_temp_a{#1}\space}
+
+\show\seq_temp_a
+\ExplSyntaxOff
+
+
+
+
+
+
+
+
+\end{document}

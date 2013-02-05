@@ -1,0 +1,216 @@
+\chapter{Rules and Leaders}
+
+
+You can use leaders to fill a space with copies of a pattern,
+e.g., to put repeated dots between a title and a page number in a table
+of contents. A leader is a single copy of the pattern. The specification of
+leaders contains three pieces of information:
+
+1) what a single leader is
+
+2) how much space needs to be filled
+
+3) how the copies of the pattern should be arranged within the space
+
+TEX has three commands for specifying leaders: \cmd{leaders}, \cmd{cleaders},
+and \cmd{xleaders} (p. 174). The argument of each command specifies the
+leader. The commandmust be followed by glue; the size of the glue specifies
+how much space is to be filled. The choice of command determines how
+the leaders are arranged within the space.
+
+Rule leaders \textit{fill} the specified amount of space with a rule extending in the direction of the skip
+specified. \index{Rules and Leaders!rule leaders}
+
+For instance,
+
+\verb+\hbox{g\leaders\hrule\hskip20pt f}+
+
+gives
+
+\hbox{g\leaders\hrule\hskip20pt f}
+
+because a horizontal rule has a default height of .4pt. On the other hand,\index{Rules and Leaders!default value}
+
+\verb+\hbox{g\leaders\vrule\hskip10pt f}+
+
+gives
+
+\hbox{g\leaders\vrule\hskip10pt f}
+
+because the height and depth of a vertical rule by default fill the surrounding box.
+Spurious rule dimensions are ignored: in horizontal mode
+
+\verb+\leaders\hrule width 10pt \hskip 20pt+
+
+is equivalent to
+
+\verb+\leaders\hrule \hskip 20pt+
+
+If the width or height-plus-depth of either the skip or the box is negative, TEX uses ordinary glue
+instead of leaders.
+
+\section{Box leaders}
+
+Box leaders fill the available spaces with copies of a given box, instead of with a rule.
+For all of the following examples, assume that a box register has been allocated:
+
+\verb+\newbox\centerdot \setbox\centerdot=\hbox{\hskip.7em.\hskip.7em}+
+
+Now the output of
+
+\verb+\hbox to 8cm {here\leaders\copy\centerdot\hfil there}+
+
+is
+
+\hbox to 8cm {here\leaders\copy\centerdot\hfil there}
+
+That is, copies of the box register fill up the available space.
+
+Dot leaders, as in the above example, are often used for tables of contents. In such applications it
+is desirable that dots on subsequent lines are vertically aligned. The \cmd{leaders} command does this
+automatically:
+
+\begin{teX}
+\hbox to 8cm {here\leaders\copy\centerdot\hfil there}
+\hbox to 8cm {over here\leaders\copy\centerdot\hfil over there}
+\end{teX}
+
+gives
+
+\hbox to 8cm {here\leaders\copy\centerdot\hfil there}
+\hbox to 8cm {over here\leaders\copy\centerdot\hfil over there}
+
+
+The mechanism behind this is the following: TEX acts as if an infinite row of boxes starts (invisibly)
+at the left edge of the surrounding box, and the row of copies actually placed is merely the part of
+this row that is not obscured by the other contents of the box.
+
+Stated differently, box leaders are a window on an infinite row of boxes, and the row starts at the
+left edge of the surrounding box. Consider the following example:
+
+\begin{teX}
+\hbox to 8cm {\leaders\copy\centerdot\hfil}
+\hbox to 8cm {word\leaders\copy\centerdot\hfil}
+\end{teX}
+
+which gives,
+
+\hbox to 8cm {\leaders\copy\centerdot\hfil}
+\hbox to 8cm {word\leaders\copy\centerdot\hfil}
+
+The row of leaders boxes becomes visible as soon as it does not coincide with other material.
+The above discussion only talked about leaders in horizontal mode. Leaders can equally well be
+placed in vertical mode; for box leaders the ‘infinite row’ then starts at the top of the surrounding
+box.
+
+
+\section{Leaders and shifted margins}
+
+If margins have been shifted, leaders may look different depending on how the shift has been realized.
+For an illustration of how \cmd{hangindent} and \cmd{leftskip} influence the look of leaders, consider
+the following examples, where
+
+\setbox0=\hbox{R a t a t a  }
+\verb+\setbox0=\hbox{R a t a t a  }+
+
+The horizontal boxes above the leaders serve to indicate the starting point of the row of leaders.
+First
+
+
+
+
+gives
+
+
+
+Then
+
+\begin{verbatim}
+\hbox{\kern1em\hbox{\leaders\copy0\hskip5cm}}
+\hangindent=1em \hangafter=-1 \noindent
+\leaders\copy0\hskip5cm\hbox{}\par
+\end{verbatim}
+
+gives (note the shift with respect to the previous example)
+\medskip
+
+{\hbox{\kern1em\hbox{\leaders\copy0\hskip5cm}}
+\hangindent=1em \hangafter=-1 \noindent
+\leaders\copy0\hskip5cm\hbox{}\par}
+
+In the first paragraph the \cmd{leftskip} glue only obscures the first leader box; in the second paragraph
+the hanging indentation actually shifts the orientation point for the row of leaders. Hanging
+indentation is performed in TEX by a \cmd{moveright} of the boxes containing the lines of the
+paragraph.
+
+\vfill\eject
+\section{Creating two column text}
+
+
+\begin{fullwidth}
+\rule{10cm}{.1pt}
+\medskip
+\begin{figure}
+\textsf\normalsize
+\hbox{\hsize 10pc \parindent 1em
+\vtop{In this example, we see how to use vboxes to
+produce the effect of double columns. Each vbox
+contains two paragraphs, typeset according to \TeX’s
+usual rules except that it’s ragged right.\par
+This isn’t really the best way to get true double
+columns because the columns}
+\hskip 2pc
+\vtop{\noindent
+aren’t balanced and we haven’t done anything to choose
+the column break automatically or even to fix up the
+last line of the first column.\par
+However, the technique of putting running text into a
+vbox is very useful for placing that text where you
+want it on the page.}}
+\caption{Justified text\hfill}
+\end{figure}
+
+\bigskip\bigskip
+\rule{10cm}{.1pt}
+\end{fullwidth}
+
+
+This is now the normal text
+\medskip
+
+
+\begin{fullwidth}
+\rule{10cm}{.1pt}
+\medskip
+
+\begin{figure}
+\normalsize
+\hbox{\hsize = 10pc \raggedright\parindent = 1em
+\vtop{In this example, we see how to use vboxes to
+produce the effect of double columns. Each vbox
+contains two paragraphs, typeset according to \TeX’s
+usual rules except that it’s ragged right.\par
+This isn’t really the best way to get true double
+columns because the columns}
+\hskip 2pc
+\vtop{\noindent 
+aren’t balanced and we haven’t done anything to choose
+the column break automatically or even to fix up the
+last line of the first column.\par
+However, the technique of putting running text into a
+vbox is very useful for placing that text where you
+want it on the page.}}
+\caption{Raggedright text in rwo columns}
+\end{figure}
+
+\bigskip\bigskip
+\rule{10cm}{.1pt}
+\end{fullwidth}
+
+
+
+
+
+
+
+

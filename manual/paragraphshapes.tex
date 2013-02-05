@@ -1,0 +1,156 @@
+\chapter{SHAPING PARAGRAPHS}
+The |\parshape| command is the only command available in \TeX\ that can influence the shaping of individual  paragraph lines. Its general form is |\parshape|$=n\,\, i_1l_1i_2l_2\dots i_nl_n$. It creates a paragraph whose first $n$ lines have lengths $l_1,l_2,\dots, l_n$ and are indented by $i_1,i_2\dots,i_n$ from the left margin.
+
+Consider the figure below showing an extract from the Principi\ae. We will typeset this using |\parshape|.
+\pagebreak
+\bgroup
+\parindent=0pt
+\small
+
+\vspace*{4\baselineskip}
+
+\hspace*{6.7cm}\includegraphics[height=18\baselineskip]{./images/060.png}
+\vspace{-24\baselineskip}
+
+\newlength{\inn}
+\setlength{\inn}{210pt}
+
+\newlength{\innn}
+\setlength{\innn}{160pt}
+
+\newlength{\innnn}
+\setlength{\innnn}{90pt}
+
+\newlength{\zz}
+\setlength{\zz}{70pt}
+
+\bottomline
+\parshape 23  \zz \the\dimexpr\textwidth-120pt
+                   \zz \the\dimexpr\textwidth-120pt
+                   \zz \the\dimexpr\textwidth-120pt
+                   \zz \inn %4
+                   \zz \inn
+                   \zz \inn
+    \zz  \inn
+   \zz  \innn
+  \zz  \innn
+   \zz \innn
+   \zz \innn
+                 \zz \innn
+                 \zz \innnn
+                  \zz \innnn
+   \zz \innnn
+                 \zz \innnn
+                  \zz \innnn
+   \zz \innnn
+   \zz \innnn
+                 \zz \innnn
+                 \zz \innnn
+                  \zz \innnn
+                  \zz \the\dimexpr\textwidth-120pt
+  Demittatur perpendicularis $QT$. Et Hyperbol{\ae} latere recto
+principali (seu $\frac{2BCq.}{AC}$) dicto $L$, erit $L \times QR$ ad $L \times Pv$~ut~$QR$
+ad $Pv$, id est, ut $PE$ (seu $AC$) ad $PC$; Et $L \times Pv$~~ad~~$GvP$
+ut $L$ ad $Gv$; \& $GvP$ ad $Qvq.$ ut $CPq.$
+ad $CDq.$; \& (per Lem.\ VIII.) $Qvq.$ ad
+$Qxq.$, punctis $Q$ \& $P$ coeuntibus
+fit ratio {\ae}qualitatis; \& $Qxq.$ seu
+$Qvq.$ est ad $QTq.$ ut $EPq.$ ad $PFq.$,
+id est ut $CAq.$ ad $PFq.$, sive (per
+Lem.\ XII.) ut $CDq.$ ad
+$CBq.$: \& conjunctis his omnibus
+rationibus $L \times QR$ fit
+ad $QTq.$ ut $AC$
+ad $PC + L$ ad
+$Gv + CPq.$ ad
+$CDq. + CDq.$
+ad $CBq.$: id est
+ut $AC \times L$ (seu
+$2BCq.$) $\times PCq.$
+ad $PC \times
+Gv \times CB \opit{quad.}$
+sive ut $2PC$
+ad $Gv$, sed
+punctis $Q$ \& $P$
+coeuntibus
+{\ae}quantur $2PC$
+\& $Gv$. Ergo \& his proportionalia $L \times QR$ \& $QTq.$ {\ae}quantur.
+Ducantur h{\ae}c {\ae}qualia in $\frac{SPq.}{QR}$ \& fiet $L \times SPq.$ {\ae}quale $\frac{SPq. \times QTq.}{QR}$.
+Ergo (per Corol.\ Theor.\ V.) vis centripeta reciproce est ut
+$L \times SPq.$ id est in ratione duplicata distanti{\ae} $SP$. \QEIit\par
+\nobreak
+\bottomline
+\captionof{figure}{Extract from \textit{Philosophi\ae\  Naturalis Principia Mathematica}, typeset using \texttt{\textbackslash parshape} and a lot of patience.}
+\egroup
+
+\begin{figure}[p]
+\centering
+\includegraphics[scale=1]{images/page52}
+\caption{Page 52 from Isaac Newton's \textit{Philosophi\ae\  Naturalis Principia Mathematica}. Image was obtained from Google's copy, available at Google Books.}
+\label{fig:principia}
+\end{figure}
+
+
+\section{Shaping paragraphs with \texttt{shapepar}}
+
+By using |parshape|, you could literally make your paragraph any shape you want.
+But if you want your paragraph to be shaped a heart, there's a package, |shapepar|, that
+could ease your work. The package provides a few predefined shapes that you could call
+up by using |diamondpar|, |squarepar|, and |heartpar|
+
+The size is adjusted automatically so that the entire shape is filled with text. There may not be displayed maths or \verb+\vadjust+  material (no \verb+\vspace+) in the argument of shapepar. The macros work for both LaTeX and plain TeX. shapepar works in terms of user-defined shapes, though the package does provide some predefined shapes: so you can form any paragraph into the form of a heart by putting heartpar{sometext...} inside your document. The tedium of creating these polygon definitions may be alleviated by using the shapepatch extension to transfig which will convert xfig output to shapepar polygon form.
+The author is Donald Arseneau.
+\bigskip
+
+\begin{small}
+\renewcommand{\baselinestretch}{.85}\selectfont
+\begin{minipage}[b]{\linewidth}
+\footnotesize
+\def~{\,}
+\heartpar{%
+\mbox{ }In faith, I do not love thee with mine eyes,
+~For they in thee a thousand errors note,
+~But is my heart that loves what they despise,
+~Who in despite of view is pleased to dote;
+~Nor are mine ears with thy tongue's tune delighted,
+~Nor tender feeling to base touches prone,
+~Nor taste nor smell, desire to be invited
+~To any sensual feast with thee alone;
+~But my five wits nor my five senses can
+~Dissuade one foolish heart from serving thee,
+~Who leaves unswayed the likeness of a man,
+~Thy proud heart's slave and vassal wretch to be;
+~Only my plague thus far I count my gain,
+~That she that makes me sin awards me pain.}
+~~~~
+\end{minipage}
+\end{small}
+
+This is  a difficult to use package. If you do need to ise it carefully read the documentation.
+
+\begin{teXXX}
+\begin{small}
+\renewcommand{\baselinestretch}{.85}\selectfont
+\begin{minipage}[b]{\linewidth}
+\footnotesize
+\def~{\,}
+\heartpar{%
+\mbox{ }In faith, I do not love thee with mine eyes,
+~For they in thee a thousand errors note,
+~But is my heart that loves what they despise,
+~Who in despite of view is pleased to dote;
+~Nor are mine ears with thy tongue's tune delighted,
+~Nor tender feeling to base touches prone,
+~Nor taste nor smell, desire to be invited
+~To any sensual feast with thee alone;
+~But my five wits nor my five senses can
+~Dissuade one foolish heart from serving thee,
+~Who leaves unswayed the likeness of a man,
+~Thy proud heart's slave and vassal wretch to be;
+~Only my plague thus far I count my gain,
+~That she that makes me sin awards me pain.}
+~~~~
+\end{minipage}
+\end{small}
+
+\end{teXXX}

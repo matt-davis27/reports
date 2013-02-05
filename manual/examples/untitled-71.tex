@@ -1,0 +1,29 @@
+
+
+\documentclass{article}
+ \usepackage{soul,xcolor}
+ \begin{document}
+ \hl{highlight} text
+
+ \makeatletter
+
+ \def\SOUL@ulleaders{%
+     \leaders\hbox{%
+      \textcolor{green}{\rule{2pt}{2.5ex}}%
+      \textcolor{red}{\rule{2pt}{2.2ex}}}\relax
+ }
+
+ \def\SOUL@uleveryspace#1{%
+     \SOUL@ulcolor{%
+         #1%
+         \leaders\hrule\@depth 0pt\@height\SOUL@ulht
+         \hskip\spaceskip
+     }%
+     \null
+ }
+
+ \hl{highlight text}
+
+ \ul{test}
+ \end{document}
+

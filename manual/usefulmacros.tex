@@ -1,0 +1,214 @@
+\chapter{Useful Macros}
+
+This chapter lists a number of useful macros. These have been assembled over either from the literature or packages. In other cases they have been developed from scratch.
+
+
+\newthought{Greatest Common Divisor}
+
+This macro uses Euclid's algorithm to find the greatest common divisor of two integers. Adapted from \ctan{rangen}.
+
+\index{Macros!greatest common divisor}
+
+\begin{teX}
+\def\gcd#1#2{{% #1 = a, #2 = b
+    \ifnum#2=0 \edef\next{#1}\else
+        \@tempcnta=#1 \@tempcntb=#2 \divide\@tempcnta by\@tempcntb
+        \multiply\@tempcnta by\@tempcntb  % q*b
+        \@tempcntb=#1
+        \advance\@tempcntb by-\@tempcnta % remainder in \@tempcntb
+        \ifnum\@tempcntb=0
+            \@tempcnta=#2
+            \ifnum\@tempcnta < 0 \@tempcnta=-\@tempcnta\fi
+            \xdef\gcd@next{\noexpand%
+                \def\noexpand\thegcd{\the\@tempcnta}}%
+        \else
+            \xdef\gcd@next{\noexpand\gcd{#2}{\the\@tempcntb}}%
+        \fi
+    \fi}
+    \gcd@next
+}
+\end{teX}
+
+Here we use Euclid's algorithm to find the greatest common divisor 
+of two integers.
+
+
+\begin{teX}
+\def\gcd#1#2{
+  {% #1 = a, #2 = b
+    \ifnum#2=0 \edef\next{#1}
+    \else
+        \@tempcnta=#1 \@tempcntb=#2 
+        \divide\@tempcnta by\@tempcntb
+        \multiply\@tempcnta by\@tempcntb  % q*b
+        \@tempcntb=#1
+        \advance\@tempcntb by-\@tempcnta % remainder in \@tempcntb
+        \ifnum\@tempcntb=0
+            \@tempcnta=#2
+            \ifnum\@tempcnta < 0 \@tempcnta=-\@tempcnta\fi
+            \xdef\gcd@next{\noexpand%
+                \def\noexpand\thegcd{\the\@tempcnta}}%
+        \else
+            \xdef\gcd@next{\noexpand\gcd{#2}{\the\@tempcntb}}%
+        \fi
+    \fi
+  }
+   \gcd@next
+}
+
+\end{teX}
+
+\newthought{Reducing a fraction to lowest terms}
+
+\begin{teX}
+\newcommand\reduceFrac[2]
+{%
+   \gcd{#1}{#2}{\@tempcnta=#1 \divide\@tempcnta by\thegcd
+   \@tempcntb=#2 \divide\@tempcntb by\thegcd
+   \ifnum\@tempcntb<0\relax
+       \@tempcntb=-\@tempcntb
+       \@tempcnta=-\@tempcnta
+    \fi
+    \xdef\rfNumer{\the\@tempcnta}\xdef\rfDenom{\the\@tempcntb}}%
+}
+\end{teX}
+
+
+To use the above macros,
+
+\begin{teX}
+\reduceFrac{27}{96}
+$\frac{\rfNumer}{\rfDenom}$
+\end{teX}
+
+\makeatletter
+% Here we use Euclid's Algorithm to find the greatest 
+% common divisor of two integers.
+
+
+\def\gcd#1#2{{% #1 = a, #2 = b
+     \ifnum#2=0 \edef\next{#1}\else
+        \@tempcnta=#1 \@tempcntb=#2 \divide\@tempcnta by\@tempcntb
+        \multiply\@tempcnta by\@tempcntb  % q*b
+        \@tempcntb=#1
+        \advance\@tempcntb by-\@tempcnta % remainder in \@tempcntb
+        \ifnum\@tempcntb=0
+            \@tempcnta=#2
+            \ifnum\@tempcnta < 0 \@tempcnta=-\@tempcnta\fi
+            \xdef\gcd@next{\noexpand%
+                \def\noexpand\thegcd{\the\@tempcnta}}%
+        \else
+            %% recursion with different values
+            \xdef\gcd@next{\noexpand\gcd{#2}{\the\@tempcntb}}%
+        \fi
+    \fi}\gcd@next
+}
+
+
+% Now compute the least common multiple
+%    \begin{macrocode}
+\def\lcm#1#2{% #1 = a, #2 = b
+    \gcd{#1}{#2}%
+    {\@tempcnta=#1
+    \multiply\@tempcnta by#2
+    \divide\@tempcnta by\thegcd
+    \xdef\thelcm{\the\@tempcnta}}%
+}
+%    \end{macrocode}
+%    \end{macro}
+
+%% Modular arithmetic \texttt{a mod b}, returns its results
+%% as a macro \cs{retnmod}.
+%%    \begin{macrocode}
+%\def\amodb#1#2{% #1 = a, #2 = b
+%    {\@tempcnta=#1
+%    \the\numexpr(\@tempcnta/#2)
+%    \multiply\@tempcnta by#2
+%    \@tempcntb=#1
+%    \advance\@tempcntb by-\@tempcnta
+%    \xdef\retnmod{\the\@tempcntb}}%
+%}
+%%    \end{macrocode}
+%%    \end{macro}
+%    \begin{macro}{\reduceFrac}
+% Reduce a fraction to lowest terms. The first argument is the numerator and the second
+% argument is the denominator. This command computes the \texttt{gcd} of the two integers,
+% divides each by the \texttt{gcd}, and returns the results in the two scratch count
+% registers \cs{@tempcnta} and \cs{@tempcntb}.
+%    \begin{macrocode}
+\newcommand\reduceFrac[2]
+{%
+   \gcd{#1}{#2}{\@tempcnta=#1 \divide\@tempcnta by\thegcd
+   \@tempcntb=#2 \divide\@tempcntb by\thegcd
+   \ifnum\@tempcntb<0\relax
+%    \end{macrocode}
+% Always have the denominator as positive.
+%    \begin{macrocode}
+        \@tempcntb=-\@tempcntb
+        \@tempcnta=-\@tempcnta
+    \fi
+    \xdef\rfNumer{\the\@tempcnta}\xdef\rfDenom{\the\@tempcntb}}%
+}
+\reduceFrac{27}{96}
+
+\noindent results in $\frac{\rfNumer}{\rfDenom}$.
+
+
+\section{Paragraph related}
+A command to restore a justified environment
+
+\begin{teXXX}
+\documentclass{book}
+\usepackage{lipsum}
+\makeatletter
+%% routine form ltxutil
+\def\flushing{%
+  \let\\\@normalcr
+  \leftskip\z@skip
+  \rightskip\z@skip
+  \@rightskip\z@skip
+  \parfillskip\@flushglue
+}%
+\makeatother
+\begin{document}
+\centering
+\lipsum[1]\par
+\flushing
+\lipsum[1]
+\texttt{\meaning\@flushglue}\\
+\texttt{\meaning\z@skip}
+\the\skip16
+\end{document}
+\end{teXXX}
+
+With \latex 
+
+Ensure you always trigger a paragraph
+
+\def\triggerpar{\leavevmode\@@par}%
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\makeatother
+
+
+

@@ -1,0 +1,280 @@
+\chapter{Length macros}
+
+Length manipulation macros
+
+You can change the values of the variables defining the page layout with two commands. With this one you can set a new value:
+
+\begin{teX}
+\setlength{parameter}{length}
+\end{teX}
+
+
+with this other one, you can add a value to the existing one:
+
+\begin{teX}
+\addtolength{parameter}{length}
+\end{teX}
+
+new lengths can becreated using the \cmd{newlength}.
+
+\begin{teX}
+\newlength{parameter}
+\end{teX}
+
+You may also set a length from the size of a text with one of these commands:
+
+
+\begin{teX}
+ \settowidth{parameter}{some text}
+ \settoheight{parameter}{some text}
+ \settodepth{parameter}{some text}
+\end{teX}
+
+When using these commands, you may duplicate the text that you want to use as reference if you plan to also display it. But LaTeX also provides a set of commands to avoid this duplication:
+
+
+In the following example ww will create a newbox doccmd{Abox}
+
+\begin{teX}
+\newsavebox{\Abox}
+\savebox{\Abox}{\parbox{2in}{\lorem}}
+\usebox{\Abox} \hspace{1cm} \usebox{\Abox}
+\end{teX}
+
+
+We can view the dimensions of the box using
+
+\begin{teX}
+\showthe\Abox
+\showthe\wd\Abox
+\showthe\ht\Abox
+\showthe\dp\Abox
+\end{teX}
+
+
+\noindent Typing the following code:
+\begin{teX}
+\newsavebox{\Abox}
+\savebox{\Abox}{\parbox{2in}{\lorem}}
+\usebox{\Abox} \hspace{0.6cm} \usebox{\Abox}
+\end{teX}
+
+\begin{fullwidth}
+\newsavebox{\Abox}
+\savebox{\Abox}{\parbox{2in}{\lorem}}
+\usebox{\Abox} \hspace{0.6cm} \usebox{\Abox}
+\end{fullwidth}
+
+
+\bigskip
+
+To get the dimensions some clever manipulations must be done. We need to define the box using \cmd{wd}, \cmd{ht} and \cmd{dp}.
+
+
+\newcommand*{\settoboxwidth}[2]{\setlength{#1}{\wd#2}}
+
+\newsavebox{\mybox}
+\newlength{\mylength}
+\sbox{\mybox}{Hello World}
+\settoboxwidth{\mylength}{\mybox}
+
+\usebox\mybox
+
+\the\mybox  
+
+\the\wd\mybox
+
+\the\ht\mybox
+
+\medskip
+
+We are now going to try and define macros that show the dimensions of a box on the screen or they print it out.
+
+This can be quite useful, while we are debugging a new layout or manipulating boxes.
+
+We first start by defining a numbers of new \emph{lengths}. We do this as we will not be using the \tex commands
+|\wd|, |\ht| and |\dp|\sidenote{It is considered bad practice to combine \tex and \latex commands together, although nothing stops us from doing so.}.
+
+\begin{teX}
+\newlength{\myhh}
+\newlength{\mydd}
+\newlength{\myww}
+\end{teX}
+
+The next step is to set these lengths to the corresponding parameters of the box macro |\Abox|.
+
+\begin{teX}
+\settoheight{\myhh}{\usebox{\Abox}}
+\settodepth{\mydd}{\usebox{\Abox}}
+\settowidth{\myww}{\usebox{\Abox}} 
+\end{teX}
+
+In the last part we define macros to print these dimensions.
+
+\begin{teX}
+\newcommand{\showboxheight}[1]{
+   \settoheight{\myhh}{\usebox{#1}}
+   \the\myhh
+}
+
+
+\newcommand{\showboxdepth}[1]{
+   \settodepth{\myhh}{\usebox{#1}}
+   \the\mydd
+}
+
+\newcommand{\showboxwidth}[1]{
+   \settodepth{\myhh}{\usebox{#1}}
+   \the\myww
+}
+\end{teX}
+
+
+\newlength{\imageh}
+\newlength{\imaged}
+\newlength{\imagew}
+
+\newcommand{\setimageh}[1]{
+ \settoheight{\imageh}{\usebox{#1}}
+}
+
+\newcommand{\setimagew}[1]{
+ \settowidth{\imagew}{\usebox{#1}}
+}
+
+\newcommand{\setimaged}[1]{
+ \settowidth{\imaged}{\usebox{#1}}
+}
+
+
+\newcommand{\ImageDimensions}[1]{
+   % create and save the box
+   \newsavebox{\Image}
+   \savebox{\Image}{\includegraphics[scale=0.5]{#1}}
+  {\hfill\usebox{\Image}\hfill}
+  \setimageh{\Image}
+  \setimagew{\Image}
+  \setimaged{\Image}
+   {\break\footnotesize
+     {\raggedright 
+      The height is of image (#1) is : \the\imageh\break
+     The width of the  image (#1) is : \the\imagew\break
+     The depth of the  image (#1) is : \the\imaged\break }}
+}
+
+
+\section*{Determine the height and width of an image}
+We are now going to use use our new routines to measure the width and height of an image box. The user interface
+is going to be kept as simple as possible as shown below:---
+
+\begin{teX}
+\ImageDimensions{./graphics/maths1}
+\end{teX}
+
+Given an image and a path, we will print the image and its dimensions as follows:
+\medskip
+
+\ImageDimensions{./graphics/maths1}
+
+\bigskip
+
+The code is fairly easy to understand and follows the same pattern as that for a box composed of
+text. As a matter of fact the box can contain any combination of letters and images.
+
+\begin{teX}
+\newlength{\imageh}
+\newlength{\imaged}
+\newlength{\imagew}
+
+\newcommand{\setimageh}[1]{
+ \settoheight{\imageh}{\usebox{#1}}
+}
+
+\newcommand{\setimagew}[1]{
+ \settowidth{\imagew}{\usebox{#1}}
+}
+
+\newcommand{\setimaged}[1]{
+ \settowidth{\imaged}{\usebox{#1}}
+}
+
+
+\newcommand{\ImageDimensions}[1]{
+   % create and save the box
+   \newsavebox{\Image}
+   \savebox{\Image}{\includegraphics[scale=0.5]{#1}}
+  {\hss\usebox{\Image}\hss}
+  \setimageh{\Image}
+  \setimagew{\Image}
+   {\break\footnotesize
+     {\raggedright 
+      The height is of image (#1) is : \the\imageh\break
+     The width of the  image (#1) is : \the\imagew\break
+     The depth of the  image (#1) is : \the\imaged\par}}
+}
+\end{teX}
+
+
+\section*{Examples}
+
+You may wish to look at the example below to see how you can use these. The command |\newsavebox| creates a placeholder for storing a text; the command |\savebox| stores the specified text in this placeholder, and does not display anything in the document; and |\usebox| recalls the content of the placeholder into the document.
+
+
+Resize an image to take exactly half the text width :
+
+\begin{teX}
+\includegraphics[width=0.5\textwidth]{mygraphic}
+\end{teX}
+
+
+
+Make distance between items larger (inside an itemize environment) :
+
+\begin{teX}
+\addtolength{\itemsep}{0.5\baselineskip}
+\end{teX}
+
+Use of savebox to resize an image to the height of the text:
+
+% Create the holders we will need for our work
+
+\begin{teX}
+\newlength{\mytitleheight}
+\newsavebox{\mytitletext}
+% Create the reference text for measures
+\savebox{\mytitletext}{%
+  \Large\bfseries This is our title%
+}
+\settoheight{\mytitleheight}{\usebox{\mytitletext}}
+% Now creates the actual object in our document
+\framebox[\textwidth][l]{%
+  \includegraphics[height=\mytitleheight]{my_image}%
+  \hspace{2mm}%
+  \usebox{\mytitletext}%
+}
+\end{teX}
+
+\makeatletter
+\def\triangle#1{%
+   \par
+   \vbox{%
+     \baselineskip4.3pt
+     \m@th
+     \toks@{}%
+     \count@#1
+     \loop\ifnum\count@>\z@
+        \advance\count@\m@ne
+        \toks@\expandafter{\the\toks@{\bullet}}%
+        \centerline{$\the\toks@$}%
+     \repeat
+   }%
+}
+\makeatother
+
+
+\triangle{15}
+
+
+
+
+

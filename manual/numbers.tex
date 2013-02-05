@@ -1,0 +1,1218 @@
+\newgeometry{left=1in,right=1in,top=1in,bottom=1in}
+\parindent1em
+\chapter{NUMBERS}
+\epigraph{Every TEXie knows, or should know, that Donald
+Knuth, the Grand Wizard of TEX and METAFONT,
+designed these wonderful programs using only integer
+arithmetic.}{Claudio Beccari}
+
+\begin{multicols}{2}
+In this chapter integers and their denotations will be treated, the conversions that are possible
+either way, allocation and the use of \cmd{count} registers, and arithmetic with integers.Claudio Beccari TUGboat, Volume 23 (2002), No. 3/4. An important part of the grammar of \tex is the rigorous definition of a \arg{number}, the
+syntactic entity that \tex expects when semantically an integer is expected.  Towards the end, |\count| registers, arithmetic, and
+tests for numbers are treated.
+For clarity of discussion a distinction will be made here between integers and numbers,
+but note that a hnumberi can be both an ‘integer’ and a ‘number’. ‘Integer’ will be taken
+to denote a mathematical number: a quantity that can be added or multiplied. ‘Number’
+will be taken to refer to the printed representation of an integer: a string of digits, in other
+words.
+\end{multicols}
+
+The common control \tex statements  are shown below:
+
+\begin{enumerate}[(1)]
+\item{\cmd{number}} Convert a number to decimal representation.
+\item{\cmd{romannumeral}}  Convert a positive number to lowercase roman representation.
+\item{\cmd{ifnum}} Test relations between numbers.
+\item{\cmd{ifodd}} Test whether a number is odd.
+\item{\cmd{ifcase}} Enumerated case statement.
+\item{\cmd{count}} Prefix for count registers.
+\item{\cmd{countdef}} Define a control sequence to be a synonym for a \cmd{count} register.
+\item{\cmd{newcount}} Allocate an unused \doccmd{count} register.
+\item{\cmd{advance}} Arithmetic command to add to or subtract from a numeric variable.
+\item{\cmd{multiply}} Arithmetic command to multiply a hnumeric variablei.
+\item{\cmd{divide}} Arithmetic command to divide a hnumeric variablei.
+\end{enumerate}
+
+
+
+\section{The number}\margindoc{number}
+
+The number control sequence can be used in cases where you want to convert from a defined counter to
+a decimal number for example \verb+\number\day+ will output the integer representing the current day of the month.
+\number\day
+
+The \doccmd{romannumeral} will convert to a lowercase roman number. 
+\verb+ \romannumeral 2020+  will output {\textit{\romannumeral 2020}}
+
+
+\section{The countdef}
+
+\doccmd{countdef} defines a symbolic name for a count register (0..255). For instance, we can define a counter
+to count examples 
+\begin{teX}
+\countdef\examplenum=0  % use count0
+\examplenum=1 % first example number is 1
+The example number is \advance\examplenum by 1  is \number\examplenum
+\countdef\examplenum=2 \examplenum=1 % first example number is 1
+\end{teX}
+
+The example number is |\advance\examplenum by 1|  is |\number\examplenum|
+
+\begin{teX}
+\newcommand{\example}{%
+   \noindent
+    \textit{Example \number\examplenum\smallskip }%
+   \advance\examplenum by 1%
+ }
+\end{teX}
+
+
+
+
+
+
+\section{Counting examples}
+
+
+\begin{teXXX}
+\countdef\examplenum=0  % use count0
+\examplenum=1 % first example number is 1
+The example number is \advance\examplenum by 1  is \number\examplenum
+\end{teXXX}
+
+%\countdef\examplenum=2 \examplenum=1 % first example number is 1
+
+
+
+\section{multiply} \marginnote{\doccmd{multiply}}
+
+This command multiplies the $<numeric variable>$ by $<number>$ (i.e by an integer). The numeric variable can be 
+a parameter of type integer, dimen, glue or muglue. It is not your average real numbers multiplication
+
+%\example
+\begin{teXXX}
+\count0=200
+\multiply \count0 by 2
+\the\count0
+\end{teXXX}
+
+This will output \texttt{0} . Note that \TeX\ only works with integers and you need to watch that you do not overflow \TeX 's capacity.
+
+
+\section{Real numbers}
+
+The \texttt{fp} package by Michael Mehlich, provides macros for fixed point arithmetic
+for TeX with numbers ranging from:\people{Michael Mehlich}\index{floating point arithmetic}, \index{real numbers}
+
+    |-999999999999999999.999999999999999999|\\
+to  |+999999999999999999.999999999999999999|\\
+
+
+This is a very old package and the documentation consists of one |readme.txt| file. It is by far the best for floating point arithmetic. Most of the macros receive three arguments with the first one being a macro or a string that receives the values. For example to get the power of a number:
+
+\begin{verbatim}
+\FPpow\test{8.0000000000000001}{2.0000000000000000}
+\test
+\FPpow\test{8.0000000000000001}{0.0000000000000000}
+\test
+\end{verbatim}
+
+
+\FPpow\test{8.0000000000000001}{2.0000000000000000}
+
+\noindent\test\\
+\FPpow\test{8.0000000000000001}{0.0000000000000000}
+\test\\
+
+
+The package provides the following four operations:
+
+\emphasis{FPadd,FPdiv,FPmul,FPsub,FPpow}
+\begin{teXXX}
+%binary operations
+\FPadd#1#2#3	% #1 := #2+#3
+\FPdiv#1#2#3	% #1 := #2/#3
+\FPmul#1#2#3	% #1 := #2*#3
+\FPsub#1#2#3	% #1 := #2-#3
+\end{teXXX}
+
+All \texttt{fp}, commands are prefixed with \texttt{FP}. The commands define a macro to hold the values on the fly.
+
+Armed with such a powerful package it is now possible to do so much more with \tex. Let us try another a bit more difficult example. Both the temperature and pressure of air fall with increasing altitude up to about 10 000 $m$. ASHRAE (1997) gives the following equation for the calculation of atmospheric pressure up to a height of 10 000 $m$:
+
+\begin{equation}
+p = 101.325 (1 - 2.25577 \cdot 10^{-5}Z)^{5.2559} 
+\end{equation}
+
+\noindent and
+
+\begin{equation}
+t = 15 - 0.0065Z \label{temp}
+\end{equation}
+
+
+\noindent for the calculation of temperature up to a height of 11 000 $m$, where $p$ is pressure in $kPa$, $t$ is temperature in $K$ and $Z$ is altitude in $m$ above sea level.
+
+We can write the equation \ref{temp} in \tex as follows:
+
+\begin{teX}
+\makeatletter
+%% The temperature of air at altitude is
+%% given in ASHRAE as t=15-0.0065 Z
+%% where t = temperature in deg C
+%% and Z is altitude in m. equation is
+%% valid up to 11,000 m
+%% temperature@altitude will print
+%% this temperature
+
+\def\temperature@altitude#1{%
+  \FPmul\termone{65}{#1}%
+  \FPdiv\termtwo{\termone}{10000}%
+  \FPsub\temperature{15}{\termtwo}%
+  \texttt{\temperature}
+}
+
+\noindent The temperature at 11000 $m$ is 
+\temperature@altitude{11000}\hfil\hfill
+
+\makeatother
+\end{teX}
+
+
+
+%% The calculation is defined here
+\makeatletter
+%% The temperature of air at altitude is
+%% given in ASHRAE as t=15-0.0065 Z
+%% where t = temperature in deg C
+%% and Z is altitude in m. equation is
+%% valid up to 11,000 m
+%% temperature@altitude will print
+%% this temperature
+
+\def\temperature@altitude#1{%
+\FPmul\termone{65}{#1}%
+\FPdiv\termtwo{\termone}{10000}%
+\FPsub\temperature{15}{\termtwo}%
+\texttt{\temperature}
+}
+
+\let\TemperatureAtAltitude\temperature@altitude
+\makeatother
+%% end of macro
+
+
+\noindent The temperature at 11000 $m$ is \TemperatureAtAltitude{11000} \textcelsius \sidenote{Note that the \textcelsius\ symbol, was typest using the command \texttt{\textbackslash textcelsius of the \texttt{textcomp} package}}
+The equation for pressure is a bit more complicated as it involves powers.
+
+\begin{teX}
+\def\pressure@altitude#1{%
+  \FPmul\zone{2.25577}{#1}%
+  \FPdiv\ztwo{\zone}{100000}%
+  \FPsub\zthree{1}{\ztwo}%
+  \FPpow\zfour{\zthree}{5.2559}%
+  \FPmul\zfive{101.325}{\zfour}%
+\zfive%
+}
+\end{teX}
+
+
+\makeatletter
+\def\pressure@altitude#1{%
+\FPmul\zone{2.25577}{#1}%
+\FPdiv\ztwo{\zone}{100000}%
+\FPsub\zthree{1}{\ztwo}%
+\FPpow\zfour{\zthree}{5.2559}%
+\FPmul\zfive{101.325}{\zfour}%
+\zfive%
+}
+
+\let\PressureAtAltitude\pressure@altitude
+\makeatother
+
+The pressure at 900~$m$ is\texttt{\PressureAtAltitude{900} kPa} and at\\
+a 1000~$m$ is \texttt{\PressureAtAltitude{1000} kPa}.\hfill\hfill\\
+
+
+
+The obvious question that you may want to ask now, is how to we format the number? 
+In \alltex there is no formatting way of pretty printing, but the \docpkg{numprint}, developed by Harald Harders \people{Harald Harders} comes to the rescue. It provides macros for the rounding-off of numbers to as many decimal places as we may wish. It provides the macros \cmd{nprounddigits} and \cmd{numprint} to do so. The package can print numbers both in |mathmode| as well as normal |text mode|.\sidenote{The \texttt{fp} package also provides a \texttt{round} function, but it is a bit more complicated. We will discuss this later on.}
+
+
+
+
+\begin{teX}
+\nprounddigits{2}$\numprint{20.12345678}$
+\end{teX}
+
+{%\selectlanguage{english}
+\nprounddigits{2}\numprint{12.4567890}}
+
+
+
+\begin{teX}
+\def\pressure@altitude#1{%
+  \FPmul\zone{2.25577}{#1}%
+  \FPdiv\ztwo{\zone}{100000}%
+  \FPsub\zthree{1}{\ztwo}%
+  \FPpow\zfour{\zthree}{5.2559}%
+  \FPmul\zfive{101.325}{\zfour}%
+  \selectlanguage{english}%
+  \nprounddigits{2}\numprint{\zfive}%
+}
+\end{teX}
+
+
+
+
+\makeatletter
+\def\pressure@altitude#1{%
+\FPmul\zone{2.25577}{#1}%
+\FPdiv\ztwo{\zone}{100000}%
+\FPsub\zthree{1}{\ztwo}%
+\FPpow\zfour{\zthree}{5.2559}%
+\FPmul\zfive{101.325}{\zfour}%
+\selectlanguage{english}%
+\nprounddigits{2}\numprint{\zfive}%
+}
+
+\let\PressureAtAltitude\pressure@altitude
+\makeatother
+
+
+The pressure at 900~$m$ is\texttt{\PressureAtAltitude{900} kPa} and at
+a 1000~$m$ is \texttt{\PressureAtAltitude{1000} kPa}.\hfill\hfill\\
+
+
+Having managed to set-out the macros we need to calculate as well as to typeset to two decimal points, the next exercise to create a table with values from 500 m to 10000 m as shown in Table \ref{pvsaltitude}
+
+
+
+
+\begin{table}
+\begin{center}
+\begin{tabular}{cc}
+\toprule
+Altitude & Pressure\\
+(m)   & (kPa)\\
+\midrule
+\Z500  &\PressureAtAltitude{1000}\\
+1000 &\PressureAtAltitude{1000}\\
+2000 &\PressureAtAltitude{2000}\\
+3000 &\PressureAtAltitude{3000}\\
+4000 &\PressureAtAltitude{3000}\\
+5000 &\PressureAtAltitude{5000}\\
+6000 &\PressureAtAltitude{6000}\\
+7000 &\PressureAtAltitude{8000}\\
+8000 &\PressureAtAltitude{6000}\\
+9000 &\PressureAtAltitude{6000}\\
+10000 &\PressureAtAltitude{6000}\\
+\bottomrule
+\end{tabular}
+\caption{Pressure (kPa) vs altitude (m)}
+\label{pvsaltitude}
+\end{center}
+\end{table}
+
+
+
+We have managed so far, not only to produce a fairly complicated calculation, but also to typeset both the results as well as the explanation of the methodology we used to achieve it. Isn't \tex great?
+
+
+
+
+We are now going to check if \tex can work out the surface area of your body, provided that you are an \textit{average} person. This is given by the Du Bois\cite{dubois1916} surface area, $A_D$, where\index{Du Bois equation}
+
+\[
+A_{D}=0.202m^{0.425}h^{0.725}
+\]
+
+\noindent in which $m$ is the body mass in |kg| and |h| its height in |m|. Using the above equation a man of 70 $kg$ (11 stone) with a height of 1.8 $m$ (5' 11") has a surface area of 1.9 $m^2$. One |met| unit
+is often taken as corresponding to 100 W, approximately, representing the emission from
+a resting adult.
+
+
+\begin{teX}
+%% given the body mass m = #1 and the height h = #2
+%% using the Du Bois equation
+\def\body@area#1#2{
+  \FPpow\t@one{#1}{0.425}%
+  \FPpow\t@two{#2}{0.725}%
+  \FPmul\t@three{\t@one}{\t@two}%
+  \FPmul\A@D{0.202}{\t@three}%
+  \FPmul\@watts{\A@D}{58.2}%
+  \nprounddigits{1}\numprint{\A@D}%
+Body area is \A@D   and generates \@watts Watts%
+}
+\end{teX}
+
+\makeatletter
+%% Calculates the area of an average person
+%% given the body mass m and the height h
+%% using the Du Bois equation
+\def\body@area#1#2{
+  \FPpow\t@one{#1}{0.425}%
+  \FPpow\t@two{#2}{0.725}%
+  \FPmul\t@three{\t@one}{\t@two}%
+  \FPmul\A@D{0.202}{\t@three}%
+  \FPmul\@watts{\A@D}{58.2}%
+  \nprounddigits{1}\numprint{\A@D}%
+Body area is \A@D   and generates \@watts Watts%
+}
+
+
+\texttt{\body@area{70}{1.8} }
+
+\makeatother
+
+
+\section{Trigonometric and other functions}
+
+The |fp| package also provides macros for the calculation of trigonometric and other functions. For example, if you want to calculate the $sin$ of $90 \textcelsius$ you can write:\sidenote{All values must be in \textit{radians}.}
+
+\begin{teX}
+\FPdiv\@resulta{\FPpi}{2}
+\FPsin\theta@t{\@resulta}
+
+The value of $sin{\pi/2}$ is \theta@t
+\end{teX}
+
+
+\makeatletter
+\FPdiv\@resulta{\FPpi}{2}
+\FPsin\theta@t{\@resulta}
+
+\noindent > \texttt{The value of $sin{(\pi/2)}$ is \theta@t}
+
+\makeatother
+
+
+\bigskip
+\normalsize
+
+If we assume the outside temperature, $t_{\theta}$, varies sinusoidally with time, $\theta$, and its maximum
+ value, $t_{15}$, occurs at 15.00 h sun-time we can write:
+
+\begin{equation}
+t_{\theta}=t_{15}-\frac{D}{2}\left[1-sin{\frac{(\theta\pi-9\pi)}{12}}\right] 
+\label{diurnal}
+\end{equation}
+
+\noindent where $D$ is the difference between the mean daily maximum and minimum temperatures,
+otherwise termed the \textit{diurnal range}.\index{diurnal range}
+
+As before we define the equation by splitting it apart and using the |fp| macros for addition, subtraction multiplication and the trigonometric function.
+
+
+
+\begin{teX}
+%% Finding the dry-bulb temperature
+%% at any time of the day, given
+%% hour and diurnal range and max temp at 15h00
+%% #1 t15 #2 theta #3 D
+\def\ttheta#1#2#3{%
+  \FPmul\ninepi{9}{\FPpi}% 9 x pi
+%9 x pi = \ninepi \\
+  \FPmul\thetapi{#2}{\FPpi}%theta x pi
+%13xpi = \thirteenpi\\
+  \FPsub\sina{\thetapi}{\ninepi}%theta x pi - 9 pi
+%difference \sina \\
+  \FPdiv\sinb{\sina}{12}
+%sin/12 \sinb \\
+  \FPsin\sinc{\sinb}% sin term
+%sin must be 0.866 \sinc 
+  \FPsub\ttwo{1}{\sinc}%1-sin
+  \FPdiv\DD{#3}{2}% D/2
+  \FPmul\tthree{\DD}{\ttwo}
+  \FPsub\finall{#1}{\tthree}
+  \nprounddigits{3}\numprint{\finall}%
+}
+\end{teX}
+
+
+%% Finding the dry-bulb temperature
+%% at any time of the day, given
+%% hour and diurnal range and max temp at 15h00
+%% #1 t15 #2 theta #3 D
+\def\ttheta#1#2#3{%
+\FPmul\ninepi{9}{\FPpi}% 9 x pi
+%9 x pi = \ninepi \\
+\FPmul\thirteenpi{#2}{\FPpi}%theta x pi
+%13xpi = \thirteenpi\\
+\FPsub\sina{\thirteenpi}{\ninepi}%theta x pi - 9 pi
+%difference \sina \\
+\FPdiv\sinb{\sina}{12}
+%sin/12 \sinb \\
+\FPsin\sinc{\sinb}% sin term
+%sin must be 0.866 \sinc 
+\FPsub\ttwo{1}{\sinc}%1-sin
+\FPdiv\DD{#3}{2}% D/2
+\FPmul\tthree{\DD}{\ttwo}
+\FPsub\finall{#1}{\tthree}
+\nprounddigits{3}\numprint{\finall}%
+}
+
+
+
+
+\begin{table}[htbp]
+\begin{center}
+\begin{tabular}{cl}
+\toprule
+Sun-time & temperature\\
+hours & \ZZZZ\textcelsius\\
+\midrule
+\Z1&\ttheta{20}{1}{8.3}\\
+\Z8&\ttheta{20}{8}{8.3}\\
+\Z9&\ttheta{20}{9}{8.3}\\
+10&\ttheta{20}{10}{8.3}\\
+11&\ttheta{20}{11}{8.3}\\
+12&\ttheta{20}{12}{8.3}\\
+13&\ttheta{20}{13}{8.3}\\
+14&\ttheta{20}{14}{8.3}\\
+15&\ttheta{20}{15}{8.3}\\
+16&\ttheta{20}{16}{8.3}\\
+17&\ttheta{20}{17}{8.3}\\
+18&\ttheta{20}{18}{8.3}\\
+\bottomrule
+\end{tabular}
+\caption{Diurnal variations in temperature}
+\label{tbl:diurnal}
+\end{center}
+\end{table}
+
+
+To summarize all trigonometric values use radians. For example to check $sin(\pi/3)$ we can write
+
+\begin{teXXX}
+\FPdiv\tempa{\FPpi}{3}
+\FPsin\tempb{\tempa}\\
+
+\nprounddigits{3}\numprint{\tempb}
+\end{teXXX}
+
+\FPdiv\tempa{\FPpi}{3}
+
+\FPsin\tempb{\tempa}
+
+\FPround\temp{\tempb}{3}
+\temp
+
+Just verify all values, like in any programming language to ensure that bugs do not creep in. Personally, for any calculations I prefer to split complicated equations to smaller parts and check each and every step to ensure that all values are correct. 
+
+
+\newthought{Pascal's triangle}
+
+Peeking through the \texttt{fp} code there is a class for calculating any row of the Pascal triangle
+
+
+\begin{center}
+\FPpascal\test{0}\test\\
+\FPpascal\test{1}\test\\
+\FPpascal\test{2}\test\\
+\FPpascal\test{3}\test\\
+\FPpascal\test{4}\test\\
+\FPpascal\test{5}\test\\
+\FPpascal\test{6}\test\\
+\FPpascal\test{7}\test\\
+\FPpascal\test{8}\test\\
+\end{center}
+
+
+
+You just allocate a macro to receive the results and you simply type the row you want to calculate:
+
+\begin{teX}
+\begin{center}
+  \FPpascal\test{0}\test\\
+  \FPpascal\test{1}\test\\
+  \FPpascal\test{2}\test\\
+  \FPpascal\test{3}\test\\
+  \FPpascal\test{4}\test\\
+  \FPpascal\test{5}\test\\
+  \FPpascal\test{6}\test\\
+\end{center}
+\end{teX}
+
+
+
+
+
+%\FPround\test{2345.78989098789}{3}    
+
+
+
+%Before we understand how to write macros that can cahieve what the fp package is doing we need to understand some of the programming patterns used.
+%
+%If we have a macro with for example three parameters, as shown below. In order to parse the argument, we may need to add a delimiter at the end automatically. The fp has been using consistently two dots for delimiting arguments.
+%
+%\begin{verbatim}
+%\def\@calld#1{%
+%  % #1 macro to call
+%  % #2 macro, which gets the result
+%  % #3 value and adding two dots as delimiters!
+%  \edef\next{\noexpand#1..\noexpand\relax}%
+%  \next%
+%}
+%\end{verbatim}
+%
+%
+%\begin{comment}
+%\def\@receiver#1{#1}
+%
+%\def\Round#1\@calld\@receiver#1 
+%
+%\Round{200.4444}
+%\end{comment}
+%
+%
+%
+%
+%
+%\begin{teX}
+%
+%\def\Round#1#2#3{\@calld\@round#1{#2}{#3}}
+%
+%\def\@round#1#2.#3.#4\relax#5{
+%This at @round}
+%
+%
+%%%%private fp-area (don't use these macros)%%%
+%
+%%round value
+%\def\@round#1#2.#3.#4\relax#5{%
+%  % #1 macro, which gets the result
+%  % #2 integer part of value
+%  % #3 fractional part of value
+%  % #4 dummy to swallow everything after the second '.'
+%  % #5 round position
+%  {\FP@beginmessage{ROUND}%
+%   %
+%   \FP@count=#5\relax%
+%   %
+%   \ifnum\FP@count<0\relax%
+%     \FP@errmessage{Rounding value before point not allowed}%
+%   \else%
+%     \FP@readvalue{x}{#2}{#3}%
+%     \ifnum\FP@count=0\relax%
+%        \ifnum\FP@xfa<500000000\relax%
+%	  \edef\FP@tmp{#2}%
+%	\else%
+%	  \advance\FP@xib1\relax%
+%	  \ifnum\FP@xib<1000000000\relax\else%
+%	    \advance\FP@xia1\relax%
+%	    \advance\FP@xib-1000000000\relax%
+%	  \fi%
+%	  \ifnum\FP@xs<0\relax%
+%	    \edef\FP@tmp{-}%
+%	  \else%
+%	    \edef\FP@tmp{}%
+%	  \fi%
+%	  \ifnum\FP@xia=0\relax%
+%	    \edef\FP@tmp{\FP@tmp\the\FP@xib}%
+%	  \else%
+%	    \advance\FP@xib1000000000\relax%
+%	    \edef\FP@tmp{\FP@tmp\the\FP@xia\expandafter\FP@ignorenext\the\FP@xib}%
+%	  \fi%
+%	\fi%
+%     \else%
+%       \ifnum\FP@count>18\relax%
+%         \FP@count=18\relax%
+%       \fi%
+%       \advance\FP@xfa1000000000\relax%
+%       \advance\FP@xfb1000000000\relax%
+%       \edef\FP@tmp{\expandafter\FP@ignorenext\the\FP@xfa\expandafter\FP@ignorenext\the\FP@xfb}%
+%       \edef\FP@rd{}%
+%       \FP@shift=\FP@count%
+%       \FP@times=1\relax%
+%       \loop%
+%          \ifnum\FP@count>0\relax%
+%             \edef\FP@rd{\FP@rd\expandafter\FP@first\FP@tmp\noexpand\relax}%
+%             \edef\FP@tmp{\expandafter\FP@ignorenext\FP@tmp}%
+%	     \advance\FP@count-1\relax%
+%	     \multiply\FP@times10\relax\ifnum\FP@times=1000000000\relax\FP@times=1\relax\fi%
+%          \repeat%
+%       \edef\FP@tmp{\expandafter\FP@first\FP@tmp\noexpand\relax}%
+%       \expandafter\FP@rega\FP@tmp\relax%
+%       \ifnum\FP@rega>4\relax%
+%	 \ifnum\FP@shift>8\relax%
+%	   \FP@ninesplit\FP@rd%
+%	   \expandafter\FP@rega\expandafter0\FP@rd\relax%
+%	   \advance\FP@rega1\relax%
+%	   \ifnum\FP@rega<\FP@times%
+%	     \advance\FP@rega\FP@times%
+%	     \advance\FP@res1000000000\relax%
+%	   \else%
+%	     \advance\FP@res1\relax%
+%	     \ifnum\FP@res<1000000000\relax%
+%	       \advance\FP@res1000000000\relax%
+%	     \else%
+%	       \advance\FP@xib1\relax%
+%	       \ifnum\FP@xib<1000000000\relax\else%
+%	         \advance\FP@xia1\relax%
+%	         \advance\FP@xib-1000000000\relax%
+%	       \fi%
+%	     \fi%
+%	   \fi%
+%	  
+%
+%\Round{\test}{9999.999999}{4}
+%\end{teX}
+
+
+
+\section{Conditionals with fp}
+\index{fp!conditionals}
+
+
+The |fp| package offers some conditionals for checking real numbers.
+Consider the following code:
+
+\emphasis{FPset,FPifgt}
+\begin{teXXX}
+\FPset\test{12000}
+\FPset\limit{10000}
+
+\FPifgt\test\limit 12000 is greater than \limit
+  \else ... \fi
+\end{teXXX}
+
+%\FPset\test{12000}
+%\FPset\limit{10000}
+%
+%\FPifgt\test\limit 12000 is greater than \limit
+%  \else ... \fi
+%
+
+
+
+
+  
+\section{e-TeX Expressions}
+\index{e-Tex!Expressions}\index{expressions}
+
+\etex introduces the notion of expressions of type |number|, |dimen|, |glue|, or
+|muglue|, that can be used whenever a quantity of that type is needed. Such
+expressions are evaluated by \etex's scanning mechanism; they are initiated by
+one of the commands \cmd{numexpr}, \cmd{dimexpr}, \cmd{glueexpr}, or \cmd{muexpr} 
+(determining the type t) and optionally terminated by one \cmd{relax} (that will be absorbed
+by the scanning mechanism). 
+
+An expression consists of one or more terms of
+the same type to be added or subtracted; a term of type \textit{t} consists of a factor
+of that type, optionally multiplied and/or divided by numeric factors; finally a
+factor of type t is either a parenthesized subexpression or a quantity (number,
+etc.) of that type. Thus, the conditional
+
+\begin{teX}
+\ifdim\dimexpr (2pt-5pt)*\numexpr 3-3*13/5\relax + 34pt/2<\wd20
+\end{teX}
+
+is true if and only if the width of box 20 exceeds 32 pt . Note the use of| \relax|
+to terminate the inner (numeric) expression, the outer (dimen) expression is
+terminated automatically by the token <12 that does not fit into the expression
+syntax.
+
+The arithmetic performed by "e-TEX's expressions does not do much that
+could not be done by TEX's arithmetic operations \cmd{advance}, \cmd{multiply}, and
+\cmd{divide}, although there are some notable differences: Each factor is checked to
+be in the allowed range, numbers must be less than $2^{31}$ in absolute value, dimensions or glue components must be less than $2^{14}$pt, |mu|, |fil|, etc. respectively.
+
+
+The arithmetic operations are performed individually, except for `scaling' operations
+(a multiplication immediately followed by a division) which are performed
+as one combined operation with a 64-bit product as intermediate value. 
+
+The
+result of each operation is again checked to be in the allowed range. Finally the
+results of divisions and scalings are rounded, whereas TEX's \cmd{divide} truncates.
+
+The important new feature is, however, that the evaluation of expressions
+does not involve assignments and can therefore be performed in circumstances
+where assignments are not allowed, e.g., inside an \cmd{edef} or \cmd{write}. This also
+allows the definition of \textit{purely expandable loop constructions}\index{loops! purely expandable}:
+
+
+
+\begin{teX}
+\def\foo#1#2{\number#1
+\ifnum#1<#2,
+  \expandafter\foo
+  \expandafter{\number\numexpr#1+1\expandafter}%
+  \expandafter{\number#2\expandafter}%
+\fi}
+
+
+\foo{9}{15}
+\end{teX}
+
+
+\def\foo#1#2{\number#1
+\ifnum#1<#2,
+  \expandafter\foo
+  \expandafter{\number\numexpr#1+1\expandafter}%
+  \expandafter{\number#2\expandafter}%
+\fi}
+
+
+\texttt{> \foo{9}{15}}
+
+
+The |\foo| is essentialy a recursive macro. It keeps calling itself until the conditional |if| returns true. The |\expandafter|'s are difficult to grasp, especially the one's before the curly bracket (|}|). 
+The macro can happily be writen as\sidenote{Slightly modified to insert an iteration step as the third argument}:
+
+\begin{teX}
+\def\foo#1#2#3{\noindent\number#1, 
+\ifnum#1<#2
+  \foo{\number\numexpr#1+\number#3}{\number#2}{\number#3}%
+   \else\relax
+  
+\noindent\TeX\par
+\fi}
+\end{teX}
+
+\noindent Which gives the same output:
+
+\def\foo#1#2#3{\noindent\number#1, 
+\ifnum#1<#2
+  \foo{\number\numexpr#1+\number#3}{\number#2}{\number#3}%
+   \else\relax
+\fi}
+
+\foo{9}{15}{1}
+
+It is important to have the line \texttt{\textbackslash else\textbackslash relax} inserted, otherwise you might get strange result. The macro uses \cmd{numexpr} to add the iteration step on the start value.
+
+(See 
+\url{http://www.ibm.com/developerworks/linux/library/l-recurs.html}) for more information on recursion and especially tail-end recursion.
+
+
+The expresssion |{\number\numexpr22/2+23}| results in {\number\numexpr22/2+23}
+
+
+
+\section*{The \texttt{intcalc} package}
+
+The \docpkg{intcalc}, developed by Heiko Oberdiek\people{Heiko Oberdiek}
+is mainly based on \etex. However, if \etex is not present the package provide its own routines. The package provides expandable arithmetic operations with integers.\index{integers!calculations} 
+\index{integers!etex}
+
+In \tex integers mean numbers. The same restrictions apply, the range is limited to [-2147483647, 2,147,483,647]. \index{Numbers!integers}
+
+The operations have the form of macros that take one or two integers as parameter
+and return the integer result. The macro name is a three letter operation, such as |add| prefixed by the package name, e.g. |\intcalcAdd{10}{43}| returns 53.
+
+The macros are fully expandable, exactly two expansion steps generate the
+result. Therefore the operations may be used nearly everywhere in \tex, even
+inside |\number|, |\csname|, file names, or other expandable contexts.
+The package contains two implementations of the operations. If etex\ is detected
+then the macros are implemented using its features |(\numexpr)|. Otherwise
+the slower implementation without etex's help is chosen.\index{numexpr}
+
+Arguments can be anything that \tex interprets as |\number|". Examples:
+plain numbers, count or length register, macros that expands to a number.
+
+The package has been written in a style common of newer packages and is worth to read through it.
+
+%% The command places the macro under the package index, prints it out and
+%% puts a comment in the sidemargin
+
+
+
+The commands \pmac{intcalc}{intcalcAdd}, \pmac{intcalc}{intcalcSub},
+\pmac{intcalc}{intcalcMul} and \pmac{intcalc}{intcalcDiv} are used to provide the normal arithmetic operators for addition, subtraction, multiplication and division.
+
+The modulo of a number can be determined using \pmac{intcalc}{intcalcMod} and 
+\pmac{intcalc}{intcalcPow} can be used to calculate powers.
+
+\begin{teXXX}
+\intcalcPow{2}{12}
+\end{teXXX}
+
+\textit{\printf{> \intcalcPow{2}{12}}}
+
+
+The rest of the commands are discussed later on, but the naming scheme is very intuitive.
+
+\pmac{intcalc}{intcalcInv}
+
+\pmac{intcalc}{intcalcAbs}
+
+\pmac{intcalc}{intcalcSgn}
+\pmac{intcalc}{intcalcMin}
+\pmac{intcalc}{intcalcMax}
+
+\pmac{intcalc}{intcalcCmp}
+
+\pmac{intcalc}{intcalcNum}
+
+
+
+The advantage of using the package is that numerical expressions can be
+used and that they are fully expandable.
+
+For example:
+
+\emphasis{intcalcAdd,intcalcMin,intcalcMax}
+\begin{teXXX}
+\intcalcAdd{12+31+22}{11/2}
+\intcalcMin{135678}{7890+545678}
+\intcalcMax{135678}{7890+545678}
+\end{teXXX}
+
+\def\printf#1{\leavevmode \mbox{> \texttt{#1}}\par}
+
+\printf{> \intcalcAdd{12+31+22}{11/2}}
+\printf{> \intcalcMin{135678}{7890+545678}}
+\printf{> \intcalcMax{135678}{7890+545678}}
+
+
+The macro |\intcalcNum| converts its argument to a normalized integer number without unnecessary leading zeros or signs. The result matches the regular expression:
+
+\begin{Verbatim}
+  0|-?[1-9][0-9]*
+\end{Verbatim}
+
+Typing for example the following:
+
+\begin{teX}
+  \intcalcNum{-+01234567}
+  \intcalcNum{-1234567}
+\end{teX}
+
+
+\printf{\intcalcNum{-+01234567}}
+\printf{\intcalcNum{-1234567}}
+
+As you can observe the macro will gobble everything except the first sign.
+\pmac{intcalc}{intcalcFac}
+\pmac{intcalc}{intcalcSqr}
+\pmac{intcalc}{intcalcShl}
+\pmac{intcalc}{intcalcShr}
+The package uses mostly \tex macros, for example to get the maximum of a number,
+it uses a delimited macro (using !) to get two numbers and then compare them.
+
+\begin{teX}
+\makeatletter
+\def\InCa@Min#1!#2!{%
+ \ifnum#1<#2 %
+   #1%
+ \else
+   #2%
+ \fi
+}
+\printf{> \InCa@Min 200!345!|}
+
+\def\InCa@Min#1!#2!{%
+ \ifnum#1<#2 %
+   #1%
+ \else
+   #2%
+ \fi
+}
+
+\printf{\InCa@Min 200!345!}
+\makeatother
+\end{teX}
+
+
+
+\newthought{Factorial}
+
+Do not expect anything spectacular as Knuth's macro for factorials, Oberdiek's definition is much more efficient at the cost of him typing it the values in his package.
+As he writes in the documentation for  |\InCa@Fac|, it does not make much sense to calculate the faculty by a general algorithm. The
+allowed range of arguments is too low because of the limited integer domain.
+
+\begin{teXX}
+146 \def\InCa@Fac#1!{%
+147 \ifcase#1 1% 0!
+148 \or 1% 1!
+149 \or 2% 2!
+150 \or 6% 3!
+151 \or 24% 4!
+152 \or 120% 5!
+153 \or 720% 6!
+154 \or 5040% 7!
+155 \or 40320% 8!
+156 \or 362880% 9!
+157 \or 3628800% 10!
+158 \or 39916800% 11!
+159 \or 479001600% 12!
+160 \else
+161 \ifnum#1<\z@
+162    0\IntCalcError:FacNegative%
+163   \else
+164     0\IntCalcError:FacOverflow%
+165   \fi
+166 \fi
+167 }
+\end{teXX}
+
+\section*{Big Integer Number calculations}
+
+\begin{multicols}{2}
+Big number calculations can be performed by using the package \docpkg{bigintcalc}, by Heiko Oberdiek. 
+Package \texttt{bigintcalc} defines arithmetic operations that deal with big integers. Big
+integers can be given either as explicit integer number or as macro code that
+expands to an explicit number. Big means that there is no limit on the size of
+the number. Big integers may exceed TEX's range limitation of -2147483647 and
+2147483647. Only memory issues will limit the usable range. To calculate the values we use, intuitive, but rather long expressions:
+
+\begin{teXXX}
+\bigintcalcPow{2}{15}
+\end{teXXX}
+
+\printf{\bigintcalcPow{2}{15}}
+\end{multicols}
+
+In mathematics, a \textit{double Mersenne number} is a Mersenne prime of the form
+
+\[M_{M_p} = 2^{2^p-1}-1\]
+
+
+where $p$ is a Mersenne prime exponent.
+
+The smallest double Mersenne numbers 
+
+The sequence of double Mersenne numbers begins %<ref name="Caldwell">Chris Caldwell, [http://primes.utm.edu/mersenne/index.html#unknown ''Mersenne Primes: History, Theorems and Lists''] at the [[Prime Pages]].</ref>
+
+\[M_{M_2} = M_3 = 7 \]
+\[M_{M_3} = M_7 = 127 \]
+\[M_{M_5} = M_{31} = 2147483647 \]
+\[M_{M_7} = M_{127} = 170141183460469231731687303715884105727 \]
+
+\textit{OEIS id=A077586}
+
+\begin{multicols}{2}
+One interesting Mersene number is $M_{67}$, this was originally thought to be a prime number,
+but let us firt calculate it.
+\end{multicols}
+\begin{teXXX}
+\def\Mersenne#1{%
+  \gdef\exponent##1{\bigintcalcPow{2}{##1}}%
+  \bigintcalcSub{\exponent{#1}}{1}
+}
+\end{teXXX}
+\def\Mersenne#1{%
+  \gdef\exponent##1{\bigintcalcPow{2}{##1}}%
+  \bigintcalcSub{\exponent{#1}}{1}
+}
+
+
+This produces the number 
+
+$M_{67}=$\Mersenne{67}
+
+
+
+
+
+To check if it is prime
+
+\begin{teXXX}
+\bigintcalcMul{193707721}{761838257287}
+\npthousandsep{ }
+\numprint{\bigintcalcSub{\exponent{257}}{1}}
+\end{teXXX}
+
+\bigintcalcMul{193707721}{761838257287} %NNNNNNNNNNNNNNNNN  
+
+%\noindent
+%\npthousandsep{ }
+%\numprint{\bigintcalcSub{\exponent{2281}}{1}}{0}
+
+
+and here is the $M_{2203}$ Mersenne number, quite impressive, if you think it was calculated with \tex.
+
+%{\tt
+%\noindent%
+%\npthousandsep{ }%
+%\numprint{\bigintcalcSub{\exponent{4253}}{1}}
+%}
+%
+%\newthought{Calculating Prime Numbers}
+%
+%\def\Prime#1{%
+%\def\stepone{\bigintcalcMul{#1}{#1}} 
+%\def\steptwo{\bigintcalcAdd{\stepone}{#1}}
+%\def\stepthree{\bigintcalcAdd{\steptwo}{41}}
+%\stepone: 
+%\steptwo: 
+%\stepthree: 
+%}
+%
+%
+%\Prime{19}\\
+%\Prime{20}\\
+
+%where $p$ is a Mersenne prime exponent.
+%
+%The smallest double Mersenne numbers 
+%
+%The [[sequence]] of double Mersenne numbers begins <ref name="Caldwell">Chris Caldwell, [http://primes.utm.edu/mersenne/index.html#unknown ''Mersenne Primes: History, Theorems and Lists''] at the [[Prime Pages]].</ref>
+%:<math>M_{M_2} = M_3 = 7 </math>
+%:<math>M_{M_3} = M_7 = 127 </math>
+%:<math>M_{M_5} = M_{31} = 2147483647 </math>
+%:<math>M_{M_7} = M_{127} = 170141183460469231731687303715884105727 </math> {{OEIS|id=A077586}}.
+
+
+
+
+%\section{Character constants}
+%In formats and macro collections numeric constants are often needed. There are several ways to implement these in TEX.
+%Firstly,
+%
+%\begin{teX}
+%\newcount\SomeConstant \SomeConstant=42
+%\end{teX}
+%
+%This is wasteful, as it uses up a \cmd{count} register.
+%Secondly,
+%
+%\begin{teX}
+%\def\SomeConstant{42}
+%\end{teX}
+%
+%Better but accident prone: \tex has to expand to find the number – which in itself is a slight
+%overhead – and may inadvertently expand some tokens that should have been left alone.
+%Thirdly,
+%
+%\emphasis{chardef}
+%\begin{teXXX}
+%\chardef\SomeConstant=42
+%\end{teXXX}
+%
+%
+%This one is fine. A |chardef token| has the same status as a |\count| register: both are |internal integers|. Therefore a number defined this way can be used everywhere that a |count| register is
+%feasible. For large numbers |chardef| \index{TeX primitive!chardef} can be replaced by |mathchardef| \index{TeX primitive! mathchardef}, which runs to |7FFF = 32 767|. Note that a |mathchardef| token can usually only appear in math mode, but in the context
+%of a number it can appear anywhere.
+%
+%One can also use dimension registers and simply remove the |sp| at the end. This is a bit more difficult but can result in saving constants that include large numbers.
+%
+%
+%
+%
+%
+%
+
+From the \texbook
+
+Explain how to round |\dimen2|
+to the nearest multiple of\/ |\dimen3|, assuming that |\dimen3| is positive.
+
+\begin{Code}
+\advance\dimen2 by\ifnum\dimen2<0 -\fi.5\dimen3|\par
+\divide\dimen2 by\dimen3 \multiply\dimen2 by\dimen3
+\end{Code}
+
+\textbf{answer}
+
+
+{
+\dimen2=100pt
+\dimen3=33pt
+
+{
+
+
+\advance\dimen2 by\ifnum\dimen2<0 -\fi.5\dimen3\par
+\divide\dimen2 by\dimen3 \multiply\dimen2 by\dimen3
+
+\the\dimen2
+}
+
+\the\dimen2
+
+\advance\dimen2 by .5\dimen3
+
+\the\dimen2
+}
+\bigskip
+
+Admitedly, here the critics of \tex are justified in saying \tex's constructions are difficult to follow.
+Observe how Knuth added the minus(-) sign into the character stream! At first one might think that Knuth missed the else, but the fact is that it is unecessary. At the cost of an |\else| the construction would have been much more readable:
+\medskip
+
+\emphasis{else}
+\begin{Code}
+\dimen2=100pt
+\dimen3=33pt
+\advance\dimen2 by\ifnum\dimen2<0 -.5\dimen3\else .5\dimen3\fi
+\divide\dimen2 by\dimen3 \multiply\dimen2 by\dimen3
+\the\dimen2
+\bye
+\end{Code}
+\medskip
+
+All this thrift and conservatism in writing efficient programs, will of course pale into insignificance, if you are going to have a |RequirePackage{pgf}| in your package; but then maybe the reason that I can brew a coffee cup while my windows machine is booting is that programmers abandoned thrift!
+
+
+\section{Defining special sectioning}
+
+Sometimes, authors want to highlight certain paragraphs by special symbols. One such type of text, can be found in Knuth's TeXBook, with the dangerous bends. Knuth in |manmac| defines them as follows:
+
+\begingroup
+\makeatletter
+\def\hang{\hangindent3em}
+
+\let\ninepoint\small
+\font\manual=manfnt
+\def\dbend{{\manual\char127}} % dangerous bend sign
+\def\d@nger{\medbreak\begingroup\clubpenalty=10000
+  \def\par{\endgraf\endgroup\medbreak} \noindent\hang\hangafter=-2
+  \hbox to0pt{\hskip-\hangindent\dbend\hfill}\ninepoint}
+\outer\def\danger{\d@nger}
+\def\dd@nger{\medbreak\begingroup\clubpenalty=10000
+  \def\par{\endgraf\endgroup\medbreak} \noindent\hang\hangafter=-2
+  \hbox to0pt{\hskip-\hangindent\dbend\kern1pt\dbend\hfill}\ninepoint}
+\outer\def\ddanger{\dd@nger}
+\def\enddanger{\endgraf\endgroup} % omits the \medbreak
+
+\makeatother
+
+\ddanger \hangindent1em
+\lipsum*[1]
+
+\makeatother
+\endgroup
+
+\medskip
+\begin{Code}
+%\def\hang{\hangindent\parindent}
+\def\hang{\hangindent3em}
+\let\ninepoint\small
+\font\manual=manfnt
+% the double bend
+\def\dbend{{\manual\char127}} % dangerous bend sign
+% one sign
+\def\d@nger{\medbreak\begingroup\clubpenalty=10000
+  \def\par{\endgraf\endgroup\medbreak} \noindent\hang\hangafter=-2
+  \hbox to0pt{\hskip-\hangindent\dbend\hfill}\ninepoint}
+% author's comand
+\outer\def\danger{\d@nger}
+% internal command
+\def\dd@nger{\medbreak\begingroup\clubpenalty=10000
+  \def\par{\endgraf\endgroup\medbreak} \noindent\hang\hangafter=-2
+  \hbox to0pt{\hskip-\hangindent\dbend\kern1pt\dbend\hfill}\ninepoint}
+% author's command
+\outer\def\ddanger{\dd@nger}
+\def\enddanger{\endgraf\endgroup} % omits the \medbreak
+\end{Code}
+\medbreak
+
+You will find a problem running this straight into \latex as |\hang| is a |plain| \tex command and has been depreciated from \LaTeXe. The command can still be found in |latex209.def| (see latex209.dtx). In the code above I have modified it slightly to suit  the text style of this book. I have also assigned the |\ninepoint| to |\small|, but have kept the |manfnt|. See if you can style it differently.
+
+
+\restoregeometry
+
+
+
+
+
+
+
+
+
+
+

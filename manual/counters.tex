@@ -1,0 +1,198 @@
+\chapter{Counters}
+
+A counter is a \tex variable taking integer values. You can choose
+to define independent counters or counters subordinate to some
+other counter. In the last case the counter example is reset to zero
+whenever the counter other is increased. \index{counters}
+\index{counters!LaTex counters}
+
+\subsection{Creation and initialization}
+\index{counters!counters}
+
+\latex defines a few macros and allocate registers automatically for them. You can create a new counter with the command \cmd{newcounter}.
+
+\begin{teX}
+\newcounter{example}
+\newcounter{example}[other]
+\end{teX}
+
+Usually you place this command in the preamble of your
+document. If you forget to initialize a counter before you refer to
+it, you will get the \latex\  \texttt{Error No counter ‘example’ defined}.
+
+The value of a counter can be displayed by using:
+
+\begin{teX}
+  \theexample
+\end{teX}
+
+Every time \latex creates a variable to hold the name for a counter it also defines |the+countername|, to conveniently provide means to display get the contents of the counter.
+
+
+\section*{Example}
+
+\begin{teX}
+\newcounter{acount}
+\setcounter{acount}{0}
+\stepcounter{acount}
+\addtocounter{acount}{14}
+
+\theacount
+
+\ifnum\theacount>10 number is greater
+        than ten \else number is less than ten\fi
+\end{teX}
+
+
+
+\section{Modifying counters}
+
+There are four ways to change the value of your counter, excluding
+the possibility to reset it using dependancies. These are:
+
+\begin{teX}
+\setcounter{example}{<value>}
+\addtocounter{example}{<value>}
+\stepcounter{example}
+\refstepcounter{example}
+\end{teX}
+
+The first two set respectively increase the counter example by the
+specified value. The other two increase the value of the counter by
+one and reset the counters subordinate to example to zero. If you
+use the reference step, references to labels placed after this
+command will refer with respect to this counter until further notice.
+
+\section{Examples of counters}
+
+\tex\ and \latex\ make heavy use of counters, for example:
+
+\begin{description}
+\item{section, subsection} To enumerate sections, subsections (etc.);
+page To keep track of the page number;
+\item{enumi, enumii} The counter of (nested) enumerate environments;
+\item{tocdepth} Table of contents depth;
+\item{secnumdepth} The section numbering depth;
+\item{footnote} To mark footnotes;
+\item{figure, table} To label the figures and tables;
+\item{equation} To label equations.
+\end{description}
+
+Notice that the labels subsection up to subparagraph are
+subordinate to the next highest sectioning command.
+
+How much?
+
+\begin{teX}
+\newcounter{exercise}
+\newcounter{subex}[exercise]
+\setcounter{subex}{-2}
+\refstepcounter{exercise}
+\stepcounter{subex}
+\addtocounter{subex}{2}
+\addtocounter{exercise}{1}
+\label{test}
+\end{teX}
+
+\section{Displaaying counters in your text}
+
+At the moment you define a new counter example, LATEX creates a
+new command \doccmd{theexample}, which displays the counter in Arabic
+numbers. Standard ways to display a counter are:
+\marginnote{
+\break\doccmd{alph}\break
+ \doccmd{Alph}\break 
+\doccmd{arabic}\break 
+\doccmd{fnsymbol}\break 
+\doccmd{roman}\break
+\doccmd{Roman}\break}
+
+alph a,b,c,d,e,f,g,h,i,. . .
+
+Alph A,B,C,D,E,F,G,H,I,. . .
+
+arabic 1,2,3,4,5,6,7,8,9,. . .
+
+fnsymbol .
+
+roman i,ii,iii,iv,v,vi,vii,viii,ix,. . .
+
+Roman I,II,III,IV,V,VI,VII,VIII,IX,. . .
+
+\section{Changing the display type of a counter}
+
+\begin{teX}
+\newcounter{RomanYear}
+\setcounter{RomanYear}{\year+1}
+
+The year \theRomanYear\  in Roman numerals is \Roman{RomanYear}
+\end{teX}
+\medskip
+
+This will output:
+
+\newcounter{RomanYear}
+\setcounter{RomanYear}{\year+1}
+\texttt{The year \theRomanYear\  in Roman numerals is \Roman{RomanYear}}
+
+In the above example \cmd{year} is a \tex\ command that gets the year from the
+system automatically. I have also used the `+1' to increment the year. This is not a standard command but is provided
+with the package \docpkg{calc}, which is part of the standard \latex\ distribution.
+\TODO{add about text counters}
+
+\section{calculations}
+
+You can use the package \docpkg{calc} to carry out calculations while setting counters, but remember that it is all integer arithmetic:
+
+\begin{teX}
+\newcounter{X}
+\setcounter{X}{(7/2)+1}
+\theX\relax
+\end{teX}
+
+
+\section{latex counters and allocations}
+
+\latex has a class specifically defining various counters and variables called |ltalloc.dtx|
+
+The following are from plain TEX:
+
+\begin{tabular}{lp{4.0cm}}
+\toprule
+Counter & Descripttion\\
+\midrule
+|\z@|    &A zero dimen or number. It's more efficient to write |\parindent\z@| than |\parindent 0pt|.\\
+|\@ne|   &The number 1.\\
+|\m@ne| &The number -1.\\
+|\tw@|    &The number 2\\
+|\sixt@@n| &The number 16\\
+|\@m|         &The number 1000\\
+|\@MM|      &The number 20000\\
+|\@xxxii|    &The constant 32\\
+|\chardef\@xxxii=32|   &\\
+|\@Mi|  &Constant 10001\\
+|\@Mii|  &Constant 10002\\
+|\@Miii|  &Constant 10003\\
+|\@miv|  &Constant 10004\\
+\bottomrule
+\end{tabular}
+\bigskip
+
+{Large\obeylines
+W. Smith
+W{\kern -0.1em}. Struckmann
+WA
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

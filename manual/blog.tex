@@ -1,0 +1,490 @@
+\chapter{Blog}
+
+\texttt{20th January 2011}
+
+Have been busy with TikZ, this weekend. It is a huge program and has difficult synatx, mostly because it does NOT use backslashes, but rather works mostly on key/value pairs. All commands must have a semicolon at the end.
+
+It is very powerful and produces beautiful diagrams.
+
+What next? Must learn a few better applications from MEchanical Engineering, for example drawing a gear etc. 
+
+Certainly, I need to now plan the closure of all these notes and plan a path for final editing and publication. So far it is very comprehensive, but needs styling and typographical improvements.
+
+\texttt{Saturday 21st January 2011}
+
+Spent awful lot of hours in front of the computer with all sorts of diversions. very little focused lately.
+
+Continued work on the LaTeX book and avoided all types of other work. I have been feeling very tired lately and certainly my hours seem to be changing becoming a bit of an owl.
+
+\text{Friday 28th January 2011 }
+
+Continued working on the book. Have not beeen feeling so well lately. I have managed to work through some difficult sections such as fonts etc. Most of the basic work has been done. I have collected enough material to complete the book and I am doing quite well with stackexchange rating, so that when I publish it on the internet I can have a good reaction. I am trying very hard to avoid the book being very dry. I am putting things like historical facts etc and digressing quite a bit. Paraphrasing will be necessary at a point.
+
+\subsection{July 2011}
+
+Back to Qatar after a three week visit to Cyprus. Had my teeth pulled off, it is one of the wrost experiences possible. Athena came down and it was nice to talk about the future and plans. 
+
+Spent the three weeks reviewing computer languages and other minutiae. i still think nothing can beat the old pascal. What was missing could have been build and Delphi. Anything Microsoft has been uglified.
+
+At the back of my mind is how to disrupt the construction industry software. A new method for planning conastruction projects. The Primavera concept does not really work so efficiently.
+
+So, how does one achieve this and keep it simple. I think one should start from the beginning and rethink. What the process really is a big todo list. Some concepts such as the Last Planner methodology rely on continuous planning and refinement and the dust has still not settled if one should have a pull or push system.
+
+If it would be possible to design an AI, which can have a means of some machine learning abilities to schedule the construction of the building, it would then \textit{push} work to site - and at the same time allowing for the site to \textit{pull} work, automate materials controls and the like.
+the system should have a means of triggering. In a way the system should resemble a computer's operating system with interrupts, stacks and memory! 
+
+Suppose the whole building process is divided into units and placed in a large stack.
+It will then need to be sorted out in some form of a que with priorities or use like computers multiple processors.
+
+It can then sort itself out and sequence the wroks with priority numbers. Works that can be done in parallel must be identified. Constraints such as working from top to bottom for finishing works, vertical transportation, movement of good and the like need to be given thought.
+
+Communication between processes shall be by means of messages like in Erlang. So maybe we only talk processes.
+
+
+\section*{Process based}
+
+Installation Process$\rightarrow$calls for teams
+
+Installation Process$\rightarrow$calls for materials
+
+Installation Process$\rightarrow$sends message ready to start to supervisor process
+
+Installation Process$\rightarrow$receives message to start
+
+Installation Process$\rightarrow$report progress
+
+
+\section*{Supervisorr processors}
+
+SP$\leftarrow$ receives message process ready to start
+
+SP2$\rightarrow$ sends message calling for look-ahead
+
+SP$\rightarrow$ informs IP to start
+
+
+\begin{figure}
+\centering
+\includegraphics[width=0.9\textwidth]{./graphics/systems-design}
+\caption{Systems Design Management Technology}
+\end{figure}
+
+
+The processes can be implemented both locally or via the web or other networks.
+
+
+Basically, symptom patterns embedded in a Knowledge Network or other agents' belief stores
+trigger event messages that are communicated to the SDMA. These are messages about time,
+cost, quality, new knowledge, version changes, risk, etc. SDMA has rules as to what to do with
+each type of message. The actions taken by the SDMA can be as simple as notifying interested
+parties (which is an important information in concurrent engineering environments by itself) or
+as complex as changing the belief stores of other agents and asking other agents to perform/quit
+performing certain tasks. Although approaches similar to this can be found in the literature they have found limited acceptance in practice.
+
+\section*{Design Information}
+
+The design stacks. The aim of this Intelligent Agent is to \textit{push} messages to the Design Team for action. Before an area can be released to the task builder, the information required is scanned and RFIs issued or correspondence to elicit actions and this is being monitored daily.
+
+document received $\rightarrow$ notify Event Manager
+
+
+
+\fbox{\begin{minipage}{3cm}\small Event Manager notifies\end{minipage}} $\rightarrow$ \fbox{\begin{minipage}{5cm}\small Planner to remove constraint or add to tasks que.\end{minipage}}
+
+
+
+\section*{Processes}
+
+Think of the process of driving a car. First there is a \textit{purpose}, you want to drive from point A to point B. Then there is a roadmap as to how to go there. Then there is the resource of having a car, you might need petrol on the way. 
+
+Compare this to the process of installing piping to the 47th floor of a high-rise building.
+
+First there must be a roadmap, plan how to do it etc.
+
+Combining this with event driven planning, we get the following sequence.
+
+
+\def\event#1#2{
+\fbox{\begin{minipage}{3cm}\small #1\end{minipage}} $\rightarrow$ \fbox{\begin{minipage}{5cm}\small #2\end{minipage}}}
+
+
+\event{Doors arrive at store}{notify scheduler}
+
+\event{Last Planner Scheduler}{notifies Team to install}
+
+\event{Team broadcast completion}{QA receives and acts}
+
+
+\section*{The Bigger Picture}
+
+\section*{Construction scope}
+At the beginning of the Project, the activity stacks, need to be build. These are simple hash tables. At this point there is no need to concern oneself with the details, as these will be build later on.
+
+\medskip
+
+\begin{tabular}{llp{3.5cm}}
+
+\toprule
+Activity            &Detail  &Tags Managers\\
+\midrule
+Pipe-installations  &submittal &Design Manager, Document Controller\\
+~                   &invite quotes &Procurement\\
+~                   &procure       &Procurement\\
+~                   &arrive        &stores\\
+~                   &install       &\\
+~                   &inspect       &\\
+
+\bottomrule
+
+
+These higher levels of activity descriptions are then stacked and grouped. They then get inserted in the Building Geographical Model.
+
+
+
+
+
+
+
+\end{tabular}
+
+\section*{Supply chains and the whipslash effect}
+
+If the economy has a bumpy ride, stock levels at factories, wholesalers and retailers go through much worse flunctuations from an effect called the whiplash effect.
+
+
+\section*{Typical computerization of a Construction Site}
+
+The typical construction site is managed mostly bu EXCEL, not that manager's want to use excel but sadly it is the only flexible tool.
+
+
+\section*{Running a Construction Site Like a Lawyer's Office}
+
+Sadly construction and litigation are siblings. Many a time bottlenecks and traffic jams on a Construction site are a result of self-imposed bureacracy to cover the firms involved in case of litigation. Contract management as such is an important process and should be modelled in.
+
+Unless written instructions are received work is not \ldots..
+
+
+
+
+The construction process is an assembly-like process, which is complicated, parallel and dynamic,
+and thus more complex and dynamic than project management often envisages. The
+mistake is the ordered view of systems, which is reflected in the underlying management-asplanning
+and dispatch theories as found by Koskela and Howell (2002). All supplies are believed
+to be made in accordance with the project's – unreliable – schedule, and all resources
+such as equipment and crew are supposed to stand by, ready for the project’s beck and call.
+And changes will not occur. However, this is not the way the world operates and project
+management should reflect this situation. Koskela (2000) points out, that even small uncertainties
+in the prerequisites adds up to a significant uncertainty on the project’s workflow as a
+whole, a phenomenon analyzed in detail by Hopp and Spearman (2000) but not reflected in
+current construction management practice.6
+
+
+\section{Autonomous Agents}
+
+From a production system point of view the agents are the participating consultants and trade
+contractors. They are independent to the extent that they are not solely members of the production
+system for the project in question, but participate in other systems at the same time
+and with a similar engagement. Partnering arrangements are often mentioned as a means to
+bring these autonomous agents together, but such initiatives can also be seen as indicators of
+the existence of the autonomous agents in construction. When it comes to the control structure,
+the sole purpose of the project management is to establish an executive node without
+waiting for its emergence. However, Danish experiments with self-managing construction
+teams show that control structure and leadership do emerge in practice if not established
+through design. (Dam and Elsborg 2003) Also Tavistock (1966) points at the importance of
+the informal control structures in construction.
+Project and process system design is parallel activities establishing a co-evolution. The
+temporary production system is developed for the project and each project’s production system
+has its own characteristics as a result of the co-evolution between the parties. Also the
+development of the industry such as new forms of cooperation – where the project management
+tradition only seems to be a hindrance – may be seen as a co-evolution and selfmodification.
+Firms in the industry are created in accordance with the tasks requested by the market as
+a downward causation; just as the firms adjust to the market and motivate their staff to a
+company behavior – another downward causation.
+Emergence and disappearance of enterprises is a kind of self-reproduction, which can be
+compared to birth and death in living systems. New firms within a trade tend to look like the ones already there, but new types may turn up from time to time, and we have thus an openended
+evolution
+
+
+From \url{http://www.leanessays.com/2010/11/managing-pipeline.html}
+
+Computerized scheduling systems have a well known problem: they do not accommodate variation. XYZ discovered that if projects didn’t end when they were scheduled to end, the system’s assumptions were invalid, so the system’s resource assignments were often out of touch with reality. The company tried to fix such problems by keeping some teams intact and by holding weekly management meetings to arbitrate the conflicts between the computer’s schedule and reality. In practice, the overhead of management intervention and idle workers waiting for teams to assemble outweighed any efficiencies the system generated.
+
+
+Company XYZ also tried to reduce the variability of project completion by urging teams to make reliable estimates and rewarding project managers who delivered on schedule. Unfortunately, such attempts to reduce variability generally don’t work. The reason for this becomes clear with a quick look at the theory of variation.
+
+\section*{Variation}
+
+W. Edwards Deming[1] first popularized the theory of variation, which is now a cornerstone of Six Sigma programs. Deming taught that there are two kinds of variation: common variation and special variation. Common variation is inherent in the system, and special variation is something that can be discovered and corrected. Common variation can be measured and control charts can be used to keep the system within the predicted tolerances. But it is not possible for even the most dedicated workers to reduce common variation; the only way to reduce common variation is to change the system. And here’s the important point: Deming felt that most variation, (95\%+)[2] is common variation, especially in systems where people are involved.
+
+The other kind of variation is special variation, which is variation that can be attributed to a cause. Once the cause is determined, action can be taken to remove it. But there is danger here: “tampering” is taking action to remove common variation based on the mistaken belief that it is special variation. Deming insisted that tampering creates more problems that it fixes.
+
+In summary: The overwhelming majority of variation is inherent in a system, and trying to remove that variation without changing the system only makes things worse. We can assume that most of the variation in project completion dates is common variation, but since computerized scheduling systems are deterministic, they can’t really deal with any variation. The bottom line: a computerized scheduling system will almost never work at the level of detail that XYZ was trying to use it. Exhorting workers to estimate more carefully and project mangers to be more diligent in meeting deadlines is not going to remove variation from projects. We need to change the rules of the game
+
+
+We know that estimates for large systems and for distant timeframes have a wide margin of uncertainty, made wider if the development team is an unknown. We should stop trying to change that; it is inherent in the system. If we want reliable estimates, we need to reduce the size of the work package being estimated and limit the estimate to the near future. Furthermore, estimates will be more accurate if the team implementing the system already exists, is familiar with the domain and technology, makes its own estimates covering a short period of time, and updates these estimates based on feedback. The good news is, once such a team establishes a track record, its variability can be measured and predicted.
+
+
+\section*{The Concept of Dominance}
+
+The concept of dominance is important if the agents are going to be semi-autonomous. If a resource is freed the process with the highest dominance should get the resource, being material, money or labour. Another factor to be included in dominance should be proximity and priorities. 
+
+\textit{Proximity} experienced Project Managers endeavour to have areas of a building as complete as possible. Thus if an area is next to the completed area, it should receive points in the priority que. Although PMs sometimes throw resources into areas of delays, throwing resources into areas that are doing well, might improve the overall performance of the system.
+
+
+\section{Perturbations}
+
+Social animals immediately react to disturbances in their environment by forming Brigades for clean-ups etc. It strikes me here, that all variation works should be handled by a separate Team.
+
+In this respect on the City Center Project that was plagued by numerous changes a squad was constituted to handle changes (for MEP works). This had an EI Manager and two subordinate Engineers, one mechanical and one Electrical.
+
+
+\section{Where do humans fit in this model}
+
+
+I am not sure, but looking at it carefully the huamns, should take guidance from the computer system and not the other way round. A relationship which is more symbiotic than hiererchical.
+
+
+\section*{Problem areas}
+
+Many problem areas remain. sysem should be implemented incrementally to help inch performance, but fully implemented on a new Project.
+
+\section*{Reality Check}
+
+Last thing in the day, each role opens up their page and do the followinG;
+
+\begin{enumerate}
+\item Update progress for the day.
+\item Issue new work orders.
+\item Communicate with system
+\item Communicate with others
+\item System updates automatically and shows work on a six week
+projection. Key performance indicators are shown on a special place.
+\end{enumerate}
+
+\section*{Reward Systems}
+
+Reward systems should be immediately and some of them should be borrowed from games. Not everything revolves around money.
+
+
+\section*{System UI and visuals}
+
+Top modern browser based to maximize connectivity.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\chapter{Before There Was Management}
+\begin{marginfigure}
+\includegraphics[width=0.9\textwidth]{./graphics/dunbar}
+\caption{Robin Dunbar with a Neaderthal skull from \url{http://www.liv.ac.uk/researchintelligence/issue17/brainteaser.html}}
+\end{marginfigure}
+
+Management is a rather recent invention in the history of human evolution – it’s been around for maybe 100 or 150 years, about two or three times longer than software. But people have been living together for thousands of years, and it could be argued that over those thousands of years, we did pretty well without managers. People are social beings, hardwired through centuries of evolution to protect their family and community, and to provide for the next generation. For tens of thousands of years, people have lived together in small hamlets or clans that were relatively self-sufficient, where everyone knew – and was probably related to – everyone else. These hamlets inevitably had leaders to provide general direction, but day-to-day activities were governed by a set of well understood mutual obligations. As long as the hamlets stayed small enough, this was just about all the governance that was needed; and most hamlets stayed small enough to thrive without bureaucracy until the Industrial Revolution.
+
+\section*{The Magic Number One Hundred and Fifty}
+
+Early in his career, British Anthropologist Robin Dunbar found himself studying the sizes of monkey colonies, and he noticed that different species of monkeys preferred different size colonies. Interestingly, the size of a monkey colony seemed to be related to the size of the monkeys’ brains; the smaller the brain, the smaller the colony. Dunbar theorized that brain size limits the number of social contacts that a primate could maintain at one time. Thinking about how humans seemed to have evolved from primates, Dunbar wondered if, since the human brain was larger than the monkey brain, humans would tend to live in larger groups. He calculated the maximum group size that humans would be likely to live in based on the relative size of the human brain, and arrived at a number just short of 150. Dunbar theorized that humans might have a limit on their social channel capacity (the number of individuals with whom a stable inter-personal relationship can be maintained) of about 150.[1]
+
+To test his theory, Dunbar and other researchers started looking at the size of social groups of people. They found that a community size of 150 has been a very common maximum limit in human societies around the world going back in time as far as they can investigate. And Dunbar’s Number (150) isn’t found only in ancient times. The Hutterites, a religious group that formed self-sufficient agricultural communities in Europe and North America, have kept colonies under 150 people for centuries. Beyond religious communities, Dunbar found that during the eighteenth century, the average number of people in villages in every English county except Kent was around 160. (In Kent it was 100.) Even today, academic communities that are focused on a particular narrow discipline tend to be between 100 and 200 – when the community gets larger, it tends to split into sub-disciplines.[2]
+
+Something akin to Dunbar’s number can be found in the world of technology also. When Steve Jobs ran the Mackintosh department at Apple, his magic number was 100. He figured he could not remember more than 100 names, so the department was limited to 100 people at one time. A team that never exceeded 100 people designed and developed both the hardware and software that became the legendary Apple Macintosh.[3] Another example: in a 2004 blog The Dunbar Number as a Limit to Group Sizes, Christopher Allen noted that on-line communities tend to have 40 to 60 active members at any one time. You can see two peaks in Allen’s chart of group satisfaction as a function of group size – one peak for a team size of 5 to 8, and an equally high peak when team size is around 50.[4]
+
+Steve Job’s limit of 100 people was probably a derivative of the Dunbar Number, but Allen’s peak at 50 is something different. According to Dunbar, `'If you look at the pattern of relationships within… our social world, a number of circles of intimacy can be detected. The innermost group consists of about three to five people. … Above this is a slightly larger grouping that typically consists of about ten additional people. And above this is a slightly bigger circle of around thirty more…''[5] In case you’ve stopped counting, the circles of intimacy are 5, 15, 50, 150 – each circle about three times the size of the smaller circle. The number 50, which Allen found in many on-line communities, is the number of people Dunbar found in many hunting groups in ancient times – and three of these groups of 50 would typically make up a clan.
+
+\section*{Would this work in construction?}
+
+One Hundred and fifty is certainly a magic number for W.L. Gore \& Associates. Gore is a privately held business that specializes in developing and manufacturing innovative products based on PTFE, the fluoropolymer in Gore-Tex fabrics. Gore has revenues exceeding 2.5 billion US dollars, employs over 8000 people, and has been profitable for over a half a century. It has held a permanent spot on the U.S. "100 Best Companies to Work For" since it’s inception in 1984, and is a fixture on similar lists in many countries in Europe. This amazing track record might be related to the fact that Gore doesn’t have managers. There are plenty of leaders at Gore, but leaders aren’t assigned the job, they have to earn it by attracting followers.
+
+You’ve got to wonder how such a large company can turn in such consistent performance for such a long period of time without using traditional management structures. The answer seems to have something to do with the fact that Gore is organized into small businesses units that are limited to about 150 people. “We found again and again that things get clumsy at a hundred and fifty,” according to founder Bill Gore. So when the company builds a new plant, it puts 150 spaces in the parking lot, and when people start parking on the grass, they know it’s time to build a new plant.
+
+Since associates at Gore do not have managers, they need different mechanisms to coordinate work, and interestingly, one of the key mechanisms is peer pressure. Here is a quote from Jim Buckley, a long-time associate at a Gore plant: `'The pressure that comes to bear if we are not efficient as a plant, if we are not creating good enough earnings for the company, the peer pressure is unbelievable. …This is what you get when you have small teams, where everybody knows everybody. Peer pressure is much more effective than a concept of a boss. Many, many times more powerful.''[6]
+
+Like many companies that depend on employees to work together and make good decisions, Gore is very careful to hire people who will fit well in its culture. Leaders create environments where people have the tools necessary for success and the information needed to make good decisions. Work groups are relatively stable so people get to know the capabilities and expectations of their colleagues. But in the end, the groups are organized around trust and mutual obligation – a throwback to the small communities in which humans have thrived for most of their history.
+
+Google’s management culture has quite a few similarities with Gore’s. Google was designed to work more or less like a university – where people are encouraged to decide on their own (with guidance) what they want to investigate. Google is extremely careful about hiring people who will fit in its culture, and it creates environments where people can pursue their passion without too much management interference. For a deep dive into Google’s culture, see this video: Eric Schmidt at the Management Lab Summit
+
+\section{Peer Cultures}
+
+Before there were managers, peer cultures created the glue that held societies together. In clans and hamlets around the world throughout the centuries, the self-interest of the social group was tightly coupled with the self-interest of individuals and family units; and thus obligations based on family ties and reciprocity were essential in creating efficient communities.
+
+There are many, many examples of peer cultures today, from volunteer organizations to open source software development to discussion forums and social networks on the web. In these communities, people are members by their own choice; they want to contribute to a worthy cause, get better at a personal skill, and feel good about their contribution. In a peer culture, leaders provide a vision, a way for people to contribute easily, and just enough guidance to be sure the vision is achieved.
+
+Arguably, peer cultures work a lot better than management at getting many things done, because they create a social network and web of obligations that underlie intrinsic motivation. So perhaps we’d be better off taking a page out of the Gore or the Google or the Open Source playbook and leverage thousands of years of human evolution. We are naturally social beings and have a built-in need to protect our social unit and ensure that it thrives.
+
+Example: Hardware/Software Products
+
+``We have found through experience that the ideal team size is somewhere between 30 and 70,” the executive told us. At first we were surprised. Aren’t teams supposed to be limited to about 7 people? Don’t teams start breaking up when they’re much larger? Clearly the executive was talking about a different kind of team than we generally run into in agile software development. But his company was one of the most successful businesses we have encountered recently, so we figured there had to be something important in his observation.
+
+We spend a morning with a senior project manager at the company – the guy who coordinated 60 people in the development of a spectacular product in record time. The resulting product was far ahead of its time and gave the company a significant competitive advantage. He explained how he coordinated the work: “Every 2 or 3 months we produced a working prototype, each one more sophisticated than the last one. As we were nearing the end of development, a new (faster, better, cheaper) chip hit the market. The team decided to delay the next prototype by two months so they could incorporate the new chip. Obviously we didn’t keep to the original schedule, but in this business, you have to be ready to seize the opportunities that present themselves.''
+
+It’s not that this company had no small teams inside the larger teams; of course they did. It’s just that the coordination was done at the large team level, and the members of the smaller teams communicated on a regular basis with everyone on the larger team. All team members were keenly aware of the need to meet the prototype deadlines and they didn’t need much structure or encouragement to understand and meet the needs of their colleagues.
+
+Another Example: Construction
+
+The Lean Construction Institute has developed a similar approach to effectively organizing construction work. The first thing they do is to break down very large projects into multiple smaller ones so that a reasonable number of contractors can work together. (Remember Dunbar’s Number.) For example, they might completely separate a parking structure and landscaping from the main building; in a large building, the exterior would probably be a separate project from the interior. Each sub-project is further divided into phases of a few months; for example, foundation, structure, interior systems, etc. Before a phase starts, a meeting of all involved contractors is held and all of the things that need to be done to complete that phase are posted on cards on a wall by the contractors. The cards are organized into a timeline that takes dependencies into account, and all of the contractors agree that the wall represents a reasonable simulation of the work that needs to be done. This is not really a plan so much as an agreement among the contractors doing the work about what SHOULD be done to complete the phase.
+
+Each week all of the ``Last Planners'' (crew chiefs, superintendents, etc.) get together and look at what they SHOULD do, and also what they CAN do, given the situation at the building site. Then they commit to each other what they WILL complete in the next week. The contractors make face-to-face commitments to peers that they know personally. This mutual commitment just plain gets things done faster and more reliably than almost any other organizing technique, including every classic scheduling approach in the book.
+
+\section*{The Magic Number Seven}
+
+George Miller published “The Magical Number Seven, Plus or Minus Two” in The Psychological Review in 1956. Miller wasn’t talking about team size in this article; he was discussing the capacity of people to distinguish between alternatives. For example, most people can remember a string of 7 numbers, and they can divide colors or musical tones into about 7 categories. Ask people to distinguish between more than 7 categories, and they start making mistakes. “There seems to be some limitation built into us either by learning or by the design of our nervous systems, a limit that keeps our channel capacities in this general range [of seven],” Miller wrote.
+
+This channel capacity seems to affect our direct interaction with other people – we can keep up a conversation with 7 or so people, but when a group gets larger, it is difficult to maintain a single dialog, and small groups tend to start separate discussions. So for face-to-face groups that must maintain a single conversation, the magic number of 7 +/-2 is a good size limit. And historically, most agile software development teams have been about this size.
+
+\subsection*{Moving Beyond Seven}
+
+The problem is, 7 people are not enough to accomplish many jobs. Take the job of putting a new software-intensive product on the market, for example. The product is almost never about the software – the product is a medical device or a car or a mobile phone or maybe it’s a financial application. Invariably software is a subsystem of a larger overall system, which means that invariably the software development team is a sub-team of a larger overall system team.
+
+In the book Scaling Lean \& Agile Development, Craig Larman and Bas Vodde make a strong case for feature teams – cross-functional teams that deliver end-to-end customer features. They recommend against component teams, groups formed around a single component or layer of the system. I agree with their advice, but it seems to me that software is invariably a component of whatever system we are building. We might be creating software to automate a process or software to control a product, software to deliver information or software to provide entertainment. But our customers don’t care about the software; they care about how the product or process works, how relevant the information is or how entertaining the game might be. And if software is a component of a system, then software teams are component teams. What we might want to consider is that real feature teams – teams chartered to achieve a business goal – will almost certainly include more than software development.
+
+
+Agile development started out as a practice for small software teams, but these days we often see teams of 40 or 50 developers applying agile practices to a single business problem. In almost every case, we notice that the developers are organized into several small teams that work quite separately – and in almost every case, therefore, the biggest problem seems to be coordination across the small teams. There are many mechanisms: use a divisible system architecture so teams can be truly independent; draw from a common list of tasks, which makes teams highly interdependent; send small team representatives to weekly coordinating meetings; and so on. But rarely do we see the most powerful coordination mechanism of all for groups this size: create a sense of mutual obligation through peer commitments.
+
+\section{Mutual Obligation}
+
+You can call mutual obligation peer pressure if you like, but whatever name you use, when individuals on a large team make a commitment to people they know well, the commitment will almost certainly be honored. Mutual obligation is a much more powerful motivating force than being told to do something by an authority figure. And the interesting thing is, the power of mutual obligation is not confined to small teams. It works very well in teams of 50, and can be effective with teams up to 150. The time to split teams is not necessarily when they reach 10; team sizes up to 100 or 150 can be very effective – if you can create a sense of mutual obligation among the team members.
+
+There are, of course, a few things that need to be in place before mutual commitment can happen. First of all, team members must know each other – well. So this won’t work if you constantly reform teams. In addition to knowing each other’s names, teammates must understand the capabilities of their colleagues on the team, have the capacity to make reliable commitments, and be able to trust that their teammates will meet their commitments. This process of creating mutual obligations actually works best if there is no manager brokering commitments, because then the commitments are made to the manager, not to teammates. Instead, a leader’s role is to lay out the overall objectives, clarify the constraints, and create the environment in which reliable commitments are exchanged.
+
+For example, the project manager of the hardware/software product (above) laid out a series of increasingly sophisticated prototypes scheduled about three months apart. Having made a commitment to the team, sub-teams organized their work so as to have something appropriate ready at each prototype deadline. When an opportunity to dramatically improve the product through incorporation of a new chip, the whole team was in a position to rapidly re-think what needed to be done and commit to the new goal.
+
+In the case of lean construction (above), a large team of contractor representatives works out the details of a “schedule” every few months. Each week, the same team gets together and re-thinks how that “schedule” will have to be adapted to fit current reality. At that same weekly meeting, team members commit to each other what they will actually accomplish in the next week, which gives their colleagues a week to plan work crews, material arrival, and so on for the following week.
+
+It certainly is a good idea to have small sub-teams whose members work closely together on focused technical problems, coordinating their work with brief daily meetings to touch base and make sure they are on track to meet their commitments. But the manner in which these sub-teams arrive at those commitments is open for re-thinking. It may be better to leverage thousands of years of human evolution and create an environment whereby people know each other and make mutual commitments to meet the critical goals of the larger community. After all, that’s the way most things got accomplished before there was management.
+
+
+Recent research using online communities such as Twitter seems to validate this point. See (Validation of Dunbar's number in Twitter conversations).
+
+Footnotes:
+
+[1] Technically, Dunbar calculated the relative sizes of the neocortex – the outer surface of the brain responsible for conscious thinking. For a humorous parody of Dunbar's theory, see "What is the Monkeysphere?" by David Wong.
+
+[2] Information in this paragraph is from: How Many Friends Does One Person Need? by Robin Dunbar.
+
+[3] See John Sculley On Steve Jobs.
+
+[4] This figure from ``The Dunbar Number as a Limit to Group Sizes'' is antidotal.
+
+[5] From How Many Friends Does One Person Need? by Robin Dunbar. Interestingly, while Dunbar finds 15 an approximate limit of the second circle of intimacy, Allen finds a group of 15 problematic.
+
+[6] The Dunbar Number was popularized by Malcolm Gladwell in Tipping Point. Much information and both quotes in this section are from Chapter 5 of that book. See \url{http://nextreformation.com/wp-admin/general/tipping.htm} for an extended excerpt. 
+
+\section{Human Institutionalized Organization}
+
+The points raised above relate to natural grouping and one item that it excludes is the possibility that the hard wiring of the grouping size can be a result of the group being limited by evolution, think about the Red Queen problem.
+
+For larger groups the dynamics were normally that of violence and organized on Military lines. Now, there is a difference between a self-organizing system and a Military system. Military systems are highly hierarchical, mostly inefficient. They have no real mission for most of their existence and are highly trained. 
+
+They also don't have battle Managers, but rather battle commanders. Some are blessed with having a leader, mostly absent in modern armies.
+
+One aspect of Military Organization that is of interest, when discussing group dynamics is that of Task Forces. A Task force, is something.
+
+In recent times the self-organizational principles for an army (i.e., the closest that it can come to be formed naturally), comes from studies of the Anglo-Boer War. While the British Empire foot soldiers and force was highly organized and managed to land..., the Boer forces were assembled in a much more natural way. 
+
+(Need research).
+
+
+\chapter{Organization}
+
+Group as follows:
+
+Leader
+
+Task Group 1
+
+
+\chapter{The Future}
+
+Construction is the one major human production activity from which automation is still largely absent. Automation could bring signiﬁcant beneﬁts to traditional construction, for which reported problems include low eﬃciency, high
+accident rates, low quality, and skills shortages [52, 66]. It could further be of
+great use in applications such as facilitating the production of low-cost housing.
+
+High end CAD systems such as BIM are now introduced for better managing designs and construction, but their impact is still some years away.
+
+
+Collective Construction see \url{http://www.eecs.harvard.edu/ssr/papers/phd06-werfel.pdf} Justin Werfel tried to develop a system made up of autonomous agents to simulate ants building anthills for different structures. See Anthills Built to Order: Automating Construction with Artiﬁcial Swarms by Justin Werfel.
+
+
+\begin{figure}
+\includegraphics[width=\textwidth]{./graphics/collective-construction}
+\caption{The ultimate goal for automated collective construction is to be able to
+give a set of robots a description of a desired structure (left), and know that it will
+reliably build that structure without further intervention (right).}
+\end{figure}
+
+
+
+
+Book Title: Chicken Pox, Traffic Jams, Whipslashes and Construction.
+
+
+http://www.bertelsen.org/?download.htm
+
+http://www.esf.edu/EFB/turner/advising.htm
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

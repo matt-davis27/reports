@@ -1,0 +1,121 @@
+\chapter{SUBFIGURE NUMBERING}
+So far we have been using the caption package to add captions to multiple figures, that are numbered individually, but how about if you want to have only one caption and number the subfigures alphabetically. If you want to have subfigures with distinct caption, you use the subfig package:
+
+
+
+
+
+%\begin{fullwidth}
+
+\begin{figure}[htp]%
+
+\includegraphics[width=4cm]{./graphics/pic37}
+%    %%\captionsetup[figure]{margin=3pt, labelfont={\large}}% not working
+%    \subfloat[First image.\label{fig:AfirstA}]{{\includegraphics[width=4cm]{./graphics/pic37}}}
+%     \hfill
+%      \subfloat[Second image.\label{fig:AfirstC}]{{\includegraphics[width=4cm]{./graphics/pic37}}}
+%     \hfill
+%    \subfloat[Thirdimage.\label{fig:AfirstB} This has a slightly longer caption to visualize problems.]%
+%      {\includegraphics[width=4cm]{./graphics/pic37}}
+%%      \caption{With the subfig package we can label individual smaller figures alphabetically as shown here and refer to them in the text. They are all grouped under a single figure number.}%
+%%    \label{fig:Afirst}%
+%%    \label{fig:Athird}%
+\end{figure}
+
+%\end{fullwidth}
+
+You can put as many figures as you like on a page, but a word of warning, you may need to make some manual adjustments before you get it right. The package provides support for the manipulation and reference of small or \enquote{sub} floats within a single floating (e.g., figure or table) environment1 It is convenient to use this
+package when your sub-floats are to be separately captioned, referenced, or when such
+sub-captions are to be included on a List-of-Floats page.
+
+The package is a replacement for the |subfigure| package, from which it was derived.
+However, the new |subfig| package is not completely backward compatible.
+Therefore, a new name was called for. The newer package is smaller and easier to use
+than the older package, however, it now uses the following additional packages,  caption (required),  everysel (optional),
+keyval (required),  ragged2e (optional).
+
+It will work without the |ragged2e| and |everysel| packages if you do not use the following
+justification options: \enquote{Center}, \enquote{RaggedRight} and \enquote{RaggedLeft}. The other justification
+options \enquote{center}, \enquote{raggedright} and \enquote{raggedleft} will work without the above two packages. If the ragged2e package is present, than the caption package will load it and it
+will, in turn, load the everysel package. This happens whether or not you will be using
+the justification options that require it. If it cannot find the ragged2e package, than the
+caption package will print a message that \enquote{RaggedRight}, etc. will not be available.
+
+
+
+%\begin{figure}%
+%    \captionsetup[figure]{margin=3pt}%
+%    \hfil
+%    \subfloat[One subone.\label{fig:one}]{\includegraphics[scale=0.65]{./graphics/fig155}}
+%    \hfil
+%    \subfloat[One subtwo.\label{fig:two} --- but this one has a
+%     very very long caption.  So long that it continues over into
+%     other lines so that we can test the list-of line settings.]%
+%      {\includegraphics[scale=0.65]{./graphics/fig156}}
+%    \hfil
+%     \caption{Typical pottery from Oklahoma (\emph{Smithsonian}).}%
+%    \label{fig:Athird}%
+%\end{figure}
+
+ A low bottle-shaped vase, of yellowish ware, with flaring rim and somewhat flattened body. Height, 5 inches; width 5 inches. \ref{fig:one}
+
+A well-made bottle shaped vase, with low neck and globular body, somewhat conical above. Color dark brownish. $7\frac{1}{2}$ inches in height. Shown in Figure~\ref{fig:two}.
+
+
+\begin{figure}[htp]
+  \centering
+  \includegraphics[width=0.8\linewidth]{./graphics/fig175}
+  \vspace{3\baselineskip}
+
+   \centerline{\textsc{From the tomb of a Pull\= arius.}}
+  \label{fig:marginfig1}
+  \caption{ effigy vase of the dark ware. The body is globular. A kneeling human figure forms the neck. The mouth of the vessel occurs at the back of the head—a rule in this class of vessels. Is is finely made and symmetrical. 9.75 inches high and 7 inches in diameter. being larger than the above two it is preferable to scale it to give the reader an indication.}
+\end{figure}
+
+The above figure is an Based on the figure width, you may also need to adjust the distance between the figures to ensure that the whitespace is just about right. For screen reading this can be increased and for printed works you may wish to make it less.
+
+
+\begin{figure}[htp]%
+    \captionsetup[figure]{margin=3pt}%
+    \subfloat[One subone.\label{fig:one}]
+     {{\includegraphics[scale=0.65]{./graphics/fig155}}}
+    \hspace{1cm}
+    \subfloat[One subtwo.\label{fig:two} --- but this one has a
+     very very long caption.  So long that it continues over into
+     other lines so that we can test the list-of line settings.]%
+      {\includegraphics[scale=0.65]{./graphics/fig156}}
+     \\[-10pt]
+    \caption{First figure --- but this one has a very very long caption.
+     So long that it continues over into a second line so that we can
+     test the margin setting and centering of the caption command in the
+     full page mode.}%
+    \label{fig:Afirst}%
+    \caption{Typical pottery from Oklahoma (\emph{Smithsonian}).}%
+    \label{fig:Athird}%
+\end{figure}
+
+
+The figures have been placed using the code below:
+
+\begin{verbatim}
+\begin{figure}%
+    \captionsetup[figure]{margin=3pt}%
+    \subfloat[One subone.\label{fig:one}]
+     {{\includegraphics[scale=0.65]{./graphics/fig155}}}
+    \hspace{1cm}
+    \subfloat[One subtwo.\label{fig:two} --- but this one has a
+     very very long caption.  So long that it continues over into
+     other lines so that we can test the list-of line settings.]%
+      {\includegraphics[scale=0.65]{./graphics/fig156}}
+     \\[-10pt]
+ \caption{First figure but this one has a very very long caption.
+ So long that it continues over into a second line so that we can
+ test the margin setting and centering of the caption command in the
+ full page mode.}%
+ \label{fig:Afirst}%
+ \caption{Typical pottery from Oklahoma (\emph{Smithsonian}).}%
+ \label{fig:Athird}%
+\end{figure}
+\end{verbatim}
+
+As you can observe, the |subfig| package treats the two figures as one and places them side by side. Its trickery is to get them to line up, nicely and to provide all the necessary parameters for the captions. It is a feature-rich package and we will spent some time to explore it. The command |subfloat|, is used to denote the |subfigure|. The rest are self-explanatory. Note that the use of |\hspace{1cm}| to make these two figures come closer together. In the previous listings, |\hfill| was used to space them out as wide as possible. The command |captionsetup| is used to let the package know that we are captioning figures and not tables. (In this book all captions are placed in the side-margins, where God meant them to be! If you use the same code in another package they will be placed underneath the figures.

@@ -1,0 +1,242 @@
+\chapter{Classes and Packages you\hfill \protect\break can't live without\hfill}
+
+Besides the standard classes that come with a \LaTeX\ distribution the memoir class and tufte-book are two that you need to have a look at. The memoir class has been written in such a way that it can provide you with an environment to write your own class, without having to go through a steep learning curve. The tufte-book class will just make you  proud of the final look of your book. If you writing a Thesis or a paper you are somewhat limited by your institutions format. Most University Departments will insist your format fits some archaic and ugly looking, perhaps obscure way of doing things. If you really unlucky they will make you type it in word. In such a case you have our sympathies. After you submit your thesis, amke another copy with \LaTeX\ and pass it to the Committee.
+
+Depending what you are trying to achieve, you will need o find the right packages to use. If youi are writing code
+
+listings
+
+
+\section*{Graphics}
+For graphics and plots you need TikZ/pgf, simply this is the best. It has a serious learning curve, but I can assure you you cannot live without it.
+
+\section{Epigraphs}
+
+
+Epigraphs are those neat quotations that authors put at the start of chapters (or even at the end of chapters: Knuth puts things at the ends of chapters of the \TeX book).
+
+Typesetting them is a bit of a fiddle, but not impossible to do for yourself. Fortunately, there are two packages that do the job, to some extent; there are also facilities in the two ``big'' classes (memoir and koma-script).
+
+The \docpkg{epigraph} package defines an \cmd{epigraph} command, for creating a single epigraph (as at the top of a chapter):
+
+\begin{Code}
+\chapter{The Social Life of Rabbits}
+\epigraph{Oh!  My ears and whiskers!}%
+         {Lewis Carroll}
+\end{Code}
+
+and an epigraphs environment, for entering more than one epigraph consecutively, in a sort of list introduced by \cmd{qitem} commands:
+
+\begin{Code}
+   \begin{epigraphs}
+   \qitem{What I tell you three times is true}%
+            {Lewis Carroll}
+   \qitem{Oh listen do, I'm telling you!}%
+            {A.A. Milne}
+   \end{epigraphs}
+\end{Code}
+
+The \cmd{epigraphhead} command enables you to place your epigraph above a chapter header:
+
+\begin{Code}
+    \setlength{\unitlength}{1pt}
+      ...
+    \chapter{The Social Life of Rabbits}
+    \epigraphhead[<distance>]{%
+    \epigraph{Oh!  My ears and whiskers!}%
+                 {Lewis Carroll}%
+ \end{Code}
+
+
+
+The distance says how far above the chapter heading the epigraph is to go; it’s expressed in terms of the \cmd{unitlength} that’s used in the picture environment; the package’s author recommends 70pt.
+
+The package also offers various tricks for adjusting the layout of chapter header (necessary if you’ve found a hugely long quotation for an \cmd{epigraphhead}), for patching the bibliography, for patching \cmd{part} pages, and so on. (Some of these suggested patches lead you through writing your own package…)
+
+The quotchap package redefines chapter headings (in a moderately striking way), and provides an environment savequotes in which you can provide one (or more) quotations to use as epigraphs. The facilities seem not as flexible as those of epigraph, but it’s probably easier to use.
+
+The memoir class offers all the facilities of the epigraph package. The Koma-script classes have commands \cmd{setchapterpreamble} and \cmd{dictum} to provide these facilities.
+
+\section{Nomenclature}
+
+How often did you try to understand a theorem in a book, but just couldn’t
+figure out what all those strange symbols were all about? The \docpkg{nomencl}
+package should help authors format a nomenclature. It uses the powerful
+capabilities of the |MakeIndex| program to generate such a list automatically
+using information provided by the author throughout the text.
+
+The creation of a nomenclature list is very similar to that of creating an index.
+
+\begin{enumerate}
+\item Put |\usepackage[<options>]{nomenc}|  in the preamble of your document.
+
+\item Put \doccmd{makenomenclature} in the preamble.
+
+\item Put \cmd{printnomenclature} at the place you want to have your nomenclature
+list.
+\end{enumerate}
+
+\begin{teX}
+\begin{equation}
+a=\frac{N}{A}
+\end{equation}%
+
+\nomenclature{$a$}{The number of angels per unit area}%
+\nomenclature{$N$}{The number of angels per needle point}%
+\nomenclature{$A$}{The area of the needle point}%
+The equation $\sigma = m a$%
+\nomenclature{$\sigma$}{The total mass of angels per unit area}%
+\nomenclature{$m$}{The mass of one angel}
+follows easily.
+\end{teX}
+
+
+\begin{teX}
+\nomenclatureentry{a$a$@[{$a$}]\begingroup The number of angels per unit area\nomeqref {1.1}|nompageref}{1-3}
+\nomenclatureentry{a$N$@[{$N$}]\begingroup The number of angels per needle point\nomeqref {1.1}|nompageref}{1-3}
+\nomenclatureentry{a$A$@[{$A$}]\begingroup The area of the needle point\nomeqref {1.1}|nompageref}{1-3}
+\nomenclatureentry{a$\sigma$@[{$\sigma$}]\begingroup The total mass of angels per unit area\nomeqref {1.1}|nompageref}{1-3}
+\nomenclatureentry{a$m$@[{$m$}]\begingroup The mass of one angel\nomeqref {1.1}|nompageref}{1-3}
+\end{teX}
+
+|\printnomenclature|
+
+
+Sometimes,if your book is not too long and complictaed you can create lists of symbols etc
+manually
+
+\begin{Verbatim}
+\newcommand\listsymbolname{Abbreviations}
+\usepackage{longtable}
+\newcommand\listofsymbols[2]{
+\btypeout{\listsymbolname}
+\addtotoc{\listsymbolname}
+    \chapter*{\listsymbolname
+      \@mkboth{
+          \MakeUppercase\listsymbolname}{\MakeUppercase\listsymbolname}}
+\begin{longtable}[c]{#1}#2\end{longtable}\par
+    \cleardoublepage
+}
+\newcommand\listconstants{Physical Constants}
+\usepackage{longtable}
+\newcommand\listofconstants[2]{
+\btypeout{\listconstants}
+\addtotoc{\listconstants}
+    \chapter*{\listconstants
+      \@mkboth{
+          \MakeUppercase\listconstants}{\MakeUppercase\listconstants}}
+\begin{longtable}[c]{#1}#2\end{longtable}\par
+    \cleardoublepage
+}
+\newcommand\listnomenclature{Symbols}
+\newcommand\listofnomenclature[2]{
+\btypeout{\listnomenclature}
+\addtotoc{\listnomenclature}
+    \chapter*{\listnomenclature
+      \@mkboth{
+          \MakeUppercase\listnomenclature}{\MakeUppercase\listnomenclature}}
+\begin{longtable}[c]{#1}#2\end{longtable}\par
+    \cleardoublepage
+}
+
+\end{Verbatim}
+
+
+
+\section{The \protect\texttt{linguex} package}
+The \docpkg{linguex} macro defines three basic commands: \pmac{linguex}{ex.}, \pmac{linguex}{\textbackslash a.}, and \pmac{linguex}{b.} The first
+two generate list environments. The third functions basically like an |\item|.
+The package has been developed by Wolfgang Sternefeld \people{Wolfgang Sternefeld}
+\sidenote[1]{Note the ending dot for the macros}. One problem with the package is that it redefines some commands such as \cmd{footnote}.
+
+Here is an example. Type setting
+
+\begin{teX}
+\ex. This is the first level of embedding
+\a. This is the second level
+\b. This is still the second level, but:
+\a. This is the third level
+\b. This is not the end.
+\b. This is the end
+\end{teX}
+
+will print:
+\ex. This is the first level of embedding
+\a. This is the second level
+\b. This is still the second level, but:
+\a. This is the third level
+\b. This is not the end.
+\b. This is the end
+
+
+\subsection{Glosses}
+The package also provides commands for glosses.
+
+\begin{teX}
+\ex.\a. No gloss
+\bg. This is a first gloss\\
+Dies ist eine erste Glosse\\
+
+\exg. Dies ist nicht die erste Glosse\\
+This is not the first gloss\\
+\end{teX}
+
+
+\ex.\a. No gloss
+\bg. This is a first gloss\\
+Dies ist eine erste Glosse\\
+
+\exg. Dies ist nicht die erste Glosse\\
+This is not the first gloss\\
+
+
+\medskip
+\verb|\I[NP Text| $\Longrightarrow$ \I[NP Text,
+
+ \verb.\I($\alpha$ Text.  $\Longrightarrow$ \I({$\alpha$} Text, 
+
+ \verb.\I{$\alpha$}NP Text. $\Longrightarrow$ \I{$\alpha$}NP Text, 
+
+ \verb.\I{Whom}ACC does John\ldots.  $\Longrightarrow$ \I{Whom}ACC 
+ does John\ldots \footnote{Test}
+
+
+%\input{./manual/titlesample1}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

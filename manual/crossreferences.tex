@@ -1,0 +1,97 @@
+\chapter{Cross Referencing}
+\label{ch:crossref}
+This chapter discusses \latex's commands and methods for cross-referencing.
+The basic user commands provided are the \cmd{label} and \cmd{ref} that are used to define  cross-references.
+
+\newthought{counters}
+
+In order to store the values a counter |\ref{<foo>}| is used. This stores the most recently incremented referencable counter. in the
+current environment. (Chapter, section, theorem and enumeration counters counters
+are referencable, footnote counters are not.)
+
+
+|\pageref{foo}|: page number at which |\label{foo}| command appeared.
+where foo can be any string of characters not containing |`\'|, |`{'| or |`}'|.
+
+It is important to note that the scope of the |\label| command is delimited by environments, so
+
+\begin{teXXX}
+\begin{theorem} 
+  \label{foo} ... 
+\end{theorem} \label{bar}
+\end{teXXX}
+
+defines |\ref{foo}| to be the theorem number and |\ref{bar}| to be the current
+section number.
+
+Note: |\label| does the right thing in terms of spacing -- i.e., leaving a space
+on both sides of it is equivalent to leaving a space on either side.
+
+A refence counter \texttt{CNT} is incremented by the command \cmd{refstepcounter}, which sets \label{refcount}
+
+\begin{teXXX}
+  \@currentlabel == {cnt}{eval(\p@count\theCNT)} 
+\end{teXXX}
+
+The command
+|\label{FOO}| then writes the following to the auxiliary file |\indexat{auxout}|.
+
+\emphasis{@currentlabel,thepage,newlabel}
+\begin{teXXX}
+  \newlabel{FOO}{{eval(\@currentlabel)}{eval(\thepage)}}
+\end{teXXX}
+
+
+\begin{Verbatim}
+10 \def\@setref#1#2#3{%
+11  \ifx#1\relax
+12   \protect\G@refundefinedtrue
+13   \nfss@text{\reset@font\bfseries ??}%
+14   \@latex@warning{Reference `#3' on page \thepage \space
+15          undefined}%
+16   \else
+17    \expandafter#2#1\null
+18  \fi}
+19 \def\ref#1{\expandafter\@setref\csname r@#1\endcsname\@firstoftwo{#1}}
+20 \def\pageref#1{\expandafter\@setref\csname r@#1\endcsname
+21                \@secondoftwo{#1}}
+\end{Verbatim}
+
+The definition of \cmd{label} will cause a |\label{bar}| command to define |\ref{bar}| to expand to something
+like |\foo{4.d}|
+
+\begin{teXXX}
+32 \def\label#1{\@bsphack
+33    \protected@write\@auxout{}%
+34       {\string\newlabel{#1}{{\@currentlabel}{\thepage}}}%
+35   \@esphack}
+36 \def\refstepcounter#1{\stepcounter{#1}%
+37   \protected@edef\@currentlabel
+38 {\csname p@#1\endcsname\csname the#1\endcsname}%
+39 }
+\end{teXXX}
+
+It is important to note that lines [33-34] write a string to the auxiliary file, that is the \cmd{newlabel} is not expanded but is merely written in the auxiliary file:
+
+\begin{teX}
+\newlabel{ch:crossreferences}{{1}{9}{Cross Referencing\relax }{chapter.1}{}}
+\end{teX}
+
+The basic mechanism is that every \cmd{label} stores its information in the auxiliary file in the form of a command, when the file is compiled the auxiliary file is read and the commands generated are then able to be executed and the |\ref| printed out.
+
+\ref{ch:crossref}
+
+The basic form of the command is an |r@| prefix plus the label |r@ch:crossref|.
+
+%\begin{figure}
+%\caption{Test}
+%\label{fig:test}
+%\end{figure}
+
+So, now we have references and labels, which is perhaps the strongest points of \alltex.
+
+
+
+
+
+

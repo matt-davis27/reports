@@ -1,0 +1,36 @@
+\documentclass{article}
+ \usepackage{lipsum}
+
+ \makeatletter
+ %Variant 1:
+ \newif\ifafterpar
+ \def\afterparnoindent{%
+   \afterpartrue
+   \everypar{%
+     \ifafterpar
+       \afterparfalse
+       {\setbox\z@\lastbox}%
+     \else
+       \everypar{}%
+     \fi}}
+
+ %Variant 2:
+ % will suppress indentation if there is no
+ % empty line behind \afterparnoindent
+ \renewcommand\afterparnoindent{\par\@doendpe}
+ \makeatother
+ \begin{document}
+
+ \lipsum[1]
+
+\begin{figure}
+
+
+FIGURE
+\caption{This is a test figure}\afterparnoindent
+\end{figure}
+ first paragraph \lipsum[1]
+
+ the next \lipsum[1]
+
+ \end{document} 

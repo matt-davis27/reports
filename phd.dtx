@@ -584,7 +584,7 @@ and the derived files              phd.ins,
 %    \end{macrocode}
 % The package |stmaryrd| can be used for additional symbols. 
 %    \begin{macrocode}
-\RequirePackage{stmaryrd}
+%\RequirePackage{stmaryrd}
 %    \end{macrocode}
 %    
 % \subsection{xpfeil}
@@ -820,7 +820,7 @@ ProvidesClass,IfFileExists,RequirePackage,ifthenelse,chapter,includegraphics, ne
 
 \lstset{language={[LaTeX]TeX},
       escapeinside={{(*@}{@*)}}, 
-       numbers=left, gobble=2,
+       numbers=left, gobble=0,
        stepnumber=1,numbersep=5pt, 
        numberstyle={\footnotesize\color{gray}},firstnumber=last,
        breaklines=true,
@@ -1114,7 +1114,81 @@ ProvidesClass,IfFileExists,RequirePackage,ifthenelse,chapter,includegraphics, ne
 %  {}
 %  
 %    \end{macrocode}
-%     
+% \section{Commonly used macros}     
+%    \begin{macrocode}
+\newcommand{\hangleft}[1]{\makebox[0pt][r]{#1}}
+\def\ctan#1{\textcolor{green}{\href{http://www.ctan.org/tex-archive/help/Catalogue/entries/#1.html}{#1}\protect\sidenote{\protect\url{http://www.ctan.org/tex-archive/help/Catalogue/entries/#1.html}}}
+\index{Packages!#1} }
+\def\graybox#1{\par\medskip
+ \noindent\colorbox{black!7}{\parbox{0.98\textwidth}{\noindent#1}}\par\medskip}
+
+%    \end{macrocode}
+%\subsection{meta}
+% This has been lifted from |doc|
+% \begin{macro}{\meta}
+% \changes{v1.4t}{1989/04/24}{Macro added.}
+% \changes{v1.5w}{1990/02/03}{Breaks at space allowed.}
+% \changes{v1.6a}{1990/05/24}{Extra space bug corrected.}
+%    The |\meta| macro is a bit tricky. We want to allow line
+%    breaks at blanks in the argument but we don't want a break
+%    in between. In the past this was done by defining |\meta| in a way that a
+%    \verb*+ + is active when the argument is scanned. Words are then
+%    scanned into |\hbox|es. The active \verb*+ + will end the
+%    preceding |\hbox| add an ordinary space and open a new
+%    |\hbox|. In this way breaks are only possible at spaces.  The
+%    disadvantage of this method was that |\meta| was neither robust
+%    nor could it be |\protect|ed. The new implementation  fixes this
+%    problem by defining |\meta| in a radically different way: we
+%    prevent hypenation by defining a |\language| which has no
+%    patterns associated with it and use this to typeset the words
+%    within the angle brackets.
+% \changes{v2.0i}{2000/05/21}{New implementation (pr/3170)}
+%    \begin{macrocode}
+\ifx\l@nohyphenation\undefined
+  \newlanguage\l@nohyphenation
+\fi
+%    \end{macrocode}
+%    
+%    \begin{macrocode}
+\DeclareRobustCommand\meta[1]{%
+%    \end{macrocode}
+%    Since the old implementation of |\meta| could be used in math we
+%    better ensure that this is possible with the new one as
+%    well. So we use |\ensuremath| around |\langle| and
+%    |\rangle|. However this is not enough: if |\meta@font@select|
+%    below expands to |\itshape| it will fail if used in math
+%    mode. For this reason we hide the whole thing inside an
+%    |\nfss@text| box in that case.
+% \changes{v2.0l}{2000/06/10}{Fixing changes for (pr/3170)}
+%    \begin{macrocode}
+     \ensuremath\langle
+     \ifmmode \expandafter \nfss@text \fi
+     {%
+      \meta@font@select
+%    \end{macrocode}
+%    Need to keep track of what we changed just in case the user
+%    changes font inside the argument so we store the font explicitly.
+% \changes{v2.0m}{2000/07/04}{More fixing changes for (pr/3170)}
+%    \begin{macrocode}
+      \edef\meta@hyphen@restore
+        {\hyphenchar\the\font\the\hyphenchar\font}%
+      \hyphenchar\font\m@ne
+      \language\l@nohyphenation
+      #1\/%
+      \meta@hyphen@restore
+     }\ensuremath\rangle
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\meta@font@select}
+% \changes{v2.0k}{2000/05/26}{Macro added (pr/3170)}
+%    Maske font used inside |\meta| customizable.
+%    \begin{macrocode}
+\def\meta@font@select{\itshape}
+%    \end{macrocode}
+% \end{macro}
 % \section{Floats settings}                    
 % Use Donald Arseneau's improved float parameters. I am not too sure when this was first referenced
 % once I find it, will provide a citation and or a link.

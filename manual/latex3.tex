@@ -1,0 +1,287 @@
+\chapter{Latex3}
+\startLineAt{10}
+\newthought{The promised new major version of} \latex can be used right away if one want to do so. Just include |expl3| which possibly means experimental. It has anything from quarks to quirks and a syntax to match \tex's own.
+
+The authors of \latex3 state:
+
+\begin{quotation}
+A key part of this work is to ensure that everything is documented, so that
+\latex programmers and users can work efficiently without needing to be familiar with
+the internal nature of the kernel or with plain \tex.
+
+\end{quotation}
+
+
+If there is one area, where cultural shock is possible is in the definition of functions as |\def|, disappears and function names have underscores and colons.
+
+\subsection{Function arguments specifications}
+
+Function names end with an argument specification. This is necessary to give an indication of the types of argument that a function  can take. It also provides a convenient method of naming similar functions that differ only in their argument forms.
+
+\begin{description}
+
+\item[n] Unexpanded list of token or braced token list. This is a standard
+         undelimited \tex macro argument.
+
+\item[N] A single token not surrounded by braces.
+\item[p] Primitive \tex parameter specification. This can be something as simple as |#1#2#3|, but may use arbitrary delimited argument syntax such as: |#1,#2[#3]|
+\item [T,F] These are special cases of n arguments, used for true and false code in conditional commands.
+\item [D] This means do not use. It is provided for special \tex primitives and other commands that are used only for boostrapping the \latex kernel.
+\item [w] This means that the argument syntax is weird (you probably thinking) weirder. It is used for functions with arguments that take non standard forms: examples are \tex-level delimited arguments and the boolean tests needed after certain primitive |\if|.. commands.
+
+\end{description}
+
+To illustrate some of the concepts, we can define a simple function as:
+
+\begin{teX}
+\def\myname{John Orr}
+\end{teX}
+
+
+
+In \latex3 this is an undelimited \tex function 
+
+\begin{teX}
+\cs_new_protected_nopar:Npn \my_name:n #1 {#1}
+\my_name\\
+\my_name:n {John~Orr}\\
+\my_name:n {J\"{o}rgen~Orr}\\
+\end{teX}
+
+%% Codeblock
+\parindent=0pt
+\ExplSyntaxOn
+\cs_new_protected_nopar:Nx \my_name: {Yiannis~Lazarides}
+\cs_new_protected_nopar:Nn \my_name:n{#1}
+\my_name:\\
+\my_name:n {John~Orr}\\
+\my_name:n {J\"{o}rgen~Orr}\\
+
+\token_to_meaning:N \my_name:n \\
+\cs_get_function_name:N \my_name:n \\
+\ExplSyntaxOff
+
+Note that you need to call the function with the signature even if it has no parameters, as in the following examples, which is the \latex3 command for the \tex's \cmd{catcode}. Remember the |:D| stands for do not use!
+
+\begin{teX}
+\tex_catcode:D}
+\end{teX}
+
+To define the space token |\space|
+
+\begin{teX}
+\token_new:Nn \__space{~}
+\texttt{This is no spaces}
+\texttt{This\__space is\__space with\__space spaces} 
+\end{teX}
+
+
+\ExplSyntaxOn
+\token_new:Nn \__space{~}
+
+\texttt{This is no spaces}\\
+\texttt{This\__space is\__space with\__space spaces}\\ 
+
+\ExplSyntaxOff
+
+\parindent=0.5em
+
+Although, these are not difficult concepts, it takes a while to get used to them. Syntax gave me a bit of trouble first, but eventually I managed to get used to it. So we give quite a number of different examples below:
+
+
+\begin{teX}
+\cs_set_eq:NwN \c_minus_one\m@ne
+\texttt{\tex_the:D\c_minus_One}
+\end{teX}
+
+\makeatletter
+\ExplSyntaxOn
+\cs_set_eq:NwN \c_minus_One\m@ne 
+\texttt{\tex_the:D\c_minus_One}
+\ExplSyntaxOff
+\makeatother
+
+
+
+
+
+
+
+\section{Calculations and floating variables}
+The |l3fp| package, modeled after the \cmd{fp} package can be used for calculations that use \index{floating point numbers} floating point numbers.
+
+
+ A floating point number is one which is stored as a mantissa and
+ a separate exponent. This module implements arithmetic using radix 
+ \( 10 \) floating point numbers. This means that the mantissa should
+ be a real number in the range \( 1 \le \string| x \string| < 10 \), 
+ with the 
+ exponent given as an integer between \( -99 \) and \( 99 \). In the
+ input, the exponent part is represented starting with an \texttt{e}.
+ As this is a low-level module, error-checking is minimal and you should build your own checking routines for this. 
+
+Numbers 
+ which are too large for the floating point unit to handle will result
+ in errors, either from \TeX\ or from \LaTeX. The \LaTeX\ code does not 
+ check that the input will not overflow, hence the possibility of a 
+ \TeX\ error. On the other hand, numbers which are too small will be 
+ dropped, which will mean that extra decimal digits will simply be 
+ lost.
+
+
+We will first have a look at an example: 
+
+\begin{teX}
+\ExplSyntaxOn
+\newcommand*\sampleCalculation{%
+  \fp_new:N  \mynumber (*@\label{fpnew} @*)
+  \fp_set:Nn \mynumber{150}
+  \fp_sub:Nn \mynumber{5}
+  \fp_add:Nn \mynumber{-1}
+  \fp_div:Nn \mynumber{12}
+  \fp_mul:Nn \mynumber{0.0001}
+  \fp_sub:Nn \mynumber{-38}
+  \fp_abs:N  \mynumber
+  \fp_neg:N  \mynumber
+  \fp_sin:Nn  \mynumber{1.57}
+  \fp_use:N  \mynumber% 
+ }
+\ExplSyntaxOff
+\sampleCalculation
+\end{teX}
+
+
+
+As you can observe \latex3 offers numerous methods for addition, subtraction, multiplication and the trigonometric functions.
+
+In line [\ref{fpnew}] we have used the \pmac{l3fp}{fp\textunderscore new} method to define a new variable, named |\mynumber|. We then went on, setting the variable to the value of 150 and so on. The function \pmac{l3fp}{fp\textunderscore use}, simply typesets the number. You can also just use |\mynumber|.
+
+
+\ExplSyntaxOn
+
+% aliases 
+
+\newcommand*\sampleCalculation{%
+  \fp_new:N  \mynumber
+  \fp_set:Nn \mynumber{150}
+  \fp_sub:Nn \mynumber{5}
+  \fp_add:Nn \mynumber{-1}
+  \fp_div:Nn \mynumber{12}
+  \fp_mul:Nn \mynumber{0.0001}
+  \fp_sub:Nn \mynumber{-38}
+  \fp_abs:N  \mynumber
+  \fp_neg:N  \mynumber
+  \fp_sin:Nn  \mynumber{1.57}
+  \fp_use:N  \mynumber% 
+ }
+
+\let\real\fp_new:N
+\let\realset\fp_set:Nn
+\let\realadd\fp_add:Nn
+\let\realsub\fp_sub:Nn
+\let\realdiv\fp_div:Nn
+\let\realmul\fp_mul:Nn
+
+
+
+\newcommand\sampleCalculations{%
+  \real    \ZE
+  \realset \ZE{150}
+  \realsub \ZE{5}
+  \realadd \ZE{-1}
+  \realdiv \ZE{12}
+  \realmul \ZE{0.0001}
+  \ZE
+}
+
+
+\ExplSyntaxOff
+
+
+
+\sampleCalculations
+
+Anyone with experience of programming floating point calculations will know that this is a complex area. The authors of the unit note that the unit aims to be accurate enough for the likely applications in a typesetting context and it provides ten digit accuracy with the last digit accurate to \( \pm 1 \).
+The elemental transcendental functions may not provide such high accuracy in every case, although the design aim has been to provide 10 digit accuracy for cases likely to be relevant in typesetting situations.
+
+The unit currently lacks functions such as |log|, |ln| and |pow| making it difficult for example to replicate our examples using the |fp| package in normal \latex. One could write this functions or assist to provide them.
+
+\subsection{Constants}
+
+Constants are defined using the following convention:
+
+\begin{teX}
+ \int_new:N \c_forty_two
+ \int_set:Nn \c_forty_two{ 42 }
+
+ \c_forty_two
+\end{teX}
+
+\ExplSyntaxOn
+\int_new:N  \c_forty_two
+\int_set:Nn \c_forty_two{42}
+\ExplSyntaxOff
+
+There are some built-in constants such as infinity, which is basicaly a marker indicating |NaN| with the value shown below.
+
+\parindent=0pt
+%
+%\ExplSyntaxOn
+%
+%\texttt{\c_infinity_fp}\\ 
+%\texttt{c_undefined_fp}\\
+%\texttt{\c_pi_fp}\\
+%\ExplSyntaxOff
+
+I am not sure, why the LateX3 Team decided to use numbers for these and not define a \texttt{NaN} like in other languages and an |infty|.
+
+
+\begin{teXXX}
+\ExplSyntaxOn
+\fp_new:N \mynumber
+\fp_new:N \pi_half
+\fp_div:Nn \pi_half{\c_pi_fp/2}
+\fp_tan:Nn  \mynumber{\pi_half}
+\texttt{\mynumber}
+\ExplSyntaxOff
+\end{teXXX}
+
+%\ExplSyntaxOn
+%  \fp_new:N \mynumber
+%  \fp_new:N \pi_half
+%  \fp_div:Nn \pi_half{\c_pi_fp/2}
+%  \fp_tan:Nn  \mynumber{\pi_half}
+%  \texttt{\mynumber}\\
+%
+%  \fp_if_infinity:NTF \c_infinity_fp {NaN}{Do~something~with~\number}\\
+%
+%\ExplSyntaxOff
+
+
+So far so good, now we have some variables and calculations that can come to as close to a real as possible.
+
+
+\section{Integers}
+This module provides numerous functions for defining and manipulating integers.
+
+\ExplSyntaxOn
+\int_from_hexadecimal:n {AABB11}\\
+\int_from_binary:n {0101010101}\\
+\int_eval:n{5+10+25-(3*5)/2}
+\ExplSyntaxOff
+
+To evaluate an expression (using \etex) \pmac{l3int}{int\textunderscore eval}
+can be used:
+
+\begin{teX}
+\int_eval:n{5+10+25-(3*5)/2}
+\end{teX}
+
+\topline
+\ExplSyntaxOn
+Result \texttt{$>$~~\int_eval:n{5+10+25-(3*5)/2}}
+\ExplSyntaxOff
+\bottomline
+
+
+

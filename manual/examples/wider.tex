@@ -1,0 +1,46 @@
+\documentclass[11pt]{article} 
+
+\usepackage{lipsum}
+
+\begin{document}
+
+\parindent=1em
+
+%
+%\lipsum[1]
+%
+%\narrower
+%
+%\lipsum[2]
+%
+%\narrower\narrower
+%\lipsum[1]
+
+\def\wider{%
+ \advance\leftskip by -\parindent
+ \advance\rightskip by -\parindent}
+
+\wider\lipsum[1]
+
+\wider\lipsum[1]
+
+
+\wider\lipsum[1]
+
+\narrower\narrower\narrower\lipsum[1]
+
+\wider\wider\wider\lipsum[1]
+
+\def\leveli{\leftskip1em}
+\def\levelii{\leftskip2em}
+\def\leveliii{\multiply\leftskip by 13 }
+\def\leveliii{\leftskip4em}
+
+\levelii\lipsum[1]
+\leveliii\lipsum[1]
+
+\the\leftskip
+
+
+\leveliii Defining $x^{1000}$ as the coefficient of performance
+\end{document}

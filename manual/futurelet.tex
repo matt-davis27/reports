@@ -1,0 +1,347 @@
+\chapter{FUTURELET}
+\index{Primitives! futurelet}
+So far we have seen the assignment primitive |\let|. A second assignment operation provided by \tex is |\futurelet|.
+While scanning text ist is sometimes useful to be able to determine the token that lies ahead. \tex provides a the  \cmd{futurelet} primitive for this purpose. The instruction allows the user to \textit{look ahead}. By look ahead we mean that \tex will look at a future token without absorbing it, \ie without removing that token from the token list. This operation allows the programmer to perform a test to check what token is 'coming'. You can read a couple of articles about it for example \cite{Eijkhout2001}, but generally they are difficult to follow. The information about the command is also very sparse in the TeXBook. One good place to check is \cite{Clark2002} 
+
+The token looked at through
+|\futurelet| will be removed later, typically as part
+of an argument of a later macro call as we will see
+shortly. It is not removed by the action of the
+|\futurelet| primitive.
+
+Let us be more precise now; the |\futurelet|
+instruction has the following format:
+
+
+\begin{Code}
+\futurelet (token 1) (token 2) (token 3)
+\end{Code}
+
+
+
+
+\begin{enumerate}
+\item  \tex will execute a |\let (tokenl) = (token3)|.
+We therefore have generated a copy of (token3)
+stored under the name of (tokenl).
+
+
+\item  removes (tokenl) from the main token list.
+
+\item \tex expands (token2). This token is for all
+practical purposes a macro with the following
+properties:
+
+\begin{enumerate}[a)]
+\item The macro will use (tokenl), which is a
+copy of (token3), to find out what (token3)
+is, in other words what token is to be
+expected later.
+\item It will cause another macro to be expanded
+which will ultimately absorb (token3).
+\end{enumerate}
+
+This other macro ordinarily depends on
+what $<token_l>$ is.
+
+\end{enumerate}
+
+Typically when we use |\futurelet|, we use it with a macro that takes one argument and removes the token from the stream. \latex has a macro called |\@gobble| that does this. The definition of such a character eating macro is fairly straightforward. What we do we define a macro with one argument, that does nothing with it. We call this macro |\grabacharacter|.
+\smallskip
+\begin{Code}
+\def\grabacharacter#1{}
+\end{Code}
+\def\grabacharacter#1{}
+\smallskip
+We are now ready to experiment with |\futurelet|. We define a macro |\checknextcharacter|, that will take one argument, representing a string of character and check, if the first character is a left square bracket "[".
+Although in this simple case, we could achieve what we want without the use of |\futurelet|, we will use the command to demonstrate its use.
+\medskip
+\begin{Code}
+\def\checknextcharacter#1{\futurelet\nextchar\grabacharacter#1}
+\end{Code}
+\def\checknextcharacter#1{\futurelet\nextchar\grabacharacter#1}
+
+\medskip
+
+If we now, call the macro the parameter |\checknextcharacter{[}|, the |\futurelet| does an assignment operation,
+letting the |\nextchar| to the left square baracket. |\let\nextchar[|. Notice that it is not necessary to predefine the |\nextchar| macro. This will be defined automatically by \tex during the assignment operation. 
+
+\checknextcharacter[
+
+\if\nextchar[%  
+     \noindent next token: [\\
+     character code number: \number`[\\ 
+     catcode: \the\catcode`[ \\
+\else Not a [ \\
+\fi
+
+If you try the macro again, but this time leaving a few spaces before the bracket \verb*+\checknextcharacter   [+, you will see that \tex ignores the space characters, while scanning the |\futurelet| operation. This makes it a bit difficult to check, if the next character is a space, but we will see how to achieve this a bit later on.
+
+In the \latex kernel, it is customary to use scatch macros, than keep defining new ones. we could have written the above macro, much more quickly and efficiently, as follows:
+\medskip
+
+\begin{Code}
+\makeatletter
+\def\@tempa#1{\futurelet\@tempb\@gobble#1}
+\@tempa[
+\if\nextchar[%  
+     \noindent next token: [\\
+     character code number: \number`[\\ 
+     catcode: \the\catcode`[ \\
+\else Not a [ \\
+\fi
+\makeatother
+\end{Code}
+\medskip
+
+This will obscure the code a bit, but one gets used to it with time. 
+
+\TODO add scanning macro with futurelet
+
+
+
+\subsection{Applications of futurelet}
+
+There are many applications of |\futurelet|. We
+will here present only one example, although
+we will present it in quite some detail so the user
+will know how to apply |\futurelet| in different
+circumstances.
+
+
+A typical application of |\futurelet| is the handling
+of macros with optional arguments\cite{Becht1988} as they are used,
+for instance, in \latex. By "optional argument" we
+mean an argument which in most cases is omitted,
+and is provided only occasionally in macro calls.\sidenote{See also the discussion at \url{http://tex.stackexchange.com/questions/4557/how-to-use-futurelet-to-define-optional-parameters}}
+
+
+
+\textbf{Defining the Problem}
+
+Let us give a specific example: we would like to
+define a macro \cmd{xx}, which can be called in two
+different ways:
+
+\begin{enumerate}
+\item With optional argument as in |\xx [opt]{arg}|
+where opt is the optional argument enclosed
+in square brackets and arg is the regular
+argument.
+
+\item Without optional argument as in |\xx{arg}|
+where arg is again the regular argument
+
+\end{enumerate}
+
+
+Before we discuss how this can be done in \tex,
+observe that we do not really have to use an
+optional argument. We could simply define two
+different macros \cmd{xxWithOpt} for the case where an
+optional argument is given, and \cmd{xxNoOpt} for the
+case where no optional argument is given:
+
+
+\begin{teX}
+
+\def\xxWithOpt [#1]#2{...}
+\def\xxNoOpt #1{...}
+\end{teX}
+
+
+\def\xxWithOpt (#1)#2{\fbox{#2}}
+
+\xxWithOpt (box){Testing}
+
+
+How we can use |\futurelet| to find out
+whether an optional argument was given or not?
+
+We will define a macro |\xx| whose only function is
+to check whether there is an opening square bracket
+(optional argument is present) or not (no optional
+argument). The |\xx| macro will, after this has been
+determined, cause the |\xxWithOpt| macro to be invoked
+when there is an optional argument, and the
+|\xxNoOpt| macro to be called if there is no opening
+bracket. In other words the macros |\xxWithOpt|
+and |\xxNoOpt| do the "real work while the only
+purpose of the |\xx| macro is to decide which of the
+two macros should be invoked.
+
+
+Here is the completely worked out example.
+
+
+\begin{teX}
+\def \xxWithOpt [#1] #2{...}
+\def\xxNoOpt #2{...}
+
+\def\xx {%
+\futurelet\xxLookedAtToken
+    \xxDecide
+}
+
+% (3) The \xxDecide macro, based on
+% the lookahead of \xx, calls
+% either \xxWithOpt or \xxNoOpt .
+\def\xxDecide {%
+ \ifx\xxLookedAtToken [%
+\let\next = \xxWithOpt
+\else
+ \let\next = \xxNoOpt
+ \fi
+\next
+}
+\end{teX}
+
+
+\begin{teX}
+\def\elidebefore[#1]#2{[$\ldots$] #2}
+\def\elideafter#1{#1$\ldots$}
+
+\def\elide {%
+\futurelet\ifoptions
+    \choosemacro
+}
+
+\elide{Lorem Ipsum}
+
+\elide[b]{Lorem ipsum}
+\end{teX}
+
+
+% The \choosemacro, based on
+% the lookahead of \elide, calls
+% either \elidebefore or \elideafter 
+
+
+\def\choosemacro{%
+ \ifx\ifoptions [%
+     \let\choice = \elidebefore 
+ \else
+    \let\choice = \elideafter
+ \fi
+\choice
+}
+
+%Testing \elide[b]{Lorem ipsum}
+
+\begin{teX}
+\elide{Lorem Ipsum}
+
+\elide[b]{Lorem ipsum}
+
+\end{teX}
+
+\begin{teX}
+\def \xxWithOpt [#1] #2{...}
+\def\xxNoOpt #2{...}
+
+\def\xx {%
+\futurelet\xxLookedAtToken
+    \xxDecide
+}
+
+% (3) The \xxDecide macro, based on
+% the lookahead of \xx, calls
+% either \xxWithOpt or \xxNoOpt .
+\def\xxDecide {%
+ \ifx\xxLookedAtToken [%
+\let\next = \xxWithOpt
+\else
+ \let\next = \xxNoOpt
+ \fi
+\next
+}
+\end{teX}
+
+
+
+\def\elidebefore[#1]#2{[$\ldots$] #2}
+\def\elideafter#1{#1$\ldots$}
+
+\def\elide {%
+\futurelet\ifoptions
+    \choosemacro
+}
+
+% The \choosemacro, based on
+% the lookahead of \elide, calls
+% either \elidebefore or \elideafter 
+
+
+\def\choosemacro{%
+ \ifx\ifoptions [%
+     \let\choice = \elidebefore 
+ \else
+    \let\choice = \elideafter
+ \fi
+\choice
+}
+
+Testing \elide[b]{Lorem ipsum}
+
+\elide{Lorem Ipsum}
+
+\elide[b]{Lorem ipsum}
+
+
+
+
+\section{Using LaTeX @ifnextchar}
+
+\latex defines the |\@ifnextchar| kernel command that is used effectively to
+determine the token that follows the command. It is used in the definitions
+of macros with optional arguments amongst other things. The kernel also defines 
+a |\kernel@ifnextchar|, for the sole purpose of preventing a clash with the AMS variant.
+
+This is simply a let operation:
+\smallskip
+\begin{Code}
+258 \let\kernel@ifnextchar\@ifnextchar
+\end{Code}
+\smallskip
+
+We can now experiment with the kernel variants, which are much easier than using |\futurelet| directly.
+\medskip
+
+\begin{Code}
+\@ifnextchar]{true}{false}] 
+\@ifnextchar[{true}{false}[
+\end{Code}
+\medskip
+
+
+Another common definition in \latex which indirectly uses the |\futurelet| primitive is the |\@ifstar| primitive.
+This macro checks to see, if what follows is a star. This is used to define the star versions of commands.
+
+\smallskip
+\begin{Code}
+\def\@ifstar#1{\@ifnextchar *{\@firstoftwo{#1}}}
+\end{Code}
+\smallskip
+
+The result would both be true. More details of usage, can be found in the latex kernel chapter. There are many more uses, including the automatic detection of cases where italic correction has to be applied.
+
+To summarize, |\futurelet| can be used to look-ahead for tokens. It does a let operation where it assigns the first argument to the third. The second one is normally a macro that grabs the token and operates on it. The most common use for it, is to create commands with optional arguments.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

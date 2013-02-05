@@ -1,0 +1,92 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+
+%%% Examples of Article customizations
+% These packages are optional, depending whether you want the features they provide.
+% See the LaTeX Companion or other references for full information.
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+% \geometry{margins=2in} % for example, change the margins to 2 inches all round
+% \geometry{landscape} % set up the page for landscape
+%   read geometry.pdf for detailed page layout information
+
+\usepackage{graphicx} % support the \includegraphics command and options
+
+% \usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
+
+%%% PACKAGES
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+% These packages are all incorporated in the memoir class to one degree or another...
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+
+\usepackage{qtree}
+%%% END Article customizations
+
+%%% The "real" document content comes below...
+
+\title{Brief Article}
+\author{The Author}
+%\date{} % Activate to display a given date or no date (if empty),
+         % otherwise the current date is printed 
+
+\begin{document}
+\maketitle
+
+\section{First section}
+While I'd normally second Will Robertson's comment, since TikZ is fantastic and worth learning, I think TikZ's overkill for this situation. I personally find its tree specification syntax bulkier than necessary. My preferred tool for the job is the qtree package (which is on CTAN, too, and is apparently included in both TeX Live and MikTeX). The package is really simple to use. Consider the following TeX:
+
+\Tree[.IP [.Yiannis [.Det \textit{the} ]
+               [.N\1 [.N \textit{package} ]]]
+          [.I\1 [.I \textsc{3sg.Pres} ]
+                [.VP [.V\1 [.V \textit{is} ]
+                           [.AP [.Deg \textit{really} ]
+                                [.A\1 [.A \textit{simple} ]
+                                      \qroof{\textit{to use}}.CP ]]]]]]
+
+
+
+
+http://tex.stackexchange.com/questions/5447/how-can-i-draw-simple-trees-in-latex
+
+\end{document}
+That's all it takes! And what's great about it is that the TeX description reads like the tree. I can glance at the TeX, and I instantly know what the created tree is going to look like. The basic syntax is simply [.node-name subtrees... ]; qroof, which draws the triangle, requires its node name at the end, instead. The \1 is just a shortcut for a math-mode prime. In addition, qtree will always render _ and ^ as sub- and super-scripts, too. (Unless you turn this off.)
+
+In general, you can provide node names at the beginning ([.+ 1 [.* 2 3 ]]) or the end ([ 1 [ 2 3 ].* ].+); you can even provide node names in both places, but then they must match (unsurprisingly). This, incidentally, is why \qroof takes its node name the way it does. You can even leave the node name off entirely to get a node with a smooth join. If any of this is unclear, check out the manual.
+
+Now, qtree as-is has one downside, which is that it is designed for simple trees. It does offer limited support for changing inter-node spacing, framing parts of trees, and things like that, but it's not capable of doing anything incredibly fancy. But luckily, if you want that, you can still get it: enter tikz-qtree. This package allows you to leverage the full power of TikZ to draw your trees. The two obvious features are: (a) instead of text, the labels in a tree can be arbitrary \nodes; and (b) you can redefine how it draws the edges to get arrows, dashed lines, curving edges, and so on. But it's more powerful than just this: if you embed a \Tree into a TikZ picture, you can do whatever you want with the nodes, such as circle them, draw arrows between them for a transformation, etc.
+
+Maybe you don't need this power now, but the take-home message is that using qtree won't lock you in to the simple trees. If you decide that you want the more powerful trees, all you need to do is change one import; everything will keep working the way it did, but you get more power, too. I'm not sure if tikz-qtree this actually uses qtree under the hood or not, but either way, all the syntax for qtree still works, and the output is identical, at least as far as I can tell.
+
+
+
+\end{document}

@@ -1,0 +1,30 @@
+
+
+\documentclass{article}
+ \usepackage{soul,xcolor}
+\usepackage{graphics}
+ \begin{document}
+ \hl{highlight} text
+\LARGE
+ \makeatletter
+
+ \def\SOUL@ulleaders{%
+     \leaders\hbox{%
+      \textcolor{green}{\rule{2pt}{3.5ex}}%
+      }\relax
+ }
+
+ \def\SOUL@uleveryspace#1{%
+     \SOUL@ulcolor{%
+         #1%
+         \leaders\hrule\@depth 0pt\@height\SOUL@ulht
+         \hskip\spaceskip
+     }%
+     \null
+ }
+
+ \scalebox{3}{\strut\hl{highlight text}}
+
+ \LARGE\ul{\Large test}
+ \end{document}
+

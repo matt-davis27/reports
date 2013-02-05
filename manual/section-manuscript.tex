@@ -1,0 +1,47 @@
+\documentclass{tufte-book}
+%\usepackage[paperwidth=4.75in,paperheight=7.25in,
+%            textwidth=4.2in,textheight=6.5in,
+%            headsep=0.1in, footskip=0.15in,
+%            marginratio=1:1]{geometry}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\begin{document}
+\chapter{Introduction}
+There is an unusual package named the \texttt{manuscript} that can emulate typewritten text. The author
+\sidenote{ Mat\v{e}j Cepl}  describes its purpose:
+\begin{quotation}
+Purpose of this package is to emulate appearance of the
+ document written on classical typewriter as much as possible.
+ So far, whenever backward requirement of some institutions 
+ (especially universities) to provide paper or thesis in the 
+ layout developed in times before personal computers emerges on 
+ any TeX-related public forum, it is met with strong (and 
+ sometimes even angry) resistance and many advises how to 
+ overcome resistance of the institution. I totally agree with 
+ the basic premise of this attempt (of course, \TeX\ was created 
+ for making ``masterpieces of typography'').
+\end{quotation}
+
+\begin{figure}[h]
+\includegraphics[width=8cm]{../graphics/manuscript}
+\end{figure}
+
+
+What makes this very interesting is that this is not easily achieved in LaTeX, which goes out of its
+way to provide typographically good looking results.
+
+To use it, you simply include the package:
+
+\begin{verbatim}
+\documentclass{book}
+\usepackage{manuscript}
+\begin{document}
+\chapter{Introduction}
+\lipsum[1-5]
+\end{document}
+\end{verbatim}
+
+
+The package code is about 65 lines long and is very concise and clear. It can give you a lot of pointers how to play
+with fonts.
+\end{document}

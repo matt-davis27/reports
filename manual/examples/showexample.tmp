@@ -1,0 +1,6 @@
+     \documentclass{tufte-book}
+     \begin{document}
+     \section{Section 1}
+        Text for section 1
+
+     \end{document}

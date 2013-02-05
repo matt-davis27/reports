@@ -1,0 +1,72 @@
+\documentclass{article}
+\usepackage{expl3}
+%\usepackage{l3fp}
+\usepackage{fp}
+\usepackage{amsmath}
+\begin{document}
+I am exploring some of the LaTeX3 routines and syntax.
+How do I get to use functions such as sin etc. I get
+an error with the following:
+
+\ExplSyntaxOn
+\newcommand*\sampleCalculation{%
+  \fp_new:N  \mynumber
+  \fp_set:Nn \mynumber{150}
+  \fp_sub:Nn \mynumber{5}
+  \fp_add:Nn \mynumber{-1}
+  \fp_div:Nn \mynumber{12}
+  \fp_mul:Nn \mynumber{0.0001}
+  \fp_sub:Nn \mynumber{-38}
+  \fp_abs:N  \mynumber
+  \fp_neg:N  \mynumber
+  \fp_sin:Nn \mynumber{0.5}
+  \fp_use:N  \mynumber 
+ }
+% aliases 
+\let\real\fp_new:N
+\let\realset\fp_set:Nn
+\let\realadd\fp_add:Nn
+\let\realsub\fp_sub:Nn
+\let\realdiv\fp_div:Nn
+\let\realmul\fp_mul:Nn
+
+
+\newcommand\sampleCalculations{%
+  \real    \Z
+  \realset \Z{150}
+  \realsub \Z{5}
+  \realadd \Z{-1}
+  \realdiv \Z{12}
+  \realmul \Z{0.0001}
+  \Z
+}
+
+\newcommand\sampleSin{
+\fp_new:N  \myfp
+\fp_set:Nn \myfp{0}
+\fp_sin:Nn \myfp{3.14}%
+\myfp
+}
+
+\fp_new:N  \trigonometry{
+ \fp_new:N \testa
+ \fp_new:N \testb
+ \fp_new:N \testc
+ \fp_cos:Nn \testa{3.1416}
+ \texttt{Trigonometry \space \testa}\\
+ \FPcos\testb{3.1416}
+ \texttt{Trigonometry \space \testb}\\
+ \FPadd\testc{\testb}{+0.9999999999}
+ \texttt{Trigonometry \space \testc}\\
+}
+
+
+
+\ExplSyntaxOff
+
+New calculation
+\sampleCalculation
+
+\trigonometry
+
+\end{document}

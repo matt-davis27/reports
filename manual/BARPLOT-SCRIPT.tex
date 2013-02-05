@@ -1,0 +1,143 @@
+\documentclass[12pt]{tufte-book}
+\usepackage{tikz,lipsum}
+\usetikzlibrary{patterns}
+\usepackage{pgfplots}
+\makeatletter
+\newcommand\progressChart[8]{
+  \def\week##1##2{
+    \footnotesize
+    \begin{tabular}{c}##1\\
+        ##2\\\end{tabular}
+  }
+\begin{tikzpicture}     
+  \begin{axis}[
+      width=6.9cm,height=5cm,
+      bar width=0.3cm,
+      title={\ctitle},
+      ymin=0,
+     % ytick={0,25,50,100,125},
+      ylabel=Total,
+      ybar=0,symbolic x coords={A, B, C, D}, 
+      xtick=data,
+      xticklabels={
+         \week{\Month}{week-1},
+         \week{\Month}{week-2}, 
+         \week{\Month}{week-3},
+         \week{\Month}{week-4}
+      },enlarge x limits=true,
+    legend style={
+            at={(.43,.98)}, font=\footnotesize }], 
+    \addplot[draw=none, fill=gray] coordinates { 
+      (A,#1) 
+      (B,#2) 
+      (C,#3) 
+      (D,#4)
+     }; 
+    \addplot[draw=none,fill=orange!90] coordinates { 
+      (A,#5)
+      (B,#6) 
+      (C,#7) 
+      (D,#8)
+      }; 
+  \legend{Planned, Actual} 
+  \end{axis}   
+\end{tikzpicture}}
+
+\newenvironment{monthlyChart}{%
+  \def\addMonth##1{\def\Month{##1}}
+  \def\addTitle##1{\def\ctitle{\small\textbf{##1}}}
+  \def\addPlanned##1##2##3##4{%
+  \def\one{##1}\def\two{##2}\def\three{##3}\def\four{##4}}
+  \def\addActual##1##2##3##4{%
+    \progressChart{\one}{\two}{\three}{\four}{##1}{##2}{##3}{##4}
+   }% 
+  \parindent0pt}{}
+\makeatother
+\begin{document}
+
+
+\begin{monthlyChart}
+  \addTitle{AHU (October)}
+  \addMonth{Oct-11}
+  \addPlanned{10}{20}{30}{40}
+  \addActual {9}{18}{31}{39}
+\end{monthlyChart}
+\begin{monthlyChart}
+  \addTitle{AHU (November)}
+  \addMonth{Nov-11}
+  \addPlanned{30}{40}{50}{60}
+  \addActual {30}{40}{60}{60}
+\end{monthlyChart}
+\begin{monthlyChart}
+  \addTitle{AHU (December)}
+  \addMonth{Dec-11}
+  \addPlanned{30}{40}{50}{60}
+  \addActual {30}{50}{58}{70}
+\end{monthlyChart}
+\begin{monthlyChart}
+  \addTitle{AHU (January)}
+  \addMonth{Jan-11}
+  \addPlanned{30}{40}{50}{60}
+  \addActual {30}{40}{50}{113}
+\end{monthlyChart}
+
+\section{Testing}
+
+\lipsum[1-3]
+
+\begin{figure*}[t]
+\centering
+{\large{Commissioning of Air Handling Units}}
+\medskip
+
+\begin{monthlyChart}
+  \addTitle{Turnover $\times 10^3$}
+  \addMonth{Jan-11}
+  \addPlanned{300}{400}{500}{600}
+  \addActual {300}{400}{500}{600}
+\end{monthlyChart}
+\begin{monthlyChart}
+  \addTitle{Turnover $\times 10^3$}
+  \addMonth{Jan-11}
+  \addPlanned{300}{400}{500}{600}
+  \addActual {300}{400}{500}{600}
+\end{monthlyChart}
+\begin{monthlyChart}
+  \addTitle{Turnover $\times 10^3$}
+  \addMonth{Jan-11}
+  \addPlanned{300}{400}{500}{600}
+  \addActual {}{}{}{}
+\end{monthlyChart}
+\begin{monthlyChart}
+  \addTitle{Turnover $\times 10^3$}
+  \addMonth{Jan-11}
+  \addPlanned{300}{400}{500}{600}
+  \addActual {}{}{}{}
+\end{monthlyChart}
+\caption{Four month projection for completion of commissioning of fan-coil units}
+\end{figure*}
+
+
+
+
+
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,66 @@
+\documentclass{article}
+\usepackage{multirow}
+\usepackage[english]{babel}
+\usepackage{booktabs}
+\usepackage{array}
+\begin{document}
+\begin{table}[H]
+\centering
+\begin{tabular}{ p{2.75cm} p{2cm} p{2.75cm} p{4cm} }
+\toprule
+Acceptability &Numeric Rating & General Rating & Improvement Implication\\ \hline
+\multirow{3}{2.75cm}{Acceptable and Satisfactory} & 10 & Excellent & No obvious room for improvement \\
+ & 9 & Very Good & Minor improvement possible, but not required \\
+ & 8 & Good & Some improvement possible, but not required \\ \hline
+\multirow{3}{2.75cm}{Acceptable but Unsatisfactory} & 7 & Fair & Limited Improvement requested \\
+ & 6 & Somewhat Poor & Significant improvement requested \\
+ & 5 & Poor & Major improvement requested \\ \hline
+\multirow{4}{2.75cm}{Unacceptable} & 4 & Very Poor & Some improvement mandatory \\
+ & 3 & Bad & Significant improvement mandatory \\
+ & 2 & Very Bad & Major improvement mandatory \\
+ & 1 & Extremely Bad & Extensive improvement or major design changes are mandatory\\ \hline
+ & 0 & \multicolumn{2}{l}{Can't answer question, e.g., don't remember} \\
+\bottomrule
+\end{tabular}
+\caption[General Rating Scale]{General Rating Scale}
+\label{tab:genRating}
+\end{table}
+
+\bigskip
+\begin{table}[H]
+\centering
+\begin{tabular}{ p{2.75cm}>{\centering\arraybackslash}p{2cm} p{2.75cm} p{3cm} }
+\toprule
+Acceptability &Numeric Rating & General Rating & Improvement Implication\\ \hline
+\multirow{3}{2.75cm}{Acceptable and Satisfactory} & 10 & Excellent & No obvious room for improvement \\
+ & 9 & Very Good & Minor improvement possible, but not required \\
+ & 8 & Good & Some improvement possible, but not required \\ \hline
+\multirow{3}{2.75cm}{Acceptable but Unsatisfactory} & 7 & Fair & Limited Improvement requested \\
+ & 6 & Somewhat Poor & Significant improvement requested \\
+ & 5 & Poor & Major improvement requested \\ \hline
+\multirow{4}{2.75cm}{Unacceptable} & 4 & Very Poor & Some improvement mandatory \\
+ & 3 & Bad & Significant improvement mandatory \\
+ & 2 & Very Bad & Major improvement mandatory \\
+ & 1 & Extremely Bad & Extensive improvement or major design changes are mandatory\\ \hline
+ & 0 & \multicolumn{2}{l}{Can't answer question, e.g., don't remember} \\
+\bottomrule
+\end{tabular}
+\caption[General Rating Scale]{General Rating Scale}
+\label{tab:genRating}
+\end{table}
+Load the array package, it provides a shortcut > for inserting commands into the column definition, this way you could insert \centering:
+
+\begin{verbatim}
+\usepackage{array}
+\begin{tabular}{ p{2.75cm}>{\centering\arraybackslash}p{2.75cm} p{2.75cm} p{7cm} }
+...
+\arraybackslash is a small helper macro which restores the meaning of \\ as \tabularnewline which might otherwise be destroyed by \centering.
+
+
+
+http://tex.stackexchange.com/questions/5648/table-column-justification-when-using-the-p-attribute
+
+\end{verbatim}
+
+\end{document}
+

@@ -1,0 +1,142 @@
+\chapter{Pattern matching}
+
+\tex's pattern matching is quite powerful\sidenote{Alan Jeffrey, howto pattern matching tugboat}, bu tis quite infuriating. It allows you to pattern-match against an arbitrary string, but when it fails, it can do nothing but produce an error message. For example if you say:
+
+\begin{teX}
+\def\foo(#1,#2){message{(#1 and #2)}}
+\foo(a,b) \foo(c) \par
+\end{teX}
+
+\noindent Then you will get a message (a and b) but you will then get an error message telling you about a |Runaway argument|. It would be nice if you could use \tex's pattern-matching ability, but provide more than one pattern, and have \tex use the latest definition that matches. Alan Jeffrey wrote such a macro and we deascribe it here with minor modifications.
+
+\begin{teX}
+\howto\oneof(#2){#2}
+\howto\oneof(){}
+\howto\oneof(#2,#3){#2 \vee \oneof(#3)}
+$$ \oneof(a,b,c,d)$$
+\end{teX}
+
+\noindent and get the result
+
+$$\alpha\vee\beta\vee\gamma\vee\delta$$
+
+This has been adapted very cleverly adapted by Michael Mehlich in the \cmd{fp} package for use with square brackets. This is shown below.
+
+
+\begin{teX}
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{defpattern}[1994/10/12]
+
+\message{%
+  `\string\defpattern-macro (adapted from 
+   \string\howto\space (A. Jeffrey: TeX and TUG NEWS 2(2)))'%
+}
+
+%define a macro \defpattern for defining ML-like 
+%pattern matching macros
+%adapted from the \howto-macro from tugboat
+
+\def\xcs#1#2{\expandafter#1\csname#2\endcsname}
+\newcount\actioncount
+\def\defpattern#1[#2]#3{%
+  \xcs\ifx{\expandafter\gobble\string#1}\relax%
+  \def#1{\erroraction#1}\fi%
+  \advance\actioncount by 1\relax%
+  \expandafter\defaction\expandafter{#1}{#3}{#2}%
+  \def\temp##1##2##3##4##5##6##7##8##9{\def\temp{[#2]}}%
+  \temp\empty\empty\empty\empty\empty\empty\empty\empty\empty%
+  \edef#1{\noexpand\doaction\xcs\noexpand%
+    {action-\the\actioncount}\temp}}
+\def\defaction#1#2#3{%
+  \xcs\def{action-\the\actioncount}##1[#3]{\applyto{#1}{#2}}}
+\def\gobble#1{}
+\def\applyto#1#2#3{#3{#1}{#2}}
+\def\doaction#1[#2][#3]{#1[#3]\success[#2]\failure[#3]}
+\def\success#1#2[#3]\failure[#4]{#2}
+\def\failure#1#2{#1}
+\def\erroraction#1[#2]{%
+   \errmessage{I don't know how to \string#1[#2]}}
+\end{teX}
+
+
+\def\xcs#1#2{\expandafter#1\csname#2\endcsname}
+\newcount\actioncount
+\def\defpattern#1[#2]#3{%
+  \xcs\ifx{\expandafter\gobble\string#1}\relax%
+  \def#1{\erroraction#1}\fi%
+  \advance\actioncount by 1\relax%
+  \expandafter\defaction\expandafter{#1}{#3}{#2}%
+  \def\temp##1##2##3##4##5##6##7##8##9{\def\temp{[#2]}}%
+  \temp\empty\empty\empty\empty\empty\empty\empty\empty\empty%
+  \edef#1{\noexpand\doaction\xcs\noexpand%
+    {action-\the\actioncount}\temp}}
+\def\defaction#1#2#3{%
+  \xcs\def{action-\the\actioncount}##1[#3]{\applyto{#1}{#2}}}
+\def\gobble#1{}
+\def\applyto#1#2#3{#3{#1}{#2}}
+\def\doaction#1[#2][#3]{#1[#3]\success[#2]\failure[#3]}
+\def\success#1#2[#3]\failure[#4]{#2}
+\def\failure#1#2{#1}
+\def\erroraction#1[#2]{%
+   \errmessage{I don't know how to \string#1[#2]}}
+
+
+%\def\oneof{}
+
+\noindent Trying it out, by defining a |\foo|:
+
+\begin{teX}
+\defpattern\foo[#2]{#2}
+\defpattern\foo[]{}
+\defpattern\foo[#2,#3]{#2 \vee \foo[#3]}
+
+
+$$ \foo[a,b,c,d]$$
+
+$$ \foo[a,b,d]$$
+\end{teX}
+
+\defpattern\Foo[#2]{#2}
+\defpattern\Foo[]{
+  \def\tempa#1{\texttt{This is just empty [#1]}}\tempa}
+\defpattern\Foo[#2,#3]{#2 \vee \Foo[#3]}
+
+
+This is the empty |\Foo[]|  \Foo[]  
+
+This is |\[\Foo[\alpha]\]|  \[\Foo[\alpha]\]
+
+This is |\[\Foo[\beta,\gamma]\]| \[\Foo[\beta,\gamma]\]
+
+
+
+
+As Alan Jeffrey put it `A wonderful incomprehensible piece of programming, but hey --- it works!
+
+The definition says that any argument patching the pattern $[x,y]$ should produce |$x\vee\oneof[y]$| , any argument matching the pattern [] should produce nothing, and any argument matching the pattern $[x]$ should produce $x$.
+
+This is all done using \tex's pattern-matching ability (which explains the fact that the parameters for |\oneof| have to be numbered starting at \texttt{\#2}, since a patern may fail by having something before parameter \#2, which has to be matched by \texttt{\#]}.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

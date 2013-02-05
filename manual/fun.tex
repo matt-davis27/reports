@@ -1,0 +1,111 @@
+
+
+\chapter{fun}
+Let us now have some fun, for a change. Let us obscure some Christmas Carols!
+
+\bgroup\RaggedRight\let\Lit=\let\Lit\r=\char\def\cj{\r32}\def\fff{f}
+\def\ra{\r97}\def\I{Jingle\cj}
+\Lit\fj=\def 
+\def\Ii{jingle }  
+\def\ii{bells } 
+\def\e{and }
+\def\t{the }
+\def\ti{The }
+\def\sh{sleigh}
+\def\Ij{In a one horse open \sh\jjj }
+\def\ig{ing }
+\def\fn{fun }
+\def\ih{Oh, }
+
+\fj\ght{th}
+\def\wi{w\ra y }
+\fj\wg{we got }
+\fj\wG{We got }
+\fj\wt{wh\ra t }
+\fj\wT{Wh\ra t }
+\fj\hh{it is to }
+\fj\si{\smallskip}
+\fj\sn{Dashing through the snow }
+\fj\ll{soon Miss F\ra nny Bright }
+\fj\lll{Mis\fff ortune seemed  his lot }
+\fj\upi{upsot }
+\fj\rd{ride }
+\fj\ws{w\ra s }
+\fj\wS{W\ra s }
+\fj\ug{ugh}
+\fj\L{L\ra \ug}
+\fj\l{l\ra \ug }
+\let\jjj=^^M  
+
+
+
+\let\zi=\catcode 
+\zi`\.=1 \zi`\;=2  %redefine opening and closing braces
+\fj\ja.\sn\jjj%def
+\Ij\jjj O'er \t fields we go\jjj \L\ig all \t \wi\jjj \ii on bob tails r\ig\jjj {M}{a}{k}\ig spirits bright\jjj \wT\fn \hh \l \e  s\ig\jjj A \sh\ig song tonight\jjj\si;
+
+\let\v=\zi   \v `\!=0 !fj!jb.!ih !Ii !ii, !Ii !ii !jjj !I all !t !wi !jjj !ih !wt !fn!hh !rd !jjj !Ij !I !ii, !Ii !ii !jjj !I all !t !wi!jjj 
+!ih !wt !fn !hh !rd !jjj; !si!fj!jbi.!Ij!jjj!si;  
+
+\v `\?=0
+\fj\jc.A day or two ago?jjj I thought I'd take a ride?jjj \uppercase{\e}\ll\jjj ?wS seated by my side?jjj 
+\ti horse ?ws lean ?e lank?jjj !lll?jjj \wG into a drifted bank\jjj \e then \wg \upi\jjj\si;
+\fj\jbii.\jb\jbi\Ij  yeah\jjj; \let\v=\catcode \v`\.=1 \v`\;=2
+!fj!jbiii.!jb!jbi;
+\ja
+\jb
+\jbi
+\jc\jbii
+\v `\|=0  |jbiii
+
+
+
+
+\egroup
+
+
+\def\rvs#1#2#3#4#5#6#7 {#7#6#5#4#3#2#1}
+\rvs thguoht   
+\rvs eth........     
+
+
+\begin{teX}
+ \makeatletter
+
+ % The recursion macro used (from David Carlisle)
+\def\Recursion#1{%
+ #1\relax
+ \expandafter\@firstoftwo
+ \else
+ \expandafter\@secondoftwo
+ \fi}
+
+ \newcount\IndexRecursion
+ \IndexRecursion=\z@
+
+ \def\PiFrac#1{{%
+ \Recursion
+ {\ifnum#1>\@ne\relax}
+ {\@tempcnta=#1
+   \advance\@tempcnta\m@ne
+   \advance\IndexRecursion\@ne
+   \PiValues(\IndexRecursion)
+   +\frac{\strut\displaystyle 1}{\strut\displaystyle\PiFrac{\@tempcnta}}}
+ {\advance\IndexRecursion\@ne
+ \PiValues(\IndexRecursion)}}}
+
+
+
+\newarray\PiValues
+\readarray{PiValues}{3&7&15&1&292&1&1&1&2&1&3&1&14}
+ \(\pi\approx\PiFrac{4}\approx\PiFrac{13}\)
+ \textbf{\(\pi\) as a continued fraction}
+\makeatother
+
+\relax
+
+\end{teX}
+
+
+
+

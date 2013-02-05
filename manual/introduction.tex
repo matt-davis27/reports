@@ -1,0 +1,122 @@
+\chapter{Introduction}
+\begin{marginfigure}%
+  \includegraphics[width=\linewidth]{./graphics/knuth-drofina}
+   {\scriptsize \hfill Credit:\thinspace{\small\itshape Florina Yales}}
+  \caption{During the eraly days of typography fonts were designed to emulate the looks of calligraphic texts.}
+  \label{fig:marginfig1}
+\end{marginfigure}
+
+\epigraph{When I put in the calculation of prime numbers  into the TeX manual I was
+not thinking of this as the way to use TeX. I was thinking, Oh, by the way,
+look at this: dogs can stand on their hind legs and TeX can calculate prime
+numbers.}{--- Donald Knuth}
+
+      
+Ever since \TeX was invented, the publishing world has never been the same. This book can help you typeset beautiful publications but it will also help you to learn how to program \TeX\ and \latex\. The word macro is a bit of a misnomer, \TeX is perfectly capable to get you writing a compiler, a chess game, make presentations that are an order of magnitude greater than those you can do in power point. As a Turing complete engine.\citep{Bringhurst2005}, \citet{Bringhurst2005}, \citeauthor*{Bringhurst2005}
+
+\TeX is not all that difficult, but it is different. As a special purpose language. Someone has posted a question in 
+ stackoverflow.com, if it is still worth learning \TeX\ or its macro \LaTeXe\. The enthusiasm of the answers, will probably mean that Knuth's prediction that \TeX, will last for 100 years will probably come true. One can imagine that the superhuaman race that is to arrive at the Omega point will be using it!\cite{Knuth1990}
+
+Many people swear by Plain TeX, and produce highly respectable documents using it (Knuth is an example of this, of course). But equally, many people are happy to let someone else take the design decisions for them, accepting a small loss of flexibility in exchange for a saving of (mental) effort.
+
+The arguments around this topic can provoke huge amounts of noise and heat, without offering much by way of light; your best bet may be to find out what those around you are using, and to follow them in the hope of some support. Later on, you can always switch your allegiance; don’t bother about it.
+
+If you are preparing a manuscript for a publisher or journal, ask them what markup they want before you develop your own; many big publishers have developed their own (La)TeX styles for journals and books, and insist that authors stick closely to their markup.
+
+
+\section{What is Latex?}
+
+In 1978, Donald Knuth embarked on a project to create a typesetting system, called Tex (pronounced 'tech'), after being disappointed with the quality of his acclaimed {\em The Art of Programming series}. Around 10 years later, he froze the language after originally anticipating spending a single year! Tex gave extremely fine-grained control of document layout. However, the vast flexibility meant it was complex, so by the mid-80s Leslie Lamport created a set of macros that abstracted away many of the complexities. This allowed for a simpler approach for creating documents, where content and style were separate. This extension became Latex (pronounced 'lay-tech').\citet{Bringhurst2005}
+
+Latex is essentially a markup language. Content is written in plain text and can be annotated with various 'commands' that describe how certain elements should be displayed. The Latex interpreter reads in a Latex marked-up file, renders the content into a document and dumps it a new file. Therefore, it's not an interactive system that is the de-facto method for document creation nowadays.
+
+\section{Separation of content and style}
+
+Not the most obvious advantage, possibly because a lot of Word users don't understand why this so beneficial. When producing your Latex document, you are concentrating on the content itself. You introduce structure explicitly by telling Latex when a new section begins, for example, but you don't then faff around trying to decide how the section headers should look. That's done later.
+
+This is opposed to the average Word user, who will immediately highlight a given section header and apply formatting to it: maybe a larger font, maybe underline, etc. The point is that this will then have to be applied to every header manually. Latex is better as it uses a document style. This defines how different elements within your document should look (like Cascading Style Sheets defining styles in HTML pages). If you fancy a change, you only change the style definitions once, then the presentation of the document will be updated automatically. This also ensures a consistent looking document (you wouldn't believe how many stylistically inconsistent Word docs I've read!)
+
+Word does in fact have a similar Styles feature. However, because it's optional, people don't often know it exists. Latex forces you to declare the document semantics (this is a Good Thing!), which is why you can rely on it to produce a consistent looking document.
+
+\section{Portability}
+
+Latex portability comes in multiple ways:
+
+An actual Latex file is merely a text file, which is just about the most portable format in computing.
+The Latex system that processes the text file and produces the finished document has been implemented on just about every mainstream platform you care to mention.
+The default output file format for Latex is DVI (which stands for device independent). This was around well before PDF was dreamed up and the high quality files can be viewed via software viewers or printed out. DVI is an open standard, so once again, readers are extremely portable and exist on most operating systems. Admittedly, DVI is hardly ubiquitous and nowadays it's often bypassed in favour for PDF (or it's very simple to convert to other formats like PS or HTML)
+
+\section{Flexibility}
+You can get Latex to do just about anything you can think of! Over the years, an overwhelming selection of packages to extend its potential and macros that can simplify complex tasks have come into being, most of which are freely available on CTAN. For example, Latex's main users are within academia and research institutions and they benefit hugely thanks to the Bibtex package that provides bibliography management - I pity my Word-using colleagues who suffer by actually manually word-processing their bibliographies (unless they've shelled out for a program like Endnote). There are other crazy packages that you can install which allow you to typeset music scores, chessboards and cross-words! CTAN is the main repository of these resources. Most are well documented and as you can imagine, with Latex being around for so long, the number of extensions is vast. The chances are, if you're struggling to do a task, someone will have undoubtedly written a package to solve it easily!
+
+\section{Control}
+Even with simple documents, you can quickly become frustrated by Word's rather unintelligent interference. The hours that are wasted trying to position that image which you know will fit at the bottom of the page, but Word refuses to put it there! How many can relate to this experience? You have your 30 page document with text, tables and images. You just spent the evening getting it formatted nicely - all your figures in the right place and then you notice that one of your paragraphs isn't clear enough. You add one sentence, which then pushes an image on to the next page, leaving a massive gap at the bottom of that page where your image once was. This then daisy-chains down, knocking other tables and images out of place all the way to the end of your document! It's a real laugh. Fortunately, Latex is much more clever in this respect and positions your images and tables with a lot of common sense. So, if you want your image to appear at the bottom of a given page, it'll stay there!
+
+Whilst Latex makes decent typesetting decisions for you, if you want to, you can have total control over the presentation of your document.
+
+\section{Quality}
+It's difficult to disagree that the output from Latex is far superior to what Word can produce. This is emphasised greatest when it comes to documents with high mathematical content, which is a major strength for Latex. It also has much better kerning, hyphenation and justification algorithms that simply make the output far more professional than what any word processor. Its algorithms for laying out text are more sophisticated and extremely fine-grained. For example, the accuracy is so high because it uses a measurement known as a scaled point which translates as 100th of the wavelength of natural light!
+
+Latex works with the concept of niceness (well, I suppose technically it's badness - which it works to minimise). Latex has a large set of metrics that it evaluates against when generating your document. It experiments with various permutations of parameters and determines the one which gives the "nicest" output. It can take the time to do this because it isn't interactive. Word processors don't have the computational resources available (yet) to carry out the equivalent calculations and still remain interactive. Also, many people forget that typesetting is actually a professional skill - people train for years to learn how to layout publications. Yet, as soon as you open a word processor, you go about committing typesetting sins all the way. Typesetters know for example that its easier to read sentences that are approximately 66 characters wide. Have a look in your books and count the letters! Also, why do newspapers and magazines have narrow columns? But, the default layout of a word processor gives an average of 100 words per line. I suppose many people don't mind, but you would notice if you read a lot of large documents.
+
+A quick example. I took a document that I had used previously to demonstrate document structure in Latex. I used the same text and loaded it into Word and applied the equivalent styles. I've used default settings throughout. Word didn't have a style for abstracts, so I put the title in bold. View the Latex output to the Word output. The styles that Word uses aren't great. You could manipulate the default styles in Word to make it look more reasonable, but I've never been bothered because even if I could get it to match Latex stylistically, I still have to use Word, which I'd rather avoid!
+
+Latex has been used regularly typeset entire books. Word processors simply aren't good enough for that job - they are used by the authors to write the content and these files are then imported into professional typesetting software. Ok, that's not strictly true - you could typeset a book in Word, just like you could drive a car with your feet - it's not a good idea though!
+
+\section{Output}
+As mentioned, the default output is a |DVI| file. |DVI| was a clever little standard but unfortunately didn't take-off. It takes little effort to convert your document into a Postscript or PDF file (in fact, you can just use the 'pdflatex' command instead of normal 'latex' if you only ever want to create PDFs). There's no need to buy additional software such as Adobe Acrobat like you need to do to convert a Word document into PDF. (At least OpenOffice has its 'Export to PDF' functionality!)
+
+In my personal experience, using Word for documents with more than 20 pages has not been a pleasant experience. Obviously, that could be my own bad luck, but that is also the impression I've got from other users too.
+
+With Latex, I've never found such problems. Additionally, you are free to split up large documents into smaller chunks and then let Latex combine them altogether later (like one chapter per file). It can also create tables of content, indexes and bibliographies easily, even on multi-file projects.
+
+\section{Stability}
+One of the reasons why perhaps so many people struggle with Word when creating large documents, is because it is prone to crashes. 'Document recovery' is now a high ranking feature of Word. I'm sure people would prefer if MS would just make their software more stable! (NB stability issues are not necessarily generalisable, so I'm speaking from personal experience, and of my friends and colleagues - I do not know of a single user who hasn't lost work to Word, but that's not to say that such people don't exist.)
+\begin{marginfigure}%
+  \includegraphics[width=\linewidth]{./graphics/knuth-check}
+  \caption{During the eraly days of typography fonts were designed to emulate the looks of calligraphic texts.}
+  \label{fig:knuth}
+\end{marginfigure}
+
+
+Because Latex is so mature - and developed by extremely clever programmers - bugs are negligible. And even if it were buggy, then there is no risk of you ever losing your original source text. Where as with Word, almost any tool within its integrated environment is capable of corrupting your file, if it causes a crash.
+\sidenote{Knuth still offers a reward for people finding bugs in \TeX .} 
+
+According to an article in the Massachusetts Institute of Technology's Technology Review, these rewards have been described as ``among computerdom's most prized trophies''.[4] As of October 2001, Knuth reports having written more than 2,000 checks, with an average value exceeding \$8 per check.[5] As of March 2005, the total value of the checks signed by Knuth was over \$20,000 (see NPR interview below). Very few of these checks are actually cashed, however, even the largest ones; more often, they are framed, or kept as "bragging rights".[6][7]
+
+Neither \TeX\  nor \LaTeX\   macros can contain any viruses\sidenote{Although they can be written!}.
+
+\begin{quotation}
+I have put these systems into the public domain so that
+people everywhere can use the ideas freely if they wish.
+I have also spent thousands of hours trying to ensure
+that the systems produce essentially identical results on
+all computers. I strongly believe that an unchanging
+system has great value, even though it is axiomatic that
+any complex system can be improved. Therefore I believe
+that it is unwise to make further “improvements”
+to the systems called \tex and METAFONT. Let us regard
+these systems as fixed points, which should give
+the same results 100 years from now that they produce
+today.
+\end{quotation}
+
+\section{Cost}
+
+Well, this is one area where Latex wins hands down, since it is free! As with most open source software, the phrase "you get what you pay for" doesn't hold true. You get an extremely mature system, that is still years ahead of its competition.
+
+\section{What about spell checking?}
+
+It's a good point. This is not a deficiency of Latex, because it just processes the words you give it. However, within your text-editor, you do not get fancy lines highlighting your spelling errors or bad grammar as you type, like you get with Word, yet it's a feature users have come to expect when writing documents.
+
+For starters, I do not really care for a grammar checker and anyone who actually relies on it when using Word would be better off buying a book (or looking at writing style guides) than taking the useless advice it provides.
+
+Secondly, the 'auto-correct' feature - whilst looking like a good idea - is not beneficial in the long run. Sure, it corrects the common typos that we all make. However, the problem in my opinion is that it means we don't learn from our mistakes, e.g., you will continue to type 'teh' instead of 'the' because Word will sort it out for you. Having said that, if that's your thing, then you can easily configure any decent text editor to perform the same task. (You could, if you really wanted to, use your favourite word processor as your text editor - but then you back to square one on the stability issue.)
+
+And so on to spelling. The great thing here is that you have a choice! Aspell and Ispell are the most popular spell checkers I know of (both open source). These will check any text file you care to feed it and you can easily configure a decent editor to integrate its functionality from within the editor itself. How to get your text editor to utilise these programs is obviously dependent on your editor of choice. Some, like Kate, interface external spell-checking programs without any effort. I personally use (g)vim which can be configured to use spell-checkers like Ispell.
+
+
+
+
+
+

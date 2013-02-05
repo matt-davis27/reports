@@ -1,0 +1,176 @@
+
+\chapter{Tips and Tricks}
+\begin{marginfigure}%
+  \includegraphics[width=\linewidth]{./graphics/21}
+    \label{fig:marginfig1}
+\end{marginfigure}
+
+\epigraph{Binary search is a particular example that we started out our programming classes in the ’70s. The first day of class everyone writes a program for binary search and we collect them and the TAs take a look. And you find
+that fewer than ten percent are correct. And there are four or six different
+bugs.}{Donald Knuth}
+
+\newthought{Read Other People's Code}
+
+Perhaps the best advice one can get is to read other people's code. Most packages are written by people
+that have considerable experience in \TeX. Reading the macro code is like re-discovering paradise, with many hidden gems waiting to be unearthed.
+\subsection{Mixing def and newcommand}
+Sometimes you cannot use
+\doccmd{newcommand} but have to use the \tex primitive \doccmd{def}. As \texttt{\BS def}, contrary to
+newcommand, does not warn you when you overwrite an already existing macro,
+you first should define the macro as a dummy using newcommand and then correctly
+using def, i.e.: \sidenote{snippet from \texttt{optparams} package \citep{Tufte2001}}
+
+\begin{teXXX}
+\newcommand{\test@}{}
+\long\def\test@[#1][#2][#3][#4]{%
+  ....
+}
+\end{teXXX}
+
+This is also quite useful, if you just copying code from old implementations, which you are hoping to re-factor later.
+
+\subsection{Use common programming paradigms}
+Do not modify existing code, but overwrite it at the end of it. 
+This way if there is an update, you cannot affect the earlier code.
+
+
+\section{Some strange command sequences}
+If you peek at code you will inevitably encounter the commands
+ \cmd{makeatletter} and \cmd{makeatother} mean? But what do they actually mean?
+
+
+\cmd{makeatletter} and \cmd{makeatother} are LaTeX commands and you cant
+expect that to be explained in TeX in Practice which deals with
+plain TeX alone.
+
+
+
+\doccmd{makeatletter} changes the category code of '@' character to 11 
+(which is the catcode of ordinarary characters a-z,A-Z). 
+\doccmd{makeatother} reverts this to its original catcode of 12.   
+
+Knuth assigns a category code for each and every character like 0 
+for escape '\textbackslash', 1 for begining of a group `\{', 2 for end of group 
+`\}', 3 for math shift `\$', 4 for alignmet tab `\&', 5 for end of 
+line, 6 for paramter `\#', 7 for superscript `\^', 8 for subscript 
+`\_', 9 for ignored character, 10 for space, 11 for letters, 13 for 
+active character `\~', 14 for comment character `\%', 15 for invalid 
+character and 12 for characters other than the above.
+
+Knuth gives the freedom to change the catcode of any character 
+anywhere. You can change the catcode of \textbackslash to 11 (ie, letter) assign 
+the catcode 0 to | so that | section becomes a function or control 
+sequence.
+
+You might have noted that an escape character combined with the
+characters of catcode 11 becomes a control sequence. As such, all
+the user defined control sequences or macros will be of this nature.
+
+This raises the problems of risks of an user defined macro having
+the same name as that of a macro in a package or even LaTeX kernel.  
+even. This can break down packages. 
+
+In order to circumvent this foreseeable problem, package writers
+always use the character '@' in their control sequences by changing
+the cat code of `@' character to 11 which is the catcode of alpha
+characters. This is accomplished by the command \cmd{makeatletter}. 
+
+At the end of the package, the author will revert the catcode of `@'
+to 12 with the command \cmd{makeatother}. So you will find lots of macros
+with `@' like |\@title|, etc., which you cant define in a document
+without changing the catcode. So novice users will not create macros
+that might clash with kernal macros.
+
+Hope you got the idea of this safety scheme. \sidenote{\url{see http://www.tug.org/pipermail/tugindia/2002-January/000178.htm} Radhakrishnan}
+
+
+\section{Text subscripts}
+%It's easy to make subscripts in math mode: $a_i$.
+%
+%How do I make a subscript outside math environment, $\textsubscript{like}{this}$?
+
+%\section{\texorpdfstring{like\textsubscript{this}}{like this}}
+%Note that \textsubscript enters math mode as well. This might produce problems in PDF strings where math is not allowed, for instance in bookmarks. If you used hyperref and simply used \textsubscript in a section heading, hyperref would complain about the math shift. The command \texorpdfstring comes to the rescue:
+
+\begin{Verbatim}
+\documentclass{article}
+\usepackage{fixltx2e}
+\usepackage{hyperref}
+\begin{document}
+\section{\texorpdfstring{like\textsubscript{this}}{like this}}
+\end{document}
+\end{Verbatim}
+
+That applies to math and math symbols in sectioning headings of course as well.
+
+\section{Patching Macros and Packages}
+
+Many times two packages will clash while they are providing the same command
+
+To just avoid the error, you could declare the affected macro to be undefined:
+
+\begin{teX}
+\usepackage{eurosym}
+\let\EUR\undefined
+\usepackage{marvosym}
+\end{teX}
+
+If you would like to use symbols of both package with originally equal name, you could use the \docpkg{savesym} package.
+
+\begin{teX}
+\usepackage{savesym}
+\usepackage{eurosym}
+\savesymbol{EUR}
+\usepackage{marvosym}
+\restoresymbol{marvosym}{EUR}
+...
+\EUR\ vs. \marvosymEUR
+\end{teX}
+
+Simple, but effective, thanks to Stefan Kottwitz (see \url{http://tex.stackexchange.com/questions/5293/how-to-patch-a-package/5296#5296})\people{Stefan Kottwitz}
+
+
+\section*{Separating two arguments}
+
+A useful command for separating two arguments and placing their arguments into two macros, as used for example by latex many times. This is found in web.dtx by D.P. Story, which acompanies AcroTeX.
+
+\begin{teXXX}
+% A useful command for separating two arguments. 
+%Use in \texttt{webpro} section, and by \texttt{aeb\_pro} 
+%as well.
+
+\def\getargs#1#2{%
+  \def\aeb@argi{#1}
+  \def\aeb@argii{#2}
+}
+
+\end{teXXX}
+
+If it need be one can extend it to three arguments as well as make the names of the macros a bit more user friendly. It can also be modified for example to give interfaces like this:
+
+
+
+\noindent where the [a] and [b] can be options. Really \tex is very flexible.
+
+
+\section{Adding commas to lists}
+
+The end comma can give you problems. Providedd you initialize the list with at least one variable you can use:
+
+\begin{teX}
+\newcommand\uselanguage[2][]{%
+  \g@addto@macro\trans@languages{,#2}%
+}
+\end{teX}
+
+
+
+
+
+
+
+
+
+
+
+

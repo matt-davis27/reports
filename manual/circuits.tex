@@ -1,0 +1,56 @@
+\section{Drawing circuits with TikZ and circuitikz}
+Massimo A. Redaelli's circuitikz package
+provides macros for typesetting electrical and electronic schematics.
+It has a lean syntax, native to LATEX, and supports directly the
+PDF output format. \ctan{circuitikz}{circuitikz}. Full examples can be found at \href{http://www.texample.net/tikz/examples/circuitikz/}{TeXample}.
+
+\emphasis{begin,end,circuitikz}
+\begin{teXXX}
+\begin{circuitikz} \draw 
+ (0,0) node[and port] (myand) {}
+ (myand.in 1) node[anchor=east] {1}
+ (myand.in 2) node[anchor=east] {2}
+ (myand.out) node[anchor=west] {3};
+;\end{circuitikz}
+\end{teXXX}
+
+
+\begin{circuitikz} 
+%diode
+\draw (0,0) node[and port] (myand) {}
+ (myand.in 1) node[anchor=east] {1}
+ (myand.in 2) node[anchor=east] {2}
+ (myand.out) node[anchor=west] {3};
+%Transformer
+\end{circuitikz}
+\medskip
+
+A transformer can be drawn using similar commands, except now the node is called
+|node[transformer]|. Anchors are provided as shown in the example.
+
+
+\medskip
+
+\emphasis{begin,end,circuitikz,transformer}
+\begin{circuitikz}
+\draw
+ (0,-2) node[transformer] (T) {}
+ (T.A1) node[anchor=east] {A1}
+ (T.A2) node[anchor=east] {A2}
+ (T.B1) node[anchor=west] {B1}
+ (T.B2) node[anchor=west] {B2}
+ (T.base) node{K};
+\end{circuitikz}
+
+
+\begin{teXXX}
+\begin{circuitikz} \draw 
+  (0,0) node[transformer] (T) {}
+  (T.A1) node[anchor=east] {A1}
+  (T.A2) node[anchor=east] {A2}
+  (T.B1) node[anchor=west] {B1}
+  (T.B2) node[anchor=west] {B2}
+  (T.base) node{K}
+;\end{circuitikz}
+\end{teXXX}
+

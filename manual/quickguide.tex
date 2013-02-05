@@ -1,0 +1,28 @@
+
+
+\chapter{Quick guide to LaTeX}         
+\begin{figure}%
+  \includegraphics[width=\linewidth]{./graphics/fig4-1}
+  \caption{During the eraly days of typography fonts were designed to emulate the looks of calligraphic texts.}
+  \label{fig:marginfig1}
+\end{figure}
+\section{Uisng LaTex}
+This section is a quick guide to get you started with LaTeX. LaTeX was developed by Leslie Lamport and described in his book 
+{\em LATEX: A Document Preparation System}\cite{Lamport1994}
+
+\section{References}
+References are placed alongside their citations as sidenotes,
+as well.  This can be accomplished using the normal \doccmddef{cite}
+command.\sidenote{The first paragraph of this document includes a citation.}
+
+The complete list of references may also be printed automatically by using
+the \doccmddef{bibliography} command.  (See the end of this document for an
+example.)  If you do not want to print a bibliography at the end of your
+document, use the \doccmddef{nobibliography} command in its place.  
+
+To enter multiple citations at one location,\cite[-3\baselineskip]{Tufte2006,Tufte1990} you can
+provide a list of keys separated by commas and the same optional vertical
+offset argument: \verb+\cite{Tufte2006,Tufte1990}+.  
+\begin{docspec}
+  \doccmd{cite}[\docopt{offset}]\{\docarg{bibkey1,bibkey2,\ldots}\}
+\end{docspec}

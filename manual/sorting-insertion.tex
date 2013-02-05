@@ -1,0 +1,129 @@
+\chapter{Insertion Sort}
+
+The insertion sort can be used to sort lists. It is more efficient than the bubblesort described earlier. 
+
+The \docpkg{xfor} provides a number of commands that can break a loop or peek at the next element of a list. Nicola L.C. Talbot \people{Talbot} also published in the documentation some macros for sorting numeric lists.
+
+The macro below is based on these routines, but is using \doccmd{pdfstrcmp} to lexigographically compare two elements and use this comparison for sorting, using an insertion sort.
+
+\begin{teXXX}
+\makeatletter
+%\let\temp\@empty
+% \insertinto{new value}{list}
+\newtoks\tmptok
+\newcommand{\insertinto}[2]{%
+   \def\nlst{}%
+   \@for\n:=#2\do{%
+% store new list in \tmptok
+   \expandafter\tmptok\expandafter{\nlst}%
+% test current value against new value
+% use pdfstrcmp for alpha sort
+   \def\temp{\pdfstrcmp{\n}{#1}}
+   \ifnum\temp>0\relax
+     \edef\newstuff{#1,\n}%
+     % end for loop at the end of this iteration
+     \@endfortrue
+   \else
+     \edef\newstuff{\n}%
+   \fi
+% append new stuff to new list
+   \ifx\nlst\@empty
+     \edef\nlst{\newstuff}%
+   \else
+     \edef\nlst{\the\tmptok,\newstuff}%
+   \fi
+   }%
+% check to see if for loop was prematurely terminated
+   \if@endfor
+% loop may have been terminated during final iteration, in
+% which case \@forremainder is empty.
+   \ifx\@forremainder\@empty
+% do nothing
+   \else
+% loop prematurely ended, append remainder of original list
+% to new list
+     \expandafter\tmptok\expandafter{\nlst}%
+     \edef\nlst{\the\tmptok,\@forremainder}%
+   \fi
+   \else
+% wasn't prematurely terminated, so new value hasn't been added.
+% Add now.
+   \expandafter\tmptok\expandafter{\nlst}%
+      \ifx\nlst\@empty
+         \edef\nlst{#1}%
+      \fi
+   \fi
+   \global\let#2=\nlst
+}
+\end{teXXX}
+
+
+A simpler approach than the bubble sort is to use pdfstrcmp for alpha sorting. The command returns a value -1,0,1 depending on the comparison. We can also use |xfor| to simplify things.
+
+Based on this we can develop an insertion sort.
+
+\begin{teXXX}
+\def\ships{z}
+\def\addship#1#2{
+  \insertinto{#1}{#2}
+}
+
+\def\Armenian{A very big ship}
+\def\Montrose{The story of Montrose}
+\def\Harlech{The story of Harlech Castle}
+\def\Manila{Manilla Castle}
+\def\asum{$a^2+1=22$}
+\def\Asum{$A^2+1=22$}
+
+\expandafter\def\csname Roslin Castle\endcsname{The SS Roslin Castle left Cape Town on the 29th July 1902.}
+
+
+\addship{Armenian}{\ships}
+\addship{Montrose}{\ships}
+\addship{Harlech}{\ships}
+\addship{Manila}{\ships}
+\addship{Roslin Castle}{\ships}
+\addship{asum}{\ships}
+\addship{Asum}{\ships}
+
+
+
+\@for \i:=\ships\do{%
+ \xdef\X{\i} %
+ \def\Y{z}%
+   \i:\csname\i\endcsname
+ }
+
+
+
+\typesetlist\ships
+
+
+\makeatother
+\end{teXXX}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

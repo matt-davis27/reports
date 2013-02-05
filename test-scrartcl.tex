@@ -15,29 +15,13 @@
 
 %%
 
-\documentclass{article}
-\makeatletter
-
-\usepackage{amsfonts,bbm}
+\documentclass{scrartcl}
+\usepackage{phd}
 \begin{document}
 \lipsum[1]
 
-\[ A = \alpha \pi  \Delta r^2/4 \mathit{z}\]
-
-
-\expandafter\the\csname c@mv@italic\endcsname 
-\newcommand{\PrintMathFonts}{%
-  \count255=0
-  \loop\ifnum\count255<16
-    (\the\count255:~\fontname\textfont\count255 )
-    \advance\count255 by 1
- \repeat}
-
-%\font@name
-
-\PrintMathFonts
+\[ A = \upalpha r^2/4\]
 \end{document}
-
 %% 
 %% Copyright (C) 2011 by Dr. Yiannis Lazarides <yannislaz@gmail.com>
 %% 

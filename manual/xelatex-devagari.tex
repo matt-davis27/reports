@@ -1,0 +1,17 @@
+\documentclass[10pt,a5paper,DIV12,BCOR8.25mm,twoside,parskip=half]{scrreprt}
+\usepackage[Devanagari]{ucharclasses}
+\usepackage{fontspec}
+
+\newfontfamily\hindifont{Arial Unicode MS}
+\makeatletter
+\setTransitionsFor{Devanagari}%
+ {\let\curfamily\f@family\let\curshape\f@shape\let\curseries\f@series\hindifont}
+ {\fontfamily{\curfamily}\fontshape{\curshape}\fontseries{\curseries}\selectfont}
+\makeatother
+
+\begin{document} \tableofcontents \section{A latin script section} Some latin script
+
+\section{Devanagari: ^^^^0908 ^^^^0909 and so on} A mixture \textbf{ of normal text and ^^^^0908 ^^^^0909 Devanagari script} in bold
+\section{Some more latin script} Some latin script
+
+\end{document}

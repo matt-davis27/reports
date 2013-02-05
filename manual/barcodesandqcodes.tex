@@ -1,0 +1,38 @@
+\documentclass[a4paper, 12pt, parskip]{scrartcl}
+\usepackage[utf8]{inputenc}
+\usepackage{pst-barcode,expl3}
+\usepackage{pstool}
+\begin{document}
+  \section{Demo}
+  \begin{pspicture}(1.378in, 1.5in)
+    \psbarcode[]{1}{height=1.378 width=1.378}{qrcode}
+    {\color{white}1}
+  \end{pspicture}
+
+\bigskip
+
+  \begin{pspicture}(1.378in, 1.5in)
+    \psbarcode[]{2}{height=1.378 width=1.378}{qrcode}
+    {\color{white}2}
+  \end{pspicture}
+
+
+\begin{pspicture}(3,1.2in)
+ \psbarcode[scalex=0.8,scaley=0.8]{9781860742712}{includetext guardwhitespace}{ean13}
+ \end{pspicture}
+
+%% Conditionals
+\ExplSyntaxNamesOn
+\makeatletter
+\str_if_eq:nnTF {Yiannis}{Yiannis}{true is my name}{false not my name}
+\let\if@str\str_if_eq:nnTF
+\iow_log:n{Testing }
+\ExplSyntaxNamesOff
+
+\makeatletter
+\if@str{Yiannis}{yiannis}{do}{thos}
+
+
+
+
+\end{document}

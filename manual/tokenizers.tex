@@ -1,0 +1,281 @@
+\epigraph{the Athenian statesman has to be Pericles, but a modern
+Greek with the same name should be transliterated as Periklis.}{European Union Style Guide}
+
+\chapter{Tokenizers}
+
+
+
+Tokenizers are normally understood to be routines that split text into different
+tokens for example a list separated by commas. We will look at two types, one that tokenizes a comma delimited list and another one that tokenizes letters. The first one is based on a package by Sacha Herpers named \docpkg{tokenizer}
+
+Before we delve deep into the code, it might be a good idea to review \emph{delimited} macros, \ie macros that read an argument up to a delimiter such as |#1,|. The argument of such a macro will read the first argument until it encounters a comma. Note that a |space| in an argument of a macro is significant and acts as a delimiter.
+
+\begin{teX}
+\def\GetDelimitedTokens#1,#2{
+  \say{Arguments #1 and #2}
+}
+\end{teX}
+
+\def\say#1{%
+ \hbox{\texttt{#1}}
+}
+
+\def\GetDelimitedTokens#1 #2 {
+  \say{Arguments #1 and #2}
+}
+
+
+
+\noindent This produces \GetDelimitedTokens a bcf g 3456   
+
+The |say| macro is just a convenience macro that we will use to print the information rather than use |show| and read it on the screen and is defined as follows:
+
+\begin{teX}
+\def\say#1{%
+  \hbox{\texttt{#1}}
+}
+\end{teX}
+
+
+
+The ability of \tex to read delimited macros allows us to parse virtually anything we wish. Now let us look at the tokenizer package a bit more carefully.
+
+
+\begin{teX}
+\ProvidesPackage{tokenizer}[2003/05/26]
+\RequirePackage{ifthen}
+\def\SH@true{true}                       % used with trim/notrim
+\def\SH@false{false}                     % used with trim/notrim
+\DeclareOption{trim}{\edef\SH@trimtokens{\SH@true}}     % trim tokens
+\DeclareOption{notrim}{\edef\SH@trimtokens{\SH@false}}  % do not trim tokens
+\ProcessOptions
+\end{teX}
+
+\noindent We first define a \cmd{GetTokens} command
+|\GetTokens| |<Token1>,<Token2>|. 
+This will save |<Token1>| and |<Token2>| in two commands. The names of the commands are derived from the value of |\SH@FirstArgName| and |\SH@SecondArgName|.
+
+\begin{teX}
+\def\GetTokens#1,#2\@empty{%
+   \def\FirstArgument{#1}
+   \DefineCommand{\FirstArgName}{#1}
+   \DefineCommand{\SecondArgName}{#2}
+}
+\end{teX}
+
+
+One other convenient command we can use is to create a command to create a macro on the fly without typing |\csname \endcsname| etc.
+
+\begin{teX}
+\def\DefineCommand#1#2{%
+  \expandafter\def\csname #1\endcsname{#2}%
+}
+\end{teX}
+
+For example we can use:
+
+\begin{teX}
+\DefineCommand{Cheesei}{blue-cheese}
+\say{\Cheesei}
+\end{teX}
+
+
+\def\DefineCommand#1#2{%
+  \expandafter\def\csname #1\endcsname{#2}%
+}
+\DefineCommand{Cheesei}{blue-cheese}
+\say{\Cheesei}
+
+Another question that may come into your mind is |@empty|. This is a plain \tex and a \latex kernel macro which is simply defined as an empty argument.
+If the user specifies a balanced text in braces when \tex expects a macro argument, that text is
+used as the argument. Thus, specifying |{}| will give an argument that is an empty list of tokens;
+this is called an \textit{empty argument}. \sidenote{See Chapter 11, section 11.5.4, Tex By Topic}. The definition is simply
+
+\begin{teX}
+\def\@empty{}
+\end{teX}
+
+
+\noindent Next we need to split the arguments if the separarator exists. This we do with the macro |\CheckTokenSep<Token1>,<Token2>|. It 
+Checks the arguments for the existence of a token separator.
+
+This Command is called with a trailing comma!
+If a comma was found |\SH@TokenValid| is set to true, false otherwise.
+
+
+Example 1: |<t1>,<t2>,|
+
+This is split into |<t1>| and |<t2>,| and because the second token is
+not empty |\SH@TokenValid| is set to true.
+
+Example 2: |<t1>,|
+This is split into |<t1>| and an empty second token and thus evaluates
+to false.
+If you the trailing comma is omitted when calling |\SH@CheckTokenSep| example 2 will fail to compile.
+
+
+\begin{teX}
+\def\CheckTokenSep#1,#2\@empty{%
+   \def\SH@CTSArgTwo{#2}%
+   \ifx\SH@CTSArgTwo\@empty
+      \edef\SH@TokenValid{\SH@false}
+   \else
+      \edef\SH@TokenValid{\SH@true}
+   \fi
+}
+\end{teX}
+
+
+\section*{The \textbackslash GetTokens}
+This is the heart of the parser and the command exposed to the user. The macro splits the argument into two segments.
+The first argument, and the last token which is the balance of the argument. 
+
+\begin{teX}
+%
+% \GetTokens{<Target1>}{<Target2>}{<Source>}
+%     Splits <Source> into two tokens at the first encounter of a comma.
+%     The first token is saved in a newly created command with the name passed
+%     as <Target1> and the second token likewise.
+%------------------------------------------------------------------------------
+\newcommand\GetTokens[3]{%
+   % save the names of the commands to receive the separated tokens
+   \def\SH@FirstArgName{#1}%
+   \def\SH@SecondArgName{#2}%
+   % check for the token separator
+   \expandafter\SH@CheckTokenSep#3,\@empty%
+   \ifx\SH@TokenValid\SH@true
+    % separator found, split the source string
+       \expandafter\SH@GetTokens#3\@empty%
+   \else
+     % there was no separator, return the complete source string as
+     % first token
+     \def\SH@token{#3}
+        \ifx\SH@trimtokens\SH@true   % strip spaces if requested
+           \expandafter\TrimSpaces\SH@token
+        \fi
+        \SH@DefineCommand{\SH@FirstArgName}{\SH@token}
+          \SH@DefineCommand{\SH@SecondArgName}{}
+        \fi
+}
+\end{teX}
+
+
+
+\section*{Trimming Spaces}
+One other useful macro is \cmd{TrimSpaces}, which removes leading nad trailing spaces from a token. This is based on an example from the  \texbook.
+
+This command removes leading and trailing spaces from |<Token>|. The code
+is Michael Downes, who provided the code as an answer to 'around the bend' question \#15.
+
+\begin{teX}
+\catcode`\Q=3
+\def\TrimSpaces#1{%
+  \begingroup
+  \aftergroup\toks\aftergroup0\aftergroup{%
+  \expandafter\trimb\expandafter\noexpand#1Q Q}%
+  \global\edef#1{\the\toks0}%
+}
+\def\trimb#1 Q{\trimc#1Q}
+\def\trimc#1Q#2{\afterassignment\endgroup \vfuzz\the\vfuzz#1}
+\catcode`\Q=11
+
+\end{teX}
+
+
+\section{Example}
+The example shown in listing 1 illustrates the use of
+\verb+\GetTokens+. Firstly, a source string \verb+\Source+ is
+created, which contains the strings to be separated. The following
+while statement loops until there are no more tokens to process.
+\verb+\GetTokens+ is called and the separated tokens are stored in
+two commands \verb+\TokenOne+ and \verb+\TokenTwo+, which are
+created by \verb+\GetTokens+. Lastly, \verb+\Source+ is replaced
+by the remainder string contained in \verb+\TokenTwo+.\\
+
+
+\hrule
+\marginpar{\small Listing 1: example usage of \textbackslash GetTokens}
+
+\begin{teX}
+ \def\Source{this,is, a, short, test}
+ The string \emph{\Source} contains the following tokens:\\
+ \whiledo{\not\equal{\Source}{}}
+ {
+     \GetTokens{TokenOne}{TokenTwo}{\Source}
+     \hspace*{.3cm}$\bullet$ [\TokenOne]\\
+     \let\Source\TokenTwo
+ }
+\end{teX}
+\hrule
+
+\bigskip
+
+
+This is the output produced by the above example:\\
+\begin{center}
+   \begin{minipage}{9cm}
+        \newcounter{tempcounter} 
+        \setcounter{tempcounter}{0} 
+        \def\numcounter{\stepcounter{tempcounter}\thetempcounter} 
+        \def\Source{ file, file, file, file, file}
+        The string \emph{\Source} contains the following tokens:\\
+        \whiledo{\not\equal{\Source}{}}
+        {
+            \GetTokens{TokenOne}{TokenTwo}{\Source}
+            \hspace*{.3cm}--\textit{\TokenOne{\it \numcounter}}\\
+            \let\Source\TokenTwo
+        }
+   \end{minipage}
+\end{center}
+
+\section{Tokenizing an alphabet}
+This is a much easier construction, as we just need to iterate over letters one by one
+
+\begin{teX}
+\def\acclist#1#2{\def\theacc{#1}\let\next\oneacc\next#2\relax}
+\def\Relax{\relax}
+\def\oneacc#1{%
+  \ifx#1\relax\let\next\relax\else\theacc#1 \fi
+\next}
+
+\acclist\`{AEIOUNWYaeiounwyx}\par 
+
+
+
+\def\mylist{abcdefgh}
+\def\reverse #1%
+  {\edef #1{\expandafter \reverseloop #1\relax \marker }}
+\def\reverseloop #1#2\marker
+  {\ifx#1\relax\reverseend\fi \reverseloop #2\marker #1}
+\def\reverseend #1\marker #2{}
+\reverse\mylist
+
+\mylist
+\end{teX}
+
+
+\noindent This will produce,
+
+\fboxrule0.4pt \fboxsep1pt
+
+\def\acclist#1#2{\def\theletter{#1}\let\next\oneacc\next#2\relax}
+\def\Relax{\relax}
+\def\oneacc#1{%
+  \ifx#1\relax\let\next\relax\else\fbox{\strut \theletter#1} \fi
+\next}
+
+\Large
+
+\noindent\rule{10cm}{0.4pt}
+\smallskip
+
+\acclist\`{AEIOUNWYaeiounwyx}\par 
+
+\smallskip
+\noindent\rule{10cm}{0.4pt}
+
+
+\normalsize 
+
+
+

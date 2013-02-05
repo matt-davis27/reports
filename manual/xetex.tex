@@ -1,0 +1,54 @@
+\chapter{XeTeX}
+
+ \captionsetup[figure]{margin=10pt,font=small,labelfont=bf}  
+
+\begin{marginfigure}%
+  \includegraphics[width=1.1\linewidth]{./graphics/visigothic}
+  \captionsetup[figure]{margin=10pt,font=small,labelfont=bf}  
+  \caption{Origin of the cedilla from the Visigothic z. }
+  \label{fig:visigothic}
+\end{marginfigure}
+
+\section{The Problem with Fonts}
+
+If you have read the section on fonts, you will agree that to use
+the full spectrum of UTF commands with LaTeX is a daunting task (but not impossible).
+
+To do this one needs to map all the unicode files to suitable font tables in multiples
+of 256 character codes. It will also remain a problem using the upper and lowercase commands
+as only two tables are provided.
+
+But for the average user of a modern  computer
+and typical GUI software, using a new font in a document
+involves approximately two steps:
+
+
+\begin{enumerate}
+
+\item Drop the |.ttf| or |.otf| file into the computer’s Fonts
+folder;
+
+\item Select the font name from a menu in any application.
+\end{enumerate}
+
+Any software—especially software that relates to typography—
+that requires a longer or more complex procedure
+will be perceived as ``user-unfriendly'' and ``hard to use'',
+and will face a barrier to wide acceptance. 
+
+\xetex aims to bring this level of simplicity to the use
+of fonts with \tex. While selecting a font from a menu of
+installed fonts does not directly fit the \tex paradigm, the
+use of a new font is similarly straightforward:
+
+\begin{enumerate}
+\item Drop the |.ttf| or |.otf| file into the computer’s Fonts
+folder;
+\item Specify the font by name in the \tex document.
+In Plain \tex terms, this second step might be as simple as:
+\end{enumerate}
+
+\begin{teX}
+\font\myfont="Charis SIL"  at 9pt
+\myfont Hello World
+\end{teX}

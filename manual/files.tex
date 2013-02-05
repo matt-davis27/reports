@@ -1,0 +1,115 @@
+
+
+
+\chapter{File Input and Output}
+
+
+\tex\ and \latex\ have the ability to read and write to external files. It is this ability that makes it possible to produce
+a Table of Contents or a List of Figures. This chapter will discuss the various ways that file input and output can be achieved.
+
+Table , summarizes the available \tex\ commands. 
+
+\begin{tabular}{lp{6.8cm}}
+\doccmd{input} &Read a specified file as TEX input.\\
+\doccmd{endinput} &Terminate inputting the current file after the current line.\\
+\doccmd{pausing} &Specify that TEX should pause after each line that is read from a file.\\
+\doccmd{inputlineno} &Number of the current input line.\\
+\doccmd{message} &Write a message to the terminal.\\
+\doccmd{write} &Write a hgeneral texti to the terminal or to a file.\\
+\doccmd{read} &Read a line from a stream into a control sequence.\\
+\doccmd{newread} \doccmd{newwrite} &Macro for allocating a new input/output stream.\\
+\doccmd{openin} \doccmd{closein} &Open/close an input stream.\\
+\doccmd{openout} \doccmd{closeout} &Open/close an output stream.\\
+\doccmd{ifeof} &Test whether a file has been fully read, or does not exist.\\
+\doccmd{immediate} &Prefix to have output operations executed right away.\\
+\doccmd{escapechar} &Number of the character that is used when control sequences are being converted into character tokens. IniTEX default: 92.\\
+\doccmd{newlinechar} &Number of the character that triggers a new line in \doccmd{write} and \doccmd{message}
+statements.\\
+\end{tabular}
+
+\section{Opening and closing files}
+
+It is easy to write and read text files from inside a \tex\  document. The \cmd{input} is well known and is commonly used
+to break a long document into smaller - and more logical parts. In addition the \cmd{read} makes it  possible to
+read a file record by record. New files can be created by \tex\ and data written on them record by record. There can be
+a maximum of 16 input and 16 output files open at any given time. Each file
+is identified  internally by means of a file number. 
+
+The \cmd{newread} and \cmd{newwrite} generate the next available file number. 
+Output is done by write or \cmd{immediate}\cmd{write}. Input is done either by \cmd{read} to or 
+\verb+ \input<filename>+. Each write creates a record on the file, whose maximum size is only limited
+by the operating system of the computer.
+
+An important feature of file output is that expandable tokens are expanded during a \cmd{write}. If the
+name of a control sequence, rather than its expansion, should be written on a file, either
+\cmd{noexpand} or \cmd{string} should be used to inhibit the expansion. If a control sequence is unexpandable,
+its name is written on the file. If it is undefined an error message is issued when \tex\ tries to expand it during
+the \cmd{write}. It is also possible to avoid expansion during a \doccmd{write} by changing the catcode of `\textbackslash'.
+This way, anything that starts with a backslash is no longer considered a control sequence.
+
+To complicate matters more, the actual write is deferred until the current page is shipped out. The reason for that is that the user may want to write the page number on the file (this is common when a table-of-contents file or index file is generated) and this number is only known inside the OTR. If no page numbers are involved, the user can force the record to be written on the file immediately by:
+
+\begin{Verbatim}
+  \immediate\write
+\end{Verbatim}
+
+\section{Interaction with theuser}
+
+
+
+File numbers are between 0 and 15. File numbers outside this range refer to the standard I/O devices. If you 
+write
+
+\begin{Verbatim}
+  \read-1 to \note
+\end{Verbatim}
+
+will read from the keyboard without a prompt into \cmd{note}. The quantity \cmd{note} does not need to be predefined
+or declared. Once input is read into it, \doccmd{note}  can be expanded like a macro.
+The filenumber 16 displays information to the screen.
+
+\begin{Verbatim}
+  \write16{...}
+\end{Verbatim}
+
+
+\section{Writing Arbitrary Strings on a File}
+
+We start with a short review of \cmd{edef}. In |\edef\abc{\xyz \kern1em}|, the control 
+sequence |xyz| is expanded immediately (when |\abc| is defined), but the 
+\cmd{kern} is only executed later, when |\abc| is expanded.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

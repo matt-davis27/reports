@@ -1,0 +1,390 @@
+\chapter{Pages and page layout}
+\setlength{\parindent}{1em}
+\begin{wrapfigure}{L}{5cm}%
+  \includegraphics[width=5cm]{./graphics/illuminated}
+  \caption{During the early days of typography fonts were designed to emulate the looks of calligraphic texts.}
+  \label{fig:marginfig1}
+\end{wrapfigure}
+
+The basic element of a book are its pages. The page design is influenced by the page dimensions and the layout of the text on the page.  Much typography is based, for the sake of economy on standard industrial sizes, from 35 $x$ 45 inch press sheets to $3 1/2$ x 2 inch conventional business cards.  But many typographic projects begin with the opportunity and necessity of selecting the dimensions of the page. For most users of \alltex the choice is limited to A4 paper sizes in Europe and lettersize sheets in North America. 
+
+How do you select a size? History, natural science, geometry and mathematics
+are all relevant to typography in this regard -- and can all be counted on for aid.
+
+\section{Classical paper dimensions}
+
+Early typographers derived proportions that naturally occur in nature, and pages that embody
+them recur in manuscripts and books from Rennaissance Europe, Tang and Song dynasty
+China, early Egypt and ancient Rome.  These numbers are $\pi=$3.14159\ldots , which is the circumference of a circle whose diameter
+is one; $\sqrt{2}=$1.41421\ldots , which is the diagonal of a unit square; 
+$e=2.71828$  \ldots ,which is the base of the natural logarithms; and $\phi=1.61803$ \ldots ,a number which is discussed later on. Certain of these proportions appear in he structure of the human body; other appear in musical scales. Indeed, one of the simplest of all systems of 
+page proportions is based on the familiar intervals of the diatonic scale. Pages that
+embody these basic musical proportions have been in common use in Europe for more than a thousand year.
+
+ The sheets of paper, the broadsides, came in a limited number of more or less
+ standard sizes. These sheets are known under the names Foolscap, Crown, 
+ Post, Demy, Medium, Royal, Super Royal and Imperial. Folding the sheets
+ adds another set of terms: a single fold yields a Folio, a double fold a
+ Quarto, a triple fold an Octavo and so on. Hence, the combination of a
+ sheetname and the number of folds denotes a particular and precise size of
+ the book~\cite{town,williamson66}, for example, a crown octavo measures
+ 191x127~mm.
+
+
+ Jan Tschichold devoted a lifetime to the design and production of books. 
+ Fortunately, he wrote many of his views down. Later in life, he assembled 
+ his findings in an overview~\cite{tschichold87}, discussing in a more
+ coherent, concentrated fashion the questions which face anyone wishing to
+ make a book. Of particular interest is his analysis of size and proportions of
+ page, text and margins. Through his own historical investigations, he made, 
+ and continues to make, a very strong and convincing case against the more
+ `modern' tendency of making squarish books. His elegant, eloquent and well
+ illustrated discourse guides us away from the ugliness of the convenient but
+ rather square A format (proportion 1:1.414) back to the more rectangular
+ formats with  proportions tending towards the Golden  Ratio (from 1:1.5 to
+ 1:1.618). It is certainly no accident that the classical sheets of paper
+ traditionally used in the printing of books show proportions which fall very
+ nicely within this range. 
+
+ Tschichold analysed the size and disposition of the text block relative
+ to the page as well. By 1953, he published his discovery of the late gothic 
+ workshop secrets of determining the margins on a page.
+ Rosarivo~\cite{rosarivo61}confirmed this determination through his own, 
+ independent discovery of a different method which happily yielded the same 
+ results. Rosarivo's method is very easy to use and implement automatically:
+ divide the height and width of the page into an equal number, assign one part
+ to make up inner and upper margin, and two parts to make up outer and lower
+ margin, with the remainder defining the area available for printing the body
+ text.
+
+ The amount of leading between lines of print depends on the nature of the
+ fount, its size, and the length of the line. Also, it should remain fixed for
+ the entire text, yielding a constant, regular grid of lines. Tschichold
+ discussed the leading of lines of text in some detail, and similar views can 
+ be found in Williamson's book~\cite{williamson66}.
+
+ It should be clear by now that the standard book class included in \LaTeX\
+ requires a fair amount of adjustment to reflect more closely the design
+ principles just highlighted. The Octavo class is an attempt to provide
+ such a class file.
+
+\begin{figure}
+\centering
+  \includegraphics[width=0.6\linewidth]{./graphics/A-sizes}
+  \caption{When a sheet whose proportions are $1$:$\surd{2}$ is folded in half, the result is a sheet half as large but with \emph{the same proportions}. Standard paper sizes on this principle have been in use in Germany since the early 1920s. The basis of this system is teh A0 sheet, which has an are of 1 m$^2$. Yes because it is \textit{reciprocal with nothing but itself}, the ISO page in isolation is the least musical of all the major page shapes. It needs a textblock of another shape or contrast.}
+   \label{fig:marginfig1}
+\end{figure}
+
+\section{Modern Paper Sizes}
+The advantages of basing a paper size upon an aspect ratio of $\surd{2}$ were already noted in 1786 by the German scientist Georg Christoph Lichtenberg, in a letter to Johann Beckmann[2]. The formats that became A2, A3, B3, B4 and B5 were developed in France, and published in 1798 during the French Revolution, but were subsequently forgotten.[3]
+Early in the twentieth century, Dr Walter Porstmann turned Lichtenberg's idea into a proper system of different paper sizes. Porstmann's system was introduced as a DIN standard (DIN 476) in Germany in 1922, replacing a vast variety of other paper formats. Even today the paper sizes are called "DIN Ax" in everyday use in Germany.
+
+The main advantage of this system is its scaling: if a sheet with an aspect ratio of $\surd{2}$ is divided into two equal halves parallel to its shortest sides, then the halves will again have an aspect ratio of $\surd{2}$. Folded brochures of any size can be made by using sheets of the next larger size, e.g. A4 sheets are folded to make A5 brochures. The system allows scaling without compromising the aspect ratio from one size to another – as provided by office photocopiers, e.g. enlarging A4 to A3 or reducing A3 to A4. Similarly, two sheets of A4 can be scaled down and fit exactly 1 sheet without any cutoff or margins.
+
+The weight of each sheet is also easy to calculate given the basis weight in grams per square metre (g/m² or `'gsm"). Since an A0 sheet has an area of 1 m², its weight in grams is the same as its basis weight in g/m². A standard A4 sheet made from 80 g/m² paper weighs 5g, as it is one 16th (four halvings) of an A0 page. Thus the weight, and the associated postage rate, can be easily calculated by counting the number of sheets used.
+
+Unlike the A4 standard paper, the origin of the dimensions of \textit{letter size} paper are lost in tradition. The American Forest and Paper Association argues that the dimension originates from the days of manual paper making, and that the 11-inch length of the page is about a quarter of ``the average maximum stretch of an experienced vatman's arms".[1] However, this does not explain the width or aspect ratio. What is known is that Ronald Reagan made this the paper size for U.S. federal forms; previously, the smaller "official" size (8 in × 10½ in or 203.2 mm × 266.7 mm) was used.[1] Letter or US Letter is the most common paper size for office use in the United States and Canada. It is 8$\frac{1}{2}$ by 11 inches (exactly 215.9 mm × 279.4 mm).
+
+\subsection{Margins and all that}
+
+Traditionally typographers measured the textblock ratio to that of the full paper size to determine if the page proportions were of the right dimensions.
+
+According to Bringhurst\cite{bringhurst2005}, in typography margins must do three things. They must lock the
+textblock to the page and lock the facing pages to each other through the force of their proportions. Second, they must frame the textblock
+in a manner that suits its design. Third, they must protect the textblock, leaving it easy for the reader to see and convenient to handle. 
+
+In most well designed books fifty per cent of the character and integrity of a printed page lies in its letterforms. Much of the other fifty per cent resides in its margins.
+
+\section{Examples}
+Folowing the nomenclature introduced by Bringhurst in analyzing the examples on the following pages, 
+these symbols are used:
+
+%% Align at the = sign 
+\begin{table}[htbp]
+\begin{tabular}{l l @{ = } p{6cm}}
+\textit{Proportions:}      &P  &  page proportion $h/w$\\
+~                      &T &  textblock proportion: $d/m$\\
+\textit{Page size:}         &w &  width of page (trim-size)\\
+~                      &h  & height of page (trim-size)\\
+\textit{Textblock:}           &m & measure (width of primary textblock)\\
+~                      &d  & depth of primary textblock (excluding running heads, folios etc)\\                      
+~                      &$\lambda$ & line height (type size plus added lead)\\
+~                      &$n$ & secondary measure (width of secondary column)\\
+~                      &$c$  & column width, where there are even multiple columns\\
+\textit{Margins}  &$s$  & spine margin (back margin)\\
+~                      &$t$   & top margin (header margin)\\
+                        &$e$  & fore-edge (front margin)\\
+                        &$f$   & foot margin\\
+                        &$g$  & internal gutter (on a multiple-column page)\\
+\end{tabular}
+\caption{Symbols used to demonstrate various ratios in books}
+\end{table}
+\medskip
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{./graphics/page}
+  \caption{Page nomenclature}
+   \label{fig:marginfig1}
+\end{figure}
+
+More variables are necessary to specify all the variables handled by a \latex\
+page. For the time being the examples refer to dimensions from historical works
+in typography and should sufffice.
+
+\subsection{Hypneroto}
+
+\begin{figure}[htbp]
+  \includegraphics[width=\linewidth]{./graphics/hypneroto}
+\caption{The work is lauded for the originality of its
+design. Several sequential double page
+illustrations add a visual dimension to the
+progression of the narrative, and act like an
+early form of the strip cartoon. There is an
+obsession with movement throughout which is driven
+on by the illustrations, resulting in the
+impression of bodies moving from one page to the
+next. Other typographical innovations include
+playing with the traditional layout of the text;
+in the opening shown here, for example, the pages
+are shaped in the form of goblets. The dimensions
+of the text are: $P=1.5[2:3]$; T=1.7 (tall pentagon);
+Margins: s=t=w/9; e=2 s. The text is a fantasy
+novel, Francesco Colonna's Hypnerotomachia
+Poliphili, set in a roman font cut by Francesco
+Griffo. (Aldus Manutius, Venice, 1499). Original
+size: $20.5 \times 31$ cm.}
+\label{fig:hypneroto}
+\end{figure}
+
+
+%  \label{fig:layout}
+
+
+
+
+
+
+The book was printed by Aldus Manutius in Venice in December 1499. The book is anonymous, but an acrostic formed by the first, elaborately decorated letter in each chapter in the original Italian reads \textsc{\small POLIAM FRATER FRANCISCVS COLVMNA PERAMAVIT}, \enquote{Brother Francesco Colonna has dearly loved Polia.} However, the book has also been attributed to Leon Battista Alberti by several scholars, and earlier, to Lorenzo de Medici. The latest contribution in this respect was the attribution to Aldus Manutius, and arguably, a Francesco Colonna, a wealthy Roman Governor. The author of the illustrations is even less certain, but contemporary opinion gives the work to Benedetto Bordone.
+
+
+
+
+\section{Temporarily changing the text width}
+\index{pagewidth!change temporarily}
+Margins in a page can be changed temporarily by adjusting, the lengths of \cmd{leftmargin} and \cmd{rightmargin}. The |memoir| class provides an environment |adjustwidth| see page 422 (based on This code is based on the \cmd{chngpage} package.) for doing so and the |tufte-book| class provides an environment |fullwidth|. The following code is an adaptation of that found in the |memoir| class.
+
+
+\begin{teXX}
+\begin{adjustmargins}{hleft i}{hright i} 
+\end{teXX}
+
+
+adds the given lengths to the left and
+right hand margins. A positive value will shorten the text and a negative value
+will widen it. The starred version of the environment will cause the margin
+changes to switch between odd and even pages. 
+
+\let\textheightold=\textheight
+\textheight = 49\baselineskip
+
+
+\newpage
+
+\section*{The \texttt{adjustmargins} environment}
+\lipsum[1]
+\begin{adjustmargins}{2in}{-2.7in}
+\vfill
+\rule{13cm}{.4pt}
+There are no engineers in the hottest parts of hell, because the existence of a 'hottest part' implies a temperature difference, and any marginally competent engineer would immediately use this to run a heat engine and make some other part of hell comfortably cool.  This is obviously impossible.
+\end{adjustmargins}
+\medskip
+\begin{adjustmargins}{-2.6cm}{-3.2in}
+
+\noindent\includegraphics[width=\linewidth]{./graphics/fire1}
+\end{adjustmargins}
+
+\newpage
+
+Contract this with the |fullwidth|
+\let\textheight=\textheightold
+
+
+
+\begin{fullwidth}
+\frogking
+\includegraphics[width=\linewidth]{./graphics/fire1}
+\end{fullwidth}
+
+\begin{teX}
+\makeatletter
+
+ \begingroup
+ \catcode`\Q=3
+ \long\gdef\@ifmtarg#1{\@xifmtarg#1QQ\@secondoftwo\@firstoftwo\@nil}
+ \long\gdef\@xifmtarg#1#2Q#3#4#5\@nil{#4}
+ \long\gdef\@ifnotmtarg#1{\@xifmtarg#1QQ\@firstofone\@gobble\@nil}
+ \endgroup
+
+\newenvironment{adjustmargins}[2]{%
+  \begin{list}{}{%
+    \topsep\z@%
+    \listparindent\parindent%
+    \parsep\parskip%
+   \@ifmtarg{#1}{\setlength{\leftmargin}{\z@}}%
+   {\setlength{\leftmargin}{#1}}%
+   \@ifmtarg{#2}{\setlength{\rightmargin}{\z@}}%
+   {\setlength{\rightmargin}{#2}}%
+}
+\item[]}{\end{list}}
+
+ \newenvironment{adjustmargins*}[2]{%
+ \begin{list}{}{%
+ \topsep\z@%
+ \listparindent\parindent%
+ \parsep\parskip%
+ \checkoddpage
+ \ifoddpage % odd numbered page
+ \@ifmtarg{#1}{\setlength{\leftmargin}{\z@}}%
+ {\setlength{\leftmargin}{#1}}%
+ \@ifmtarg{#2}{\setlength{\rightmargin}{\z@}}%
+ {\setlength{\rightmargin}{#2}}%
+ \else % even numbered page
+ \@ifmtarg{#2}{\setlength{\leftmargin}{\z@}}%
+ {\setlength{\leftmargin}{#2}}%
+ \@ifmtarg{#1}{\setlength{\rightmargin}{\z@}}%
+ {\setlength{\rightmargin}{#1}}%
+\fi
+}
+\item[]}{\end{list}}
+
+\makeatother
+\end{teX}
+
+\section{The Geometry package}
+\label{sec:geometry}
+
+\def\OpenB{{\ttfamily\char`\{}}
+ \def\Comma{{\ttfamily\char`,}}
+ \def\CloseB{{\ttfamily\char`\}}}
+ \def\Gm{\textsf{geometry}}
+\newcommand\gpart[1]{\textsf{\textsl{\color[rgb]{.0,.45,.7}#1}}}%
+
+ \newcommand\glen[1]{\textsf{#1}}
+
+
+\begin{fullwidth}
+\begingroup
+\catcode`\|=12
+ \hskip-1.0cm\begin{figure}
+  \small
+  {\unitlength=.65pt
+  \begin{picture}(450,250)(0,-10)
+  \put(20,0){\framebox(170,230){}}
+  \put(20,235){\makebox(170,230)[br]{\gpart{paper}}}
+  \begingroup\thicklines
+  \put(40,30){\framebox(120,170){}}\endgroup
+  \put(40,30){\makebox(120,165)[tr]{\gpart{total body}~}}
+  \put(45,30){\makebox(0,170)[l]{|height|}}
+  \put(40,35){\makebox(120,0)[bc]{|width|}}
+  \put(50,-20){\makebox(120,0)[bc]{|paperwidth|}}
+  \put(10,45){\makebox(0,170)[r]{|paperheight|}}
+  \put(90,200){\makebox(0,30)[lc]{|top|}}
+  \put(90,0){\makebox(0,30)[lc]{|bottom|}}
+  \put(10,70){\makebox(0,0)[r]{|left|}}
+  \put(10,55){\makebox(0,0)[r]{(|inner|)}}
+  \put(200,70){\makebox(0,0)[l]{|right|}}
+  \put(200,55){\makebox(0,0)[l]{(|outer|)}}
+  \put(80,230){\vector(0,-1){30}}\put(80,30){\vector(0,-1){30}}
+  \put(80,200){\vector(0,1){30}}\put(80,0){\vector(0,1){30}}
+  \put(20,70){\vector(1,0){20}}\put(40,70){\vector(-1,0){20}}
+  \put(160,70){\vector(1,0){30}}\put(190,70){\vector(-1,0){30}}
+  \multiput(160,30)(5,0){24}{\line(1,0){2}}
+  \multiput(160,200)(5,0){24}{\line(1,0){2}}
+  \begingroup\thicklines
+  \put(280,30){\framebox(120,170){}}\endgroup
+  \put(283,133){\makebox(0,12)[l]{|textheight|}}
+  \put(295,130){\vector(0,-1){100}}\put(295,150){\vector(0,1){50}}
+  \multiput(280,220)(5,0){24}{\line(1,0){3}}
+  \put(280,208){\makebox(120,20)[bc]{\gpart{head}}}
+  \multiput(280,207)(5,0){24}{\line(1,0){3}}
+  \put(420,225){\makebox(0,0)[l]{|headheight|}}
+  \put(418,225){\line(-2,-1){20}}
+  \put(420,213){\makebox(0,0)[l]{|headsep|}}
+  \put(418,213){\line(-2,-1){20}}
+  \put(420,12){\makebox(0,0)[l]{|footskip|}}
+  \put(418,12){\line(-2,1){20}}
+  \put(280,40){\makebox(120,140)[c]{\gpart{body}}}
+  \put(305,45){\vector(-1,0){25}}\put(375,45){\vector(1,0){25}}
+  \put(80,230){\vector(0,-1){30}}\put(80,30){\vector(0,-1){30}}
+  \put(280,48){\makebox(120,0)[c]{|textwidth|}}
+  \put(280,15){\makebox(120,10)[c]{\gpart{foot}}}
+  \multiput(280,14)(5,0){24}{\line(1,0){2}}
+  \put(410,30){\dashbox{3}(30,170){}}
+  \put(415,30){\makebox(30,170)[l]{\gpart{marginal note}}}
+  \put(425,45){\vector(-1,0){15}}\put(425,45){\vector(1,0){15}}
+  \put(450,70){\makebox(0,0)[l]{|marginparsep|}}
+  \put(448,70){\line(-3,-1){43}}
+  \put(450,45){\makebox(0,0)[l]{|marginparwidth|}}
+  \end{picture}}
+\caption{Dimension names used in the geometry package. width $=$ textwidth and height $=$ textheight by default. left, right, top and bottom are margins. If margins on verso pages are swapped by twoside option, margins specified by left and right options are used for the inside and outside margins respectively. inner and outer are aliases of left and right
+respectively.}
+\label{fig:geometrylayout}
+\end{figure}
+\endgroup
+\end{fullwidth}
+
+
+ The \docpkg{geometry} package provides a flexible and easy interface to page dimensions.
+ You can change the page layout with intuitive parameters. For instance,
+ if you want to set a margin to 2cm from each edge of the paper,
+ you can type just |\usepackage[margin=2cm]{geometry}|. 
+ The page layout can be changed in the middle of the document
+ with \pmac{geometry}{newgeometry} command.  The \ref{fig:geometrylayout}, reproduced from the package documentation, illustrates the variety of parameters that can be set using the package.
+
+
+\section{Footnotes}
+The history of footnotes is as long and complicated as the history of scholarship and commentary. Hebrew scholars more than two thousand years ago used systems of glossing and annotation to work on religious texts. 
+
+Scribes in the Christian tradition in the medieval period made use of annotations in their manuscript copying practices: surrounding the original text with glosses in small letters. After the advent of printing, similar kinds of marginal annotation appeared in printed texts of the late fifteenth century. 
+
+Humanist scholars producing printed editions of classical learning in the sixteenth century also made use of the resources of typography to display both the surviving classical text and their commentary on the same page. References to classical sources - and to modern printed editions - became more systematic, as did the expectation that such references would be consistent with scholarly practices. Scholars increasingly marked their professionalism by using complex citational conventions, which by the seventeenth century were so well established as to be the subject of parody and satire. Scriblerian satire of the early eighteenth century, whose purpose was to mock the pedantry and folly of the works of the learned, frequently included extensive parodies of footnotes and the scholarly contests they encoded. Nonetheless, during the eighteenth century, to appear authoritative and learned an author had to adopt the scholarly machinery of the reference citation.
+
+The footnote was born out of a desire to rationalise the relation between text and citation. 
+
+Robert Connors argues that marginal notations fell out of favour for two practical reasons: they left too much blank paper at the side of the text; and they were difficult for typographers to set. The same notes placed at the bottom of the page were more efficient, both in paper and time[1]. 
+
+Anthony Grafton's The Footnote: A Curious History suggests the modern footnote, inaugurated by Pierre Bayle's Dictionaire Critique et Historique in 1697, signalled an epistemic revolution in historical scholarship, indicating the end of credulous scholasticism and the emergence of analytical historical methodologies. Both scholars note the considerable impact of historians such as David Hume and Edward Gibbon on the stylistic development of the discursive and citational footnote as a location for the display of gentlemanly ease as much as scholarly acumen. In the nineteenth century, German scholars such as Leopold von Ranke and Alexander von Humboldt established a systematic basis for the footnote citation, creating a methodical methodological approach that all competing scholars had to obey. In this way, the idea of the footnote was established, yet no there was no general agreement on the form these footnotes should adopt. A systematic approach to the form of the footnote was needed.
+
+In this section we will discuss how lines and paragraphs are turned into pages and how elements of pages such as footnotes, headers etc are inserted. As with the other chapters we will mix TeX basic commands with the more convenient \LaTeXe\ commnads. We will also look at some of the packages and classes that are availble to assist us with page layouts. 
+
+
+Besides illustrations that are inserted at the top of a page, plain TEX will also
+insert footnotes at the bottom of a page. The ootnote macro is provided
+for use within paragraphs;  for example, the footnote in the present sentence was typed
+in the following way:
+
+
+There are two parameters to a footnote[ first comes the reference mark, which will
+appear both in the paragraph** and in the footnote itself, and then comes the text of
+the footnote.45 The latter text may be several paragraphs long, and it may contain
+\footnote{Sidenote: ``Where God meant footnotes to go.'' ---Tufte}
+
+\sidenote{
+
+The history of footnotes is as long and complicated as the history of scholarship and commentary. Hebrew scholars more than two thousand years ago used systems of glossing and annotation to work on religious texts. Scribes in the Christian tradition in the medieval period made use of annotations in their manuscript copying practices: surrounding the original text with glosses in small letters. After the advent of printing, similar kinds of marginal annotation appeared in printed texts of the late fifteenth century. Humanist scholars producing printed editions of classical learning in the sixteenth century also made use of the resources of typography to display both the surviving classical text and their commentary on the same page. References to classical sources - and to modern printed editions - became more systematic, as did the expectation that such references would be consistent with scholarly practices. Scholars increasingly marked their professionalism by using complex citational conventions, which by the seventeenth century were so well established as to be the subject of parody and satire. Scriblerian satire of the early eighteenth century, whose purpose was to mock the pedantry and folly of the works of the learned, frequently included extensive parodies of footnotes and the scholarly contests they encoded. Nonetheless, during the eighteenth century, to appear authoritative and learned an author had to adopt the scholarly machinery of the reference citation.
+
+The footnote was born out of a desire to rationalise the relation between text and citation. Robert Connors argues that marginal notations fell out of favour for two practical reasons: they left too much blank paper at the side of the text; and they were difficult for typographers to set. The same notes placed at the bottom of the page were more efficient, both in paper and time[1]. Anthony Grafton's The Footnote: A Curious History suggests the modern footnote, inaugurated by Pierre Bayle's Dictionaire Critique et Historique in 1697, signalled an epistemic revolution in historical scholarship, indicating the end of credulous scholasticism and the emergence of analytical historical methodologies. Both scholars note the considerable impact of historians such as David Hume and Edward Gibbon on the stylistic development of the discursive and citational footnote as a location for the display of gentlemanly ease as much as scholarly acumen. In the nineteenth century, German scholars such as Leopold von Ranke and Alexander von Humboldt established a systematic basis for the footnote citation, creating a methodical methodological approach that all competing scholars had to obey. In this way, the idea of the footnote was established, yet no there was no general agreement on the form these footnotes should adopt. A systematic approach to the form of the footnote was needed.}
+
+Further reading:
+
+Connors, Robert J., 'The Rhetoric of Citation Systems, Part I: The Development of Annotation Structures from the Renaissance to 1900', Rhetoric Review, 17 (1998), 6-48.
+
+Connors, Robert J., 'The Rhetoric of Citation Systems, Part II: Competing Epistemic Values in Citation', Rhetoric Review, 17 (1999), 219-245.
+
+Grafton, Anthony, The Footnote: A Curious History (London: Faber and Faber, 1997)
+
+Grafton, Anthony, 'The Footnote from De Thou to Ranke', History and Theory, 33 (1994), 53-76
+
+Zerby, Chuck, The Devil's Details: A History of Footnotes (Lancaster: Gazelle, 2002)
+
+[1] Robert J. Connors, The Rhetoric of Citation Systems, Part I: The Development of Annotation Structures from the Renaissance to 1900, Rhetoric Review, 17 (1998), 6-48 (p. 30).

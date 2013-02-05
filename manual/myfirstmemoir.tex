@@ -1,0 +1,413 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% Example of the Memoir class, an alternative to the default LaTeX classes such as article and book, with many added features built into the class itself.
+
+\documentclass[a4paper, oneside]{tufte-book} % for a long document
+%\documentclass[12pt,a4paper,article]{memoir} % for a short document
+
+\usepackage[utf8]{inputenc} % set input encoding to utf8
+\usepackage{lipsum}
+\usepackage{listings}
+\usepackage{lineno}
+\usepackage{xcolor}
+\usepackage{feynmp}
+\usepackage{booktabs}
+
+% Don't forget to read the Memoir manual: memman.pdf
+
+%%% Examples of Memoir customization
+%%% enable, disable or adjust these as desired
+
+%%% PAGE DIMENSIONS
+
+\title{The Hackers Guide to LaTeX}
+%%% \maketitle CUSTOMISATION
+% For more than trivial changes, you may as well do it yourself in a titlepage environment
+
+
+
+%%% ToC (table of contents) APPEARANCE
+%\maxtocdepth{subsection} % include subsections
+%\renewcommand{\cftchapterpagefont}{}
+%%\renewcommand{\cftchapterfont}{}     % no bold!
+
+%%% HEADERS & FOOTERS
+%\pagestyle{ruled} % try also: empty , plain , headings , ruled , Ruled , companion
+
+%%% CHAPTERS
+%\chapterstyle{hangnum} %try also: default , section , hangnum , companion , article, demo, chapppell
+
+%\renewcommand{\chaptitlefont}{\Huge\sffamily\raggedright} % set sans serif chapter title font
+%\renewcommand{\chapnumfont}{\Huge\sffamily\raggedright} % set sans serif chapter number font
+
+%%% SECTIONS
+%\hangsecnum % hang the section numbers into the margin to match \chapterstyle{hangnum}
+%\maxsecnumdepth{subsection} % number subsections
+
+
+
+%% END Memoir customization
+
+\title{The Hackers Guide to LaTeX}
+\author{Y Lazarides}
+\date{July 2010} % Delete this line to display the current date
+
+%%% BEGIN DOCUMENT
+\begin{document}
+
+
+\newcommand{\cs}[1]{$\backslash$#1}
+\maketitle
+\tableofcontents* % the asterisk means that the contents itself isn't put into the ToC
+\newpage
+
+\input{./manual/fonts}
+
+
+
+\chapter{Back to the future}
+Mixing lots of stuff is possible, try this, it will give you a cedilla.
+
+\begin{center}
+\textsc{Des Dames du Temps Jardis}
+\end{center}%
+\settowidth{0.5\linewidth}{Or yet in a year where they are}
+\begin{verse}[\versewidth] \begin{itshape}
+Prince, n’enquerez de sepmaine \\*
+Ou elles sont, ne de cest an, \\*
+Qu’a ce reffrain ne vous remaine: \\*
+Mais ou sont les neiges d’antan?
+\end{itshape}
+Prince, do not ask in a week \\*
+Or yet in a year where they are, \\*
+I could only give you this refrain: \\*
+But where are the snows of yesteryear?
+\end{verse}
+\begin{flushright}
+{\bfseries Fran\c{c}ois Villon} [1431--1463?]
+\end{flushright}
+
+\section{Quotations}
+
+\begin{quotation}
+This quotation has a short last line so there there is enough space
+for the source to be set at
+the end of the line.\sourceatright{I. M. Short}
+\end{quotation}
+\begin{quotation}
+The last line of this quotation turns out to be too long for
+the source to be set at the end, so it is automatically
+set flushright on the following line.\sourceatright{N. O. Space}
+\end{quotation}
+
+
+\chapter{Floats}
+\begin{figure}
+\centering
+\hspace*{\fill}
+{ILLUSTRATION 1} \hfill {ILLUSTRATION 2}
+\hspace*{\fill}
+\caption{Example float with two illustrations} \label{fig:mult1}
+\end{figure}
+
+\subsection{Tables}
+\begin{ctabular}{lcr} \toprule
+LEFT & CENTER & RIGHT \\ \midrule
+l & c & r\verbfootnote{this is \em{flushed} right } \\
+l & c & r \\
+l & c & r \\
+l & c & r \\ \bottomrule
+\end{ctabular}
+\marginpar{\legend{LEGEND}
+{\tiny This is a marginal note with a legend}}
+
+\chapter{Measuring Things}
+
+The point system was invented by Pierre Fournier le jeune in 1737 with a length of
+0.349mm. Later in the same century François-Ambroise Didot introduced his point system
+with a length of 0.3759mm. This is the value still used in Europe. Much later, in 1886,
+the American Type Founders Association settled on 0.013837in as the standard size for the
+point, and the British followed in 1898. Conveniently for those who are not entirely metric
+in their thinking this means that six picas are approximately equal to one inch.
+The big point is somewhat of an anomaly in that it is a recent invention. It tends to
+be used in page markup languages, like PostScript4, in order to make calculations quicker
+and easier.
+
+The above units are all constant in value. There are also some units whose value depends
+on the particular font being used. The {\em em} is the nominal height of the current font;
+it is used as a width measure. An {\em en} is half an {\em em}. The ex is nominally the height of the
+letter ‘x’ in the current font. You may also come across the term {\em quad}, often as in a phrase
+like ‘starts with a quad space’. It is a length defined in terms of an em, often a quad is 1em.
+
+
+
+
+
+
+\end{document}
+
+
+
+
+
+
+\chapter{Sidebars}
+\epigraph{Example is the school of mankind,
+and they will learn at no other.}
+{\textit{Letters on a Regicide Peace}\\ \textsc{Edmund Burke}}
+
+
+Testing\sidefootnote{This is test} bottom aligned
+footnotes.\sidefootnote{This is another side
+footnote, spanning several lines.
+And several paragraphs}\sidefootnote{And \bs number three}
+
+\chapter{Drawing pictures and graphs}
+\chapterprecis{In which we talk of many things, but not shoes or ships or sealing wax, nor cabbages
+and kings.}
+
+\begin{figure}
+\setlength{\unitlength}{0.5mm}
+\centering
+\begin{picture}(100,100)
+\thicklines % first curve
+\qbezier(10,50)(50,90)(50,50)
+\thinlines % draw lines joining control points
+\put(10,50){\line(1,1){40}}
+\put(50,90){\line(0,-1){40}}
+% label control points
+\put(10,45){\makebox(0,0)[t]{\texttt{(10,50)}}}
+\put(50,95){\makebox(0,0)[b]{\texttt{(50,90)}}}
+\put(55,50){\makebox(0,0)[l]{\texttt{(50,50)}}}
+\thicklines % second curve
+\qbezier[25](50,50)(50,10)(90,50)
+\thinlines % draw lines joining control points
+% \put(50,50){\line(0,-1){40}}
+% \put(50,10){\line(1,1){40}}
+% label control points
+\put(50,5){\makebox(0,0)[t]{\texttt{(50,10)}}}
+\put(90,55){\makebox(0,0)[b]{\texttt{(90,50)}}}
+\end{picture}
+\setlength{\unitlength}{1pt}
+\caption{Two Bezier curves}
+\label{lpicf:bez}
+\end{figure}
+
+
+\chapter{Writing code}
+
+\begin{verbatim}
+The macro \meta{hargi} prints hargi for an argument to a macro.
+The macro \marg{hargi} prints {hargi} for a required argument.
+The macro \oarg{hargi} prints [hargi] for an optional argument.
+The macro \parg{hargi} prints (hargi) for a parenthesized argument.
+\end{verbatim}
+
+You can enclose a block of text or code between
+
+\cmdprint{\begin\{verbatim\}}
+
+\ldots
+
+\cmdprint{\end\{verbatim\}}
+
+This will print the text exactly as is. It does not execute the code.
+
+If you are writing \LaTeXe ~code and perhaps you wish to document your class you can use a number of pre-defined commands
+
+You can print a backslash using \cs{bs}, which simply will print a~\bs. Another useful one is \cs{cs}. This will print the command with a backslash show \cs{caption}. 
+
+There are a number of very good packages if you intend to write psudocode or computer code.
+One is the {\em listings}  environment.
+
+
+%\usepackage{listings}
+\lstloadlanguages{C}
+\lstset{language=C,commentstyle=\scriptsize,numberstyle=\tiny,numbers=left,
+stepnumber=2,numbersep=5pt,firstnumber=10,
+xleftmargin=30pt ,showstringspaces=false
+}
+\begin{lstlisting}[keywordstyle=\em]
+for i=0; i<20; i++ {
+   k=i+2;
+}
+for i=0; i<20; i++ {
+   k=i+2;
+}
+
+\end{lstlisting}
+
+The macro will not prettify your code, so before you insert it you will have to format it. After loading the package it is helpful to specify all program languages
+needed in the document (as a comma-separated list) using \cs{lstloadlanguages}.
+Such a declaration does not select a language, but merely loads the necessary
+support information and speeds up processing.
+
+Program fragments are included inside a  lstlisting environment. The language
+of the fragment is specified with the language keyword. In the following
+example we set this keyword via \cs{lstset}  to C and then overwrite it later in the
+optional argument to the second lstlisting environment.
+
+As a final example of the kind of treasures you can find in that manual, look at
+the following example. It shows code typesetting as known from Donald Knuth’s
+literate programming conventions.
+
+%\usepackage{listings}
+\lstset{literate={:=}{{$\gets$}}1
+{<=}{{$\leq$}}1 {>=}{{$\geq$}}1 {<>}{{$\neq$}}1}
+\begin{lstlisting}[gobble=2]
+var i:integer;
+if (i<=0) i := 1;
+if (i>=0) i := 0;
+if (i<>0) i := 0;
+\end{lstlisting}
+
+This was typeset using the following:
+\small\begin{verbatim}
+\usepackage{listings}
+\lstset{literate={:=}{{$\gets$}}1
+{<=}{{$\leq$}}1 {>=}{{$\geq$}}1 {<>}{{$\neq$}}1}
+\begin{lstlisting}[gobble=2]
+var i:integer;
+if (i<=0) i := 1;
+if (i>=0) i := 0;
+if (i<>0) i := 0;
+\end{lstlisting}
+\end{verbatim}
+
+\normalsize
+\lipsum
+
+
+\chapter{Classes and Packages you can't live without}
+
+Besides the standard classes that come with a \LaTeX\ distribution the memoir class and tufte-book are two that you need to have a look at. The memoir class has been written in such a way that it can provide you with an environment to write your own class, without having to go through a steep learning curve. The tufte-book class will just make you  proud of the final look of your book. If you writing a Thesis or a paper you are somewhat limited by your institutions format. Most University Departments will insist your format fits some archaic and ugly looking, perhaps obscure way of doing things. If you really unlucky they will make you type it in word. In such a case you have our sympathies. After you submit your thesis, amke another copy with \LaTeX\ and pass it to the Committee.
+
+Depending what you are trying to achieve, you will need o find the right packages to use. If youi are writing code
+
+listings
+
+
+
+
+
+\section*{Graphics}
+For graphics and plots you need TikZ/pgf, simply this is the best. It has a serious learning curve, but I can assure you you cannot live without it.
+
+\chapter{Programming}
+A not so amazing fact about \TeX is that it is Turing complete 
+\footnote{Turing completeness, named after Alan Turing, is significant in that every real-world design for a computing device can be simulated by a universal Turing machine. The Church-Turing thesis states that this is a law of nature—that a universal Turing machine can, in principle, perform any calculation that any other programmable computer is capable of. Obviously, this says nothing about the effort required to write the program, or the time it may take for the machine to perform the calculation, or any abilities the machine may possess that have nothing to do with computation.}. 
+Some people have done amazing things with it, like creating full programs, just using TeX. I am not surprized, hackers tend to want to stretch both the capabilities of their computers as well as their brains. After all their is a computer language called brainfuck. \footnote{Very difficult to typeset!}
+
+Named after Alan Turing, in practice, Turing-completeness means that the rules followed in sequence on arbitrary data can produce the result of any calculation. A device with a Turing complete instruction set is the definition of a universal computer. To be Turing complete, it is enough to have conditional branching (an "if" and "goto" statement), and the ability to change memory.
+
+To show that something is Turing complete, it is enough to show that it can be used to simulate the most primitive computer, since even the simplest computer can be used to simulate the most complicated one. All general purpose programming languages and modern machine instruction sets are Turing complete, up to relatively trivial finite-memory issues. Turing complete machines are defined as having unlimited amounts of memory, while machine instruction sets are usually designed only to work with a certain limited amount of RAM.
+
+\LaTeX\  lets you write new commands (or adapt old ones), create or adapt environments, and write your own packages and even classes. This document will give detailed descriptions on how to do simple things, but won't cover all the issues relating to class creation.
+
+\section{Defining New Environments}
+
+You can define new environments using the \cs{newenvironment}. For example the following snippet wil define a list that automatically uses emphasized text.
+
+\begin{verbatim}
+\newenvironment{emlist}{\begin{itemize} \em} {\end{itemize}}
+\end{verbatim}
+
+{\tiny
+\begin{verbatim}
+\newenvironment{\ environmentname}[number of arguments][ default value of the 1st (optional) argument]
+{ entry code, using #1, #2 etc to denote arguments} 
+{ exit code - arguments can't be used}
+\end{verbatim}
+}
+
+Simple use isn't as painful as it looks - the following provides a variant of the itemize command, emphasising the items.
+
+\newenvironment{emlist}{ \begin{itemize} \em}{\end{itemize}}
+
+ \begin{emlist}
+    \item first comment
+     \item second comment
+ \end{emlist}
+   
+The end of the environment ends the scope of the emphasis.
+
+Let us define a new environment, for quotes, taht will start by said that the author has said something meaningful, like quoted an extract from the Hitch-hikers Guide to the Universe.
+
+\newenvironment{quotationX}[2][George]% environment name
+               {\par \ldots #1 \list{}{\small  % small fontsize
+                           \em     % emphasize text
+                            \listparindent  \parindent
+                           \itemindent    \listparindent%
+                           \rightmargin   \leftmargin%
+                           \setlength{\parsep}{2pt}
+                          \setlength{\topsep}{10pt}
+                         \ldots #2}%    \parsep \z@ \@plus\p@
+                \item[] 
+              }% begin code
+               {\endlist } % exit code
+
+%redefine
+\newenvironment{quotationY}{\begin{quotationX}}{\end{quotationX}}
+
+
+\begin{quotationX}{YL}{said}
+\item Programming TeX is not difficult if you can think in backslashes. 
+You need to memorize about 600 commnads and you wil be ok
+\item Programming TeX is not difficult if you can think in backslashes. 
+You need to memorize about 600 commnads and you wil be ok
+
+
+
+\end{quotationX}
+
+An environment, is simply something that you enclose between begin and end. They seem difficult at first since you need to know your TeX very well
+
+\section{More on Lists}
+
+\newenvironment{DIV}[2][George]% environment name
+               {\par $<span>$ \list{}{\small  % small fontsize
+                            \listparindent  \parindent
+                           \itemindent    \listparindent%
+                           \rightmargin   \leftmargin%
+                           \setlength{\parsep}{2pt}
+                          \setlength{\topsep}{10pt}
+                         #1 $</span>$}%    \parsep \z@ \@plus\p@
+                \item[] 
+              }% begin code
+               {\endlist } % exit code
+
+\begin{DIV}{Testing}
+This is a test \char 163
+\end{DIV}
+
+\newcommand{\code}[1]  {\textsf{\texttt{#1}}}
+
+As we are bound to use too many variables and code snippets we could define an environment \cs{code} that can produce a  \code{code}
+
+\chapter{Feynman and other diagrams}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

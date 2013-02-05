@@ -1,0 +1,66 @@
+\documentclass[11pt]{tufte-book}
+
+\usepackage[utf8]{inputenc}
+
+\def\compactlist {\begin{list}{}{\leftmargin \parindent \itemindent -\parindent \itemsep 0pt \parsep 0pt}}
+
+\def\compactlisttwo {\begin{list}{}{\leftmargin \parindent \itemindent -\parindent \itemsep 1pt \parsep 1pt}}
+
+% to avoid over/underfull boxes without using explicit linebreaks
+\def\stretchyspace{\spaceskip0.5em plus 0.5em minus 0.25em}
+
+\usepackage{soul}
+
+\begin{document}
+\begin{flushright}
+  \parbox{3in}{\setlength{\parindent}{1em}
+  ``All human knowledge begins with intuitions,
+  thence passes to concepts and
+  ends with ideas.''}
+\end{flushright}
+\begin{flushright}
+  \parbox{2.5in}{\setlength{\parindent}{1em}
+  Kant, \emph{Kritik der reinen Vernunft,}
+  \emph{Elementariehre}, Part 2, Sec. 2.}
+\end{flushright}
+
+
+
+\compactlisttwo
+\item \textit{Finance Committee}---\textsc{W.~C.~Gibbs, W.\ M.\ Pierson, E.\ J.\ Molera}.
+\item \textit{Board of Directors}---Messrs.\ \textsc{Alvord, Boericke, Burckhalter, Gibbs,
+Grant, Holden, Lowden, Molera, Pierson, Schaeberle, Soul}.
+\item \textit{Committee on Publication}---Messrs.\ \textsc{Dewey, Treat, Ziel}.
+\end{list}
+
+\begin{flushright}
+  \parbox{3in}{\setlength{\parindent}{1em}
+  ``All human knowledge begins with intuitions,
+  thence passes to concepts and
+  ends with ideas.''}
+\end{flushright}
+\begin{flushright}
+
+
+  \parbox{2.5in}{\setlength{\parindent}{1em}
+  Kant, \emph{Kritik der reinen Vernunft,}
+  \emph{Elementariehre}, Part 2, Sec. 2.}
+\end{flushright}
+\compactlist
+\item \textit{Finance Committee}---\textsc{W.\ C.\ Gibbs, W.\ M.\ Pierson, E.\ J.\ Molera}.
+\item \textit{Board of Directors}---Messrs.\ \textsc{Alvord, Boericke, Burckhalter, Gibbs,
+Grant, Holden, Lowden, Molera, Pierson, Schaeberle, Soul}.
+\item \textit{Committee on Publication}---Messrs.\ \textsc{Dewey, Treat, Ziel}.
+\end{list}
+
+\compactlisttwo\stretchyspace
+\item[] \textit{Board of Directors}---Messrs.\ \textsc{Alvord, Boericke, Burckhalter, Gibbs,
+Grant, Holden, Lowden, Molera, Pierson, Schaeberle, Soul}.
+\item[]\textit{Finance Committee}---Messrs.\ \textsc{Gibbs, Pierson, Molera}.
+\item[]\textit{Committee on Publication}---Messrs.\ \textsc{Dewey, Treat, Ziel}.
+\item[]\textit{Committee on the Comet Medal}---Messrs.\ \textsc{Holden} (\textit{ex officio}), % original has ex-officio
+\textsc{Schaeberle}, \textsc{Burckhalter}.
+\end{list}
+
+
+\end{document}

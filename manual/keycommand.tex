@@ -1,0 +1,127 @@
+\documentclass[a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[latin1]{inputenc}
+\usepackage[american]{babel}
+\usepackage{keycommand,framed,fancyvrb,xcolor}
+
+%% Complexity
+\newkeycommand*\Rule[raise=.4ex,
+                     width=0.2\textwidth,
+                     thick=.4pt,
+                     color=blue,
+                     fontsize=\normalsize,
+                     bool test=true,
+                     fontweight=\bfseries,
+                     indent=true][1]{%
+{\noindent\color{\commandkey{color}}
+\hfill Title\ 
+ \rule[\commandkey{raise}]{\commandkey{width}}{\commandkey{thick}}}%
+\ifnum\commandkey{test}>0 \color{red}\tt 
+  \else \color{green}\rm 
+\fi
+\hskip1em
+\commandkey{fontweight}#1
+\hskip1em
+\rule[\commandkey{raise}]{\commandkey{width}}{\commandkey{thick}}}
+
+\newkeycommand\Boxed[thick=0.4pt,textcolor=blue][1]{
+         \fbox{\color{\commandkey{textcolor}}#1}\bigskip}
+
+
+
+\begin{document}
+
+\Rule[width=2em,fontsize=\Large,test=true]{hello} 
+\Rule[test=false]{test}
+\Rule[test=true, fontsize=Huge]{test}
+\Boxed[textcolor=purple]{<<hello>>}
+\Rule[thick=2pt, raise=1ex]{\textsc{Testiii....ing for wellness}}
+
+
+\showcommandkeys{test}
+
+\end{document}
+
+The package keycommand provides an easy and quick way to define newcommands with optional key-value arguments. It is substantially easier to use than the keyval package
+although I am not sure if it is as robust. However it is very easy to use.
+
+\docsetup[
+  enum doctype={ms,paper,report,article,minutes,books}
+  project='',
+  engineername='',
+  date=true,
+  signatory='',
+  draft=yes,
+  paper=a4]{}
+
+PRESENTATION RELATED
+
+font
+fontsize
+color
+backgruond-color
+borders
+other
+marginleft
+marginright
+
+
+SetEnumerate
+SetChapter
+SetSection
+SetSubsection[font=fontstyle11]{}
+SetFooter
+SetTableCaptions
+SetFigureCaptions
+
+SetParagraph
+SetParagraphStyle{textfont=,
+                  textcolor=
+                  border=
+                  justification={raggedleft,raggedright,}}
+
+SetIndex{columns,
+         text,
+         other,
+         Title=typeA}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

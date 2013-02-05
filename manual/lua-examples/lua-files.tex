@@ -1,0 +1,28 @@
+\documentclass{article}
+\usepackage[utf8]{luainputenc}
+
+\begin{document}
+
+
+%%% Function to find a file ...
+%\gdef\FindFile#1{%
+%\directlua{local function find_file(...)
+%    return kpse.find_file(...) or ""
+%end 
+%tex.sprint(find_file("#1"))}}
+%
+%\FindFile{inilazy.lua}
+%
+%\input{\FindFile{../test2.tex}}
+%
+%\directlua { require ("inilazy")
+%   local tt = assert (inilazy.get"try.ini")
+%   for k,v in pairs(tt['graphicx']['keys']) do
+%     tex.print(k)
+%   end
+% }
+
+
+\directlua{tex.print("\string(hgeneral texti)")}
+\end{document}
+

@@ -1,0 +1,624 @@
+\chapter{Lists}
+\renewcommand\figurename{\bfseries\small Figure}
+\begin{marginfigure}%
+  \includegraphics[width=\linewidth]{./graphics/numerals}
+  \caption{\vrule During the early days of typography fonts were designed to emulate the looks of calligraphic texts. }
+  \smallskip
+  \hrule
+  \label{fig:marginfig1}
+\end{marginfigure}
+
+
+\section{Modifying the standard lists}
+
+It is relatively easy to customize the  \latex  list environments
+\cmd{itemize}, \cmd{enumerate}, and \cmd{description}, and the next sections will look at
+each of these environments in turn. Changes to the default definitions of these
+environments can either be made globally by redefining certain list-defining parameters in the document preamble or can be kept local.\sidenote{Technically speaking the quote environment is also a list environment} \latex redefines these environments in the standard classes |article|, |book| and |report|.
+
+\section{Customizing the itemize list environment}
+
+For a simple unnumbered itemize list, the labels are defined by the commands
+shown in Table \ref{tbl:listcommands}. To create a list with different-looking labels, you can redefine
+the label-generating command(s). You can make that change local for one list, as
+in the example below, or you can make it global by putting the redefinition in the
+document preamble. The following simple list is a standard itemize list with a
+marker from the PostScript Zapf Dingbats font for
+the first-level label: 
+
+\begin{table}[htbp]
+\small
+\begin{tabular}{llp{3cm}c}
+\toprule
+~ &Command &Default Definition &Representation\\
+\midrule
+First Level &\doccmd{labelitemi} &\doccmd{textbullet} &\hlred{\textbullet}\\
+Second Level &\doccmd{labelitemii} &\doccmd{normalfont} \doccmd{bfseries} \doccmd{textendash} &\normalfont\bfseries\textendash \\
+Third Level &\doccmd{labelitemiii} &\doccmd{textasteriskcentered} & \textasteriskcentered\\
+Fourth Level &\doccmd{labelitemiv} &\doccmd{textperiodcentered} &\textperiodcentered\\
+\bottomrule
+\end{tabular}
+\caption{Commands controlling an itemize list environment}
+\label{tbl:listcommands}
+\end{table}
+
+The following example creates a normal list based on default values.
+\small{
+\begin{itemize}
+\item \lorem
+\item \lorem
+        \begin{itemize}
+          \item \fox
+          \item\fox
+          \item\dogs
+        \end{itemize} 
+\end{itemize}
+}
+
+
+
+\subsection{A colored bullet list}
+
+\newenvironment{citemize}
+{\renewcommand\labelitemi{%
+    \hlred{\ding{226}}%
+   }
+  \renewcommand\labelitemii{%
+    \hskip 0.5em\hlred{\small\ding{108}}
+   }
+  \begin{itemize}
+}
+{\end{itemize}}
+
+\begin{lstlisting}[language={[common]TeX},% 
+                           alsolanguage={[LaTeX]TeX},% 
+                           alsolanguage={[primitive]TeX},%
+                           alsolanguage={Verse}]
+\begin{citemize}
+   \item \lorem
+   \item \lorem
+       \begin{itemize}
+           \item \fox
+           \item\fox
+           \item\dogs
+        \end{itemize} 
+\end{citemize}
+\end{lstlisting}
+
+This will output:---
+
+\begin{citemize}
+\item \lorem
+\item \lorem
+        \begin{itemize}
+          \item \fox
+          \item\fox
+          \item\dogs
+        \end{itemize} 
+\end{citemize}
+
+
+
+
+
+\section{In paragraph enumerated lists}
+
+
+
+
+\textbf{\itshape Inline lists}, which are
+sequential in nature, just like enumerated
+lists, but are
+
+\begin{teX}
+\begin{inparaenum}[\itshape a\upshape)]
+  \item formatted within their paragraph;
+  \item usually labelled with letters; and
+  \item usually have the final item prefixed with
+   `and' or `or',
+\end{inparaenum} like this example.
+\end{teX}
+
+
+
+
+\section{Customizing the description list environment}
+The \doccmd{descriptionlabel} command, defines the label in a \texttt{description environment}
+In the following example the font for typesetting
+the labels is changed from boldface (default) to sans serif.
+
+\begin{teX}
+\renewcommand\descriptionlabel[1]%
+     {\hspace{\labelsep}\textsf{#1}}
+\end{teX}
+
+\renewcommand\descriptionlabel[1]%
+{\hspace{\labelsep}\textsf{#1}}
+
+\begin{description}
+\item[A.] text inside list, text inside list,
+text inside list, more text inside list;
+\item[B.] text inside list, text inside list,
+text inside list, more text inside list;
+\end{description}
+
+
+
+The standard \latex class files set the starting point of the label box in a
+description environment at a distance of \doccmd{labelsep} to the left of the left margin
+of the enclosing environment. Thus, the \verb+\descriptionlabel+ command in the
+example above first adds a value of \verb+\labelsep+ to start the label aligned with the
+left margin (see page 147 for detailed explanations).
+
+\section{The Description environment}
+\renewcommand\descriptionlabel[1]%
+{\hspace{\labelsep}\textsf{#1}}
+\begin{description}
+\item[\doccmd{item}] \lorem
+\item[\doccmd{parskip}] \lorem
+\item[Pumps]  \dogs
+\item[create] A new counter is created with
+\verb+ \newcounter{<name>}[<other counter>]+
+where the name does not have a backslash. The optional other counter indicates
+a counter (such as chapter) that resets the new counter every time it is increased.
+(To do this reset for an already existing counter, check out the chngcntr
+package.)
+\end{description}
+
+\section{Spacing}
+
+\normalsize
+
+One of the most common complaints is that lists in LaTeX are not \textit{compact} enough. One of the easiest ways to handle this is via the \docpkg{enumitem}.
+
+\emphasis{topsep,itemsep,partopsep,parsep,enumitem,usepackage}
+\begin{teXXX}
+\documentclass[10pt]{article} 
+\usepackage{enumitem}
+\begin{document}
+ \begin{enumerate}[itemsep=2pt,parsep=12pt]
+   \item three
+   \item four
+ \end{enumerate}
+ \begin{enumerate}[topsep=0pt, partopsep=0pt,itemsep=-2pt,parsep=0pt]
+   \item one
+   \item two
+ \end{enumerate}
+\end{document}
+\end{teXXX}
+
+\hrule
+
+\begin{teXXX}
+En un lugar de la Mancha, de cuyo nombre no quiero acordarme,
+no ha mucho tiempo que viv\'{\i}a un hidalgo de los de
+
+\begin{enumerate}[labelindent=\parindent,leftmargin=*]
+\item lanza en astillero,
+\item adarna antigua,
+\item roc\'{\i}n flaco, y
+\item galgo corredor.
+\end{enumerate}
+\end{teXXX}
+
+En un lugar de la Mancha, de cuyo nombre no quiero acordarme,
+no ha mucho tiempo que viv\'{\i}a un hidalgo de los de
+
+\begin{enumerate}[labelindent=\parindent,leftmargin=*]
+\item lanza en astillero,
+\item adarna antigua,
+\item roc\'{\i}n flaco, y
+\item galgo corredor.
+\end{enumerate}
+
+\hrule
+
+\textsc{Modifying Lists Globally }
+
+With the \texttt{enumitem} packahe,  global changes, to be applied to all of these list, are also possible:
+\medskip
+%\cmd{setenumerate}
+%\cmd{enumitem}{setitemize}
+%\cmd{enumitem}{setdescription}
+%\cmd{enumitem}{setlist}
+
+\begin{table}[htbp]
+\begin{tabular}{ll}
+1 & |\setenumerate[level]{format}|\\
+2 & |\setitemize[level]{format}|\\
+3 & |\setdescription{format}|\\
+4 & |\setlist[level]{format}|\\
+\end{tabular}
+\caption{enumitem package, global settings commands}
+\end{table}
+
+\medskip
+
+These can be used as per the following example:
+
+\begin{teXXX}
+\setlist[1]{noitemsep}
+\end{teXXX}
+
+%\emphasis{setlist,setitemize,setenumerate,setdescription}
+%\begin{teXXX}
+%\setlist{noitemsep}
+%\setlist[1]{\labelindent=\parindent} 
+%%\setitemize{leftmargin=$bullet$}
+%%\setitemize[1]{label=$\triangleleft$}
+%%\setenumerate{labelsep=-, leftmargin=1.5pc}
+%%\setenumerate[1]{label=\arabic., ref=\arabic}
+%%\setenumerate[3]{label=\roman), ref=\theenumii.\roman}
+%%\setdescription{font=\sffamily\bfseries}
+%\begin{teXXX}
+
+\section{Trivial lists \texttt{[trivlist]}}
+\normalsize
+The |trivlist| provides a little known environment for lists, that gives you plain vanilla, unformatted lists. It can be useful in some case and the example shown below is from the documentation of the \docpkg{animate} package. The list is built with |\begin{trivlist}...\end{trivlist}| as shown below:
+
+\begin{teX}
+\begin{trivlist}
+  \item $\varepsilon$-\TeX
+  \item pdf\TeX{}, version $\ge1.20$ for direct PDF output
+  \item Ghostscript, version $\ge8.31$ or Adobe Distiller for PS to PDF conversion
+  \item dvipdfmx, version $\ge20080607$ for DVI to PDF conversion
+  \item Adobe Reader, version $\ge7$
+\end{trivlist}
+\end{teX}
+
+\texttt{
+\begin{trivlist}
+\item $\varepsilon$-\TeX
+\item pdf\TeX{}, version $\ge1.20$ for direct PDF output
+\item Ghostscript, version $\ge8.31$ or Adobe Distiller for PS to PDF conversion
+\item dvipdfmx, version $\ge20080607$ for DVI to PDF conversion
+\item Adobe Reader, version $\ge7$ \label{trivlist}
+\end{trivlist}}
+
+The way a |trivlist| is used in described under the \latex kernel chapter and can be found in \docfile{source2e} page 224 (see \ref{trivlist}).
+
+\section*{An Example for a Definitions Environment}
+
+We are now ready for a more involved example. In this example, we are going to define a list where the heading is tabulated at the left and the descriptions are separately shown (as if in a table). This is quite useful for Technical publications, such as computer manuals.
+
+\begin{teX}
+%% in definitions file
+\newenvironment{definitions}[1]
+{\begin{list}{}%
+    {\renewcommand\makelabel[1]{\textsf{##1:}\hfil}%
+    \settowidth\labelwidth{\makelabel{#1}}%
+    \setlength\leftmargin{\labelwidth+\labelsep}}}%
+{\end{list}}
+\end{teX}
+
+
+
+\begin{definitions}{Return values}
+\item[\texttt{\textbackslash def}] Defines a macro definition
+\item[Errors]
+None.
+\item {Return values}
+Any arguments in effect are passed back to the
+caller.
+\end{definitions}
+
+
+
+Another common requirement, is to create a list for notes. We achieve this by defining an environment that we can call by using a 
+\doccmd{begin\{notes\}} \ldots \doccmd{end\{notes\}}
+
+
+\begin{teX}
+\newcounter{notes}
+\newenvironment{Notes}
+{\begin{list}{\textsc{Note} \arabic{notes}.}%
+    {\setlength\labelsep{10pt}%
+    \setlength\itemindent{10pt}%
+    \setlength\leftmargin{0pt}%
+    \setlength\labelwidth{0pt}%
+    \usecounter{notes}}}%
+{\end{list}}
+\end{teX}
+
+\newcounter{notes}
+\newenvironment{Notes}
+{\begin{list}{\textsc{note} \roman{notes}.}%
+    {\setlength\labelsep{10pt}%
+    \setlength\itemindent{10pt}%
+    \setlength\leftmargin{10pt}%
+    \setlength\labelwidth{0pt}%
+    \usecounter{notes}}}%
+{\end{list}}
+
+\begin{Notes}
+\item This is the text of the first note item.
+Some more text for the first note item.
+\item This is the text of the second note item.
+Some more text for the second note item.
+\end{Notes}
+
+
+\section{Examples}
+\normalsize
+In this example we will change the item number to one that is enclosed in brackets. We simply create a new environment, which we call  \texttt{Enumb}. \sidenote{the {\em b} stands for bracket!}The code is not very complicated and is shown below
+
+
+\begin{teX}
+\newcounter{enumb} 
+\newenvironment{Enumb}
+{\begin{list}{(\arabic{enumb})} 
+    {\setlength\labelsep{10pt}%
+    \setlength\itemindent{10pt}%
+    \setlength\leftmargin{10pt}%
+    \setlength\labelwidth{0pt}%
+    \usecounter{enumb}}}%
+{\end{list}}
+\end{teX}
+
+
+
+Inserting some text into \doccmd{begin\{enumb\}} \ldots \doccmd{end\{enumb\}} we get a list as shown below. \sidenote{The list is from an old Mathematics book called 
+{\em Calculus Made Easy.  
+Being a very-simplest introduction to those beautiful
+methods which are generally called by the terrifying names
+of the Differential Calculus and the Integral Calculus} by 
+Silvanus Phillips Thompson and published in 1910. (\url{http://www.gutenberg.org/etext/33283})}
+
+
+\newcounter{enumb}
+\newenvironment{Enumb}
+{\begin{list}{(\arabic{enumb})}% adds the brackets to the counter
+    {\setlength\labelsep{10pt}%
+    \setlength\itemindent{10pt}%
+    \setlength\leftmargin{10pt}%
+    \setlength\labelwidth{0pt}%
+    \usecounter{enumb}}}%
+{\end{list}}
+
+
+
+\begin{Enumb}
+\item $d$ which merely means ``a little bit of.''
+
+Thus $dx$ means a little bit of~$x$; or $du$ means a
+little bit of~$u$. Ordinary mathematicians think it
+more polite to say ``an element of,'' instead of ``a little
+bit of.'' Just as you please. But you will find that
+these little bits (or elements) may be considered to be
+indefinitely small.
+
+\item  $ds int$ which is merely a long S, and may be called
+(if you like) ``the sum of.''
+
+\end{Enumb}
+
+
+\section{Making your own lists}
+
+Most lists in \latex, including those we have seen previously, are internally built
+using the generic list environment. It has the following syntax:
+
+\begin{teX}
+ \begin{list}{default-label}{decls} item-list \end{list}\end{Verbatim}
+\end{teX}
+
+The argument default-label is the text to be used as a label when an \doccmd{item} command
+is found without an optional argument. The second argument, \hlred{decls}, can
+be used to modify the different geometrical parameters of the list environment,
+which are shown schematically in Figure 3.3.
+
+The default values of these parameters typically depend on the type size and
+the level of the list. Those being vertically oriented are rubber lengths, meaning
+that they can stretch or shrink. They are set by the list environment as follows:
+upon entering the environment the internal command @listlevel is executed,
+where level is the list nesting level represented as a Roman numeral (e.g.,
+\texttt{@listi} for the first level, \texttt{@listii} for the second, \texttt{@listiii} for the third, and
+so on). 
+
+Each of these commands, defined by the document class, holds appropriate
+settings for the given level. Typically, the class contains separate definitions
+for each major document size available via options. For example, if you select
+the option 11pt, one of its actions is to change the list defaults. In the standard
+classes this is done by loading the file size11.clo, which contains the definitions
+for the 11pt document size.
+
+\section{Customizing the enumerate environment}
+
+\latex enumerated (numbered) list environment enumerate is characterized by
+the commands and representation forms shown in Table 3.6.
+
+The first row shows the names of the counter used for numbering the four possible
+levels of the list. The second and third rows are the commands giving the
+representation of the counters and their default definition in the standard LaTEX
+class files. Rows four, five, and six contain the commands, the default definition,
+and an example of the actual enumeration string printed by the list.
+
+A reference to a numbered list element is constructed using the \doccmd{theenumi},
+\doccmd{theenumii}, and similar commands, prefixed by the commands \doccmd{p@enumi},
+\doccmd{p@enumii}, etc., respectively. The last three rows in Table 3.6 on the following
+page show these commands, their default definition, and an example of the representation
+of such references. It is important to consider the definitions of both the
+representation and reference-building commands to get the references correct.
+
+We can now create several kinds of numbered description lists simply by applying
+what we have just learned.
+
+Our first example redefines the first- and second-level counters to use capital
+Roman digits and Latin characters. The visual representation should be the value
+of the counter followed by a dot, so we can use the default value from Table 3.6
+on the next page for \doccmd{labelenumi}.
+
+
+\begin{table}[htbp]
+\small
+\begin{tabular}{rllll}
+~&&&&\\
+~&&&&\\
+\toprule
+ ~          &{\em First Level} & {\em Second Level} & {\em Third Level} &{\em  Fourth Level}\\
+\midrule
+{\em Counter} &\doccmd{enum}i &enumii &enumiii &enumiv\\
+{\em Representation} &\doccmd{theeenumi} &theenumii &theenumiii &theenumiv\\
+{\em Label Field} &labelnumi &labelnumii &labelnumiii &labelnumiv\\
+{\em Default} &arabic &alph &roman &\doccmd{Alph[enumiv]}\\
+{\em Example} &1., 2. &(a),(b) &i., ii. &A., B.\\
+\bottomrule
+\end{tabular}
+\caption{Summary of enumeration commands}
+\end{table}
+
+\section{Labelling}
+
+In an enumerate environment you can introduce labels as shown below:
+\begin{teX}
+\begin{enumerate}
+\item \textbf{Introduction} \label{q1}
+\begin{enumerate}
+\item \textbf{Applications} \\
+Motivation for research and applications
+related to the subject. \label{q2}
+\item \textbf{Organization} \\
+Explain organization of the report, what
+is included, and what is not. \label{q3}
+\end{enumerate}
+\item \textbf{Literature Survey} \label{q4}
+\end{enumerate}
+\end{teX}
+This will output:
+
+\begin{enumerate}
+\item \textbf{Introduction} \label{q1}
+\begin{enumerate}
+\item \textbf{Applications} \\
+Motivation for research and applications
+related to the subject. \label{q2}
+\item \textbf{Organization} \\
+Explain organization of the report, what
+is included, and what is not. \label{q3}
+\end{enumerate}
+\item \textbf{Literature Survey} \label{q4}
+\end{enumerate}
+
+
+For Applications see item \ref{q2}
+
+\begin{enumerate}
+\item text inside list, text inside list, 
+text inside list, more text inside list;
+\item text inside list, text inside list, \label{l2}
+text inside list, more text inside list;
+\item text inside list, text inside list, \label{l3}
+text inside list, more text inside list.
+\end{enumerate}
+
+\section{Examples How to}
+
+% "Example." goes on its own line; otherwise, run-in heading
+\newcommand{\ExampleXX}[1]{%
+  \ifthenelse{\equal{#1}{.}}{%
+    \subsection{\textit{ExampleXX.}}%
+  }{%
+    \paragraph{\textit{Example}~\upshape{#1}}%
+  }%
+}
+
+\newcommand{\Examples}[1]{%
+  \ifthenelse{\equal{#1}{.}}{%
+    \subsection{\textit{Examples.}}%
+  }{%
+    \subsection{\textit{#1}}%
+  }
+}
+
+
+
+\ExampleXX{(3).} A cone having height $h$ and radius
+of base~$r$ DPchg{,}{} has volume $V=\frac{1}{3} \pi r^2 h$. If its height remains
+constant, while $r$ changes, the ratio of change of
+volume, with respect to radius, is different from ratio
+of change of volume with respect to height which
+would occur if the height were varied and the radius
+kept constant, for
+\[
+\left.
+\begin{aligned}
+\frac{\partial V}{\partial r} &= \dfrac{2\pi}{3} rh, \\
+\frac{\partial V}{\partial h} &= \dfrac{\pi}{3} r^2.
+\end{aligned}\right\}
+\]
+
+The variation when both the radius and the height
+change is given by $dV = \dfrac{2\pi}{3} rh\, dV + \dfrac{\pi}{3} r^2\, dh$.
+
+
+\section{How \protect\LaTeXe defines lists}
+\normalsize
+
+\latex provides a class that deals specifically with lists, the |ltlists.dtx|. The generic commands for creating an indented environment - |enumerate, itemize, quote,| etc - are:
+
+\begin{teX}
+\list{<label>}{<commands>} ...\endlist
+\end{teX}
+
+The |label| argument specified the item labeling. The |commands| normally contains commands for changing the vertical and horizontal spacing parameters.
+
+When you leave a list environment, returning either to an enclosing list or
+normal text mode, LaTeX begins a new paragraph if and only if you leave a blank
+line after the \cmd{end command}. This is accomplished by the \hlred{\@endparenv}
+\index{\"@"endparenv} command.
+
+Blank lines are ignored every other reasonable place \ie :
+
+\begin{itemize}
+\item Between the |\begin{list}| and the first |\item|,
+\item Between the |\item| and the text of that item.
+\item Between the end of the last item and the |\end{list}|.
+\end{itemize}
+
+
+The following variables are used inside a list environment:
+
+\begin{definitions}{totalleftmarginzz}
+\item [\texttt{\textbackslash @totalleftmargin}] The distance that the prevailing left margin is indented from the outermost left margin,\index{\textbackslash "a"totalleftmargin}
+
+\item [\texttt{\textbackslash linewidth}] The width of the current line. Must be initialized to |\hsize|.
+
+\end{definitions}
+
+
+
+
+
+
+\subsection*{Errors}
+All the associated errors are collected in the |lterror.dtx class|.\index{latex kernel!@\texttt{lterror.dtx}}
+
+For example in checking if the nesting levels are too deep an error is generated defined by the command \indexat{toodeep}. The error command is called by a list environment nested more than six levels deep, or an enumerate or itemize nested more than four levels.
+
+\begin{teX}
+ \gdef\@toodeep{%
+ \@latex@error{Too deeply nested}\@ehd}
+ \@autoerr\@toodeep}
+\end{teX}
+
+\noindent The \indexat{ehd} is \latex's common error messages \texttt{You're in trouble here.}\sidenote{There are also similarly other errors such as \texttt{eha}, \texttt{ehb}$\ldots$}
+
+\begin{teX}
+\gdef\@ehd{%
+ You're in trouble here. \space\@ehc}
+\end{teX}
+
+|lterror.dtx|
+
+
+
+
+
+
+
+
+
+
+
+
+

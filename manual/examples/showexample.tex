@@ -1,0 +1,42 @@
+\documentclass{tufte-book} 
+\usepackage{packages}
+\usepackage{showexpl} 
+\lstloadlanguages{[LaTeX]Tex} 
+\lstset{% 
+    basicstyle=\sffamily\small, 
+    commentstyle=\itshape\ttfamily\small, 
+    showspaces=false, 
+    showstringspaces=false, 
+    breaklines=true, 
+    breakautoindent=true, 
+    captionpos=t 
+} 
+
+\begin{document} 
+
+  \begin{LTXexample} 
+    \begin{itemize} 
+       \item a 
+       \item b 
+       \item c 
+    \end{itemize} 
+  \end{LTXexample} 
+
+  \begin{LTXexample} 
+    \[
+     a^2+b^2=\sqrt{\frac{c^2}{1}} 
+    \]
+  \end{LTXexample} 
+ 
+
+  \begin{LTXexample} 
+     \documentclass{tufte-book} 
+     \begin{document} 
+     \section{Section 1} 
+        Text for section 1 
+       
+     \end{document} 
+  \end{LTXexample} 
+
+\end{document}
+Second slide doesn't show 'sec

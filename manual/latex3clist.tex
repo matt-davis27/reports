@@ -1,0 +1,27 @@
+
+\section{Latex3 clists}
+
+The power of \latex3 only becomes apparent, when one applies the various data structures and data types. Lists can be build easily by manipulating
+what in \latex3 are called |clists|.
+
+\begin{teX}
+\ExplSyntaxOn
+  \clist_new:N \l_tmpa_clist
+  \clist_clear:N \l_tmpa_clist
+  \clist_put_left:Nn \l_tmpa_clist {alpha}
+  \clist_put_right:Nn \l_tmpa_clist {beta,{gamma,delta},{epsilon}}
+  \clist_map_inline:Nn \l_tmpa_clist { this is element: #1 \\ }
+  \clist_map_inline:nn {a,b,c} { this is element: #1 \\ }
+  \clist_if_in:NnTF \l_tmpa_clist {a} {true} {false}\\ 
+  \clist_remove_duplicates:N \l_tmpa_clist
+  \clist_remove_element:Nn \l_tmpa_clist {c}
+  \l_tmpa_clist
+\ExplSyntaxOff
+\end{teX}
+
+Of course, you don't have to follow the expl3 naming scheme for variables; in scratch code it's perfectly fine to write |\foo| instead of |\l_tmpa_clist|.
+
+Comma-lists in expl3 generally do not contain empty elements, and spaces around elements are preserved (this is an arguable point that might change slightly in the future). They can contain anything except un-protected commas.
+
+\docpkg{expl3} also provides a structure called a "sequence" that are used similarly to clists but are intended to be used when only internal functions are adding to/manipulating the data; comma-lists as a data structure are only really necessary when they inherit their data from document-level input. (The advantage to using sequences are slightly more generic processing and you can include commas in their elements).
+

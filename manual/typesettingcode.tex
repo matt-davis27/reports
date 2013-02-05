@@ -1,0 +1,352 @@
+\chapter{Typesetting code}
+\clearpage
+\parindent1em
+\thispagestyle{plain}
+
+\vspace*{1cm}
+{\centering \includegraphics[width=\textwidth]{./graphics/dedivina} \par}
+
+{\centering \onelineheader{THE ART OF TYPESETTING CODE}\par}
+
+\bigskip
+
+\begin{multicols}{2}
+
+\lettrine{T}{ypesetting} computer code, presents a challenge, both for the typesetting engine, like \tex as well as getting the typography right. The requirements for code listings, is that a monospace font is used; it might also be required to colour code the listing -- although personally -- I find it distracting. From the technical point of view with \alltex one needs to give consideration to |catcodes| as is likely that the code will have characters that need to be escaped. 
+
+\latex provides the |verbatim| environment\footnote{Under \texttt{File y: ltmiscen.dtx}}. You can enclose a block of text or code between:
+\begin{Code}
+\begin{verbatim}
+...
+\end{verbatim}
+\end{Code}
+\noindent This will print the text exactly as is. It does not execute any \tex  code that you enclose and will escape all problematic characters. 
+
+If you are writing \LaTeXe ~code and perhaps you wish to document your class you can use a number of pre-defined commands
+
+You can print a backslash using |\cs{bs}|, which simply will print a~|\bs|. Another useful one is |\cs{cs}|. This will print the command with a backslash show |\cs{caption}|. Most \latex authors will develop their own small toolkit for shortcuts when typesetting manuals for computer code.
+
+In this Chapter we wil break with tradition and discuss the avialable packages first and then only we will discuss the techniques for defining your own verbatim commands and environments. The \latex verbatim environment is also discussed extensively in the Chapter \textit{The LaTeX kernel}.
+\end{multicols}
+
+\section{The listings package}
+
+\begin{multicols}{2}
+The \pkg{listings} package is the Rolls-Royce of all packages for code typesetting. To load it:
+
+
+\begin{Code}
+\begin{listings}
+\def\test(*@\sidenote{The definition of a test macro}@*)#1{%
+  \ifnum #1<22 \true \else \false\fi {(*@\label{linelabel}@*)}
+\end{listings}
+\end{Code}
+
+\startLineAt{1}
+In the listing above, not only we are able to typeset code verbatim, but we can also style it, including color. More importantly we can refer to a line number as a reference for example line [\ref{linelabel}] showing the |ifnum| conditional.
+
+The package comes with numerous preset languages, which are loaded using \cmd{lstloadlanguages}, as for example the C code below.
+\end{multicols}
+
+
+%\usepackage{listings}
+\lstloadlanguages{C}
+\lstset{language=C}
+\begin{cCode}        
+for i=0; i<20; i++ {        
+   k=i+2;                  
+}
+for i=0; i<20; i++ {
+   k=i+2;
+}
+\end{cCode}
+
+\startLineAt{25}
+\begin{cCode}
+for i=0; i<20; i++ {
+   k=i+2;
+}
+for i=0; i<20; i++ {
+   k=i+2;
+}
+\end{cCode}
+
+
+
+
+
+The macro will not prettify your code, so before you insert it you will have to format it. After loading the package it is helpful to specify all program languages
+needed in the document (as a comma-separated list) using |\cs{lstloadlanguages}|.
+Such a declaration does not select a language, but merely loads the necessary
+support information and speeds up processing.
+
+Program fragments are included inside a  lstlisting environment. The language
+of the fragment is specified with the language keyword. In the following
+example we set this keyword via |\cs{lstset}|  to C and then overwrite it later in the
+optional argument to the second lstlisting environment.
+
+As a final example of the kind of treasures you can find in that manual, look at
+the following example. It shows code typesetting as known from Donald Knuth’s
+literate programming conventions.
+
+%\usepackage{listings}
+\lstset{literate={:=}{{$\gets$}}1
+{<=}{{$\leq$}}1 {>=}{{$\geq$}}1 {<>}{{$\neq$}}1}
+\begin{lstlisting}[gobble=2]
+var i:integer;
+if (i<=0) i := 1;
+if (i>=0) i := 0;
+if (i<>0) i := 0;
+\end{lstlisting}
+
+This was typeset using the following:
+
+\begin{teX}
+\begin{lstlisting}[language={[common]TeX},% 
+                           alsolanguage={[LaTeX]TeX},% 
+                           alsolanguage={[primitive]TeX},%
+                           alsolanguage={Verse}]
+\usepackage{listings}
+\lstset{literate={:=}{{$\gets$}}1
+{<=}{{$\leq$}}1 {>=}{{$\geq$}}1 {<>}{{$\neq$}}1}
+\begin{lstlisting}[gobble=2]
+var i:integer;
+if (i<=0) i := 1;
+if (i>=0) i := 0;
+if (i<>0) i := 0;
+\end{lstlisting}
+\end{teX}
+
+\normalsize
+
+
+\subsection{Defining Javascript for listings}
+
+Listings does not have Javascript as one of the default languages. You can define it as follows:
+
+
+\lstdefinelanguage{JavaScript} {
+	morekeywords={
+		break,const,continue,delete,do,while,export,for,in,function,
+		if,else,import,in,instanceOf,label,let,new,return,switch,this,
+		throw,try,catch,typeof,var,void,with,yield
+	},
+	sensitive=false,
+	morecomment=[l]{//},
+	morecomment=[s]{/*}{*/},
+	morestring=[b]",
+	morestring=[d]'
+}
+\lstset{
+	%frame=tb,
+	framesep=5pt,
+	basicstyle=\normalsize, %\ttfamily,
+	showstringspaces=false,
+	keywordstyle=\rmfamily\color{blue},
+	identifierstyle=\ttfamily,
+	stringstyle=\ttfamily\color{orange},
+	commentstyle=\color{orange},
+	rulecolor=\color{gray},
+	xleftmargin=5pt,
+	xrightmargin=5pt,
+	aboveskip=\bigskipamount,
+	belowskip=\bigskipamount,
+            backgroundcolor=\color{gray!15}
+}
+
+\emphasis{headline,appendChild}
+\begin{lstlisting}[language=JavaScript]
+// create some nodes
+// and comments
+var headline = document.createElement(h1);
+var text = document.createTextNode(Dies ist eine Uberschrift)
+// "offline" node manipulation
+headline.appendChild(text);
+// adding node to DOM
+document.getElementsByTagName("body")[0].appendChild(headline);
+\end{lstlisting}
+
+
+\lstset{
+	%frame=tblr,
+           	framesep=5pt,
+	basicstyle=\normalsize\ttfamily,
+	showstringspaces=false,
+	keywordstyle=\itshape\color{blue},
+	%identifierstyle=\ttfamily,
+	stringstyle=\color{Maroon},
+	commentstyle=\color{black},
+	rulecolor=\color{gray},
+	xleftmargin=5pt,
+	xrightmargin=5pt,
+	aboveskip=\bigskipamount,
+	belowskip=\bigskipamount,
+            %backgroundcolor=\color{Lightgray!.50}
+}
+
+
+\section{listings for \latex}
+You can configure the listings settings to display \tex and \latex code as follows:
+
+
+\begin{teX}
+\def\Removeelement123{%
+  \def\reserved@a##1,#1,##2\reserved@a{##1,##2\reserved@b}%
+  \def\reserved@b##1,\reserved@b##2\reserved@b{%
+  \ifx,##1\@empty\else##1\fi}%
+  \edef#3{%
+  \expandafter\reserved@b\reserved@a,#2,\reserved@b,#1,\reserved@a}}
+\end{teX}
+
+
+\sidenote{From \url{http://vis4.net/blog/2009/08/javascript-quelltexte-in-latex/}}
+
+\section{fancyvrb package}
+The \docpkg{fancyvrb} package provides very sophisticated facilities for reading and writing verbatim
+TEX code. Users can perform common tasks like changing font family and
+size, numbering lines, framing code examples, colouring text and conditionally
+processing text. The package was developed by Timothy Van Zandt of Princeton University and is perhaps
+one of the best written packages. The current maintainer is Michael Piefel. \sidenote{\raggedright Read the full documentation at \url{http://www.tex.ac.uk/CTAN/macros/latex/contrib/fancyvrb/fancyvrb.pdf} and download it from a CTAN mirror near you.}
+
+
+
+\renewcommand{\theFancyVerbLine}{%
+ \textcolor{black}{\scriptsize
+ \thesection.\arabic{FancyVerbLine}}}
+\large
+\begin{Verbatim}[formatcom=\color{orange}, numbers=left, showspaces=false, baselinestretch=1.0,
+    xleftmargin=0mm,  fontfamily=tt,  label= The listings package, numberblanklines=false
+]
+  \usepackage{listings}
+  \lstset{literate={:=}{{$\gets$}}1
+   {<=}{{$\leq$}}1 {>=}{{$\geq$}}1 {<>}{{$\neq$}}1}
+   \begin{lstlisting}[gobble=2]
+      var i:integer;
+      if (i<=0) i := 1;
+      if (i>=0) i := 0;
+      if (i<>0) i := 0;
+  \end{lstlisting}
+\end{Verbatim}
+
+\normalsize
+In this book, I wanted the reader to be able to read the code. Knowing the typical reader, I was sure that most of them would read the book on a screen rather than in print. I have used a slightly larger fontsize than the normal book to make this easier on the eyes of the reader. It only needed some very minor tweaking to produce - in what is in my eyes very readable code. Almost any parameter can be changed via key-value style settings. 
+
+A comment at the end of the documentation points to some future sugar:
+
+\begin{quote}
+Future versions of \texttt{fancyvrb} and \texttt{listings} packages are planned to cooperate,
+which will offer great advantages to both users of the two actual packages, and will
+allow \texttt{fancyvrb} users to have automatic pretty printing of programming codes.
+\end{quote}
+
+\section{Verbatim in footnote arguments}
+There are some things to consider if you want to use \cmd{lstinline} or the listing
+environment inside arguments. Since TEX reads the argument before the ‘lstmacro’
+is executed, this package can’t do anything to preserve the input: spaces
+shrink to one space, the tabulator and the end of line are converted to spaces,
+
+You have to put a backslash in front of each of the following four characters:
+|\{}%|. Moreover you must protect spaces in the same manner if: (i) there are two
+or more spaces following each other or (ii) the space is the first character in the
+line. That’s not enough: Each line must be terminated with a ‘line feed’ |^^J|. And
+you can’t escape to LATEX inside such listings!
+The easiest examples are with \lstinline{\lstinline} since we need no line feed.
+\begin{teXXX}
+lorem\footnote{\lstinline{var i:integer;} and
+\lstinline!protected\ \ spaces! and
+\fbox{\lstinline!\\\{\}\%!}} 
+\end{teXXX}
+
+lorem\footnote{\lstinline{var i:integer;} and
+\lstinline!protected\ \ spaces! and
+\fbox{\lstinline!\\\{\}\%!}}
+
+%\VerbatimFootnotes
+% We can put verbatim\footnote{\verb+_Yes!_+} text in footnotes
+%
+
+Another way to protect the code is to use the \docpkg{cprotect} package, developed by \people{Bruno Le Floch} Bruno Le Floch.\sidenote{see also \url{http://tex.stackexchange.com/questions/10218/listings-in-a-footnote}}
+\emphasis{cprotect,footnote}
+\begin{teXXX}
+\documentclass{article}
+\usepackage{cprotect}
+\usepackage{listings}
+\lstset{
+    language=C,
+    basicstyle=\small
+}
+\begin{document}
+lorem ipsum\cprotect\footnote{%
+\begin{lstlisting}
+// some C code or whatever...
+printf("Blah blah\n");
+\end{lstlisting}}
+\end{document}
+\end{teXXX}
+The package provides the command \cmd{cprotect}, that is typed before the macro that you want to protect. It works well with almost all difficult verbatim cases.
+
+
+\section{shortvrb}
+The package \docpkg{shortvrb} defines a command \cmd{MakeShortVerb} that makes a single character active, expanding to give the effect of a |\verb| command. Thus, after \verb+ \MakeShortVerb{\|}+, the text  |stuff|  has the same effect as |\verb| \verb+ |stuff|+.
+The package is part of the \latex distribution.
+The author is The \latex Team. The package was developed by Frank Mittelbach \people{Frank Mittelbach}.
+
+\startLineAt{1}
+\begin{teX}
+% Gives an error on color
+\begin{tikzpicture}[remember picture,overlay]
+  \node[yshift=-1cm] at (current page.north west) {%
+    \begin{tikzpicture}[remember picture, overlay]
+      \draw[fill=magenta] (0,0) rectangle (1cm,1cm);
+     \end{tikzpicture}
+      };
+ \end{tikzpicture}
+\end{teX}
+
+
+\section{The ydoc documents}
+
+The \docpkg{ydoc} package provides some convenient macros for \alltex commands.'ydoc' provides macros and environments to document LaTeX packages and classes.
+It is an alternative to the 'ltxdoc' class and 'doc' package.
+It targets a different layout and tries to provide more modern styles (xcolor, hyperref, etc.).
+
+This is an alpha release. It should not be used yet for other packages.The
+name stands for “Y et another Documentation Package” and is a pun on the fact
+that there are several documentation packages written by package developers
+to document their own packages. All these packages didn’t suited the author
+and therefore he, take a guess, wrote his own documentation package. It (will)
+support(s) all macros and environments (but not necessary with full/identical
+features) provided by the doc package to allow the fast adaption of existing
+\texttt{.dtx} files.
+This documentation uses the ydoc packages itself and therefore also acts as
+a live example.
+
+\begin{teXXX}
+\begin{examplecode}(to be written)
+\test \other \other
+\end{examplecode}
+\end{teXXX}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

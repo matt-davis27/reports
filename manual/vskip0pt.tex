@@ -1,0 +1,22 @@
+\tracingall
+\newdimen\z@ \z@=0pt
+\def\vspacer#1{%
+ \ifvmode
+ %\dimen@\prevdepth
+ \hrule to height0pt 
+ \nobreak
+ \vskip #1
+ \vskip\z@skip
+ \prevdepth\dimen@
+ \else
+ \@bsphack
+ \vadjust{\@restorepar
+ \hrule \@height\z@
+ \nobreak
+ \vskip #1
+ \vskip\z@skip}%
+ \@esphack
+\fi}
+
+\vspacer0pt
+\bye

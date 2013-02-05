@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage{expl3}
+
+\begin{document}
+I am exploring some of the LaTeX3 routines and syntax.
+How do I get to use functions such as sin etc. I get
+an error with the following:
+
+\ExplSyntaxOn
+
+
+\fp_new:N \myfp
+
+\myfp
+
+%\fp_sin:Nn \myfp{2}
+
+\clist_new:N \l_tmpa_clist
+\clist_clear:N \l_tmpa_clist
+\clist_put_left:Nn \l_tmpa_clist {a}
+\clist_put_right:Nn \l_tmpa_clist {b}
+\clist_map_inline:Nn \l_tmpa_clist { this is element: #1 \\ }
+\clist_map_inline:nn {a,b,c} { this is element: #1 \\ }
+\clist_if_in:NnTF \l_tmpa_clist {a} {true} {false}\\ 
+\clist_remove_duplicates:N \l_tmpa_clist
+\clist_remove_element:Nn \l_tmpa_clist {c}
+
+
+
+
+\l_tmpa_clist
+
+\ExplSyntaxOff
+Of course, you don't have to follow the expl3 naming scheme for variables; in scratch code it's perfectly fine to write \ foo instead of \ l_tmpa_clist.
+
+Comma-lists in expl3 generally do not contain empty elements, and spaces around elements are preserved (this is an arguable point that might change slightly in the future). They can contain anything except un-protected commas.
+
+expl3 also provides a structure called a "sequence" that are used similarly to clists but are intended to be used when only internal functions are adding to/manipulating the data; comma-lists as a data structure are only really necessary when they inherit their data from document-level input. (The advantage to using sequences are slightly more generic processing and you can include commas in their elements.)
+
+\end{document}

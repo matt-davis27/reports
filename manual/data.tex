@@ -1,0 +1,208 @@
+\chapter{Working with tabular data}
+
+This \docpkg{PgfplotsTable} package reads tab-separated numerical tables from input and generates code for pretty-printed
+\latex -tabulars. It rounds to the desired precision and prints it in different number formatting styles.
+
+|PgfplotsTable| works with plain text  tables in which entries \emph{cells} are separated by a separation
+character. The initial separation character is white space which means at least one space or tab"(see
+option col sep below). Those tables can have a header line which contains column names and most other
+columns typically contain numerical data.
+
+The following listing shows pgfplotstable.example.dat and is used often throughout this documentation.
+
+\medskip
+\begin{fullwidth}
+   \pgfplotstabletypeset{pgfplotstable.example.dat}
+\end{fullwidth}
+\medskip
+
+In the sections that follow you will see how to format the tables. First, we will see how we can select only particular
+columns
+
+\begin{teX}
+\pgfplotstabletypeset[columns={dof,level,[index]4}]{pgfplotstable.example1.dat}
+\end{teX}
+
+\medskip
+
+\pgfplotstabletypeset[columns={dof,level,[index]4}]{pgfplotstable.example1.dat}
+
+\medskip
+
+\pgfplotstabletypeset[
+columns={dof,error1,info},
+column type/.add={|}{}  % results in '|c'
+]
+{pgfplotstable.example1.dat}
+
+\medskip
+
+
+You can use \doccmd{toprule}, \doccmd{midrule} and \doccmd{bottomrule} in the |.style| is |booktabs| is loaded. This will
+produce more good-looking tables
+\medskip
+\begin{teX}
+\pgfplotstabletypeset[
+    every head row/.style={before row=\toprule,after row=\midrule},
+    every last row/.style={after row=\bottomrule}
+  ]
+{pgfplotstable.example1.dat}
+\end{teX}
+\medskip
+
+
+
+
+\begin{fullwidth}
+\begin{table*}[htbp]
+\pgfplotstabletypeset[
+    every head row/.style={before row=\toprule,after row=\midrule},
+    every last row/.style={after row=\bottomrule}
+  ]
+{pgfplotstable.example1.dat}
+
+\caption{Tabular data imported from a file}{~} %second bracket will push marginpar down
+
+\end{table*}
+
+\end{fullwidth}
+
+
+\bigskip
+
+
+The conversion from an unprocessed input table to a final typesetted tabular code uses four stages for every
+cell,
+
+\begin{enumerate}
+  \item  Loading the table,
+  \item  Preprocessing,
+  \item Typesetting,
+  \item  Postprocessing.
+\end{enumerate}
+
+The main idea is to select one typesetting algorithm (for example format my numbers with the configured
+number style). This algorithm usually doesn't need to be changed. Fine tuning can then be done using
+zero, one or more preprocessors and postprocessors. Preprocessing can mean to select only particular rows
+or to apply some sort of operation before the typesetting algorithm sees the content. Postprocessing means
+to apply fine-tuning to the resulting TEX output { for example to deal with empty cells or to insert unit
+suffixes or modify fonts for single cells.
+
+
+
+
+\section{Writing the data to a file}
+\begin{teX}
+\section{Writing to a file directly}
+
+%% Define a new command for activity key-dates
+%% this can be saved for shipout later
+\newcommand{\keydate}[2]{#1  #2 \\}
+\newcommand{\out}[2]{\immediate\write\tempfile{\noexpand\keydate{ #1}{#2}}}
+
+%% We open the file to  to write the key-dates
+%% we will use it later to import
+\newwrite\tempfile
+\immediate\openout\tempfile=keydates.tex
+
+
+%% Example
+%% 
+   
+   \out{Close Ceilings Rotana Floor 10}{Line 2}
+   \out{Rotana,  power-on}{12$^{th}$ Sept 2010}
+   \out{Rotana Qatar Cool switch-on}{12th September}
+
+%% finally we close the file
+%%
+\immediate\closeout\tempfile
+
+%% we now read the file and dostuff with it
+%% 
+\section{Summary of  Key Dates}
+\input{keydates}
+\time
+\end{teX}
+
+
+\section{Bonus Part}
+\normalsize
+
+After reading the table from a file, you can export the file as HTML:
+
+\begin{teX}
+\pgfplotstabletypeset[
+    begin table={<table>}, end table={</table>},
+    typeset cell/.style={
+      /pgfplots/table/@cell content={<td>#1</td>}
+    },
+   before row=<tr>,after row=</tr>,
+   skip coltypes, typeset=false, string type,
+   TeX comment=,
+   columns={level,dof},
+   outfile=pgfplotstable.example1.out.html,
+]{pgfplotstable.example1.dat}
+
+\lstinputlisting
+    [basicstyle=\ttfamily\small]
+    {pgfplotstable.example1.out.html}
+\end{teX}
+
+This will produce the following HTML table. 
+
+
+\pgfplotstabletypeset[
+begin table={<table>}, end table={</table>},
+typeset cell/.style={
+/pgfplots/table/@cell content={<td>#1</td>}
+},
+before row=<tr>,after row=</tr>,
+skip coltypes, typeset=false, string type,
+TeX comment=,
+columns={level,dof},
+outfile=pgfplotstable.example1.out.html,
+]{pgfplotstable.example1.dat}
+\lstinputlisting
+[basicstyle=\ttfamily\small]
+{pgfplotstable.example1.out.html}
+
+
+
+\section{The datatools package}
+\normalsize
+\index{datatools!introduction}
+\index{datatools!database}
+You can use the \docpkg{datatools} package to get a bit closer to a real database. The datatool package consists of the \docpkg{datatool}, \docpkg{datapie} and \docpkg{dataplot} packages. 
+
+You can use the datatool package to
+\begin{enumerate}
+\item create or load databases
+\item sort rows of a database (either numerically or alphabetically, ascending or descending)
+\item perform repetitive operations on each row of a database
+\item Check if an argument is an integer, a real number, currency or string.
+\item Names can be converted to initials
+\item strings can be tested to determine if they are upper or lower case.
+\item can compare strings
+\end{enumerate}
+
+The datatool package author suggest. 
+
+\begin{quote}
+Once
+a database has been created (or loaded), it is possible to iterate through each row
+of data, to make it easier to perform repetitive actions, such as mail merging.
+
+Whilst \tex is an excellent typesetting language, it is not designed as a
+database management system, and attempting to use it as such is like
+trying to fasten a screw with a knife instead of a screwdriver: it can be done, but
+requires great care and is more time consuming. Version 2.0 of the datatool package
+uses a completely different method of storing the data to previous versions.1 As
+a result, the code is much more efficient, however, large databases and complex
+operations will still slow the time taken to process your document. Therefore, if
+you can, it is better to do the complex operations using whatever system created
+the data in the first place.
+\end{quote}
+
+
+
+

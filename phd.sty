@@ -110,7 +110,6 @@
 \RequirePackage{amssymb}[2002/01/22]
 \RequirePackage{amsthm}[2002/01/22]
 \RequirePackage{mathtools}
-\RequirePackage{stmaryrd}
 \newif\ifXPFEIL
 \newcommand\XPFEIL{\pkgname{extpfeil}}
 \IfStyFileExists{extpfeil}
@@ -275,7 +274,7 @@ ProvidesClass,IfFileExists,RequirePackage,ifthenelse,chapter,includegraphics, ne
 
 \lstset{language={[LaTeX]TeX},
       escapeinside={{(*@}{@*)}},
-       numbers=left, gobble=2,
+       numbers=left, gobble=0,
        stepnumber=1,numbersep=5pt,
        numberstyle={\footnotesize\color{gray}},firstnumber=last,
        breaklines=true,
@@ -488,6 +487,29 @@ ProvidesClass,IfFileExists,RequirePackage,ifthenelse,chapter,includegraphics, ne
 
 \newif\ifUGAR
 \newcommand\UGAR{\pkgname{ugarite}}
+\newcommand{\hangleft}[1]{\makebox[0pt][r]{#1}}
+\def\ctan#1{\textcolor{green}{\href{http://www.ctan.org/tex-archive/help/Catalogue/entries/#1.html}{#1}\protect\sidenote{\protect\url{http://www.ctan.org/tex-archive/help/Catalogue/entries/#1.html}}}
+\index{Packages!#1} }
+\def\graybox#1{\par\medskip
+ \noindent\colorbox{black!7}{\parbox{0.98\textwidth}{\noindent#1}}\par\medskip}
+
+\ifx\l@nohyphenation\undefined
+  \newlanguage\l@nohyphenation
+\fi
+\DeclareRobustCommand\meta[1]{%
+     \ensuremath\langle
+     \ifmmode \expandafter \nfss@text \fi
+     {%
+      \meta@font@select
+      \edef\meta@hyphen@restore
+        {\hyphenchar\the\font\the\hyphenchar\font}%
+      \hyphenchar\font\m@ne
+      \language\l@nohyphenation
+      #1\/%
+      \meta@hyphen@restore
+     }\ensuremath\rangle
+}
+\def\meta@font@select{\itshape}
 \renewcommand{\topfraction}{.85}
 \renewcommand{\bottomfraction}{.7}
 \renewcommand{\textfraction}{.15}

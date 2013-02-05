@@ -1,0 +1,68 @@
+\documentclass[10pt]{article}
+\usepackage{graphicx}
+\begin{document}
+
+Computer Modern's x-height: \the\fontdimen5\font
+{\noindent\obeylines 
+the value of fontdimen1 (slant)  is \the\fontdimen1\font
+the value of fontdimen2 is \the\fontdimen2\font  
+the value of fontdimen3 is \the\fontdimen3\font 
+the value of fontdimen4 is \the\fontdimen4\font 
+the value of fontdimen5 is \the\fontdimen5\font 
+the value of fontdimen6 is \the\fontdimen6\font 
+the value of fontdimen7 is \the\fontdimen7\font 
+}
+\fboxsep=0pt\fboxrule1pt
+\fbox{\scalebox{10.05}{JTAj}}
+
+\makeatletter
+{\obeylines\noindent\obeyspaces
+The font encoding is : \f@encoding
+The font family is   : \f@family
+The font series is   : \f@series
+The font shape is    : \f@shape
+The font size is     : \f@size
+The baselineskp      : \f@baselineskip}
+\makeatother
+
+\hrule
+
+\fontfamily{ppl}\selectfont
+
+Palatino's x-height: \the\fontdimen5\font
+
+\medskip
+{\noindent\obeylines 
+the value of fontdimen1 (slant)  is \the\fontdimen1\font
+the value of fontdimen2 is \the\fontdimen2\font  
+the value of fontdimen3 is \the\fontdimen3\font 
+the value of fontdimen4 is \the\fontdimen4\font 
+the value of fontdimen5 is \the\fontdimen5\font 
+the value of fontdimen6 is \the\fontdimen6\font 
+the value of fontdimen7 is \the\fontdimen7\font 
+}
+
+\makeatletter
+{\obeylines\noindent\obeyspaces
+The font encoding is : \f@encoding
+The font family is   : \f@family
+The font series is   : \f@series
+The font shape is    : \f@shape
+The font size is     : \f@size
+The baselineskp      : \f@baselineskip}
+\makeatother
+\scalebox{10.05}{T}
+
+
+\hspace{-6mm}\begin{tabular}{|c|c|c|c|c|c|}\hline
+Helvetica & Narrow bold & est & Palatino & Utopia & Times\\\hline\hline
+\scalebox{10}{g} &
+\scalebox{10}{\fontfamily{jkpl}\fontshape{up}\selectfont g} &
+\scalebox{10}{\fontfamily{lmr}\fontshape{up}\selectfont g} &
+\scalebox{10}{\fontfamily{ppl}\fontshape{up}\selectfont g} &
+\scalebox{10}{\rule{0pt}{1.25ex}\fontfamily{put}\fontshape{up}\selectfont g} &
+\scalebox{10}{\fontfamily{ptm}\fontshape{up}\selectfont g}\\\hline
+\end{tabular}
+
+\meaning\em
+\end{document}

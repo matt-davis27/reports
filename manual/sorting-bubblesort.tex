@@ -1,0 +1,403 @@
+%\documentclass[11pt]{book}
+%\usepackage{lstdoc,booktabs,soul}
+\makeatletter
+% \begin{macro}{\lst@IfLE}
+% \meta{string 1}|\relax\@empty|\meta{string 2}|\relax\@empty|\marg{then}\meta{else}.
+% If \meta{string 1} $\leq$ \meta{string 2}, we execute \meta{then} and
+% \meta{else} otherwise.
+% Note that this comparision is case insensitive.
+%    \begin{macrocode}
+\def\lst@IfLE#1#2\@empty#3#4\@empty{%
+    \ifx #1\relax
+        \let\lst@next\@firstoftwo
+    \else \ifx #3\relax
+        \let\lst@next\@secondoftwo
+    \else
+        \lowercase{\ifx#1#3}%
+            \def\lst@next{\lst@IfLE#2\@empty#4\@empty}%
+        \else
+            \lowercase{\ifnum`#1<`#3}\relax
+                \let\lst@next\@firstoftwo
+            \else
+                \let\lst@next\@secondoftwo
+            \fi
+        \fi
+    \fi \fi
+    \lst@next}
+%    \end{macrocode}
+% \end{macro}
+
+
+
+% \begin{macro}{\lst@BubbleSort}
+% is in fact a derivation of bubble sort.
+%    \begin{macrocode}
+\def\lst@BubbleSort#1{%
+    \ifx\@empty#1\else
+        \lst@false
+%    \end{macrocode}
+% We `bubble sort' the first, second, \ldots\ elements and \ldots
+%    \begin{macrocode}
+        \expandafter\lst@BubbleSort@#1\relax,\relax,%
+%    \end{macrocode}
+% \ldots\space then the second, third, \ldots\ elements until no elemets have
+% been swapped.
+%    \begin{macrocode}
+        \expandafter\lst@BubbleSort@\expandafter,\lst@sorted
+                                      \relax,\relax,%
+        \let#1\lst@sorted
+        \lst@if
+            \def\lst@next{\lst@BubbleSort#1}%
+            \expandafter\expandafter\expandafter\lst@next
+        \fi
+    \fi}
+\def\lst@BubbleSort@#1,#2,{%
+    \ifx\@empty#1\@empty
+        \def\lst@sorted{#2,}%
+        \def\lst@next{\lst@BubbleSort@@}%
+    \else
+        \let\lst@sorted\@empty
+        \def\lst@next{\lst@BubbleSort@@#1,#2,}%
+    \fi
+    \lst@next}
+%    \end{macrocode}
+% But the bubbles rise only one step per call. Putting the elements at their
+% top most place would be inefficient (since \TeX\ had to read much more
+% parameters in this case).
+%    \begin{macrocode}
+\def\lst@BubbleSort@@#1,#2,{%
+    \ifx\relax#1\else
+        \ifx\relax#2%
+            \lst@lAddTo\lst@sorted{#1,}%
+            \expandafter\expandafter\expandafter\lst@BubbleSort@@@
+        \else
+            \lst@IfLE #1\relax\@empty #2\relax\@empty
+                          {\lst@lAddTo\lst@sorted{#1,#2,}}%
+                {\lst@true \lst@lAddTo\lst@sorted{#2,#1,}}%
+            \expandafter\expandafter\expandafter\lst@BubbleSort@@
+        \fi
+    \fi}
+\def\lst@BubbleSort@@@#1\relax,{}
+%    \end{macrocode}
+%    \begin{macrocode}
+%</doc>
+%    \end{macrocode}
+% \end{macro}
+%
+%
+\makeatother
+
+\chapter{Sorting}
+
+
+\makeatletter
+
+AAQ`	`
+
+\end{document}
+
+
+One of the difficulties of using \TeX\ as a computer language is its lack of built-in datastructures and common routines such as list manipulation and sorting. This chapter examines some simple sorting routines.
+
+
+\section{Bubble sort}
+
+Although not the most ideal of sorting algorithms, the bubble sort routine shown in the listing in figure, can be used successfully with comma delimited lists.
+
+The principle behind extending alphabetical order to words (lexicographical order) is that all words in a list beginning with the same letter should be grouped together; within a grouping starting with a single letter, all words beginning with the same two letters shall be grouped together; and so on, maximizing the number of common initial letters between adjacent words. The ordering principle is applied at the point where the letters differ. For instance, in the sequence:
+
+\begin{teXXX}
+Astrolabe
+Astronomy
+Astrophysics
+\end{teXXX}
+
+\def\somelist{Astrophysics,Astronomy,Astrolable}
+Defining a list as above but unsorted,
+
+\noindent\texttt{> \somelist}
+
+\lst@BubbleSort{\somelist}
+
+\noindent\texttt{> \somelist}
+
+
+
+\gdef\alist{San, San Cristobal, San Juan, Santa Clara, Santa Cruz, Santo Domingo, San Teodoro, San Tomas, Santa Barbara, San Antonio}
+
+The original list is given by:
+
+\alist
+
+
+\lst@BubbleSort{\alist}
+
+The sorted list is:
+
+\noindent\texttt{> \alist}
+
+
+
+
+
+
+define  string compare function
+
+\def\strcomp#1#2{%
+\def\templist{#1,#2,}
+  \lst@BubbleSort{\templist}
+\templist}
+
+
+\strcomp{beta}{alpha}
+
+\makeatother
+The bubble sort macro shown in the following listing, has been adapted from the |listings| package, it is quite fast for most applications.
+
+\begin{teX}
+\def\lst@BubbleSort#1{%
+    \ifx\@empty#1\else
+        \lst@false
+        \expandafter\lst@BubbleSort@#1\relax,\relax,%
+        \expandafter\lst@BubbleSort@\expandafter,\lst@sorted
+                                      \relax,\relax,%
+        \let#1\lst@sorted
+        \lst@if
+            \def\lst@next{\lst@BubbleSort#1}%
+            \expandafter\expandafter\expandafter\lst@next
+        \fi
+    \fi}
+\def\lst@BubbleSort@#1,#2,{%
+    \ifx\@empty#1\@empty
+        \def\lst@sorted{#2,}%
+        \def\lst@next{\lst@BubbleSort@@}%
+    \else
+        \let\lst@sorted\@empty
+        \def\lst@next{\lst@BubbleSort@@#1,#2,}%
+    \fi
+    \lst@next}
+
+\def\lst@BubbleSort@@#1,#2,{%
+    \ifx\relax#1\else
+        \ifx\relax#2%
+            \lst@lAddTo\lst@sorted{#1,}%
+            \expandafter\expandafter\expandafter\lst@BubbleSort@@@
+        \else
+            \lst@IfLE #1\relax\@empty #2\relax\@empty
+                          {\lst@lAddTo\lst@sorted{#1,#2,}}%
+                {\lst@true \lst@lAddTo\lst@sorted{#2,#1,}}%
+            \expandafter\expandafter\expandafter\lst@BubbleSort@@
+        \fi
+    \fi}
+\def\lst@BubbleSort@@@#1\relax,{}
+\end{teX}
+
+The interesting part of the code is the alphabetic comparison:
+
+\begin{teXXX}
+\def\lst@IfLE#1#2\@empty#3#4\@empty{%
+    \ifx #1\relax
+        \let\lst@next\@firstoftwo
+    \else \ifx #3\relax
+        \let\lst@next\@secondoftwo
+    \else
+        \lowercase{\ifx#1#3}%
+            \def\lst@next{\lst@IfLE#2\@empty#4\@empty}%
+        \else
+            \lowercase{\ifnum`#1<`#3}\relax
+                \let\lst@next\@firstoftwo
+            \else
+                \let\lst@next\@secondoftwo
+            \fi
+        \fi
+    \fi \fi
+    \lst@next}
+\end{teXXX}
+
+
+
+We can use LaTeX control loop @for to remove the commas from the list if these are not wanted in the final output.
+
+\begin{teXXX}
+\gdef\alist{alpha, beta, country, doll, feet}
+\def\remove@commas#1{
+\@for \i:=#1\do{%
+\textit{\i}
+}}
+\remove@commas{\alist}
+\end{teXXX}
+
+
+\makeatletter
+
+\gdef\alist{alpha, beta, country, doll, feet,}
+
+\meaning\@for
+
+
+\@for\value:=#1\do{\value}\relax
+\makeatother
+\end{document}
+
+
+
+Adding commas can also be achieved, this time using the \verb+\@tfor+ looping structure.
+\def\alist{a b c d e f {alpha} {beta}  {country}  {doll}  {feet}}
+
+\def\add@commas#1{%
+ \def\z##1{
+    \expandafter\@tfor\expandafter\j\expandafter:\expandafter=##1\do{%
+    \j , }
+ }\z#1}
+\add@commas{\alist}
+
+\subsection{Remove last comma}
+
+When using LaTeX lists it is necessary to remove the last comma from the list,
+
+\begin{teX}
+\def\alist{a,b,c,d,e,f,}%
+    \def\remove@last@comma#1{%
+        \def\remove@last@comma@##1##2,\@nil{##1##2}%
+            \expandafter\remove@last@comma@\alist\@nil
+    }%
+   \remove@last@comma{\alist}
+}
+\end{teX}
+
+{\tt > % 
+\def\alist{a,b,c,d,e,f,}%
+     \def\remove@last@comma#1{%
+           \def\remove@last@comma@##1##2,\@nil{##1##2}%
+                 \expandafter\remove@last@comma@\alist\@nil
+     }%
+    \remove@last@comma{\alist}
+}
+
+
+Many programmers would suggest one escapes to the shell and sort whatever needs to be sorted using another language, Lua also offers another possibility. In my opinion, since TeX is a computer language, with a bit of perseverance one can built all the datastructures and libraries required to do the job.
+
+
+
+\end{document}
+\section{Sorting tabular data}
+
+Everytime the line is called a list is built the list has to have a structure based
+on column.
+
+\let\alist\@empty
+ 
+\def\addtolist#1#2{
+  \lst@lAddTo\alist{#2}
+}
+
+\def\test#1&#2&#3&#4 {%
+   \addtolist{\alist}{#1,}%
+   \expandafter\gdef\csname#1\endcsname{#1&#2&#3&#4\cr\relax}
+}
+
+%The last line needs a bit of different treatment
+%Defined a new command just to make the development easier
+\def\testa#1&#2&#3&#4 {%
+      \addtolist{\alist}{#1,}%
+     \expandafter\gdef\csname#1\endcsname{#1&#2&#3&#4}
+}
+
+\def\blue{blue}
+\def\tnote#1{\footnotesize #1}
+
+%% adding the data now
+\test pipes & test &test &test 
+\test elbows & two &three &four 
+\test nuts and bolts & two &three &four 
+\test athena & two &three &four 
+\test Chapter Alpha & two &three &beta
+\test Chapter Troy &other & mary &john 
+\test Chapter 00 &0 & 0 &0 
+\test SG 2 & \blue &0&\tnote{test}
+\test SG 1 &0&0&0
+\test SG 1a &0&0&0
+\test SG 1b & \blue &0&\tnote{test}
+
+Now let us sort the list (remember it only holds the name not the command with the same name).
+
+\lst@BubbleSort{\alist}
+
+\alist
+
+
+
+%% typesetting the table
+%\begin{table}[htbp]
+\newsavebox{\tempbox}
+\savebox{\tempbox}{
+\centering
+\begin{tabular}{lccc}
+\toprule[1pt]
+Column A & Column B & Column C & Column D\\
+\midrule
+\@for\i:=\alist \do{\csname\i\endcsname}
+\vspace{-14pt}\\\bottomrule[1pt]
+\end{tabular}
+%\end{table}
+\medskip
+}
+\medskip
+\usebox{\tempbox}
+\medskip
+
+An interesting observation, now that we have sorted the table, is that once you can manipulate lists and tables, the basic structure of a database is available!\footnote{The DBtools offers a lot of database manipulation techniques, far more advanced taht what we have demonstrated here.}
+
+
+\def\BeginRemark#1{%
+    \begin{quote}\topsep0pt\let\small\footnotesize\small#1:}
+\def\EndRemark{\end{quote}}
+
+
+\makeatother
+
+
+\newfont\yltt{ectt1000}
+
+{\yltt this is a very good font
+and this one.}
+
+\so{\textbackslash test}
+
+\textcaps{test}
+
+\makeatletter
+\tt
+ \meaning\lst@lAddTo
+
+\makeatother
+
+
+\gdef\temp{another}
+
+\xdef\Test{test \noexpand\temp }
+
+
+\Test
+
+\def\temp{kkk}
+
+\Test
+
+
+
+\makeatother
+\end{document}
+%
+%\begin{clevertable}
+%\sorton{2}
+%\addrow 
+%\addrow
+%\addrow
+%\end{clevertable}
+
+
+
+
+
+

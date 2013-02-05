@@ -1,0 +1,394 @@
+
+\chapter{Stack datastructures}
+
+\hfill\hfill\parbox{9cm}{\vspace{-30pt}
+\small \ldots however the code here would then have to be moved after the first line, because of the footnote to page 386 of the \TeX Book, and I do not think I should be writing code that is so obscure as to be documented in a footnote in an appendix called ``Dirty Tricks''!
+
+\hfill\hfill David Carlisle \textit{tabularX documentation}.
+}
+
+\section{Introduction}
+\begin{marginfigure}
+\includegraphics[width=\textwidth]{./graphics/stack}
+\caption{Simple representation of a stack.}
+\end{marginfigure}
+\index{stack}\index{stack!LIFO}\index{stack!definition}
+In computer science, a stack is a last in, first out (LIFO) abstract data type and data structure. A stack can have any abstract data type as an element, but is characterized by only two fundamental operations: push and pop. The push operation adds an item to the top of the stack, hiding any items already on the stack, or initializing the stack if it is empty. The pop operation removes an item from the top of the stack, and returns this value to the caller. A pop either reveals previously concealed items, or results in an empty stack.
+A stack is a restricted data structure, because only a small number of operations are performed on it. The nature of the pop and push operations also means that stack elements have a natural order. Elements are removed from the stack in the reverse order to the order of their addition: therefore, the lower elements are those that have been on the stack the longest.
+
+
+\makeatletter
+\section{Defining the stack datastructure}
+\index{stack!macro techniques}
+\parindent0pt
+A stack is simply a one dimensional array. Stack elements are pushed in or popped out of the stack one at a time.
+
+\begin{table}[htbp]
+\begin{center}
+\begin{tabular}[t]{|l|l|}
+\hline
+0&greek\\\hline
+1&english\\\hline
+2&australian\\\hline
+3&german\\
+\hline
+\end{tabular}
+\begin{tabular}[t]{|l|l|}
+\hline
+0&welsh\\\hline
+1&greek\\\hline
+2&english\\\hline
+3&australian\\\hline
+4&german\\
+\hline
+\end{tabular}
+\caption{\small Stack push operation. When a \textit{push} operation is executed the additional element of the stack is placed on top. In the example the new language ``welsh'' was pushed in the stack.}
+\label{tbl:stack}
+\end{center}
+\end{table}
+
+A stack, needs a structure to hold its elements. Routines normally associated with stacks are the \textit{push} and \textit{pop} operations.
+Table \ref{tbl:stack} above illustrates the operation of a push.
+\section{Defining a stack}
+  
+There are many ways to create a stack in \TeX\. We will first define a macro to hold the stack information which we delimit using a `+' sign.\sidenote{There is nothing special about using the +sign, the only advantage being that the element can contain normal textual material which may ontain commas and other punctuation marks.}
+
+We first create the empty stack.
+
+\emphasis{\let}
+\begin{teXXX}
+\let\stack\@empty
+\end{teXXX}
+\let\stack\@empty
+
+We use the kernel \verb+\@empty+ to initialize the stack to empty, although we could have as easily used a \verb+\def\stack{}+ to achieve the same result.
+
+\subsection{Adding elements}
+
+To add an element to the stack we need to define a macro \verb+\add@element+ to add an element. To achieve this, we need to define three operations, to define the element on the fly amd to push the element onto the stack :
+
+\emphasis{add@element, element, \push@element}
+\begin{teXXX}
+\def\add@element#1{%
+  \def\element{#1}%
+  \push@element
+}
+\end{teXXX}
+
+
+\def\add@element#1{%
+  \def\element{#1}%
+  \push@element
+}
+
+
+Before we define the push operatin we need to decide how we are going to delimit the stack. As the stack is simply a list of \texttt{elements}, we will separate with a`+' sign; the push function is quite simple.
+
+\begin{teXXX}
+\def\push@element{%
+   \xdef\stack{\element+\stack}
+}
+\end{teXXX}
+
+Notice the |\element+| used to delimit the stack. We could have also used a comma if we wanted. This would limit the stack to operations that the contents do not include any commas.
+
+
+\def\push@element{%
+   \xdef\stack{\element+\stack}
+}
+
+If we now add a few elements:
+\add@element{greek}
+\add@element{english}
+\add@element{australian}
+\add@element{german}
+\begin{verbatim}
+\add@element{greek}
+\add@element{english}
+\add@element{australian}
+\add@element{german}
+\end{verbatim}
+We get,
+
+\texttt{\stack}
+
+Retrieving information from the stack is a bit less simple, as we need to move the element from the stack while storing it in the macro \verb+\element+. For this we first have to define a helper function.
+
+This macro stores its first element (which is delimited by the `+' sign) in \verb+\element+ and stores the rest of the string delimited by `-' in its third argument.
+\begin{verbatim}
+\def\pop@#1+#2-#3{%
+  \xdef\element{#1}\xdef#3{#2}%
+}
+\end{verbatim}
+\def\pop@#1+#2-#3{%
+  \xdef\element{#1}\xdef#3{#2}%
+}
+The reason for the somewhat weird arrangement of arguments to the helper function is the fact it is called in the following way:
+\begin{verbatim}
+\def\pop@element{%
+      \expandafter\pop@\stack-\stack
+}
+\end{verbatim}
+
+
+\def\pop@element{%
+\ifx \stack\@empty  Error\relax \else
+\expandafter\pop@\stack-\stack
+\fi
+%\element\relax
+}
+This means that before \verb+\pop@+ is executed \TeX\ first expands the stack stored in the macro \verb+stack+. The result is that the argument string of \verb+stack+ contains one more elements each followed by a `+' sign followed by the `-' sign and finally the reference to the stack
+
+By popping the element we now have managed to get the data into the \verb+\element+ macro.
+
+\begin{verbatim}
+\pop@element
+\element
+\pop@element
+\element
+\pop@element
+\element
+\end{verbatim}
+\pop@element
+\noindent\texttt{\element}\\
+\pop@element
+\noindent\texttt{\element}\\
+\pop@element
+\noindent\texttt{\element}\\
+\pop@element
+\noindent\texttt{\element}\\
+\noindent\texttt{\pop@element}\\
+
+One problem with the macros so far is that there is no check that the stack is empty. We could easily define a check for this.
+
+\begin{verbatim}
+\def\pop@element{%
+    \ifx \stack\@empty Error \relax 
+    \else
+        \expandafter\pop@\stack-\stack
+    \fi
+}
+\end{verbatim}
+
+
+A similar method of defining a stack is used by the Babel package to manipulate the stack of languages that are defined using the:
+
+\begin{verbatim}
+\usepackage[greek,english,turkish]{babel}
+\end{verbatim}
+
+The routines here have been inspired by the code in Babel. One could also use lists to define stack operations, but I thought this was elegant to include in this book, as part of defining datastructures for \TeX.
+
+One could make a number of improvements to the above. One is to write a helper function to define the stack macro name and adapt all the routines to be called with a parameter identifying the stack. One could also add an automatic counter to count the length of the stack, which can be useful in some situations. The counter could also become useful, if one had to loop over the contents of a stack structure.
+
+\section{Stacks and Lists}
+We can easily move items from a comma delimited list to a stack structure, as shown below:
+
+\emphasis{do,\i,alist,add@element,@for}
+\begin{teXXX}
+\def\alist{mary,john,costa,george,wei,athena,maria}
+
+\@for \i :=\alist \do{%
+   \add@element{\i}
+}
+\end{teXXX}
+%\def\alist{mary,john,costa,george,wei,athena,maria}
+%
+%\@for \i:=\alist\do{%
+%   \add@element{\i}
+%}
+%
+%\noindent\texttt{\stack}
+%
+%\pop@element
+%\element $\leftarrow$   \stack
+
+%\def\test{}
+%\catcode`,=13
+
+%\def\test{a,b,c,d,e}
+%
+%first loop
+%
+%\@for\i:=\test \do{
+%   \the\catcode`\i
+%}
+%
+%
+%\XKV@checksanitizea{a,b,c,d}{\test}
+%
+%second loop
+%
+%\@for\i:=\test \do{
+%   \the\catcode`\i
+%}
+
+
+\section{Other conventions}
+\def\guardStack{}
+\def\Stack{}
+In the \texttt{docstrip} program a slightly different type of stack is employed. The elements of the The macros \verb+\eltStart+ and \verb+\eltEnd+ are used to delimit a stack element. They are both empty.
+\begin{verbatim}
+\def\eltStart{}
+\def\eltEnd{}
+\end{verbatim}
+\def\eltStart{}
+\def\eltEnd{}
+The macro \verb+\qStop+ is a so-called `quark', a macro that expands to itself\footnote{The concept of `quarks' is developed for the \LaTeX3 project.}.
+
+\begin{verbatim}
+\def\qStop{\qStop}
+\end{verbatim}
+\def\qStop{\qStop}
+The macro pop<stack><cs> `pops' the top element from the stack. It assigns the value of the top element to<cs> and removes it from <stack>. When the stck is empty a warning is issued and cs is assigned an empty value.
+
+\def\pop#1#2{%
+  \ifx#1\empty
+    \Msg{Warning: Found end guard without matching begin}%
+    \let#2\empty
+  \else
+%    \end{macrocode}
+%    To be able to `peel' off the first guard we use an extra macro
+%    |\popX| that receives both the expanded and the unexpanded stack
+%    in its arguments. The expanded stack is delimited with the quark
+%    |\qStop|.
+%    \begin{macrocode}
+    \def\tmp{\expandafter\popX #1\qStop #1#2}%
+    \expandafter\tmp\fi}
+%    \end{macrocode}
+% \begin{macro}{\popX}
+%    \changes{2.0k}{1992/04/06}{Macro added} When the stack is expanded
+%    the elements are surrounded with |\eltStart| and |\eltEnd|. The
+%    first element of the stack is assigned to |#4|.
+%    \begin{macrocode}
+\def\popX\eltStart #1\eltEnd #2\qStop #3#4{\def#3{#2}\def#4{#1}}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+
+  Guards can be pushed on the stack using the macro
+\cs{push}%|\meta{stack}\meta{guard}. Again we need a secondary macro
+%    (|\pushX|) that has both the expanded and the unexpanded stack as
+%    arguments.
+%    \begin{macrocode}
+\def\push#1#2{\expandafter\pushX #1\qStop #1{\eltStart #2\eltEnd}}
+%    \end{macrocode}
+% \begin{macro}{\pushX}
+%    \changes{2.0k}{1992/04/06}{Macro added}
+%    The macro |\pushX| picks up the complete expansion of the stack as
+%    its first argument and places the guard in |#3| on the `top'.
+%    \begin{macrocode}
+\def\pushX #1\qStop #2#3{\def #2{#3#1}}
+%    \end{macrocode}
+% \end{macro}
+
+\push{\guardStack}{guard1}
+\push{\guardStack}{guard2}
+\push{\guardStack}{guard3}
+\push{\guardStack}{guard4}
+
+We can inspect the contents of the stack using meaning:
+ 
+{\tt
+\expandafter\strip@prefix\meaning\guardStack
+}
+
+\def\ex{\expandafter}
+
+\def\test#1{%
+\pop{\guardStack}{#1}
+\xdef\reserved@b{#1}
+\push\Stack#1
+}
+
+Test: \test{\reserved@a}
+
+{\tt
+\expandafter\strip@prefix\meaning\Stack
+}
+
+\pop{\guardStack}{\reserved@a}
+\push{\Stack}{\test\reserved@a}
+\Stack
+
+
+
+{\tt
+\expandafter\strip@prefix\meaning\Stack
+}
+
+{\tt Guardstack: 
+\expandafter\strip@prefix\meaning\guardStack
+}
+
+
+
+\reserved@a
+\makeatother
+
+\begin{table}[htbp]
+\begin{center}
+\tt
+\begin{tabular}[t]{|l|l|}
+\hline
+$i$&$guard_n$\\\hline
+$\vdots$ &$\vdots$\\\hline
+4&\verb+\eltStart+\cs{guard4}\textbackslash eltEnd\\\hline
+3&guard 3\\\hline
+2&guard 2\\\hline
+1&$guard_1$\\
+\hline
+\end{tabular}
+\begin{tabular}[t]{|l|l|}
+\hline
+0&eltstart welsh eltEnd\\\hline
+1&greek\\\hline
+2&english\\\hline
+3&australian\\\hline
+4&german\\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+
+\begin{verbatim}
+John anton
+CYPRUSFAJO
+mathspasha
+
+\end{verbatim}
+\makeatletter
+\begingroup
+   \catcode`\%=12
+   \edef\aline{%<+ macro> and others etc}
+   \gdef\percent{%}
+   \gdef\doublepercent{%%}
+   \def\check#1{\ifx%#1 true \fi}
+   \check{%}
+
+  \def\%{Do somethingwith percent}
+  \aline
+
+\def\test{
+ \@ifnextchar%{TRUE this is \@gobble}{False}
+}
+
+\expandafter\test\aline
+
+
+\endgroup
+
+
+\doublepercent % testing
+
+
+
+
+\makeatother
+
+
+%Question: I was reading the doctsrip documentation and it makes references to adding guards onto the stack. hatare these, the documentation was not very clear. What are guards in docstrip?
+
+

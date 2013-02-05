@@ -1,0 +1,662 @@
+\let\brule\bottomline
+\begin{multicols}{2}
+  \includegraphics[width=\linewidth]{./graphics/theladykillers19551}
+  \captionof{figure}{The \textit{Ladykillers}, scripted by William Rose, is so thoroughly English I doubt its humor could be fully understood without reference to the English character or 20th century English history.The will to survive shown by the English during World War II, the blitz in particular, and all the archetypal character traits still associated with that determination — the stiff upper lip, the business-as-usual attitude, the stubborn focus on the minutiae of everyday life — are epitomized in this black comedy’s central character, the imperturbable Mrs. Wilberforce (Katie Johnson, who won a British Academy award for the role). The key comic trait of this widowed fusspot is her ability to survive having a gang of armed robbers set up shop in a couple of her upstairs rooms. The tattered “professor” (Alec Guinness) who rents the rooms claims that he and his four cohorts are there to rehearse a string quintet — they close the door and play records in an attempt to fool her — and even manages to persuade her to pick up a trunk containing the haul from their robbery. (Among his seedy colleagues are Peter Sellers and Herbert Lom, the first pairing of the two, who would later play Inspector Clouseau and Chief Inspector Dreyfus in all but one of the Pink Panther comedies.) From \protect\url{http://www.jonathanrosenbaum.com/?p=6067}}
+  %\label{fig:marginfig1}
+\medskip
+\parindent1em
+{\Large\bf Varieties of a language}
+
+Traditionally \textit{The Times} distinguished between `English' and `American' as two separate languages. Bryson (1994) points to a long history of derision of American English by the British, although Bryson also points out that many Americanisms have passed into common usage in British English without British speakers being aware of them. Bill Bryson recalls working for the \textit{Sunday Times} in London when the editor would criticise him for using Americanisms\footnote{Quoted in \textit{Language, Society and Power An Introduction} by Linda Thomas \textit{et al}. }:
+%@book{thomas1999language,
+%  title={Language, Society and Power: An Introduction},
+%  author={Thomas, L. and Wareing, S.},
+%  isbn={9780203981634},
+%  url={http://books.google.com.qa/books?id=r51M4ewiXlYC},
+%  year={1999},
+%  publisher={Taylor and Francis}
+%}
+%http://books.google.com.qa/books?id=r51M4ewiXlYC&pg=PA158&dq=bill+bryson&hl=en&sa=X&ei=9I4ET5G-OpGJrAf10OTXDw&ved=0CFYQuwUwBjh4#v=onepage&q=bill%20bryson&f=false
+
+\begin{quotation}
+He would say to me something along the lines of: ``Mr Bryson, I'm not sure what patois you spoke in Idaho or Ohio or wherever it was your misfortune to be born, but here at \textit{The Times} we rather like to stay with the English.''
+\end{quotation}
+
+Unfortunately \texttt{babel} will not be able to correct your version of English\footnote{My own version of English was strongly influenced in my childhood through \textit{souvlaki} and in later life by \textit{boerwors}.} but it can help you with hyphenation patterns. The file \texttt{english.dtx}
+defines all the language definition macros for the English
+language as well as for the American and Australian version of this language. For
+the Australian version the British hyphenation patterns will be used, if available,
+for the Canadian variant the American patterns are selected. The manual notes:
+`American' is a version of `English' which can have its own hyphenation patterns.
+The default english patterns are in fact for american english. We allow for the
+patterns to be loaded as `english' `american' or `USenglish'.
+
+%Hy/phen/ation in Collins and Macquarie, but hyphena/tion in Oxford
+\begin{teXXX}
+\documentclass{article}
+\usepackage[UKenglish,english]{babel}
+\begin{document}
+\selectlanguage{UKenglish}
+\begin{minipage}{0.5cm}
+See hyphenation in Collins and Macquarie, 
+but hyphenation in Oxford.\\
+The Photographer.
+\end{minipage}\hspace{2cm}
+\selectlanguage{english}
+\begin{minipage}{1.0cm}
+See hyphenation in Collins and Macquarie, 
+but hyphenation in Oxford.\\
+The Photographer
+\end{minipage}
+\end{document}
+\end{teXXX}
+
+You can use languages other than English in a document and the best way to do it is to use the \pkg{babel} package. The package is loaded normally, but it is a good idea to load it first before any other packages.
+
+%\includegraphics[width=0.95\linewidth]{./graphics/woodlettercabinet}
+%\captionof{figure}{JVood Letters may be kept in trays, and when this is
+%done it is well to number each tray, and an impression of
+%each variety should be pulled and mounted on strawboard,
+%the number of the tray attached, and hung on the wall for
+%reference (see illustration of wood-letter cabinet). With
+%letters that cannot be kept in trays, or where there is no
+%convenience for doing so, the best method is to arrange
+%them on shelves in pigeon-holes, one hole to each letter
+%of the alphabet. This method, although the most
+%expensive, is by far the most economical as regards
+%room. Another method is illustrated on the opposite
+%page.}
+  
+\begin{teXX}
+\usepackage[utf8]{inputenc} % set input encoding to utf8
+\usepackage[polutonikogreek,
+greek, english]{babel}[2005/11/23]
+\end{teXX}
+
+\index{greek!polytoniko}
+\index{greek,babel}
+
+The user interface of this package is quite simple. It consists of a set of commands
+that switch from one language to another, and a set of commands that deal with
+shorthands. It is also possible to find out what the current language is.
+When a user wants to switch from one language to another he can do so using
+the macro \cmd{selectlanguage}. This macro takes the language, defined previously
+by a language definition file, as its argument. It calls several macros that should
+be defined in the language definition files to activate the special definitions for the language chosen.
+
+For Babel, you have the command |\selectlanguage| that does exactly that. Obviously, you need such a thing to switch language inside a document body, because it wouldn't make sense to select all the languages at the same time! As you probably know, the convention in Babel is that the last language in the list of option is activated at |\begin{document}|; hence a command like |\usepackage[french,russian]{babel}| will declare the document to be in Russian by default, and use the settings of russian.ldf.
+
+
+\section{Mixing Languages}
+If you wish to mix different languages you can use the \docpkg{babel} package. For example the following
+paragraph contains both english as well as greek text.
+\medskip
+
+
+
+\topline
+
+\textsc{Trigonometry} (from \textgreek{tr'igwnon}, triangle, and \textgreek{metr'ew}, I measure)
+is the science of the numerical relations between the
+sides and angles of triangles.
+
+\bottomline
+
+\emphasis{textgreek, textsc}
+\begin{teXXX}
+\textsc{Trigonometry} (from \textgreek{tr'igwnon}, triangle,
+and \textgreek{metr'ew}, I measure)
+is the science of the numerical relations between the
+sides and angles of triangles.
+\end{teXXX}
+
+
+The package is quite useful and as you see all you need is to know the
+one to one relationship with the greek.\TeX\ understands only the basic ASCII characters, so it is not possible
+to enter directly Greek letters. Instead, someone enters Latin letters
+which are mapped to their Greek ``counterparts'' by \TeX. The following
+table shows the transliteration employed:
+
+
+
+
+  \includegraphics[width=\linewidth]{./graphics/polytoniko}
+  \captionof{figure}{Example of polytonic text from a Byzantine manuscript, of 1020 AD, displaying the beginning of the Gospel of Luke (1:3-6) }
+  \label{fig:polytoniko}
+
+
+%\begin{center}
+%\begin{tabular}{|lllllllllllll|}\hline
+%\textgreek{a}&  
+%\textgreek{b}&   
+%\textgreek{g}&  
+%\textgreek{d}&  
+%\textgreek{e}&  
+%\textgreek{z}&  
+%\textgreek{h}&  
+%\textgreek{j}&   
+%\textgreek{i}&   
+%\textgreek{k}&   
+%\textgreek{l}&   
+%\textgreek{m}&
+%\textgreek{n}\\
+%a& b& g& d&  e&  z&  h&  j&  i&  k&  l&  m&  n\\
+%\textgreek{x}&  
+%\textgreek{o}&  
+%\textgreek{p}&  
+%\textgreek{r}&  
+%\textgreek{sv}&  
+%\textgreek{t}&  
+%\textgreek{u}&  
+%\textgreek{f}&  
+%\textgreek{q}&  
+%\textgreek{y}&  
+%\textgreek{w}& 
+%\sg{c}& \hbox{ } \\
+%x&  o&  p&  r&  s&   
+%t&  u&  f&  q&  y&  w& c& \hbox{ }\\ \hline
+%\end{tabular}
+%\end{center}
+
+%Please, note that in order to produce the letter \textgreek{sv} in isolation
+%on has to type \texttt{sv}. This feature is due to the strong ligature
+%that \TeX\ employs. 
+%
+%In the ``modern'' \textgreek{monotonik'o} accentual system only one accent is 
+%used---\textgreek{oxe'ia} (acute). In the traditional \textgreek{polutonik'o} 
+%accentual system we 
+%need more accents and breathing signs. We can produce an accented letter by
+%prefixing the letter with he symbol that denotes the accent, e.g.,
+%\texttt{>a'erac} produces the word \sg >a'erac.\sa\footnote{For the 
+%technically inclined reader, we must say that \TeX\ uses the ligature table of
+%the font in order to determine the character that corresponds to the
+%input character sequence.} Here are the symbols that are recognized: 
+%\index{greek!accents}
+%\index{greek!breathings}
+%\index{greek!monotoniko}
+
+
+
+%\UndefineShortVerb{\|}
+%
+%\begin{center}
+%\begin{tabular}{cccc}
+%\toprule
+%Accent & Symbol & Example & Output\\ 
+%\midrule
+%acute  & \texttt{'} & \texttt{g'ata} & \textgreek{g'ata}\\
+%grave  & \texttt{`} & \texttt{dad`i} & \textgreek{dad`i}\\
+%circumflex & \textt{\tilde} & \texttt{ful~hc} & \sg\textgreek{ful~hc}\sa\\
+%rough breathing & \verb+<+ & \verb+<'otan+ & \sg\textgreek{<'otan}\sa\\
+%smooth breathing & \verb+>+ & \verb+>'aneu+ & \sg\textgreek{>'aneu}\sa\\
+%%subscript &|& \verb+>anate'ilh|+ & \sg\textgreek{>anate'ilh|}\\
+%%dieresis & \texttt{"}& \texttt{qa"ide'uh|c} & \sg\textgreek{qa"ide'uh|c}\\ 
+%\bottomrule
+%\end{tabular}
+%\end{center}
+%\DefineShortVerb{\|}
+
+Most of the catcode changes effected by the package are quite harmless within the greek language environment, however you may pick up problems with the |fancyvrb| shortverb command. If you do you need to undefine it and then define it again.
+
+\emphasis{DefineShortVerb,UndefineShortVerb,textgreek}
+\begin{teXXX}
+\UndefineShortVerb{\|}
+  \textgreek{qa"ide'uh|c}
+\DefineShortVerb{\|}
+\end{teXXX}
+
+
+
+Note that the subscript symbol is placed \textbf{after} the letter.
+The last thing someone must know in order to be able to write normal Greek
+%text is the punctuation marks used in the language:
+%\begin{center}
+%\begin{tabular}{ccc}\hline
+%Punctuation Sign & Symbol & Output\\ \hline
+%period   & \texttt{.} & \sg\textgreek{.}\sa\\
+%semicolon & \texttt{;} & \sg\textgreek{;}\sa\\
+%exclamation mark & \texttt{!} & \sg\textgreek{!}\sa\\
+%comma & \texttt{,} & \sg\textgreek{,}\sa\\
+%colon & \texttt{:} & \sg\textgreek{:}\sa\\
+%question mark & \texttt{?} & \sg\textgreek{?}\sa\\
+%left apostrophe & \texttt{``} & \sg\textgreek{``}\sa\\
+%right apostrophe & \texttt{''} & \sg\textgreek{''}\sa\\
+%left quotation mark & \texttt{((} & \sg\textgreek{))}\sa\\
+%right quotation mark & \texttt{))} & \sg\textgreek{))}\sa\\ \hline
+%\end{tabular}
+%\end{center}
+Using these conventions it is a straightforward exercise to write Greek
+\textgreek{polutoniko} text. For example the following excerpt from 
+\textgreek{D'uskoloc} of \textgreek{M'enandroc}
+%\sg
+%\begin{quote}
+%T'i f'hic? <Id`wn >enj'ede pa~id'' >eleuj'eran\\
+%t`ac plhs'ion N'umfac stefano~usan, S'wstrate,\\
+%>er~wn >ap~hljec e>uj'uc?
+%\end{quote}
+%\sa can be produced by the following \LaTeX\ code:
+%\begin{center}
+%\begin{tabular}{l}
+%\verb+T'i f'hic? <Id`wn >enj'ede pa~id'' >eleuj'eran+\\
+%\verb+t`ac plhs'ion N'umfac stefano~usan, S'wstrate,+\\
+%\verb+>er~wn 'ap~hljec e>uj'uc?+
+%\end{tabular}
+%\end{center}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Producing Greek Text}
+Once the Greek language is selected with the command
+\begin{center}
+\verb+\selectlanguage{greek}+
+\end{center}
+whatever we type will be typeset with the Greek fonts. The command
+\verb+\textlatin+ can be used for short passages in some language that
+uses the Latin alphabet, while the the command \verb+\latintext+ changes
+the base fonts to the ones used by languages that use the Latin alphabet.
+However, all words will be hyphenated by following the Greek hyphenation
+rules! Similar commands are available once someone has selected some
+other language. The commands \verb+\textgreek+ and \verb+\greektext+
+behave exactly like their ``latin'' counterparts. For example, the
+word \textgreek{M'imhc} has been produced with the command 
+\verb+\textgreek{M'imhc}+. Please note that certain symbols cannot have
+their expected result for Greek text, unless someone has selected the Greek 
+language, e.g., \verb+~+ is such a symbol.
+
+As we have mentioned above this version of the \texttt{greek} option of the
+\texttt{babel} package supports the use of Greek numerals. The commands
+\verb+\greeknumeral+ and \verb+\Greeknumeral+ produce the lowercase and 
+the uppercase Greek numeral, e.g., 
+%\begin{center}
+%\begin{tabular}{cc}\hline
+%Command & Output\\ \hline
+%\verb+\Greeknumeral{9999}+ & \sg\textgreek{\Greeknumeral{9999}}\\
+%\verb+\greeknumeral{9999}+ & \sg\textgreek{\greeknumeral{9999}}\\
+%\hline
+%\end{tabular}
+%\end{center}
+%In order to correctly typeset the greek numerals the greek option file
+%provides the following commands:
+%\begin{center}
+\begin{tabular}{cc}\hline
+Command & Output\\ \hline
+\verb+\qoppa+ & \textgreek{\qoppa}\\
+\verb+\sampi+ & \textgreek{\sampi}\\
+\verb+\stigma+ & \textgreek{\stigma}\\
+\hline
+\end{tabular}
+%\end{center}
+
+In traditional Greek typography the first paragraph after a header is
+always indented, contrary to the habit of, say, American typography. This
+effect can be achieved by using the package \verb+indentfirst+.
+
+
+
+Here is my name in greek  |\textgreek{Gia{'}nhs Lazari{'}dhs}|  \textgreek{Gi'annhs Lazar'idhs}
+
+\textgreek{\greeknumeral{1953}  }
+
+\textgreek{>Anafor`es}
+
+Among the twenty two signs adopted from Phoenician, four; viz.  \textphnc{a, \ARhe},  \textphnc{\ARyod}, and \textphnc{\ARayin}, were made to represent
+the vowel sounds \textit{a, e, i, o,}  both long and short \textphnc{\ARrq\ARa\ARaleph}
+
+    The Greek alphabet is one of the descendants of the Phoenician alphabet;
+ another was Aramaic which is the ancestor of the Arabic, Persian and Indian 
+ scripts.
+
+ Initially Greek was written right to left but around the 6th C~\BC{} became 
+ \textit{boustrophedron}, meaning that the lines 
+ alternated in direction. At about 500~\BC{} the writing direction stabilised 
+ as left to 
+ right. The Greeks modified the Phoenician alphabet to match the vocalisation
+ of their language. They kept the Phoenician names of the letters, suitably
+ `greekified', so \textit{aleph} became the familar \textit{alpha} and 
+ \textit{beth} became \textit{beta}. At this
+ point the names of the letters had no meaning. Their were several variants
+ of the Greek character glyphs until they were finally fixed in Athens in
+ 403~\BC.
+ The Greeks did not develop a lower-case 
+ script until about 600--700~\AD.
+
+The text was written in columns, \textgreek{sel'ides}, \textit{paginae}, sufficient margins
+being left at head and foot; and it was a practice to leave blank the beginning of the roll, that portion
+being most liable to wear through handling. The term \textgreek{sel'is} (originally the gangway between the rowing benches of a ship) was first applied to the space between two columns and then the column itself. Other terms were the diminutive
+\textgreek{sel'idion} and \textgreek{katabat'on}. The lines of wriring (stighi, \textit{versus}) ran parallel
+with the length of the roll;  and lead we are told, was used for drawing the ruled lines. Such ruling, however, was certainly not
+always and perhaps not generally, employed, for the horizontal papyrus itself was sufficient guide for the lines of writing; and the fact that the marginal line of the columns frequently trends away out of the perpendicular proves that in such instances there were no ruled lines to bound the columns laterally.
+
+But they were generally narrow in texts written for the market by skilled scribes. In literary papyri of good quality the columns are from two to three and a half inches in breadth. Those in the papyrus of Hyperides in Philippedem of the first century \BC, measure only an inch and three-quarters. Occassionally we find the letters made smaller at the end of a line in order to accomodate words to the restricted space. An example of writing in broad columns is seen in the papyrus of Aristotle on the Constitution of Athens; but this was written for private use and not for sale. And, again the columns of the earliest Greek literary papyrus in existence the  \textit{Persae} of Timotheus, of the fourth century \BC, are every broad. It is apparent that then as now stylistic rules for pages varied.
+
+
+%\sidenote{Before the time of Julius Caesar official dispatches appear to have been written \textit{transversa charta}}
+
+
+
+\begin{marginfigure}%
+  \includegraphics[width=\linewidth]{./graphics/classicalroll}
+  \captionof{figure}{Classical roll}
+  \label{fig:marginfig1}
+\end{marginfigure}
+
+\clearpage
+\newcommand{\thisfont}{Phoenician}
+
+    Table~\ref{tab} lists, in the \thisfont{} alphabetical order, the
+ transliterated value of the characters and, where I know it, the
+ modern name of the character.
+
+It is not an easy language to typest, but for a Phoenician scholar it should be easier.
+
+
+ \begin{tabular}{cclcll} \toprule
+ Glyph & Value & Name & ASCII & Commands (L-R) & Commands (R-L)\\ \midrule
+ \textphnc{a} & \textit{a} &
+ aleph &
+ ' a & |\Arq| |\Aa| |\Aaleph| &
+ |\ARrq| |\ARa| |\ARaleph|
+ \\
+ \textphnc{b} & \textit{b} &
+ beth &
+ b & |\Ab| |\Abeth| &
+ |\ARb| |\ARbeth|
+ \\
+ \textphnc{g} & \textit{g} &
+ gimel &
+ g & |\Ag| |\Agimel| &
+ |\ARg| |\ARgimel|
+ \\
+ \textphnc{d} & \textit{d} &
+ daleth &
+ d & |\Ad| |\Adaleth| &
+ |\ARd| |\ARdaleth|
+ \\
+ \textphnc{h} & \textit{h} &
+ he &
+ h & |\Ah| |\Ahe| &
+ |\ARh| |\ARhe| 
+ \\
+ \textphnc{f} & \textit{w} &
+ vav &
+ f & |\Af| |\Avaf| &
+ |\ARf| |\ARvaf|
+ \\
+ \textphnc{w} & \textit{w} &
+ vav &
+ w & |\Aw| |\Avav| &
+ |\ARw| |\ARvav|
+ \\
+ \textphnc{z} & \textit{z} &
+ zayin &
+ z & |\Az| |\Azayin| &
+ |\ARz| |\ARzayin|
+ \\
+ \textphnc{H} & \textit{\d{h}} &
+ heth &
+ H & |\Ahd| |\Aheth| &
+ |\ARhd| |\ARheth|
+ \\
+ \textphnc{T} & \textit{\d{t}} &
+ teth &
+ T & |\Atd| |\Ateth| &
+ |\ARtd| |\ARteth|
+ \\
+ \textphnc{y} & \textit{y} &
+ yod &
+ y & |\Ay| |\Ayod| &
+ |\ARy| |\ARyod|
+ \\
+ \textphnc{k} & \textit{k} &
+ kaph &
+ k & |\Ak| |\Akaph| &
+ |\ARk| |\ARkaph|
+ \\
+ \textphnc{l} & \textit{l} &
+ lamed &
+ l & |\Al| |\Alamed| &
+ |\ARl| |\ARlamed|
+ \\
+ \textphnc{m} & \textit{m} &
+ mem &
+ m & |\Am| |\Amem| &
+ |\ARm| |\ARmem|
+ \\
+ \textphnc{n} & \textit{n} &
+ nun &
+ n & |\An| |\Anun| &
+ |\ARn| |\ARnun|
+ \\
+ \textphnc{s} & \textit{s} &
+ samekh &
+ s & |\As| |\Asamekh| &
+ |\ARs| |\ARsamekh|
+ \\
+ \textphnc{o} & \textit{`} &
+ ayin &
+ ` o & |\Alq| |\Ao| |\Aayin| &
+ |\ARlq| |\ARo| |\ARayin|
+ \\
+ \textphnc{p} & \textit{p} &
+ pe &
+ p & |\Ap| |\Ape| &
+ |\ARp| |\ARpe|
+ \\
+ \textphnc{x} & \textit{\d{s}} &
+ sade &
+ x & |\Asd| |\Asade| &
+ |\ARsd| |\ARsade|
+ \\
+ \textphnc{q} & \textit{q} &
+ qoph &
+ q & |\Aq| |\Aqoph| &
+ |\ARq| |\ARqoph|
+ \\
+ \textphnc{r} & \textit{r} &
+ resh &
+ r & |\Ar| |\Aresh| &
+ |\ARr| |\ARresh|
+ \\
+ \textphnc{S} & \textit{\v{s}} &
+ shin &
+ S & |\Asv| |\Ashin| &
+ |\ARsv| |\ARshin|
+ \\
+ \textphnc{t} & \textit{t} &
+ tav &
+ t & |\At| |\Atav| &
+ |\ARt| |\ARtav|
+ \\
+\bottomrule
+ \end{tabular}
+ \caption{The \thisfont{} script and alphabet}\label{tab}
+ 
+\end{multicols}
+
+
+
+\section{Greek punctuation}
+
+We next have to consider punctuation, in the modern sense: that is by points and other simialr signs. Dots or points, single, double, or trble are seen in anccient inscriptions, marking off the several words; but these are marks of separation rather than of punctuation, unless perhaps, we are to except those which happen to stand at the conclusions of sentences. The eraliest instance of their employement appears to be in a frgment of the fourth century \BC, known as the Artemisia payrus at Vienna, where we find a double point (:) occassionally closes a sentence. Again in the fragments of \textit{Phaedo} of Plato, found at Gurob, the same double point appears as a mark of punctuation, in conjunction with the paragraph mark noticed above; and to be observed in the same manuscript, a short   stroke or dash in the line of writing i sfrequently used where there is a change of speaker. The double point is also in addition to the \textgreek{par'agrafos}, occasionally marks the close of the paragraphs in the Paris Papyrus 49, a letter of about 160 \BC But such isolated instances merely show taht there was a knowledge of the value of such marks of punctuation, which, however, in practice were not systematically employed.
+
+A more regular system was developed in the schools of Alexandria, its invention being ascribed to Aristophanes of Byzantium (260 \BC). This was the use of the full point withn values in certain positions (\textgreek{j'esis}): the high point (\textgreek{stigm'h tele'ia}), equivalent to a full stop;
+\sidenote{\textgreek{qwertyuiop}, \textgreek{asdfghjkl}, \textgreek{zxcvbnm}}
+
+\section{The CJK package}
+\begin{comment}
+\begin{CJK}{Bg5}{fs}
+   \Wo3 \hen3 \xi3\huan1 \chi1
+   \Zhong1\guo2\fan4.
+   I like to eat Chinese food
+    very much.
+\end{CJK}
+\end{comment}
+
+\section{German}
+\index{babel!german}
+\index{German!babel}
+\index{German!umlaut}
+\index{German!Eszett}
+\index{German!babel!active character}
+For this language the character " is made active. In table 4 an overview is given
+of its purpose. One of the reasons for this is that in the German language some
+character combinations change when a word is broken between the combination.
+Also the vertical placement of the umlaut can be controlled this way. 
+
+\begin{marginfigure}
+\centering
+\includegraphics[width=0.88\textwidth]{./graphics/oneway}
+\captionof{figure}{A one-way sign, displaying one type of \ss{}.}
+\end{marginfigure}
+
+\begin{marginfigure}
+\centering
+\includegraphics[scale=0.75]{./graphics/szett}
+\captionof{figure}{\protect\ss{} in various fonts. The letter \protect\ss{} (Unicode \texttt{U+00DF}; capital \texttt{U+1E9E}) is a ligature in the German alphabet typically used to replace a double "s" in a word. Its German name is Eszett or scharfes S}
+\end{marginfigure}
+
+
+\def\textgerman#1{\let\Languagename\languagename%saves current lanaguage
+\gdef\LN{\Languagename}
+\selectlanguage{german}#1\expandafter\selectlanguage{english}}
+\medskip
+
+\begin{table}[tbp]
+\begin{tabular}{lp{7cm}}
+\toprule
+Command & Result\\
+\midrule
+|"a| &|\"a|, also implemented for the other lowercase and
+uppercase vowels.\\
+|"s| &to produce the German \ss{} (like \ss{}).\\
+|"z| &to produce the German  (like \ss{}).\\
+|"ck| &for ck to be hyphenated as k-k.\\
+|"ff| &for ff to be hyphenated as ff-f, this is also implemented
+for l, m, n, p, r and t.\\
+|"S| &for SS to be \textgerman{\uppercase{"s}}.\\
+|"Z| &for SZ to be \uppercase{"z}.\\
+
+\UndefineShortVerb{\|}\DefineShortVerb{\|}" &disable ligature at this position.\\
+|"-| &an explicit hyphen sign, allowing hyphenation in the
+rest of the word.\\
+|""| &like "-, but producing no hyphen sign (for compund
+words with hyphen, e.g. x-""y).\\
+|"~| &for a compound word mark without a breakpoint.\\
+|"=| &for a compound word mark with a breakpoint, allowing
+hyphenation in the composing words.\\
+|"'| &for German left double quotes (looks like ).\\
+|"'| &for German right double quotes.\\
+|"<| &for French left double quotes (similar to <<).\\
+|">| &for French right double quotes (similar to >>).\\
+\bottomrule
+\end{tabular}
+\caption{Active character commands for the german option of babel}
+\end{table}
+\medskip
+
+
+\selectlanguage{ngerman}
+It can be a pain to type (German) Umlaute in you latex document. Traditionally, you would have to type something like |{\"a}| to get an ä, or something like |\ss{}| to get a \ss. But if you put the following lines in the preamble of your tex-document:
+
+%\begin{teXXX}
+%\usepackage[german]{babel}
+%\usepackage[T1]{fontenc}
+%\usepackage[latin1]{inputenc}
+%\end{teXXX}
+
+
+This will allow you to simply type |"ä| and "ß" to get the appropriate special characters. Actually you don't need the German babel package (the first line) but this will give you German typesetting (dates, hyphenation), it will also allow you to get German hyphenation, if you have configured your \LaTeX\ system accordingly. It also changes all automatic text into German. Eg. “Chapter” becomes “Kapitel.” A set of new commands also becomes available, which allows you to write German input files more quickly even when you don’t use the inputenc package. Check out table 2.5 for inspiration. With |inputenc|, all this becomes moot, but your text also is locked in a particular encoding world.
+
+\addvspace{10pt}
+
+\brule
+
+\begin{center}
+\begin{minipage}{8cm}
+\textbf{\chaptername}
+
+Er kam am Freitagabend nach einem harten Arbeitstag und dem "ublichen Ärger, der ihn schon seit Jahren immer wieder an seinem Arbeitsplatz plagt, mit fraglicher Freude auf ein Mahl, das seine Frau ihm, wie er hoffte, bereits aufgetischt hatte, endlich zu Hause. 
+\hfill\hfill \today
+\end{minipage}
+\end{center}
+
+
+\selectlanguage{english}
+
+Short answer: If your editor can use Unicode (and in my opinion any good editor should safe files as UTF-8 by default), then use Unicode.
+
+The main advantage of Unicode (and its main encoding UTF-8) is that it makes text files universally readable: Someone writing German umlauts can use the same encoding as someone writing Korean. Prior to that, when obtaining a a text file, there was no way to know which character encoding to apply to it: Latin 1? or Latin 9? or maybe a Russian encoding?
+
+Also for documents that use more than 256 different characters, UTF-8 is very useful. With it you can for example use both "ü" and "ł" in the same text (as I do here).
+
+Both modern (experimental) TeX compilers (LuaTeX and XeTeX) use Unicode/UTF-8 by default as do modern programming languages (i.e. .NET) and operating systems.
+
+http://tex.stackexchange.com/questions/1811/utf8-or-latin1-encoding-german
+
+%\section{Latin texts}
+%This \docpkg{ecclesiastic}package extends the features of latin.ldf by |adding| a certain level of "frenchization" to the way of typesetting Ecclesiastical Latin; in particular all punctuation marks, except comma and full stop are preceded by a small
+%space.
+%
+%The guillemets are also accompanied by small spaces to the right of the
+%opening marks and to the left of the closing ones, with the provision of removing
+%spurious previous spaces. Footnotes are not indented and their reference number
+%is not an exponent, although footnote marks in the text keep being exponents.
+%The acute accent (actually the apostrophe sign) is made active so as to set an
+%acute accent over the following vowel (notice that in Latin there is no elision, so
+%there cannot be any conflict between the acute accent and the elision apostrophe).
+%Ecclesiastical Latin uses the \ae and \oe ligatures. Goodman asked to declare `a'
+%and `o' as active characters so that the spelling ae and oe would automatically
+%produce the equivalent of \ae and \oe respectively.
+%
+%In practice Beccari found serious programming problems with this solution and
+%adopted an alternative one; specifically the adopted solution was to type in "ae
+%and "oe respectively, and ae and oe would be inserted in the source text without
+%the need of leaving blancks after the control sequences or the need of inserting
+%extra braces; therefore one types in |c"aelum| and this is equivalent to c\ae lum or
+%c{\ae}lum or c\ae{}lum; the saving in the input stream is evident and misstypings
+%are likely less frequent.
+%
+%\emphasis{"<,',selectlanguage,dots,\today}
+%\begin{teXXX}
+%\selectlanguage{latin}
+%\begin{minipage}{7cm}
+%\textbf{\prefacename}
+%
+%Ita enim fit, ut regn'are is "< in m'entibus h'ominum "> 
+%dic'atur non tam ob mentis 'aciem scienti'aeque su"ae 
+%amplit'udinem, quam quod ipse est V'eritas, et verit'atem 
+%ab eo mort'ales haur'ire atque obedi'enter acc'ipere
+%nec'esse est; "<  in volunt'atibus  "> item "< h'ominum ">,
+%quia \dots\par
+%\hfill\hfill\today
+%\end{minipage}
+%\selectlanguage{english}
+%\end{teXXX}
+%
+%\brule
+%\smallskip
+%\selectlanguage{latin}
+%\begin{center}
+%\begin{minipage}{7cm}
+%\textbf{\prefacename}
+%
+%Ita enim fit, ut regn'are is "< in m'entibus h'ominum "> 
+%dic'atur non tam ob mentis 'aciem scienti'aeque su"ae 
+%amplit'udinem, quam quod ipse est V'eritas, et verit'atem 
+%ab eo mort'ales haur'ire atque obedi'enter acc'ipere
+%nec'esse est; "<  in volunt'atibus  "> item "< h'ominum ">,
+%quia \dots\par
+%\hfill\hfill\today
+%\end{minipage}
+%\end{center}
+%\selectlanguage{english}
+%\smallskip
+%\brule
+%
+%Notice that the source text has spaces around the guillemets, but the typeset code
+%has the right small and constant space, irrespective of justification. Notice the use
+%of the `acute' accent (actually the apostrophe) for accented vowels and diphthongs. Notice the space in the typeset text before the semicolon.
+%
+%
+%\selectlanguage{latin}
+%Qu"ae ratio moverit Augustum, providentissimum principem, perducendi Alsietinam aquam, quae vocatur Augusta, non satis perspicio, nullius gratiae, immo etiam parum salubrem ideoque nusquam in usus populi fluentem; nisi forte cum opus Naumachiae adgrederetur, ne quid salubrioribus aquis detraheret, hanc proprio opere perduxit et quod Naumachiae coeperat superesse, hortis adiacentibus et privatorum usibus ad inrigandum concessit. Solet tamen ex ea in Transtiberina regione, quotiens pontes reficiuntur et a citeriore ripa aquae cessant, ex necessitate in subsidium publicorum salientium dari. Concipitur ex lacu Alsietino Via Claudia miliario quarto decimo deverticulo dextrorsus passuum sex milium quingentorum. Ductus eius efficit longitudinem passuum viginti duum milium centum septuaginta duorum, opere arcuato passuum trecentorum quinquaginta octo.
+%
+%\selectlanguage{english}
