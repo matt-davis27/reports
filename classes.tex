@@ -47,7 +47,7 @@ and type the following:
 
 This is the simplest way to overload your changes over an existing class.
 
-It is also at this stage to have handy a small test file \texttt{myclass-test.tex} to see that everything went alrights.
+It is also at this stage to have handy a small test file \docfile{myclass-test.tex} to see that everything was generated correctly and is working.
 
 \begin{teX}
 \documentclass{myclass}
@@ -92,7 +92,7 @@ gives the class name. It can be found in the preable of most well written classe
 The above syntax must be followed exactly so that this information can be
 used by \texttt{LoadClass} or \cs{documentclass} (for classes) or \cs{RequirePackage}
  or\cs{usepackage} (for packages) to test that the release is not too old.
-The whole of this $<release-info>$ information is displayed by \cmd{listfiles} and
+The whole of this $<release-info>$ information is displayed by \cs{listfiles} and
 should therefore not be too long.
 
 \begin{teX}
@@ -122,7 +122,7 @@ for developing, readable and maintenable code.You can download xkeyval at
 \verb+\usepackage[textcolor=red,font=times]{mypack}+
 
 
-Class options are best set by using booleans\cmd{newboolean}.
+Class options are best set by using booleans\cs{newboolean}.
 
 We first set a new boolean that we name@myclass@afourpaper. This is used using the package
 \texttt{ifthen}\sidenote{The ifthen package was developed by 
@@ -132,7 +132,7 @@ Then we can |DecalareOptionX| and we set the boolean to default to true. If the 
 myclass[a4paper]
 
 The a4paper options will be set. This is a much better and concise way of defining options.
-\cmd{newboolean}
+\cs{newboolean}
 
 
 \begin{teX}
@@ -173,7 +173,7 @@ extending an existing class, this is one of the first tasks you need to
 do in your new class.
 
 Normally class authors will define all the commonly defined size commands,
-such as  \cmd{small}, \cmd{normalsize} and other similar commands.
+such as  \cs{small}, \cs{normalsize} and other similar commands.
 
 In the example shown below, we first start by defining the \doccmd{normalsize} font
 size. In this book the \doccmd{normalsize}  is defined as 14pt. We also define the vertical
@@ -190,7 +190,7 @@ and {\fontencoding{OT1}\fontfamily{ppl} Palatino looks like this}.
  the fount, relative to the `main' size used for the bulk of the text.
 
 
- These \cmd{size} commands issue a \cmd{@setfontsize}\index{Latex kernel!@setfontsize} 
+ These \cs{size} commands issue a \cs{@setfontsize}\index{Latex kernel!@setfontsize} 
  command.
 
 \begin{teX}
@@ -202,7 +202,7 @@ and {\fontencoding{OT1}\fontfamily{ppl} Palatino looks like this}.
   \begin{enumerate}
     \item font-size The absolute size of the fount to use from
         now on.
-    \item baselineskip The normal value of \cmd{baselineskip}
+    \item baselineskip The normal value of \cs{baselineskip}
         for the size of the fount selected. (The actual value will be
        % |\baselinestretch| * \meta{baselineskip}.)
     \end{enumerate}
@@ -221,11 +221,11 @@ following  definitions and are used throughout. These are:
 
 
 \subsection{Setting up the normalsize}
- The user command to obtain the `main' size is \cmd{normalsize}. \LaTeX\
- uses \cmd{@normalsize} \index{Latex kernel!@normalsize} when referring to the main size and maintains this
+ The user command to obtain the `main' size is \cs{normalsize}. \LaTeX\
+ uses \cs{@normalsize} \index{Latex kernel!@normalsize} when referring to the main size and maintains this
  value even if \doccmd{normalsize} is redefined. The \doccmd{normalsize} macro also
-  sets values for \cmd{abovedisplayskip}, \cmd{abovedisplayshortskip} and 
-\cmd{belowdisplayshortskip}.
+  sets values for \cs{abovedisplayskip}, \cs{abovedisplayshortskip} and 
+\cs{belowdisplayshortskip}.
 
 
 
@@ -410,30 +410,28 @@ Many common classes, such as the |memeoir| use such a tactic to avoid breaking o
 
 
 
-\chapter{How to Package Your Class}
+\chapter{Packaging Code}
 
-\cite{pakin2004} 
-In the previous chapter we have outlined the main sections that you probably need
-to define in your class. In this chapter we will go over the packaging of the class
-and automating the generation of user documentation.
+In the previous chapter we have outlined what a class or package is and the numerous details you have to watch out for.
 
-You should also be
-familiar with \latex  for Class and Package Writers”, which is available
-from CTAN (\url{http://www.ctan.org}) and comes with most LATEX2" distributions
-in a file called clsguide.dvi. Finally, you should know how to
-install packages that are shipped as a \texttt{.dtx} file plus a \texttt{.ins} file.
+Once you start contemplating writing either a class or a package, you should
+consider packaging the code. What is meant by packaging the code is
+simply to put all your macros and logic in a file with a \dtx extension and
+written in a specific manner. This method of writing code, in my opinion
+is one of the reasons of the success and longevity of \latex. It provides
+a consistent---if somewhat difficult at first to follow--way of documenting
+a program and at the same time producin the documentation. Most package
+or class authors make their code available through CTAN. You can even 
+include in the \dtx file code for producing  the xml file required by CTAN
+to produce the html page describing your project, and any readme files. 
+Personally I also add a readme file in \texttt{markdown style}, to handle
+a redme file at the Github repository I use and even to produce a \texttt{.gitignore} file.
 
-style (.sty) file is primarily a collection of macro and
-environment definitions. One or more style files (e.g., a main style file that
-\cmd{input}  or \cmd{RequirePackages} multiple helper files) is called a package.
-Packages are loaded into a document with \cmd{usepackage}\meta{main.sty}.
-In the rest of this document, we use the notation texttt{<package>} to represent
-the name of your package.
 
 Motivation The important parts of a package are the code, the documentation
 of the code, and the user documentation. Using the \docpkg{Doc}  and
 DocStrip programs, it’s possible to combine all three of these into a single,
-documented LATEX(.dtx) file. The primary advantage of a .dtx file is that
+documented \latex (.dtx) file. The primary advantage of a .dtx file is that
 it enables you to use arbitrary LATEX constructs to comment your code.
 Hence, macros, environments, code stanzas, variables, and so forth can be
 explained using tables, figures, mathematics, and font changes. Code can
@@ -441,29 +439,238 @@ be organized into sections using LATEX’s sectioning commands. Doc even
 facilitates generating a unified index that indexes both macro definitions (in
 the LATEX code) and macro descriptions (in the user documentation). 
 
-This emphasis on writing verbose, nicely typeset comments for code—essentially
-treating a program as a book that describes a set of algorithms—is known
+This emphasis on writing verbose, nicely typeset comments for code---essentially
+treating a program as a book that describes a set of algorithms---is known
 as literate programming \cite{literate} and has been in use since the early days of \tex\ .
 
-Furthermore,
-this tutorial shows how to write a single file that serves as both documentation
+This tutorial shows how to write a single file that serves as both documentation
 and driver file, which is a more typical usage of the \texttt{Doc} system than
 using separate files.
 
+\section{Conventions}
+
+A dtx file is written using the specific conventions of the \docpkg{doc} and 
+\docpkg{docstrip} program. It is generally written in sections made up of what
+are termed as guards. These guards are similar to xml tags. You can have as
+many as you want. For example if you open and examine any .dtx file it is
+likely that it will have a section guarded by the tags \verb+ <*driver>...</driver>+. When the file is processed it produces a driver file.
+
+
+\begin{teX}
+%<*driver>
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesFile{MWEdtx.drv}%
+  [2013/01/13 v1.0 ]%
+\documentclass{ltxdoc}
+... code
+\begin{document}
+  \DocInput{\jobname.dtx}%
+\end{document}
+%</driver>
+\end{teX}
+
+Most packages and classes have as a minimum the following sections typed in
+between appropriate tags.
+\medskip
+
+\begin{tabular}{lp{4.5cm}}
+\toprule
+Guard & Description\\
+\midrule
+\verb+ %<*driver>...%</driver>+ & driver file \\
+\verb+ %<*install>...%</install>+ & installation batch file \\
+\verb+ %<*readme>...%</readme>+ & readme file \\
+\verb+ %<*internal>...%</internal>+ & internall code not outputted to any file \\
+\verb+ %<*package>...%</package>+ & package code \\
+\verb+ %<*class>...%</class>+ & class code \\
+\bottomrule
+\end{tabular}
+\medskip
+
+The naming of these guards is immaterial, you can use any convention you
+like, but my recommendation is to limit them to the above words, as it easier
+for someone to understand your code. You can have as many of these guards as possible and even combination tags, where a piece of code can be written to both
+sections or excluded. More about this later.
+
+\begin{fullwidth}
+\emphasis{from,preamble,postamble,endpostamble,endpreamble,
+nopreamble, nopostamble,generate,usedir,DocInput,file}
+\begin{teX}
+% \iffalse meta-comment
+%<*internal>
+\iffalse
+%</internal>
+%<*readme>
+template --- short description
+%</readme>
+%<*internal>
+\fi
+\def\nameofplainTeX{plain}
+\ifx\fmtname\nameofplainTeX\else
+  \expandafter\begingroup
+\fi
+%</internal>
+%<*install>
+\input docstrip.tex
+\keepsilent
+\askforoverwritefalse
+\preamble
+template --- short description.
+\endpreamble
+\postamble
+ Copyright (C) 2011 by Dr. Yiannis Lazarides 
+                       <yannislaz@gmail.com>
+\endpostamble
+\usedir{tex/latex/\jobname}
+\generate{
+  \file{\jobname.sty}{\from{\jobname.dtx}{package}}
+ }
+%</install>
+%<install>\endbatchfile
+
+%<*internal>
+\usedir{source/latex/\jobname}
+\generate{
+  \file{\jobname.ins}{\from{\jobname.dtx}{install}}
+}
+\nopreamble\nopostamble
+\usedir{doc/latex/demopkg}
+\generate{
+  \file{README.txt}{\from{\jobname.dtx}{readme}}
+  \file{test-01.tex}{\from{\jobname.dtx}{test-01}}
+  \file{TODO.tex}{\from{\jobname.dtx}{TODO}}
+}
+\ifx\fmtname\nameofplainTeX
+  \expandafter\endbatchfile
+\else
+  \expandafter\endgroup
+\fi
+%</internal>
+
+%<*driver>
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesFile{MWEdtx.drv}%
+  [2013/01/13 v1.0 ]%
+\documentclass{ltxdoc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{\jobname}
+% Heiko's package to provide
+% hyperlink facilities
+\usepackage[numbered]{hypdoc}
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+\begin{document}
+  \DocInput{\jobname.dtx}%
+\end{document}
+%</driver>
+% \fi
+%
+% \CheckSum{12}
+% \CharacterTable
+%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N}
+% \changes{1.0}{2011/05/03}{Converted to DTX file}
+%
+% \DoNotIndex{\newcommand,\newenvironment}
+%
+% \title{The \textsf{\jobname} package.
+% \author{Dr. Yiannis Lazarides \\ \url{yannislaz@gmail.com}}
+% \thanks{This
+%        file (\texttt{\jobname.dtx}) has version number 
+%        \fileversion, last revised
+%        \filedate.}
+% }
+% 
+% \date{\filedate}
+%
+%
+% \maketitle
+%
+% \abstract{It is  part} 
+% \section{Introduction}
+%  This manual is typeset according to the conventions of 
+% 
+%
+%
+% \StopEventually{}
+%
+% \section{Implementation}
+%
+%    \begin{macrocode}
+%<*package>
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{MWEdtx}%
+  [2013/13/01 v1.0 Example Class]%
+%    \end{macrocode}
+%
+% \begin{macro}{\test}
+% Here you start describing the package macros |\test|
+%    \begin{macrocode}
+  \newcommand\test{This is a test}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\testi}
+% Here you start describing the package macros |\testi|
+%    \begin{macrocode}
+  \newcommand\testi{This is a test}
+%    \end{macrocode}
+% \end{macro}
+%
+% \iffalse
+%</package>
+% \fi
+%
+% \section{Test macros}
+%
+%<*test-01>
+%
+%   \begin{macrocode}
+\documentclass{article}
+\usepackage{graphicx}
+...
+\end{letter}
+%    \end{macrocode}
+%
+%</test-01>
+
+% This is the end of the implementation part.
+%
+% \bibliographystyle{alpha}
+% \begingroup
+% \raggedright
+%
+% \begin{thebibliography}{GMSN94A}
+%
+% \bibitem[GMS94]{GOOSSENS94}
+% Michel Goossens, Frank Mittelbach, and Alexander Samarin.
+% \newblock {\em The LaTeX Companion}.
+% \newblock Addison-Wesley Publishing Company, 1994.
+%
+% \end{thebibliography}
+% \endgroup
+%
+% \PrintIndex
+% \Finale
+\endinput
+\end{teX}
+\end{fullwidth}
+
+
+
 \subsection{The \protect\texttt{.ins} file}
 
-The first step in preparing a package for distribution is to write an installer
-(\ins) file. An installer file extracts the code from a \dtx file, uses \cmd{DocStrip}
-to strip off the comments and documentation, and outputs a .sty file. The
-good news is that a .ins file is typically fairly short and doesn’t change
-significantly from one package to another.
+When preparing a package for distribution the first step is to write an installer
+(\ins) file. An installer file extracts the code from a \dtx file, using \cs{DocStrip}
+to strip off the comments and documentation, and outputs a \sty file and other files, if necessary. A \ins file is typically fairly short and does not change
+significantly from one package to another. The \ins file in most newer packages
+is created by the class itself. In older packages it was normal to just type a separate file. (See for example the \docfile{tugboat.dtx}).
 
-\noindent\ins files usually start with comments specifying the copyright and license
-information:
+\noindent\ins files usually start with comments specifying the copyright and license information:
 
 \begin{teX}
 %%
-%% Copyright (C) hyeari by hyour namei %%
+%% Copyright (C) year by your name %%
 %% This file may be distributed and/or modified under the
 %% conditions of the LaTeX Project Public License, either
 %% version 1.2 of this license or (at your option) any later
@@ -477,15 +684,16 @@ information:
 
 \end{teX}
 
-The LATEX Project Public License (LPPL) is the license under which most
-packages—and LATEX itself—are distributed. Of course, you can release your
-package under any license you want; the LPPL is merely the most common
-license for LATEX packages. The LPPL specifies that a user can do whatever
+The \latex Project Public License (LPPL) is the license under which most
+packages—and \latex itself—are distributed. Of course, you can release your
+package under any license you want; the \texttt{PPL} is merely the most common
+license for \latex packages. The LPPL specifies that a user can do whatever
 he wants with your package—including sell it and give you nothing in return.
 The only restrictions are that he must give you credit for your work, and
 he must change the name of the package if he modifies anything to avoid
 versioning confusion.
-The next step is to load DocStrip:
+
+The next step is to load \docpkg{DocStrip}:
 
 \begin{teX}
 \input docstrip.tex
@@ -501,7 +709,7 @@ aren’t terribly useful, so most people turn them off:
 
 A system administrator can specify the base directory under which all
 TEX-related files should be installed, e.g., \texttt{/usr/share/texmf}. (See
-\cmd{BaseDirectory} in the DocStrip manual.) The \ins file specifies where
+\cs{BaseDirectory} in the DocStrip manual.) The \ins file specifies where
 its files should be installed relative to that. The following is typical:
 
 \begin{teX}
@@ -557,30 +765,32 @@ The preceding preamble would cause \verb+ <package>.sty+  to begin as follows:
 
 
 \begin{teX}
-\generate {\file {hstyle-filei} {\from {hdtx-filei} {htagi}}}
+\generate {\file {style-file} {\from {dtx-file} {tag}}}
 \end{teX}
 
-We now reach the most important part of a .ins file: the specification of
+We now reach the most important part of a \ins{ins} file: the specification of
 what files to generate from the .dtx file. The following tells DocStrip to
-generate hpackagei.sty from hpackagei.dtx by extracting only those parts
-marked as `package'  in the .dtx file. (Marking parts of a .dtx file is
+generate package.sty from package.dtx by extracting only those parts
+marked as `package'  in the .dtx file. (Marking parts of a \dtx file is
 described in Section 3.)
 
 \begin{teX}
-\generate{\file{<package>.sty}{\from{<package>.dtx}{package}}}
+\generate{
+  \file{<package>.sty}{\from{<package>.dtx}{package}}
+}
 \end{teX}
 
-\cmd{generate} can extract any number of files from a given .dtx file. It can
-even extract a single file from multiple .dtx files. See the DocStrip manual
-for details.
+\doccmd{generate} can extract any number of files from a given .dtx file. It can
+even extract a single file from multiple .dtx files. See the \texttt{DocStrip} manual for details.
 
 \subsection{Generating messages} %\Msg {<text>}
 
-The next part of a .ins file consists of commands to output a message to
+The next part of a \ins file consists of commands to output a message to
 the user, telling him what files need to be installed and reminding him how
-to produce the user documentation. The following set of \cmd{Msg} commands is
+to produce the user documentation. The following set of \cs{Msg} commands is
 typical:
 
+{\footnotesize
 \begin{teX}
 \obeyspaces
 \Msg{****************************************************}
@@ -603,6 +813,7 @@ Finally, we tell DocStrip that we’ve reached the end of the .ins file:
 \endbatchfile
 \end{teX}
 
+}
 Appendix A.1 lists a complete, skeleton .ins file. Appendix A.2 is similar
 but contains slight modifications intended to produce a class (\cls) file
 instead of a style (\sty) file
@@ -621,15 +832,13 @@ and occasionally leads to some awkward constructions. Fortunately, once
 the basic structure of a \dtx\  file is in place, filling in the code is fairly
 straightforward.
 
-\input{./manual/book.cls.tex}
 
-\end{document}
 
 \begin{teX}
 \CharacterTable {<text>}
 \end{teX}
 
-The second mechanism that Doc uses to ensure that a \dtx\  file is uncorrupted
+The second mechanism that Doc uses to ensure that a \dtx  file is uncorrupted
 is a character table. If you put the following command teX into
 your \dtx\  file, then Doc will ensure that no unexpected character translation
 took place in transport:
@@ -637,19 +846,16 @@ took place in transport:
 \begin{teX}
 % \CharacterTable
 % {Upper-case \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
-% Lower-case \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
-% Digits \0\1\2\3\4\5\6\7\8\9
+...
 % Exclamation \! Double quote \" Hash (number) \#
 % Dollar \$ Percent \% Ampersand \&
 % Acute accent \’ Left paren \( Right paren \)
-% Asterisk \* Plus \+ Comma \,
-% Minus \- Point \. Solidus \/
-% Colon \: Semicolon \; Less than \<
-% Equals \= Greater than \> Question mark \?
-% Commercial at \@ Left bracket \[ Backslash \\
-% Right bracket \] Circumflex \^ Underscore \_
-% Grave accent \‘ Left brace \{ Vertical bar \|
-% Right brace \} Tilde \~}
+\end{teX}
+
+It is highly unlikely one would pick-up an error because of any corruption
+of the character table. 
+
+\begin{teX}
 A success message looks like this:
 ***************************
 * Character table correct *
@@ -659,7 +865,9 @@ and an error message looks like this:
 ! Package doc Error: Character table corrupted.
 \end{teX}
 
-
+ALthough one tends to think that it is not necessary any longer to resort
+to such checks, at least in 
+\url{http://tex.stackexchange.com/questions/9638/polyglossia-doesnt-work-with-the-ltxdoc-document-class} it caught a problem with polyglossia.
 
 \subsection{DoNotIndex}
 
@@ -678,10 +886,8 @@ number of times, and it accepts any number of control sequence names per
 invocation:
 
 \begin{teX}
-   % \DoNotIndex{\#,\$,\%,\&,\@,\\,\{,\},\^,\_,\~,\ }
-   % \DoNotIndex{\@ne}
-   % \DoNotIndex{\advance,\begingroup,\catcode,\closein}
-   % \DoNotIndex{\closeout,\day,\def,\edef,\else,\empty,\endgroup}
+%\DoNotIndex{\#,\$,\%,\&,\@,\\,\{,\}}
+%\DoNotIndex{\closeout,\day,\def,\edef}
 \end{teX}
 
 \subsection{User documentation}
@@ -706,47 +912,50 @@ optional second argument to \cs{ProvidesPackage}), the user documentation
 is updated accordingly. Of course, you still have to ensure manually that
 the user documentation accurately describes the updated package.
 
-Write the user documentation as you would any LATEX document, except
-that you have to precede each line with a “%”. Note that the ltxdoc document
+Write the user documentation as you would any \latex document, except
+that you have to precede each line with a ``\%''. Note that the \docpkg{ltxdoc} document
 class is derived from article, so the top-level sectioning command is
-|\section|, not |\chapter|.
+\cs{section}, not \cs{chapter}.
 
 \section{General tips}
 
-Evaluate, if there is a class that is nearer to what you wish to achive. If not do a set of
-requirements.
+When you first start writing a package or class using the \docpkg{doc} and
+\docpkg{docstrip} programs, you may get disorientated with all the guards
+and percentage marks. Common errors can be introduced with wrong spacing of 
+the \cs{macrocode} macros, so a good editor is a must.
 
-Book structure - start with book or Octavo if you need to hack extensively. If not use memoir, koma or tufte-book.
+\begin{enumerate}
+\item Read the related manuals and guides \docfile{doc}, \docfile{docstrip},
+      and the \docfile{clsguide}.
+\item Start from a template.
+\item Examine other people's code.
+\item Compile often.
+\item Always create a couple of test files to test the package or the class. These can also be generated by the \dtx file when processed and can also be used as 
+examples for users of the package.
+\item Preferably keep track of changes using a tracking system such as Git and
+Github.
+\item Upload to CTAN.
+\end{enumerate}
 
-Paragraph looks
 
-Lists
 
-Figures
-
-Bibliography and citations
-
-Footnotes
-
-Index
-
-Titel pages
-
-Book Cover
-
-Language support
-
-Mathematics
-
-Graphs and figures
-
-Typography - fonts, indentations fontsize etc
-
-headers and footers
-
+\input{./manual/book.cls.tex}
 
 \end{document}
+\end{document}
 
+You should also be
+familiar with \latex  for Class and Package Writers”, which is available
+from CTAN (\url{http://www.ctan.org}) and comes with most LATEX2" distributions
+in a file called \texttt{clsguide.dvi}. Finally, you should know how to
+install packages that are shipped as a \texttt{.dtx} file plus a \texttt{.ins} file.
+
+style (.sty) file is primarily a collection of macro and
+environment definitions. One or more style files (e.g., a main style file that
+\cs{input}  or \cs{RequirePackages} multiple helper files) is called a package.
+Packages are loaded into a document with \cs{usepackage}\meta{main.sty}.
+In the rest of this document, we use the notation texttt{<package>} to represent
+the name of your package.
 
 
 

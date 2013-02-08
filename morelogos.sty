@@ -11,9 +11,12 @@
 \ProvidesFile{morelogos}
 \RequirePackage{xspace}
 
-\newcommand{\AllTeX}{%
-{\rm(L\kern-.36em\raise.3ex\hbox{\sc a}\kern-.15em)%
-T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}\xspace}
+\@ifundefined{alltex}{
+  \newcommand{\alltex}{%
+    {\rm(L\kern-.36em\raise.3ex\hbox{\sc a}\kern-.15em)%
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}\xspace}
+}{}
+
 \newcommand{\latex}{\LaTeX\xspace}
 \newcommand{\tex}{\TeX\xspace}
 \newcommand{\texbook}{\tex\kern-0.3em book\xspace  }
