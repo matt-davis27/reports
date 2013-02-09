@@ -40,4 +40,6 @@
 *.php
 *.gz(busy)
 *.db
+# Symlinks in Windows
+*.lnk
 
