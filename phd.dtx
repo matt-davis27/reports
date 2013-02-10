@@ -345,6 +345,8 @@ and the derived files              phd.ins,
 %
 %It's a different thing, git lets you track changes and your development process. If you use git with GitHub, it becomes effectively a backup. However usually you would not push all the time to GitHub, at which point you do not have a full backup if things go wrong. I use git in a folder that is synchronized with dropbox.
 %
+% To synchronize the two, you create a symlink in your Git folder, i.e., in your repository. This can even be done in windows although it is normally called a \textit{short-cut}. Write click in the folder and create a short-cut to the drop-box folder. For example if you create a folder \texttt{pic} to hold your pictures, this folder will be automatically uploaded at \texttt{dropbox}. You don't want your pictures tracked at Github, as they do not really need version control. Do not forget to exclude them by typing in the \texttt{.gitignore} file the directive  \verb|*.lnk|.
+%
 %\subsection*{Is this a manual process, in other words if you don't commit you wont have a new version of the changes made?}
 %
 %Yes, commiting and pushing are both manual.
