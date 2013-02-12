@@ -1098,21 +1098,21 @@ ProvidesClass,IfFileExists,RequirePackage,ifthenelse,chapter,includegraphics, ne
 
 \newif\ifLINB
 \newcommand\LINB{\pkgname{linearb}}
-\IfStyFileExists{linearb}
-  {\LINBtrue\usepackage{linearb}}
-  {}
+%\IfStyFileExists{linearb}
+%  {\LINBtrue\usepackage{linearb}}
+%  {}
 
 \newif\ifCYPR
 \newcommand\CYPR{\pkgname{cypriot}}
-\IfStyFileExists{cypriot}
-  {\CYPRtrue\usepackage{cypriot}}
-  {}
+%\IfStyFileExists{cypriot}
+%  {\CYPRtrue\usepackage{cypriot}}
+%  {}
 
 \newif\ifSARAB
 \newcommand\SARAB{\pkgname{sarabian}}
-\IfStyFileExists{sarabian}
-  {\SARABtrue\usepackage{sarabian}}
-  {}
+%\IfStyFileExists{sarabian}
+%  {\SARABtrue\usepackage{sarabian}}
+%  {}
 
 % Cuneiform -- not sure if this is appropriate for the list so it's
 % commented out for now.
@@ -1132,10 +1132,13 @@ ProvidesClass,IfFileExists,RequirePackage,ifthenelse,chapter,includegraphics, ne
 %  
 %    \end{macrocode}
 % \section{Commonly used macros}     
+
 %    \begin{macrocode}
 \newcommand{\hangleft}[1]{\makebox[0pt][r]{#1}}
+
 \def\ctan#1{\textcolor{green}{\href{http://www.ctan.org/tex-archive/help/Catalogue/entries/#1.html}{#1}\protect\sidenote{\protect\url{http://www.ctan.org/tex-archive/help/Catalogue/entries/#1.html}}}
 \index{Packages!#1} }
+
 \def\graybox#1{\par\medskip
  \noindent\colorbox{black!7}{\parbox{0.98\textwidth}{\noindent#1}}\par\medskip}
 %% Special commands for display
