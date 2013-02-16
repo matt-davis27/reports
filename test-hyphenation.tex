@@ -1,10 +1,10 @@
 %%
-%% This is file `MWE-03.tex',
+%% This is file `test-hyphenation.tex',
 %% generated with the docstrip utility.
 %%
 %% The original source files were:
 %%
-%% phd.dtx  (with options: `MWE-03')
+%% phd.dtx  (with options: `test-hyphenation')
 %% ----------------------------------------------------------------
 %% phd --- short description.
 %% E-mail: yannislaz@gmail.com
@@ -16,24 +16,13 @@
 
 %%
 
-%% example for using encoded commands such as guillemets. (If you need
-%% shorthands you need to load babel.
-%%
-\documentclass{article}
+\documentclass{scrartcl}
 \usepackage{phd}
-\newcommand{\encone}[1]{{\fontencoding{T1}\selectfont#1}}
 \begin{document}
-\def\Kt#1{{\encone{#1}} &{\small\ttfamily\string#1}}
-
-\noindent\begin{tabular}{@{}*8l@{}}
-\toprule
-\Kt\guillemotleft  & \Kt\guilsinglleft & \Kt\quotedblbase & \Kt\textquotedbl \\
-\Kt\guillemotright & \Kt\guilsinglright & \Kt\quotesinglbase \\
-\bottomrule
-\end{tabular}
-\medskip
-
-\lipsum[1]
+%% Tests if hyphenation routines have been
+%% found.
+\hsize2cm
+\noindent Florida appendix asynchronous
 \end{document}
 %% 
 %% Copyright (C) 2011 by Dr. Yiannis Lazarides <yannislaz@gmail.com>
@@ -54,4 +43,4 @@
 %%                                    phd.sty.
 %% 
 %%
-%% End of file `MWE-03.tex'.
+%% End of file `test-hyphenation.tex'.
