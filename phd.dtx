@@ -418,9 +418,29 @@ and the derived files              phd.ins,
 % and \href{http://stackoverflow.com/questions/193298/best-practices-in-latex}{best practices in LaTeX.}
 %    \begin{macrocode}
 \RequirePackage{fixltx2e}                % LaTeX2e fixes
-\RequirePackage[l2tabu, orthodox]{nag}   
-\RequirePackage{microtype}               % before onlyasmath
 %    \end{macrocode}
+%
+%    \begin{macrocode}
+\RequirePackage{pgf,pgfkeys}               % before onlyasmath
+\newcommand\cxset{\pgfqkeys{/phd }} %Notice this is pgf q keys
+%
+\makeatletter
+\cxset{nag keys/.store in =\nagkeys@cx,
+          geometry grid color/.store in=\geometrygridcolor@cx,
+         }
+
+\cxset{nag keys = orthodox }
+
+%    \end{macrocode}
+
+%    \begin{macrocode}
+\PassOptionsToPackage{\nagkeys@cx}{nag}
+
+\RequirePackage{nag}   
+\RequirePackage{microtype}
+%    \end{macrocode}
+%
+
 %
 % \begin{macro}{onlyasmath}
 % The package |onlyasmath| also provides errors for deprecated math
@@ -792,6 +812,10 @@ and the derived files              phd.ins,
 \IfStyFileExists{undertilde}
   {\UTILDtrue\usepackage{undertilde}}
   {}
+%    \end{macrocode}
+%
+% \begin{macro}{ifsym}
+%    \begin{macrocode}
 \newif\ifIFS
 \newcommand\IFS{\pkgname{ifsym}}
 \IfStyFileExists{ifsym}
@@ -816,19 +840,25 @@ and the derived files              phd.ins,
   {}  
   
 %    \end{macrocode}
-% The |ifsym| package can produce some fancy symbols such as \Cube{1},\Cube{6} etc.
-%                    
-%    \[ \utilde{aqqbqqcqq} \]
+% \end{macro}
+% The |ifsym| package can produce some fancy symbols such as \Cube{1},\Cube{6} etc. a cross \Cross
+% a \TriangleUp      {\color{red}\TriangleDown}             
+%  
 
 
 % \section{Epigraphs and quotations}
 % \subsection{Epigraphs}
 %    \begin{macrocode}
-\RequirePackage{epigraph}
-%% Set up the epigraph to be a bit wider
-\setlength{\epigraphwidth}{8cm} 
+\@ifundefined{epigraph}{%
+   \RequirePackage{epigraph}
+   %% Set up the epigraph to be a bit wider
+  \setlength{\epigraphwidth}{8cm} 
+  \setlength{\epigraphrule}{0pt}
+  \newcommand{\theepigraph}[2]{\epigraphhead[30]{\epigraph{#1}{\textit{#2}}}}
+}{\setlength{\epigraphwidth}{8cm} 
 \setlength{\epigraphrule}{0pt}
-\newcommand{\theepigraph}[2]{\epigraphhead[30]{\epigraph{#1}{\textit{#2}}}}
+\newcommand{\theepigraph}[2]{\epigraphhead[30]{\epigraph{#1}{\textit{#2}}}}%
+}
 %    \end{macrocode}
 %    
 % \subsection{Dropcaps}   

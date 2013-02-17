@@ -20,8 +20,21 @@
 [1994/12/01]% LaTeX date must be December 1994 or later
 \ProvidesPackage{phd}[2013/2/26 v1.0 less preamble (YL)]
 \RequirePackage{fixltx2e}                % LaTeX2e fixes
-\RequirePackage[l2tabu, orthodox]{nag}
-\RequirePackage{microtype}               % before onlyasmath
+\RequirePackage{pgf,pgfkeys}               % before onlyasmath
+\newcommand\cxset{\pgfqkeys{/phd }} %Notice this is pgf q keys
+\makeatletter
+\cxset{nag keys/.store in =\nagkeys@cx,
+          geometry grid color/.store in=\geometrygridcolor@cx,
+         }
+
+\cxset{nag keys = orthodox }
+
+
+\PassOptionsToPackage{\nagkeys@cx}{nag}
+
+\RequirePackage{nag}
+\RequirePackage{microtype}
+
 \DeclareOption{error}{\edef\onlyamsmath@phd{error}}
 \ExecuteOptions{error}
 \ProcessOptions\relax
@@ -246,11 +259,16 @@
   {}
 
 
-\RequirePackage{epigraph}
-%% Set up the epigraph to be a bit wider
-\setlength{\epigraphwidth}{8cm}
+\@ifundefined{epigraph}{%
+   \RequirePackage{epigraph}
+   %% Set up the epigraph to be a bit wider
+  \setlength{\epigraphwidth}{8cm}
+  \setlength{\epigraphrule}{0pt}
+  \newcommand{\theepigraph}[2]{\epigraphhead[30]{\epigraph{#1}{\textit{#2}}}}
+}{\setlength{\epigraphwidth}{8cm}
 \setlength{\epigraphrule}{0pt}
-\newcommand{\theepigraph}[2]{\epigraphhead[30]{\epigraph{#1}{\textit{#2}}}}
+\newcommand{\theepigraph}[2]{\epigraphhead[30]{\epigraph{#1}{\textit{#2}}}}%
+}
 \RequirePackage{lettrine}
 \RequirePackage{siunitx}
   \sisetup{fixed-exponent =0,
