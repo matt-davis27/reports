@@ -1,0 +1,31 @@
+\documentclass{article}
+\usepackage{phd}
+
+\makeatletter
+\renewcommand\cxset{\pgfqkeys{/phd }} %Notice this is pgf q keys
+%
+\makeatletter
+\cxset{nag keys/.store in =\nagkeys@cx,
+          geometry grid color/.store in=\geometrygridcolor@cx,
+         }
+
+\cxset{nag keys = {l2tabu,orthodox,abort} }
+
+%    \end{macrocode}
+
+%    \begin{macrocode}
+
+   
+
+\begin{document}
+
+\dropcap{L}{azarides}\lipsum*
+
+%\centerline{test}
+%
+%\begin{centering}
+%\it test
+%\end{centering}
+%
+%$$test $$
+\end{document}

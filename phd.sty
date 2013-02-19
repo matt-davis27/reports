@@ -20,31 +20,28 @@
 [1994/12/01]% LaTeX date must be December 1994 or later
 \ProvidesPackage{phd}[2013/2/26 v1.0 less preamble (YL)]
 \RequirePackage{fixltx2e}                % LaTeX2e fixes
-\RequirePackage{pgf,pgfkeys}               % before onlyasmath
+\RequirePackage{pgfkeys}               % before onlyasmath
 \newcommand\cxset{\pgfqkeys{/phd }} %Notice this is pgf q keys
-\makeatletter
 \cxset{nag keys/.store in =\nagkeys@cx,
-          geometry grid color/.store in=\geometrygridcolor@cx,
-         }
-
-\cxset{nag keys = orthodox }
-
-
+       onlyamsmath keys/.store in=\onlyamsmathkeys@cx,
+        }
+\cxset{nag keys = {l2tabu,%
+                   orthodox,%
+                   %
+                  }}
+\cxset{onlyamsmath keys = {all}}
 \PassOptionsToPackage{\nagkeys@cx}{nag}
-
 \RequirePackage{nag}
-\RequirePackage{microtype}
 
-\DeclareOption{error}{\edef\onlyamsmath@phd{error}}
-\ExecuteOptions{error}
-\ProcessOptions\relax
-\PassOptionsToPackage{onlyamsmath}{all, \onlyamsmath@phd}
+
+\PassOptionsToPackage{\onlyamsmathkeys@cx}{onlyamsmath}
 \RequirePackage{onlyamsmath}
+\RequirePackage{microtype}
 \RequirePackage{graphicx}
 \setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio}
 \graphicspath{{graphics/}{graphics//}{images//}{./graphics/}{../graphics/}}
 \usepackage{wrapfig}
-\usepackage[quiet]{rotating}
+\RequirePackage[quiet]{rotating}
 \@ifpackageloaded{xcolor}{}%
  {\RequirePackage[fixpdftex, xtable, usenames, dvipsnames,
                     svgnames, x11names]{xcolor}}
@@ -270,6 +267,11 @@
 \newcommand{\theepigraph}[2]{\epigraphhead[30]{\epigraph{#1}{\textit{#2}}}}%
 }
 \RequirePackage{lettrine}
+\ifx\dropcap\undefined
+  \def\dropcap#1#2{%
+    \lettrine[lines=3, lraise=0.2, nindent=0em, slope=-.5em]{#1}{#2}
+  }
+\fi
 \RequirePackage{siunitx}
   \sisetup{fixed-exponent =0,
            scientific-notation = false}

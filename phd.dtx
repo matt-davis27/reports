@@ -420,24 +420,28 @@ and the derived files              phd.ins,
 \RequirePackage{fixltx2e}                % LaTeX2e fixes
 %    \end{macrocode}
 %
+% We load pgfkeys for key management.
 %    \begin{macrocode}
-\RequirePackage{pgf,pgfkeys}               % before onlyasmath
+\RequirePackage{pgfkeys}               % before onlyasmath
 \newcommand\cxset{\pgfqkeys{/phd }} %Notice this is pgf q keys
 %
-\makeatletter
+%
 \cxset{nag keys/.store in =\nagkeys@cx,
-          geometry grid color/.store in=\geometrygridcolor@cx,
-         }
-
-\cxset{nag keys = orthodox }
-
+       onlyamsmath keys/.store in=\onlyamsmathkeys@cx,
+        }
+%
+\cxset{nag keys = {l2tabu,%
+                   orthodox,%
+                   %
+                  }}
+% Set amsmath keys
+\cxset{onlyamsmath keys = {all}}
+%
 %    \end{macrocode}
-
+%
 %    \begin{macrocode}
 \PassOptionsToPackage{\nagkeys@cx}{nag}
-
 \RequirePackage{nag}   
-\RequirePackage{microtype}
 %    \end{macrocode}
 %
 
@@ -450,11 +454,10 @@ and the derived files              phd.ins,
 % and although targetted for class writers one might as well use it directly.
 % 
 %    \begin{macrocode}
-\DeclareOption{error}{\edef\onlyamsmath@phd{error}}
-\ExecuteOptions{error}
-\ProcessOptions\relax
-\PassOptionsToPackage{onlyamsmath}{all, \onlyamsmath@phd}
+
+\PassOptionsToPackage{\onlyamsmathkeys@cx}{onlyamsmath}
 \RequirePackage{onlyamsmath} 
+\RequirePackage{microtype}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -486,7 +489,7 @@ and the derived files              phd.ins,
 % package is rather verbose.
 %
 %    \begin{macrocode}
-\usepackage[quiet]{rotating}
+\RequirePackage[quiet]{rotating}
 %    \end{macrocode} 
 % \end{macro}
 % 
@@ -515,6 +518,8 @@ and the derived files              phd.ins,
 \newcommand{\partialdone}{\cellcolor{yellow}done}
 \newcommand{\hcyan}[1]{{\color{teal} #1}}
 %    \end{macrocode}
+%
+%
 % \section{Lipsum}
 % In publishing and graphic design, lorem ipsum is placeholder text (filler text) commonly used to demonstrate the graphics elements of a document or visual presentation, such as font, typography, and layout, by removing the distraction of meaningful content. The lorem ipsum text is typically a section of a Latin text by Cicero with words altered, added and removed that make it nonsensical in meaning and not proper Latin. Other packages exist such as |kantlipsum| and |blindtext|, however,
 %both result in somewhat legible texts, which defeats the purpose of providing texts that the reader is not going to read. the extensions |lipsumx| aim at
@@ -654,6 +659,11 @@ and the derived files              phd.ins,
 
 %
 % \section{Maths}
+%
+% Althoug we cognisant that there are documents that do not use math
+% and perhaps others that our selection of packages is inadequate, we
+% offer a bundle of what we think will cover most of the cases.
+% 
 %    \begin{macrocode}
 \RequirePackage{amsfonts}[2009/06/22]
 \RequirePackage{amsmath}[2000/07/18] 
@@ -862,11 +872,18 @@ and the derived files              phd.ins,
 %    \end{macrocode}
 %    
 % \subsection{Dropcaps}   
-% We use the |lettrine| package for drop caps. We do not pass any
-% defaults and leave it to the configuration file.
+% We use the |lettrine| package of Daniel Flipo for drop caps. We do not pass any
+% defaults and leave it to the configuration file. The lettrine configuration
+% file is |lettrine.cfg|. We define a command \cs{dropcap} for soem settings
+% that we think are acceptable.
 %
 %    \begin{macrocode}
 \RequirePackage{lettrine}
+\ifx\dropcap\undefined
+  \def\dropcap#1#2{%
+    \lettrine[lines=3, lraise=0.2, nindent=0em, slope=-.5em]{#1}{#2}
+  }
+\fi
 %    \end{macrocode}
 % 
 % \section{Units and formatting of numbers and dates}
