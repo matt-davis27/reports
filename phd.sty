@@ -20,15 +20,17 @@
 [1994/12/01]% LaTeX date must be December 1994 or later
 \ProvidesPackage{phd}[2013/2/26 v1.0 less preamble (YL)]
 \RequirePackage{fixltx2e}                % LaTeX2e fixes
-\RequirePackage{pgfkeys}               % before onlyasmath
+\RequirePackage{pgf,pgfkeys}               % before onlyasmath
 \newcommand\cxset{\pgfqkeys{/phd }} %Notice this is pgf q keys
 \cxset{nag keys/.store in =\nagkeys@cx,
        onlyamsmath keys/.store in=\onlyamsmathkeys@cx,
-        }
+       xcolor keys/.store in=\xcolorkeys@cx}
 \cxset{nag keys = {l2tabu,%
                    orthodox,%
                    %
                   }}
+
+\cxset{xcolor keys={fixpdftex,xtable,usenames,dvipsnames,svgnames,x11names}}
 \cxset{onlyamsmath keys = {all}}
 \PassOptionsToPackage{\nagkeys@cx}{nag}
 \RequirePackage{nag}
@@ -39,12 +41,12 @@
 \RequirePackage{microtype}
 \RequirePackage{graphicx}
 \setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio}
-\graphicspath{{graphics/}{graphics//}{images//}{./graphics/}{../graphics/}}
+\graphicspath{{graphics/}{graphics//}{images//}{./graphics/}{../graphics/}{./pic/}{../pic}}
 \usepackage{wrapfig}
 \RequirePackage[quiet]{rotating}
 \@ifpackageloaded{xcolor}{}%
- {\RequirePackage[fixpdftex, xtable, usenames, dvipsnames,
-                    svgnames, x11names]{xcolor}}
+ {\PassOptionsToPackage{\xcolorkeys@cx}{xcolor}
+  \RequirePackage{xcolor}}
 
 \definecolor{theblue} {rgb}{0.02,0.04,0.48}
 \definecolor{thered}  {rgb}{0.65,0.04,0.07}
@@ -53,24 +55,28 @@
 \definecolor{theshade}{gray}{0.94}
 \definecolor{theframe}{gray}{0.75}
 \definecolor{lightgray}{gray}{0.6}
-\RequirePackage{pgf}[2008/01/15]
 \newcommand{\done}{\cellcolor{teal}done}
 \newcommand{\partialdone}{\cellcolor{yellow}done}
 \newcommand{\hcyan}[1]{{\color{teal} #1}}
 
+\newif\ifLIPSUM
 \RequirePackage{lipsum}
+
 \RequirePackage{booktabs}
+\newcounter{step}
+\def\resetinc{\setcounter{step}{0}}
+\def\inc{\stepcounter{step}\thestep}
+\RequirePackage{array}
 \RequirePackage{tabularx}
+
 \RequirePackage{dcolumn}
 \RequirePackage{longtable}
+
 \RequirePackage{colortbl}
 \RequirePackage{multirow}
 \RequirePackage{lscape}
 \RequirePackage{threeparttable}
 
-\newcounter{step}
-\def\resetinc{\setcounter{step}{0}}
-\def\inc{\stepcounter{step}\thestep}
 
 
 \newcommand*{\savesymbol}[1]{%

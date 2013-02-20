@@ -421,19 +421,29 @@ and the derived files              phd.ins,
 %    \end{macrocode}
 %
 % We load pgfkeys for key management.
+%
 %    \begin{macrocode}
-\RequirePackage{pgfkeys}               % before onlyasmath
+\RequirePackage{pgf,pgfkeys}               % before onlyasmath
 \newcommand\cxset{\pgfqkeys{/phd }} %Notice this is pgf q keys
 %
 %
 \cxset{nag keys/.store in =\nagkeys@cx,
        onlyamsmath keys/.store in=\onlyamsmathkeys@cx,
-        }
+       xcolor keys/.store in=\xcolorkeys@cx}
+%        
 %
 \cxset{nag keys = {l2tabu,%
                    orthodox,%
                    %
                   }}
+%    \end{macrocode}
+%
+% For |xcolor| we try and load as many pre-defined colornames as
+% possible.
+
+
+%    \begin{macrocode}
+\cxset{xcolor keys={fixpdftex,xtable,usenames,dvipsnames,svgnames,x11names}}                     
 % Set amsmath keys
 \cxset{onlyamsmath keys = {all}}
 %
@@ -477,7 +487,7 @@ and the derived files              phd.ins,
 %    \begin{macrocode}
 \RequirePackage{graphicx}
 \setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio}
-\graphicspath{{graphics/}{graphics//}{images//}{./graphics/}{../graphics/}}
+\graphicspath{{graphics/}{graphics//}{images//}{./graphics/}{../graphics/}{./pic/}{../pic}}
 \usepackage{wrapfig}
 %    \end{macrocode} 
 %
@@ -494,14 +504,19 @@ and the derived files              phd.ins,
 % \end{macro}
 % 
 % \section{Color Management}
+%
 % Most classes load the |xcolor| package, including
 % it here, should either be able to check if it was 
 % loaded by the class or to pass the options before
-% the class itself.
+% the class itself. This package is a common source
+% of errors, as classes load it with mostly different options.
+% Because of this is also a good example to test our code
+% in a number of minimal working examples.
+%
 %    \begin{macrocode}
 \@ifpackageloaded{xcolor}{}%
- {\RequirePackage[fixpdftex, xtable, usenames, dvipsnames,  
-                    svgnames, x11names]{xcolor}}
+ {\PassOptionsToPackage{\xcolorkeys@cx}{xcolor}
+  \RequirePackage{xcolor}}
 
 \definecolor{theblue} {rgb}{0.02,0.04,0.48}
 \definecolor{thered}  {rgb}{0.65,0.04,0.07}
@@ -510,7 +525,6 @@ and the derived files              phd.ins,
 \definecolor{theshade}{gray}{0.94}
 \definecolor{theframe}{gray}{0.75}
 \definecolor{lightgray}{gray}{0.6}
-\RequirePackage{pgf}[2008/01/15]
 %    \end{macrocode}
 % 
 %    \begin{macrocode}
@@ -521,37 +535,93 @@ and the derived files              phd.ins,
 %
 %
 % \section{Lipsum}
+%
 % In publishing and graphic design, lorem ipsum is placeholder text (filler text) commonly used to demonstrate the graphics elements of a document or visual presentation, such as font, typography, and layout, by removing the distraction of meaningful content. The lorem ipsum text is typically a section of a Latin text by Cicero with words altered, added and removed that make it nonsensical in meaning and not proper Latin. Other packages exist such as |kantlipsum| and |blindtext|, however,
 %both result in somewhat legible texts, which defeats the purpose of providing texts that the reader is not going to read. the extensions |lipsumx| aim at
 %providing a gap between the three packages. It provides extensions
 % for full document testing.
 
 %    \begin{macrocode}
+\newif\ifLIPSUM
 \RequirePackage{lipsum}
 %    \end{macrocode}
 %
-% \section{tables}
+% \section{Tables}
 % 
 % \begin{macro}{\inc}
 % \begin{macro}{\resetinc}
+%
 % It is highly unlikely that a publication, would not have a table
-% somewhere, to make life easier we use |booktabs|.
+% somewhere, to make life easier we load Simon Fear's |booktabs|. The manual is a must
+% read if you want to typeset typographically attractive tables.\footnote{Notice I haven't said
+% typographically correct, there is no such thing.} We don't need to set any keys for the
+% package.
+%
+
 %    \begin{macrocode}
 \RequirePackage{booktabs}
-\RequirePackage{tabularx}
-\RequirePackage{dcolumn}
-\RequirePackage{longtable}
-\RequirePackage{colortbl}
-\RequirePackage{multirow}
-\RequirePackage{lscape}
-\RequirePackage{threeparttable}
-
 \newcounter{step}
 \def\resetinc{\setcounter{step}{0}}
 \def\inc{\stepcounter{step}\thestep}
 %    \end{macrocode}
 % \end{macro}
 % \end{macro}
+%
+% \begin{macro}{tabularx}
+% David Carlisle's package enables the typesetting of fixed width tables and can stretch
+% specific columns. The package loads the |array| package, but we save it from some
+% trouble by pre-loading it first, so we can capture its loading. The package has two keys
+% |infoshow| and |debugshow| which we don't bother at this stage to load.
+% 
+%    \begin{macrocode}
+\RequirePackage{array}
+\RequirePackage{tabularx}
+%    \end{macrocode}
+% \end{macro}
+
+
+% \begin{macro}{dcolumn}
+% The |dcolumn| package also by David Carlisle is loaded next. This package 
+% defines a system for defining columns of entries in an |array|
+% or tabular which are to be aligned on a `decimal point'. It also loads the |array|
+% package, which we have already loaded.
+% 
+%    \begin{macrocode}
+\RequirePackage{dcolumn}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{longtable}
+% 
+% Perhaps the |longtable| package, needs no introduction. It has some
+% peculiar settings and sometimes a couple of runs before it settles
+% down. The package has four keys |errorshow|, |pausing|, |set| and |final| looks 
+% as if they deprecated, at this stage we make onlty a mental note of it.
+% The package cannot be used within |multicolumn| environments and will
+% emit an error. 
+% 
+%    \begin{macrocode}
+\RequirePackage{longtable}
+%    \end{macrocode}
+% \end{macro}   
+
+
+% \begin{macro}{multirow}
+% 
+% The |multirow| by Piet van Oostrum and its two companion packages
+% bigdelim and bigstrut can be used to define multirow cells. They are difficult
+% to get right and in most instances one can redesign the tables better without
+% resorting to multi-rows. It has a strange interaction with the |colortbl|
+% and a hack around its usage which we will load next.
+% 
+%    \begin{macrocode}
+\RequirePackage{colortbl}
+\RequirePackage{multirow}
+\RequirePackage{lscape}
+\RequirePackage{threeparttable}
+%    \end{macrocode}
+% \end{macro}
+
 % 
 
 %    
