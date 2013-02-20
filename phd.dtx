@@ -609,7 +609,7 @@ and the derived files              phd.ins,
 % \begin{macro}{multirow}
 % 
 % The |multirow| by Piet van Oostrum and its two companion packages
-% bigdelim and bigstrut can be used to define multirow cells. They are difficult
+% |bigdelim| and |bigstrut| can be used to define multirow cells. They are difficult
 % to get right and in most instances one can redesign the tables better without
 % resorting to multi-rows. It has a strange interaction with the |colortbl|
 % and a hack around its usage which we will load next.
@@ -617,14 +617,47 @@ and the derived files              phd.ins,
 %    \begin{macrocode}
 \RequirePackage{colortbl}
 \RequirePackage{multirow}
-\RequirePackage{lscape}
+
+%    \end{macrocode}
+% \end{macro}
+% 
+% \begin{macro}{threeparttable}
+% This package by Donal Arsenau facilitates tables with titles (captions) and notes. The
+% package comes with a number of options |para|, |flushleft|, online and normal.
+%    \begin{macrocode}
 \RequirePackage{threeparttable}
 %    \end{macrocode}
 % \end{macro}
-
-% 
-
-%    
+%
+%  {\begin{center}
+%
+%  \begin{threeparttable}[b]
+%    \caption{...}
+%  \begin{tabular}{ll} 
+%   \toprule
+%    one cell 42\tnote{1}&\\
+%    another cell \tnote[2]&\\
+%  \bottomrule
+%  \end{tabular}
+%  \begin{tablenotes}
+%    \item [1] the first note ...
+%    \item [2] the second note
+%  \end{tablenotes}
+%  \end{threeparttable}
+%  \end{center}}
+%  
+% \section{Landscape Pages}
+% \begin{macro}{landscape}
+% \begin{macro}{lscape}
+% This package by Heiko Oberdiek Package pdflscape adds PDF support to the environment landscape % of  package |lscape| by setting the PDF page attribute /Rotate. It has to be loaded
+% after |lscape| which we let load itself.
+%
+%    \begin{macrocode}
+\RequirePackage{pdflscape}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%  
 % \section{Package Management} 
 %    
 % Each of the packages used by this document is loaded conditionally.
@@ -730,16 +763,17 @@ and the derived files              phd.ins,
 %
 % \section{Maths}
 %
-% Althoug we cognisant that there are documents that do not use math
+% Although we cognisant that there are documents that do not use math
 % and perhaps others that our selection of packages is inadequate, we
 % offer a bundle of what we think will cover most of the cases.
 % 
 %    \begin{macrocode}
+\RequirePackage{mathtools}
 \RequirePackage{amsfonts}[2009/06/22]
 \RequirePackage{amsmath}[2000/07/18] 
 \RequirePackage{amssymb}[2002/01/22]
 \RequirePackage{amsthm}[2002/01/22]
-\RequirePackage{mathtools}
+
 %    \end{macrocode}
 % The package |stmaryrd| can be used for additional symbols. 
 %    \begin{macrocode}

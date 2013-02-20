@@ -74,10 +74,9 @@
 
 \RequirePackage{colortbl}
 \RequirePackage{multirow}
-\RequirePackage{lscape}
+
 \RequirePackage{threeparttable}
-
-
+\RequirePackage{pdflscape}
 
 \newcommand*{\savesymbol}[1]{%
   \expandafter\let\csname orig#1\expandafter\endcsname\csname#1\endcsname
@@ -123,11 +122,12 @@
   \@ifstar{\if@sty@file@exists@star}{\if@sty@file@exists}%
 }
 
+\RequirePackage{mathtools}
 \RequirePackage{amsfonts}[2009/06/22]
 \RequirePackage{amsmath}[2000/07/18]
 \RequirePackage{amssymb}[2002/01/22]
 \RequirePackage{amsthm}[2002/01/22]
-\RequirePackage{mathtools}
+
 \newif\ifXPFEIL
 \newcommand\XPFEIL{\pkgname{extpfeil}}
 \IfStyFileExists{extpfeil}
