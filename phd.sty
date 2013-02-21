@@ -491,6 +491,10 @@ ProvidesClass,IfFileExists,RequirePackage,ifthenelse,chapter,includegraphics, ne
   }
   {}
 \RequirePackage{dirtree}
+\newif\ifarchaic
+\archaictrue
+\ifarchaic
+
 \newif\ifLINA
 \newcommand\LINA{\pkgname{linearA}}
 \IfStyFileExists{linearA}
@@ -499,39 +503,77 @@ ProvidesClass,IfFileExists,RequirePackage,ifthenelse,chapter,includegraphics, ne
 
 \newif\ifLINB
 \newcommand\LINB{\pkgname{linearb}}
+\IfStyFileExists{linearb}
+  {\LINBtrue\usepackage{linearb}}
+  {}
 
 \newif\ifCYPR
 \newcommand\CYPR{\pkgname{cypriot}}
+\IfStyFileExists{cypriot}
+  {\CYPRtrue\usepackage{cypriot}}
+  {}
 
 \newif\ifSARAB
 \newcommand\SARAB{\pkgname{sarabian}}
+\IfStyFileExists{sarabian}
+  {\SARABtrue\usepackage{sarabian}}
+  {}
 
 \newif\ifPRSN
 \newcommand\PRSN{\pkgname{oldprsn}}
+\IfStyFileExists{oldprsn}
+  {\PRSNtrue\usepackage{oldprsn}}
+  {}
 
 \newif\ifUGAR
 \newcommand\UGAR{\pkgname{ugarite}}
+\RequirePackage{ugarite}
+\IfStyFileExists{ugarite}
+  {\UGARtrue\usepackage{ugarite}}
+  {}
+\fi %end archaic
 
 \newcommand{\hangleft}[1]{\makebox[0pt][r]{#1}}
 
-\def\ctan#1{\textcolor{green}{\href{http://www.ctan.org/tex-archive/help/Catalogue/entries/#1.html}{#1}\protect\sidenote{\protect\url{http://www.ctan.org/tex-archive/help/Catalogue/entries/#1.html}}}
-\index{Packages!#1} }
+\DeclareRobustCommand\ctan[1]{%
+  \textcolor{green}{%
+    \href{http://www.ctan.org/tex-archive/help/Catalogue/entries/#1.html} {#1}
+    \footnote{\protect\url{http://www.ctan.org/tex- archive/help/Catalogue/entries/#1.html}}}
+\index{Packages!#1}%
+}
 
 \def\graybox#1{\par\medskip
  \noindent\colorbox{black!7}{\parbox{0.98\textwidth}{\noindent#1}}\par\medskip}
-%% Special commands for display
-\long\def\bottomline{\medskip
-\noindent\rule{\linewidth}{0.4pt}\medskip}
+ %% Special commands for display
+ \long\def\bottomline{\medskip
+ \noindent\rule{\linewidth}{0.4pt}\medskip}
 
 \long\def\topline{\par\medskip
 \noindent\rule{\linewidth}{0.4pt}\medskip}
 
-\newcommand{\fref}[1]{Figure~\ref{#1}}
-\newcommand{\tref}[1]{Table~\ref{#1}}
-\newcommand{\eref}[1]{Equation~\ref{#1}}
-\newcommand{\cref}[1]{Chapter~\ref{#1}}
-\newcommand{\sref}[1]{Section~\ref{#1}}
-\newcommand{\aref}[1]{Appendix~\ref{#1}}
+\cxset{ref sectionname/.store in =\refsectionname@cx,
+       ref chaptername/.store in =\refchaptername@cx,
+       ref appendixname/.store in = \refappendixname@cx,
+       ref equationname/.store in = \refequationname@cx,
+       ref figurename/.store in = \reffigurename@cx,
+       ref tablename/.store in = \reftablename@cx,
+       ref paragraphname/.store in =\refparagraphname@cx
+}
+\cxset{ref sectionname = \S\thinspace,
+       ref chaptername = Chapter,
+       ref appendixname = \appendixname,
+       ref equationname = Equation,
+       ref figurename = \figurename,
+       ref tablename  = \tablename,
+       ref paragraphname = \P
+}
+\newcommand{\fref}[1]{\reffigurename@cx~\ref{#1}}
+\newcommand{\tref}[1]{\tablename~\ref{#1}}
+\newcommand{\eref}[1]{equation~\ref{#1}}
+\newcommand{\cref}[1]{chapter~\ref{#1}}
+\newcommand{\sref}[1]{\refsectionname@cx\ref{#1}}
+\newcommand{\aref}[1]{\refappendixname@cx~\ref{#1}}
+\newcommand{\pref}[1]{\refparagraphname@cx\ref{#1}}
 \ifx\l@nohyphenation\undefined
   \newlanguage\l@nohyphenation
 \fi
@@ -1885,6 +1927,7 @@ ProvidesClass,IfFileExists,RequirePackage,ifthenelse,chapter,includegraphics, ne
   Zeit-schrift
 }
 \fi
+
 %% 
 %% Copyright (C) 2011 by Dr. Yiannis Lazarides <yannislaz@gmail.com>
 %% 
