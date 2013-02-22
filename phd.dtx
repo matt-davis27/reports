@@ -903,19 +903,27 @@ and the derived files              phd.ins,
 % 
 % \section{Special Symbols}
 %
-%
-% The Comprehensive LaTeX Symbols guide, has numerous symbols \ldots
+% The next section of the package, deals exclusively for packages that
+% handle symbols. The best guide to such symbols is 
+% \textit{The Comprehensive LaTeX Symbols Guide}. One needs to distinguish
+% a number of different types of symbols required for a manual and it is
+% a difficult exercise to make a selection. Another issue with symbols
+% is that there is a bit of overlap between the various fonts and commands
+% as to be expected.
+
+%\subsection{Symbols in textcomp}
+%, has numerous symbols \ldots
 % We use the \pkg{texcomp} package for special symbols, such as |\checkmark|
 %  \( \mho \Diamond \leadsto \rhd \diamond \Diamond \). The sort of the standard package
-% latexsym is not loaded as it duplicates functionality of the if one makes use of the packages |amsfonts| or |amssymb| .
+% latexsym is not loaded as it duplicates functionality of the if one makes use of the packages |amsfonts| or |amssymb|.
 %
 
 % \begin{macro}{textcomp} 
 % \begin{macro}{mathcomp} The package |textcomp| is part of the \LaTeX2e
-% distribution. \capitalacute X The description of the package
+% distribution. The description of the package
 % on ctan can give the erroneous idea that it is obsolotet, on the contracry % is part of the original distribution.textcomp is not obsolete, it's just not distributed as extra package any more since it's distributed with the basic LaTeX. The mathcomp package defines macros for using some of these text... symbols with math and the abbreviation tc...
 
-%\subsection*{Symbols in textcomp}
+
 %
 
 %  The symbols are used by calling them by their name. E.g. \textleaf:
@@ -1935,15 +1943,8 @@ and the derived files              phd.ins,
 % term or remove it, perhaps make a "bundle" for LaTeX authors.
 
 
-% \subsection{The \texttt{undertilde} package}      
-%    \begin{macrocode}    
-\newif\ifUTILD
-\newcommand\UTILD{\pkgname{undertilde}}
-\IfStyFileExists{undertilde}
-  {\UTILDtrue\usepackage{undertilde}}
-  {}
-%    \end{macrocode}
-%
+
+% \subsection{ifsym}
 % \begin{macro}{ifsym}
 %    \begin{macrocode}
 \newif\ifIFS
@@ -2037,6 +2038,14 @@ and the derived files              phd.ins,
 % \caption{ifsym clock option symbols symbols}
 % \end{figure}
 %
+% \subsection{The \texttt{undertilde} package}      
+%    \begin{macrocode}    
+\newif\ifUTILD
+\newcommand\UTILD{\pkgname{undertilde}}
+\IfStyFileExists{undertilde}
+  {\UTILDtrue\usepackage{undertilde}}
+  {}
+%    \end{macrocode}
 % \section{Epigraphs and quotations}
 % \subsection{Epigraphs}
 %    \begin{macrocode}

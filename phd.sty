@@ -173,6 +173,7 @@
 
 
 
+
 \RequirePackage{textcomp}
 \PassOptionsToPackage{mathcomp}{rmdefault}
 \RequirePackage{mathcomp}
@@ -293,11 +294,6 @@
 
 
 
-\newif\ifUTILD
-\newcommand\UTILD{\pkgname{undertilde}}
-\IfStyFileExists{undertilde}
-  {\UTILDtrue\usepackage{undertilde}}
-  {}
 \newif\ifIFS
 \newcommand\IFS{\pkgname{ifsym}}
 \IfStyFileExists{ifsym}
@@ -322,6 +318,11 @@
   {}
 
 
+\newif\ifUTILD
+\newcommand\UTILD{\pkgname{undertilde}}
+\IfStyFileExists{undertilde}
+  {\UTILDtrue\usepackage{undertilde}}
+  {}
 \@ifundefined{epigraph}{%
    \RequirePackage{epigraph}
    %% Set up the epigraph to be a bit wider
