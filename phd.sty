@@ -122,12 +122,24 @@
   \@ifstar{\if@sty@file@exists@star}{\if@sty@file@exists}%
 }
 
+\PassOptionsToPackage{leqno}{mathtools}
 \RequirePackage{mathtools}
-\RequirePackage{amsfonts}[2009/06/22]
-\RequirePackage{amsmath}[2000/07/18]
+\cxset{tag left bracket/.store in = \leftbracket@cx,
+       tag right bracket/.store in = \rightbracket@cx,
+       tag font-weight/.store in = \tagfontweight@cx,
+       mathtool center colon/.store in=\centeredcolon@cx}
+\cxset{tag left bracket =[,
+       tag right bracket =],
+       tag font-weight=\textbf,
+       mathtool center colon=false}
+
+\newtagform{brackets}[\tagfontweight@cx]{\leftbracket@cx}%
+           {\rightbracket@cx}
+\mathtoolsset{centercolon=true,mathic}%italic correction in math
+\numberwithin{equation}{section}
+
 \RequirePackage{amssymb}[2002/01/22]
 \RequirePackage{amsthm}[2002/01/22]
-
 \newif\ifXPFEIL
 \newcommand\XPFEIL{\pkgname{extpfeil}}
 \IfStyFileExists{extpfeil}
@@ -154,33 +166,27 @@
   {\let\CMcal\mathcal}
 \RequirePackage{bm}
 \RequirePackage{bbm}
-\RequirePackage[Euler]{upgreek}
-%%\newif\ifUPGR
-%%\newcommand\UPGR{\pkgname{upgreek}}
-%%\IfStyFileExists{upgreek}
-%%  {% We're painfully low on math alphabets so we define upgreek's symbols
-%%   % in text mode.
-%%   \UPGRtrue
-%%   \let\origDeclareSymbolFont=\DeclareSymbolFont
-%%   \let\origDeclareMathSymbol=\DeclareMathSymbol
-%%   \let\origSetSymbolFont=\SetSymbolFont
-%%   \renewcommand{\DeclareSymbolFont}[5]{}
-%%   \renewcommand{\DeclareMathSymbol}[4]{%
-%%     \newcommand{##1}{{\usefont{U}{psy}{m}{n}\char##4}}%
-%%   }
-%%   \renewcommand{\SetSymbolFont}[6]{}
-%%   \RequirePackage{upgreek}
-%%   \DeclareFontFamily{U}{eur}{\skewchar\font'177}
-%%   \DeclareFontShape{U}{eur}{m}{n}{%
-%%     <-6> eurm5 <6-8> eurm7 <8-> eurm10}{}
-%%   \let\DeclareSymbolFont=\origDeclareSymbolFont
-%%   \let\DeclareMathSymbol=\origDeclareMathSymbol
-%%   \let\SetSymbolFont=\origSetSymbolFont
-%%  }
-%%  {}
+
+
+\newif\ifUPGR
+\RequirePackage[Symbol]{upgreek}
+
+
 
 \RequirePackage{textcomp}
-\RequirePackage{latexsym}
+\PassOptionsToPackage{mathcomp}{rmdefault}
+\RequirePackage{mathcomp}
+
+\newcommand{\tabitem}[2]{%
+  \texttt{\symbol{`\\}#1} & \@nameuse{#1} & \bfseries\@nameuse{#1}&
+  \itshape\@nameuse{#1}
+  \ifthenelse{\equal{#2}{}}
+  {}
+  {& \texttt{\symbol{`\\}#2} & \@nameuse{#2} & \bfseries\@nameuse{#2}
+    & \itshape\@nameuse{#2} \\}
+}
+%%   \tabitem{textcapitalcompwordmark}{textascendercompwordmark}
+
 \newif\ifWASY
 \newcommand\WASY{\pkgname{wasysym}}
 \IfStyFileExists{wasysym}
@@ -189,13 +195,14 @@
    \savesymbol{Box}
    \savesymbol{Diamond}
    \savesymbol{clock}
-   \RequirePackage{wasysym}
+   \RequirePackage[nointegrals]{wasysym}
    \restoresymbol{WASY}{lightning}
    \restoresymbol{WASY}{Box}
    \restoresymbol{WASY}{Diamond}
    \restoresymbol{WASY}{clock}
   }
   {}
+
 \newif\ifPI
 \newcommand\PI{\pkgname{pifont}}
 \IfStyFileExists{pifont}
@@ -217,11 +224,20 @@
   }
   {}
 
-\newif\ifMAN
-\newcommand\MAN{\pkgname{manfnt}}
-\IfStyFileExists{manfnt}
-  {\MANtrue\usepackage{manfnt}}
-  {}
+
+
+%% \end{tabular}
+%%
+%% \begin{tabular}{|*{10}{c}|} \hline
+%% \end{tabular}
+%%
+%% \begin{tabular}{|*{10}{c}|} \hline
+
+
+
+
+
+
 
 \newif\ifDING
 \newcommand\DING{\pkgname{bbding}}
@@ -232,6 +248,50 @@
    \restoresymbol{ding}{Cross} \restoresymbol{ding}{Square}
   }
   {}
+
+\newcount\c@lumnsleft
+\newcount\t@talcolumns
+\newdimen\c@lumnwidth
+\newenvironment{commandsInColumns}[1]{%
+  \t@talcolumns=#1\advance\t@talcolumns-1\c@lumnsleft=\t@talcolumns%
+  \c@lumnwidth=-2em\multiply\c@lumnwidth by \t@talcolumns%
+  \advance\c@lumnwidth by\hsize \divide\c@lumnwidth by #1%
+  \vskip\z@     % Ensures vertical mode
+  \catcode`\^^M=12%
+  \hbox\bgroup%
+  \st@rtenv%
+}
+{\ifnum\c@lumnsleft=\t@talcolumns \egroup
+ \else \egroup \fi}
+
+{\catcode`\^^M=12%
+ \gdef\st@rtenv{\@ifnextchar^^M{\dr@pnext\doNextComm@nd}{\doNextComm@nd}}%
+ \gdef\setComm@nd#1#2^^M{%
+   \hbox to \c@lumnwidth%
+     {\hbox to .5cm{#1\hss}\hbox{\expandafter\setn@me\string#1.}\hss}%
+   \advance\c@lumnsleft-1%
+   \ifnum\c@lumnsleft>0%
+     \hskip2em%
+   \else%
+     \egroup%
+     \hbox\bgroup%
+     \c@lumnsleft\t@talcolumns%
+   \fi%
+   \doNextComm@nd%
+  }}
+\def\dr@pnext#1#2{#1}
+\def\doNextComm@nd{\@ifnextchar\end{}{\setComm@nd}}%
+\def\setn@me#1#2.{\CSname{#2}}
+
+\newcommand{\CSname}[1]{\texttt{\protect\bslash#1}}
+
+\newif\ifMAN
+\newcommand\MAN{\pkgname{manfnt}}
+\IfStyFileExists{manfnt}
+  {\MANtrue\usepackage{manfnt}}
+  {}
+
+
 
 \newif\ifUTILD
 \newcommand\UTILD{\pkgname{undertilde}}
@@ -1927,6 +1987,12 @@ ProvidesClass,IfFileExists,RequirePackage,ifthenelse,chapter,includegraphics, ne
   Zeit-schrift
 }
 \fi
+%%\bibitem{gcompanion}
+%%Michel Goossens, Sebastian Rahtz, and
+%%Frank Mittelbach:\\
+%%\textit{The LaTeX Graphics Companion}.\\
+%%Addison Wesley Longman, 1997.
+
 
 %% 
 %% Copyright (C) 2011 by Dr. Yiannis Lazarides <yannislaz@gmail.com>

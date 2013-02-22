@@ -121,7 +121,7 @@ and the derived files              phd.ins,
 %</internal>
 %<*driver>
 \listfiles
-\documentclass{ltxdoc}
+\documentclass[reqno]{ltxdoc}
 \usepackage[T1]{fontenc}
 %\usepackage{libertine}
 %\renewcommand{\ttfamily}{\fontencoding{OT1}\fontfamily{cmtt}\selectfont}
@@ -765,15 +765,66 @@ and the derived files              phd.ins,
 %
 % Although we cognisant that there are documents that do not use math
 % and perhaps others that our selection of packages is inadequate, we
-% offer a bundle of what we think will cover most of the cases.
+% offer a bundle of what we think will cover most of the cases. One
+% issue with maths is that we are limited with TeX's built-in math
+% alphabet limitations.
+% 
+% \begin{macro}{mathtools} We start with |mathtools|\ctan{mathtools}, as it loads the
+% |amsmath| package and can also pass options to it. The package was developed 
+% by LarsMadsen and is maintained by Will Robertson and Joseph Wright. It
+% appears to be very popular with a lot of scholars in the sciences and
+% mathematical fields and hence I decided to  include it here.
 % 
 %    \begin{macrocode}
+\PassOptionsToPackage{leqno}{mathtools}
 \RequirePackage{mathtools}
-\RequirePackage{amsfonts}[2009/06/22]
-\RequirePackage{amsmath}[2000/07/18] 
+%    \end{macrocode}
+% \end{macro}
+%
+% Many of the tools shown in this manual can be turned on and off by 
+% setting a switch to
+% either true or false. In all cases it is done with the command 
+% |\mathtoolsset|. A typical
+%  use could be something like
+% \begin{equation}
+%  a=c+d
+% \end{equation}
+%
+% This provides a useful way to hook into the package options
+% using our setting interface.
+%
+%    \begin{macrocode}
+\cxset{tag left bracket/.store in = \leftbracket@cx,
+       tag right bracket/.store in = \rightbracket@cx,
+       tag font-weight/.store in = \tagfontweight@cx,
+       mathtool center colon/.store in=\centeredcolon@cx}
+%
+\cxset{tag left bracket =[,
+       tag right bracket =],
+       tag font-weight=\textbf,
+       mathtool center colon=false} 
+
+\newtagform{brackets}[\tagfontweight@cx]{\leftbracket@cx}%
+           {\rightbracket@cx}
+\mathtoolsset{centercolon=true,mathic}%italic correction in math
+\numberwithin{equation}{section}
+%    \end{macrocode}
+%
+% \[ a:= z+i\]
+% \mathtoolsset{centercolon=false}
+% \[ a:= z+i\]
+%  \usetagform{brackets}
+%  \begin{equation}
+%   a = b +c
+%  \end{equation}
+% 
+% Test \mbox{{\Huge\WomanFace  \Checkedbox \Square}}
+
+%  $\Delta$ 
+%
+%    \begin{macrocode}
 \RequirePackage{amssymb}[2002/01/22]
 \RequirePackage{amsthm}[2002/01/22]
-
 %    \end{macrocode}
 % The package |stmaryrd| can be used for additional symbols. 
 %    \begin{macrocode}
@@ -817,43 +868,160 @@ and the derived files              phd.ins,
   {\let\CMcal\mathcal}
 \RequirePackage{bm}
 \RequirePackage{bbm}
-\RequirePackage[Euler]{upgreek}
+
 %    \end{macrocode}
 %
-% \subsection{Too many alphabets}
-% 
-%    \begin{macrocode} 
-%%\newif\ifUPGR
-%%\newcommand\UPGR{\pkgname{upgreek}}
-%%\IfStyFileExists{upgreek}
-%%  {% We're painfully low on math alphabets so we define upgreek's symbols
-%%   % in text mode.
-%%   \UPGRtrue
-%%   \let\origDeclareSymbolFont=\DeclareSymbolFont
-%%   \let\origDeclareMathSymbol=\DeclareMathSymbol
-%%   \let\origSetSymbolFont=\SetSymbolFont
-%%   \renewcommand{\DeclareSymbolFont}[5]{}
-%%   \renewcommand{\DeclareMathSymbol}[4]{%
-%%     \newcommand{##1}{{\usefont{U}{psy}{m}{n}\char##4}}%
-%%   }
-%%   \renewcommand{\SetSymbolFont}[6]{}
-%%   \RequirePackage{upgreek}
-%%   \DeclareFontFamily{U}{eur}{\skewchar\font'177}
-%%   \DeclareFontShape{U}{eur}{m}{n}{%
-%%     <-6> eurm5 <6-8> eurm7 <8-> eurm10}{}
-%%   \let\DeclareSymbolFont=\origDeclareSymbolFont
-%%   \let\DeclareMathSymbol=\origDeclareMathSymbol
-%%   \let\SetSymbolFont=\origSetSymbolFont
-%%  }
-%%  {}
-%    \end{macrocode}
 
+%
+% \begin{macro}{upgreek} This package by Walter Schmidt provides fonts
+% and commands for an upright Greek alphabet. It makes the upright
+% Greek characters from the `Euler'  or `Adobe Symbol' typefaces avaialable as 
+% math symbols. It defaults to the Euler option. The package offers three
+% options |Euler|, |Symbol| and |Symbolsmallscale|.
+% 
+%    \begin{macrocode}
+\newif\ifUPGR
+\RequirePackage[Symbol]{upgreek}
+%    \end{macrocode}
+% \end{macro}
+%
+% \[
+%  \begin{array}{lll}
+%   \upalpha  &\upbeta    &\upgamma\\ 
+%   \updelta  &\upepsilon &\upzeta\\
+%   \upeta    &\uptheta   &\upiota \\
+%   \upkappa &\uplambda   &\upmu\\
+%   \upnu    &\upxi      &\uppi\\
+%   \uprho    &\upsigma  &\uptau\\
+%   \upupsilon &\upphi   &\upchi\\
+%   \uppsi     &\upomega  &\upvarepsilon\\
+%   \upvartheta &\upvarpi  &\\
+%  \end{array}
+% \]
+%
+% 
+% 
 % \section{Special Symbols}
+%
+%
 % The Comprehensive LaTeX Symbols guide, has numerous symbols \ldots
 % We use the \pkg{texcomp} package for special symbols, such as |\checkmark|
+%  \( \mho \Diamond \leadsto \rhd \diamond \Diamond \). The sort of the standard package
+% latexsym is not loaded as it duplicates functionality of the if one makes use of the packages |amsfonts| or |amssymb| .
+%
+
+% \begin{macro}{textcomp} 
+% \begin{macro}{mathcomp} The package |textcomp| is part of the \LaTeX2e
+% distribution. \capitalacute X The description of the package
+% on ctan can give the erroneous idea that it is obsolotet, on the contracry % is part of the original distribution.textcomp is not obsolete, it's just not distributed as extra package any more since it's distributed with the basic LaTeX. The mathcomp package defines macros for using some of these text... symbols with math and the abbreviation tc...
+
+%\subsection*{Symbols in textcomp}
+%
+
+%  The symbols are used by calling them by their name. E.g. \textleaf:
+%  \verb|\textleaf|.
+%  
+%  In mathematics the package \verb|mathcomp| works. Then the prefix
+%  \verb|text| is replaced by \verb|tc|, for \emph{t}ext\emph{c}omp:
+%  |tcohm|  \( \tcohm \)
+% 
+% The |mathcomp| package takes one option to describe the
+% font to be used. We use |rmdfault| as teh option to default to
+% the \cs{rmdefault} font.
+% 
 %    \begin{macrocode}
 \RequirePackage{textcomp}
-\RequirePackage{latexsym}
+\PassOptionsToPackage{mathcomp}{rmdefault}
+\RequirePackage{mathcomp}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+
+% \begin{macro}{\tabitem} This is a utility command to typeset the
+% |textcomp| symbols.
+%    \begin{macrocode}
+\newcommand{\tabitem}[2]{%
+  \texttt{\symbol{`\\}#1} & \@nameuse{#1} & \bfseries\@nameuse{#1}&
+  \itshape\@nameuse{#1}
+  \ifthenelse{\equal{#2}{}}
+  {}
+  {& \texttt{\symbol{`\\}#2} & \@nameuse{#2} & \bfseries\@nameuse{#2}
+    & \itshape\@nameuse{#2} \\}
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%\setlength{\LTleft}{0pt}%
+%\setlength{\LTright}{0pt}
+%\noindent
+%\begin{longtable}{%
+%    @{}ll@{}l@{}l@{\extracolsep{\fill}}l!{\extracolsep{0pt}}l@{}l@{}l@{}}
+%  \multicolumn{4}{c}{\textbf{Symbol}} & 
+%  \multicolumn{4}{c}{\textbf{Symbol}} \\ 
+%  \midrule
+%\endhead
+%
+%%   \tabitem{textcapitalcompwordmark}{textascendercompwordmark}
+%  \tabitem{textquotestraightbase}{textquotestraightdblbase}
+%  \tabitem{texttwelveudash}{textthreequartersemdash}
+%  \tabitem{textleftarrow}{textrightarrow}
+%  \tabitem{textblank}{textdollar}
+%  \tabitem{textquotesingle}{textasteriskcentered}
+%  \tabitem{textdblhyphen}{textfractionsolidus}
+%  \tabitem{textzerooldstyle}{textoneoldstyle}
+%  \tabitem{texttwooldstyle}{textthreeoldstyle}
+%  \tabitem{textfouroldstyle}{textfiveoldstyle}
+%  \tabitem{textsixoldstyle}{textsevenoldstyle}
+%  \tabitem{texteightoldstyle}{textnineoldstyle}
+%  \tabitem{textlangle}{textminus}
+%  \tabitem{textrangle}{textmho}
+%  \tabitem{textbigcircle}{textohm}
+%  \tabitem{textlbrackdbl}{textrbrackdbl}
+%  \tabitem{textuparrow}{textdownarrow}
+%  \tabitem{textasciigrave}{textborn}
+%  \tabitem{textdivorced}{textdied}
+%  \tabitem{textleaf}{textmarried}
+%  \tabitem{textmusicalnote}{texttildelow}
+%  \tabitem{textdblhyphenchar}{textasciibreve}
+%  \tabitem{textasciicaron}{textgravedbl}
+%  \tabitem{textacutedbl}{textdagger}
+%  \tabitem{textdaggerdbl}{textbardbl}
+%  \tabitem{textperthousand}{textbullet}
+%  \tabitem{textcelsius}{textdollaroldstyle}
+%  \tabitem{textcentoldstyle}{textflorin}
+%  \tabitem{textcolonmonetary}{textwon}
+%  \tabitem{textnaira}{textguarani}
+%  \tabitem{textpeso}{textlira}
+%  \tabitem{textrecipe}{textinterrobang}
+%  \tabitem{textinterrobangdown}{textdong}
+%  \tabitem{texttrademark}{textpertenthousand}
+%  \tabitem{textpilcrow}{textbaht}
+%  \tabitem{textnumero}{textdiscount}
+%  \tabitem{textestimated}{textopenbullet}
+%  \tabitem{textservicemark}{textlquill}
+%  \tabitem{textrquill}{textcent}
+%  \tabitem{textsterling}{textcurrency}
+%  \tabitem{textyen}{textbrokenbar}
+%  \tabitem{textsection}{textasciidieresis}
+%  \tabitem{textcopyright}{textordfeminine}
+%  \tabitem{textcopyleft}{textlnot}
+%  \tabitem{textcircledP}{textregistered}
+%  \tabitem{textasciimacron}{textdegree}
+%  \tabitem{textpm}{texttwosuperior}
+%  \tabitem{textthreesuperior}{textasciiacute}
+%  \tabitem{textmu}{textparagraph}
+%  \tabitem{textperiodcentered}{textreferencemark}
+%  \tabitem{textonesuperior}{textordmasculine}
+%  \tabitem{textsurd}{textonequarter}
+%  \tabitem{textonehalf}{textthreequarters}
+%  \tabitem{texteuro}{texttimes}
+%  \tabitem{textdiv}{}
+%
+%\end{longtable}
+
+% \begin{macro}{wasysym} \url{http://tex.stackexchange.com/questions/80053/wasysym-symbols-render-to-something-different}
+%    \begin{macrocode}
 \newif\ifWASY
 \newcommand\WASY{\pkgname{wasysym}}
 \IfStyFileExists{wasysym}
@@ -862,25 +1030,75 @@ and the derived files              phd.ins,
    \savesymbol{Box}
    \savesymbol{Diamond}
    \savesymbol{clock}
-   \RequirePackage{wasysym}
+   \RequirePackage[nointegrals]{wasysym}
    \restoresymbol{WASY}{lightning}
    \restoresymbol{WASY}{Box}
    \restoresymbol{WASY}{Diamond}
    \restoresymbol{WASY}{clock}
   }
   {}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{pifont}
+% Using symbol fonts is supported by means of the 
+% \Lpack{pifont} package, providing commands for using the Zapf Dingbats font,
+% as well as an interface to other families.\footnote{%
+% This section was adopted, with minor changes, 
+% from \cite{companion}, 1st ed.}
+
+%    \begin{macrocode}
 \newif\ifPI
 \newcommand\PI{\pkgname{pifont}}
 \IfStyFileExists{pifont}
   {\PItrue\usepackage{pifont}}
   {}  
 %    \end{macrocode}
-
+% \end{macro}
+% 
+%\begin{table}[bt!]
+%  \caption{The characters in the postscript font Zapf Dingbats {\color{red}\ding{190}}}
+%  \label{tab:dingbats}
+%  \medskip
+%  
+%{\footnotesize
+%\begin{tabular}{|rr|rr|rr|rr|rr|rr|rr|rr|}
+%\hline
+%32 &  \ding{32} & 33 &  \ding{33} & 34 &  \ding{34} & 35 &  \ding{35} & 36 &  \ding{36} & 37 &  \ding{37} & 38 &  \ding{38} & 39 &  \ding{39}  \\ \hline
+%40 &  \ding{40} & 41 &  \ding{41} & 42 &  \ding{42} & 43 &  \ding{43} & 44 &  \ding{44} & 45 &  \ding{45} & 46 &  \ding{46} & 47 &  \ding{47}  \\ \hline
+%48 &  \ding{48} & 49 &  \ding{49} & 50 &  \ding{50} & 51 &  \ding{51} & 52 &  \ding{52} & 53 &  \ding{53} & 54 &  \ding{54} & 55 &  \ding{55}  \\ \hline
+%56 &  \ding{56} & 57 &  \ding{57} & 58 &  \ding{58} & 59 &  \ding{59} & 60 &  \ding{60} & 61 &  \ding{61} & 62 &  \ding{62} & 63 &  \ding{63}  \\ \hline
+%64 &  \ding{64} & 65 &  \ding{65} & 66 &  \ding{66} & 67 &  \ding{67} & 68 &  \ding{68} & 69 &  \ding{69} & 70 &  \ding{70} & 71 &  \ding{71}  \\ \hline
+%72 &  \ding{72} & 73 &  \ding{73} & 74 &  \ding{74} & 75 &  \ding{75} & 76 &  \ding{76} & 77 &  \ding{77} & 78 &  \ding{78} & 79 &  \ding{79}  \\ \hline
+%80 &  \ding{80} & 81 &  \ding{81} & 82 &  \ding{82} & 83 &  \ding{83} & 84 &  \ding{84} & 85 &  \ding{85} & 86 &  \ding{86} & 87 &  \ding{87}  \\ \hline
+%88 &  \ding{88} & 89 &  \ding{89} & 90 &  \ding{90} & 91 &  \ding{91} & 92 &  \ding{92} & 93 &  \ding{93} & 94 &  \ding{94} & 95 &  \ding{95}  \\ \hline
+%96 &  \ding{96} & 97 &  \ding{97} & 98 &  \ding{98} & 99 &  \ding{99} & 100 &  \ding{100} & 101 &  \ding{101} & 102 &  \ding{102} & 103 &  \ding{103}  \\ \hline
+%104 &  \ding{104} & 105 &  \ding{105} & 106 &  \ding{106} & 107 &  \ding{107} & 108 &  \ding{108} & 109 &  \ding{109} & 110 &  \ding{110} & 111 &  \ding{111}  \\ \hline
+%112 &  \ding{112} & 113 &  \ding{113} & 114 &  \ding{114} & 115 &  \ding{115} & 116 &  \ding{116} & 117 &  \ding{117} & 118 &  \ding{118} & 119 &  \ding{119}  \\ \hline
+%120 &  \ding{120} & 121 &  \ding{121} & 122 &  \ding{122} & 123 &  \ding{123} & 124 &  \ding{124} & 125 &  \ding{125} & 126 &  \ding{126} &     &              \\ \hline
+%    &             & 161 &  \ding{161} & 162 &  \ding{162} & 163 &  \ding{163} & 164 &  \ding{164} & 165 &  \ding{165} & 166 &  \ding{166} & 167 &  \ding{167}  \\ \hline
+%168 &  \ding{168} & 169 &  \ding{169} & 170 &  \ding{170} & 171 &  \ding{171} & 172 &  \ding{172} & 173 &  \ding{173} & 174 &  \ding{174} & 175 &  \ding{175}  \\ \hline
+%176 &  \ding{176} & 177 &  \ding{177} & 178 &  \ding{178} & 179 &  \ding{179} & 180 &  \ding{180} & 181 &  \ding{181} & 182 &  \ding{182} & 183 &  \ding{183}  \\ \hline
+%184 &  \ding{184} & 185 &  \ding{185} & 186 &  \ding{186} & 187 &  \ding{187} & 188 &  \ding{188} & 189 &  \ding{189} & 190 &  \ding{190} & 191 &  \ding{191}  \\ \hline
+%192 &  \ding{192} & 193 &  \ding{193} & 194 &  \ding{194} & 195 &  \ding{195} & 196 &  \ding{196} & 197 &  \ding{197} & 198 &  \ding{198} & 199 &  \ding{199}  \\ \hline
+%200 &  \ding{200} & 201 &  \ding{201} & 202 &  \ding{202} & 203 &  \ding{203} & 204 &  \ding{204} & 205 &  \ding{205} & 206 &  \ding{206} & 207 &  \ding{207}  \\ \hline
+%208 &  \ding{208} & 209 &  \ding{209} & 210 &  \ding{210} & 211 &  \ding{211} & 212 &  \ding{212} & 213 &  \ding{213} & 214 &  \ding{214} & 215 &  \ding{215}  \\ \hline
+%216 &  \ding{216} & 217 &  \ding{217} & 218 &  \ding{218} & 219 &  \ding{219} & 220 &  \ding{220} & 221 &  \ding{221} & 222 &  \ding{222} & 223 &  \ding{223}  \\ \hline
+%224 &  \ding{224} & 225 &  \ding{225} & 226 &  \ding{226} & 227 &  \ding{227} & 228 &  \ding{228} & 229 &  \ding{229} & 230 &  \ding{230} & 231 &  \ding{231}  \\ \hline
+%232 &  \ding{232} & 233 &  \ding{233} & 234 &  \ding{234} & 235 &  \ding{235} & 236 &  \ding{236} & 237 &  \ding{237} & 238 &  \ding{238} & 239 &  \ding{239}  \\ \hline
+%    &             & 241 &  \ding{241} & 242 &  \ding{242} & 243 &  \ding{243} & 244 &  \ding{244} & 245 &  \ding{245} & 246 &  \ding{246} & 247 &  \ding{247}  \\ \hline
+%248 &  \ding{248} & 249 &  \ding{249} & 250 &  \ding{250} & 251 &  \ding{251} & 252 &  \ding{252} & 253 &  \ding{253} & 254 &  \ding{254} &     &              \\ \hline
+%\end{tabular}
+%\par}
+%
+%\end{table}
 
 %    
+% \begin{macro}{marvosym}
 % marvosym underwent a major rewrite for the 2000/05/01 version, adding
 % a large number of new symbols.  If it looks like we have only the
-% older version, pretend we don't have it at all.
+% older version, pretend we don't have it at all. The tables illustrating the available symbols have been extracted from \cite{marvosym}
+%
 %    \begin{macrocode}  
 \newif\ifMARV
 \newcommand\MARV{\pkgname{marvosym}}
@@ -898,14 +1116,573 @@ and the derived files              phd.ins,
   {}
 
 %    \end{macrocode}
+% \end{macro}
 % 
-%    \begin{macrocode}       
-\newif\ifMAN
-\newcommand\MAN{\pkgname{manfnt}}
-\IfStyFileExists{manfnt}
-  {\MANtrue\usepackage{manfnt}}
-  {}
+%
+%\bgroup
+%\renewcommand\arraystretch{1.4}
+%\newcommand\leg[1]{{\tiny\tt\char92#1}}
+%\newcommand\sho[1]{{\large #1}}
+%\begin{tabular}{|*{10}{c}|} \hline
+%\leg{Pickup} &
+%\leg{Letter} & 
+%\leg{Mobilefone} &
+%\leg{Telefon} &
+%\leg{fax} &
+%\leg{FAX} &
+%\leg{Faxmachine} &
+%\leg{Email} &
+%\leg{Lightning} &
+%\leg{EmailCT} \\
+%\sho{\Pickup} &
+%\sho{\Letter} &
+%\sho{\Mobilefone} &
+%\sho{\Telefon} &
+%\sho{\fax} &
+%\sho{\FAX} &
+%\sho{\Faxmachine} &
+%\sho{\Email} &
+%\sho{\Lightning} &
+%\sho{\EmailCT} \\
+%\hline
+%\end{tabular}
 
+%\begin{tabular}{|*{8}{c}|} \hline
+%\leg{Beam} &
+%\leg{Bearing} &
+%\leg{LooseBearing} &
+%\leg{FixedBearing} &
+%\leg{LeftTorque} &
+%\leg{RightTorque} &
+%\leg{Lineload} &
+%\leg{MVArrowDown} \\
+%\sho{\Beam} &
+%\sho{\Bearing} &
+%\sho{\LooseBearing} &
+%\sho{\FixedBearing} &
+%\sho{\LeftTorque} &
+%\sho{\RightTorque} &
+%\sho{\Lineload} &
+%\sho{\MVArrowDown} \\
+%\hline
+%\leg{OktoSteel} &
+%\leg{HexaSteel} &
+%\leg{SquareSteel} & 
+%\leg{RectSteel} &
+%\leg{CircSteel} &
+%\leg{SquarePipe} &
+%\leg{RectPipe} &
+%\leg{CircPipe}
+%\\
+%\sho{\OktoSteel} &
+%\sho{\HexaSteel} &
+%\sho{\SquareSteel} &
+%\sho{\RectSteel} &
+%\sho{\CircSteel} &
+%\sho{\SquarePipe} &
+%\sho{\RectPipe} &
+%\sho{\CircPipe}
+%\\ \hline
+%\leg{LSteel} &
+%\leg{RoundedLSteel} &
+%\leg{TSteel} &
+%\leg{RoundedTSteel} &
+%\leg{TTsteel} &
+%\leg{RoundedTTSteel} &
+%\leg{FlatSteel} &
+%\leg{Valve}
+%\\
+%\sho{\LSteel} &
+%\sho{\RoundedLSteel} &
+%\sho{\TSteel} &
+%\sho{\RoundedTSteel} &
+%\sho{\TTSteel} &
+%\sho{\RoundedTTSteel} &
+%\sho{\FlatSteel} &
+%\sho{\Valve}
+%\\ \hline
+%\end{tabular}
+
+%\subsection{Information}
+%
+%\begin{tabular}{|*{8}{c}|} \hline
+%\leg{Industry} &
+%\leg{Coffeecup} &
+%\leg{LeftScissors} &
+%\leg{CuttingLine} &
+%\leg{RightScissors} &
+%\leg{Football} &
+%\leg{Bicycle} & \\
+%\sho{\Industry} &
+%\sho{\Coffeecup} &
+%\sho{\LeftScissors} &
+%\sho{\CuttingLine} &
+%\sho{\RightScissors} &
+%\sho{\Football} &
+%\sho{\Bicycle} & \\
+%\hline
+%\leg{Info} &
+%\leg{ClockLogo} &
+%\leg{CutRight} &
+%\leg{CutLineine} &
+%\leg{CutLeft} &
+%\leg{Wheelchair} &
+%\leg{Gentsroom} &
+%\leg{Ladiesroom} \\
+%\sho{\Info} &
+%\sho{\ClockLogo} &
+%\sho{\CutRight} &
+%\sho{\CutLine} &
+%\sho{\CutLeft} &
+%\sho{\Wheelchair} &
+%\sho{\Gentsroom} &
+%\sho{\Ladiesroom} \\
+%\hline
+%\leg{Checkedbox} &
+%\leg{CrossedBox} &
+%\leg{HollowBox} &
+%\leg{PointingHand} &
+%\leg{WritingHand} &
+%\leg{MineSign} &
+%\leg{Recycling} &
+%\leg{PackingWaste} \\
+%\sho{\Checkedbox} &
+%\sho{\CrossedBox} &
+%\sho{\HollowBox} &
+%\sho{\PointingHand} &
+%\sho{\WritingHand} &
+%\sho{\MineSign} &
+%\sho{\Recycling} &
+%\sho{\PackingWaste} \\
+%\hline
+%\end{tabular}
+%
+%\subsection{Laundry}
+%
+%\begin{tabular}{|*{8}{c}|} \hline
+%\leg{WashCotton} &
+%\leg{WashSynthetics} &
+%\leg{WashWool} &
+%\leg{HandWash} &
+%\leg{NoWash} &
+%\leg{Tumbler} &
+%\leg{NoTumbler} &
+%\leg{NoChemicalCleaning} \\
+%\sho{\WashCotton} &
+%\sho{\WashSynthetics} &
+%\sho{\WashWool} &
+%\sho{\HandWash} &
+%\sho{\NoWash} &
+%\sho{\Tumbler} &
+%\sho{\NoTumbler} &
+%\sho{\NoChemicalCleaning} \\
+%\hline
+%\leg{Bleech} &
+%\leg{NoBleech} &
+%\leg{CleaningA} &
+%\leg{CleaningP} &
+%\leg{CleaningPP} &
+%\leg{CleaningF} &
+%\leg{CleaningFF} & \\
+%\sho{\Bleech} &
+%\sho{\NoBleech} &
+%\sho{\CleaningA} &
+%\sho{\CleaningP} &
+%\sho{\CleaningPP} &
+%\sho{\CleaningF} &
+%\sho{\CleaningFF} & \\
+%\hline
+%\leg{IroningI} &
+%\leg{IroningII} &
+%\leg{IroningIII} &
+%\leg{NoIroning} &
+%\leg{AtNinetyFive} &
+%\leg{ShortNinetyFive} &
+%\leg{AtSixty} &
+%\leg{ShortSixty} \\
+%\sho{\IroningI} &
+%\sho{\IroningII} &
+%\sho{\IroningIII} &
+%\sho{\NoIroning} &
+%\sho{\AtNinetyFive} &
+%\sho{\ShortNinetyFive} &
+%\sho{\AtSixty} &
+%\sho{\ShortSixty} \\
+%\hline
+%\leg{ShortFifty} &
+%\leg{AtForty} &
+%\leg{ShortForty} &
+%\leg{SpecialForty} &
+%\leg{ShortThirty} &&& \\
+%\sho{\ShortFifty} &
+%\sho{\AtForty} &
+%\sho{\ShortForty} &
+%\sho{\SpecialForty} &
+%\sho{\ShortThirty} &&& \\
+%\hline
+%\end{tabular}
+%
+%\subsection{Currency}
+%
+%\begin{tabular}{|*{11}{c}|} \hline
+%\leg{EUR} &
+%\leg{EURdig} &
+%\leg{EURhv} &
+%\leg{EURcr} &
+%\leg{EURtm} &
+%\leg{Ecommerce} &
+%\leg{Shilling} &
+%\leg{Denarius} &
+%\leg{Pfund} &
+%\leg{EyesDollar} &
+%\leg{Florin} \\
+% &
+%\leg{EurDig} &
+%\leg{EurHv} &
+%\leg{EurCr} &
+%\leg{EurTm} &
+%\leg{EstimatedSign} &
+% &
+%\leg{Deleatur} &
+% &
+% &
+% \\
+%\sho{\EUR} &
+%\sho{\EurDig} &
+%\sho{\EurHv} &
+%\sho{\EurCr} &
+%\sho{\EurTm} &
+%\sho{\EstimatedSign} &
+%\sho{\Shilling} &
+%\sho{\Deleatur} &
+%\sho{\Pfund} &
+%\sho{\EyesDollar} &
+%\sho{\Florin} \\
+%\hline
+%\end{tabular}
+%\subsection{Safety}
+%
+%\begin{tabular}{|*{8}{c}|} \hline
+%\leg{Stopsign} &
+%\leg{CESign} &
+%\leg{Estatically} &
+%\leg{Explosionsafe} &
+%\leg{Laserbeam} &
+%\leg{Biohazard} &
+%\leg{Radioactivity} &
+%\leg{BSEFree} \\
+%\sho{\Stopsign} &
+%\sho{\CESign} &
+%\sho{\Estatically} &
+%\sho{\Explosionsafe} &
+%\sho{\Laserbeam} &
+%\sho{\Biohazard} &
+%\sho{\Radioactivity} &
+%\sho{\BSEFree} \\
+%\hline
+%\end{tabular}
+%
+%\subsection{Navigation}
+%
+%\begin{tabular}{|*{10}{c}|} \hline
+%\leg{RewindToIndex} &
+%\leg{RewindToStart} &
+%\leg{Rewind} &
+%\leg{Forward} &
+%\leg{ForwardToEnd} &
+%\leg{ForwardToIndex} &
+%\leg{MoveUp} &
+%\leg{MoveDown} &
+%\leg{ToTop} &
+%\leg{ToBottom} \\
+%\sho{\RewindToIndex} &
+%\sho{\RewindToStart} &
+%\sho{\Rewind} &
+%\sho{\Forward} &
+%\sho{\ForwardToEnd} &
+%\sho{\ForwardToIndex} &
+%\sho{\MoveUp} &
+%\sho{\MoveDown} &
+%\sho{\ToTop} &
+%\sho{\ToBottom} \\
+%\hline
+%\end{tabular}
+%
+%\subsection{Computers}
+%
+%\begin{tabular}{|*{6}{c}|} \hline
+%\leg{ComputerMouse} &
+%\leg{SerialInterface} &
+%\leg{Keyboard} &
+%\leg{SerialPort} &
+%\leg{ParallelPort} &
+%\leg{Printer} \\
+%\sho{\ComputerMouse} &
+%\sho{\SerialInterface} &
+%\sho{\Keyboard} &
+%\sho{\SerialPort} &
+%\sho{\ParallelPort} &
+%\sho{\Printer} \\
+%\hline
+%\end{tabular}
+%
+%\subsection{Numbers}
+%
+%\begin{tabular}{|*{10}{c}|} \hline
+%\leg{MVZero} &
+%\leg{MVOne} &
+%\leg{MVTwo} &
+%\leg{MVThree} &
+%\leg{MVFour} &
+%\leg{MVFive} &
+%\leg{MVSix} &
+%\leg{MVSeven} &
+%\leg{MVEight} &
+%\leg{MVNine} \\
+%\sho{\MVZero} &
+%\sho{\MVOne} &
+%\sho{\MVTwo} &
+%\sho{\MVThree} &
+%\sho{\MVFour} &
+%\sho{\MVFive} &
+%\sho{\MVSix} &
+%\sho{\MVSeven} &
+%\sho{\MVEight} &
+%\sho{\MVNine} \\
+%\hline
+%\end{tabular}
+%
+%\subsection{Maths}
+%
+%\begin{tabular}{|*{8}{c}|} \hline
+%\leg{MVLeftBracket} &
+%\leg{MVRightBracket} &
+%\leg{MVComma} &
+%\leg{MVPeriod} &
+%\leg{MVMinus} &
+%\leg{MVPlus} &
+%\leg{MVDivision} &
+%\leg{MVMultiplication} \\
+%\sho{\MVLeftBracket} &
+%\sho{\MVRightBracket} &
+%\sho{\MVComma} &
+%\sho{\MVPeriod} &
+%\sho{\MVMinus} &
+%\sho{\MVPlus} &
+%\sho{\MVDivision} &
+%\sho{\MVMultiplication} \\
+%\hline
+%% \end{tabular}
+%% 
+%% \begin{tabular}{|*{10}{c}|} \hline
+%\leg{Conclusion} &
+%\leg{Equivalence} &
+%\leg{barOver} &
+%\leg{BarOver} &
+%\leg{arrowOver} &
+%\leg{ArrowOver} &
+%\leg{StrikingThrough} &
+%\leg{MultiplicationDot} \\
+%\sho{\Conclusion} &
+%\sho{\Equivalence} &
+%\sho{\barOver} &
+%\sho{\BarOver} &
+%\sho{\arrowOver} &
+%\sho{\ArrowOver} &
+%\sho{\StrikingThrough} &
+%\sho{\MultiplicationDot} \\
+%\hline
+%% \end{tabular}
+%% 
+%% \begin{tabular}{|*{10}{c}|} \hline
+%\leg{LessOrEqual} &
+%\leg{LargerOrEqual} &
+%\leg{AngleSign} &
+%\leg{Corresponds} &
+%\leg{Congruent} &
+%\leg{NotCongruent} &
+%\leg{Divides} &
+%\leg{DividesNot} \\
+%\sho{\LessOrEqual} &
+%\sho{\LargerOrEqual} &
+%\sho{\AngleSign} &
+%\sho{\Corresponds} &
+%\sho{\Congruent} &
+%\sho{\NotCongruent} &
+%\sho{\Divides} &
+%\sho{\DividesNot} \\
+%\hline
+%\end{tabular}
+
+% \subsection{Biology}
+% 
+% \begin{tabular}{|*{10}{c}|} \hline
+% \leg{Neutral} &
+% \leg{Male} &
+% \leg{Hermaphrodite} &
+% \leg{Female} &
+% \leg{MALE} &
+% \leg{HERMAPHRODITE} &
+% \leg{FEMALE} &
+% \leg{MaleMale} &
+% \leg{FemaleFemale} &
+% \leg{FemaleMale} \\
+% \sho{\Neutral} &
+% \sho{\Male} &
+% \sho{\Hermaphrodite} &
+% \sho{\Female} &
+% \sho{\MALE} &
+% \sho{\HERMAPHRODITE} &
+% \sho{\FEMALE} &
+% \sho{\MaleMale} &
+% \sho{\FemaleFemale} &
+% \sho{\FemaleMale} \\
+% \hline
+% \end{tabular}
+
+%\subsection{Biology}
+%
+%\begin{tabular}{|*{4}{c}|} \hline
+%\leg{Female} &
+%\leg{Male} &
+%\leg{Hermaphrodite} &
+%\leg{Neutral} \\
+%\sho{\Female} &
+%\sho{\Male} &
+%\sho{\Hermaphrodite} &
+%\sho{\Neutral} \\
+%\hline
+%\leg{FEMALE} &
+%\leg{MALE} &
+%\leg{HERMAPHRODITE} & \\
+%\sho{\FEMALE} &
+%\sho{\MALE} &
+%\sho{\HERMAPHRODITE} & \\
+%\hline
+%\leg{FemaleFemale} &
+%\leg{MaleMale} &
+%\leg{FemaleMale} & \\
+%\sho{\FemaleFemale} &
+%\sho{\MaleMale} &
+%\sho{\FemaleMale} & \\
+%\hline
+%\end{tabular}
+
+%\subsection{Astronomy}
+%
+%\begin{tabular}{|*{11}{c}|} \hline
+%\leg{Sun} &
+%\leg{Moon} &
+%\leg{Mercury} &
+%\leg{Venus} &
+%\leg{Mars} &
+%\leg{Jupiter} &
+%\leg{Saturn} &
+%\leg{Uranus} &
+%\leg{Neptune} &
+%\leg{Pluto} &
+%\leg{Earth} \\
+%\sho{\Sun} &
+%\sho{\Moon} &
+%\sho{\Mercury} &
+%\sho{\Venus} &
+%\sho{\Mars} &
+%\sho{\Jupiter} &
+%\sho{\Saturn} &
+%\sho{\Uranus} &
+%\sho{\Neptune} &
+%\sho{\Pluto} &
+%\sho{\Earth} \\
+%\hline
+%\end{tabular}
+
+%\subsection{Astrology}
+%
+
+
+%\begin{tabular}{|*{12}{c}|} \hline
+%\leg{Aries} &
+%\leg{Taurus} &
+%\leg{Gemini} &
+%\leg{Cancer} &
+%\leg{Leo} &
+%\leg{Virgo} &
+%\leg{Libra} &
+%\leg{Scorpio} &
+%\leg{Sagittarius} &
+%\leg{Capricorn} &
+%\leg{Aquarius} &
+%\leg{Pisces} \\
+%\sho{\Aries} &
+%\sho{\Taurus} &
+%\sho{\Gemini} &
+%\sho{\Cancer} &
+%\sho{\Leo} &
+%\sho{\Virgo} &
+%\sho{\Libra} &
+%\sho{\Scorpio} &
+%\sho{\Sagittarius} &
+%\sho{\Capricorn} &
+%\sho{\Aquarius} &
+%\sho{\Pisces} \\
+%\hline
+%\end{tabular}
+%
+%\subsection{Others}
+%
+%\begin{tabular}{|*{10}{c}|} \hline
+%\leg{YinYang} &
+%\leg{MVRightArrow} &
+%\leg{MVAt} &
+%\leg{BOLogo} &
+%\leg{BOLogoL} &
+%\leg{BALogoP} &
+%\leg{Mundus} &
+%\leg{Cross} &
+%\leg{CeltCross} &
+%\leg{Ankh} \\
+%\sho{\YinYang} &
+%\sho{\MVRightArrow} &
+%\sho{\MVAt} &
+%\sho{\BOLogo} &
+%\sho{\BOLogoL} &
+%\sho{\BOLogoP} &
+%\sho{\Mundus} &
+%\sho{\Cross} &
+%\sho{\CeltCross} &
+%\sho{\Ankh} \\
+%\hline
+%\leg{Heart} &
+%\leg{CircledA} &
+%\leg{Bouquet} &
+%\leg{Frowny} &
+%\leg{Smiley} &
+%\leg{PeaceDove} &
+%\leg{Bat} &
+%\leg{WomanFace} &
+%\leg{ManFace} & \\
+%\sho{\Heart} &
+%\sho{\CircledA} &
+%\sho{\Bouquet} &
+%\sho{\Frowny} &
+%\sho{\Smiley} &
+%\sho{\PeaceDove} &
+%\sho{\Bat} &
+%\sho{\WomanFace} &
+%\sho{\ManFace} & \\
+%\hline
+%\end{tabular}
+
+
+%\egroup
+
+% \subsection{The bbding package}
+% \begin{macro}{bbding} Thepackage provides an easy-to-use interface to the \texttt{bbding} symbol
+%   set developed by \emph{Karel Horak}.  The naming conventions is made
+%   close to \emph{Zapf-Dingbat} as it can be found in \texttt{Wordperfect
+%   6.0}, however, sometimes shortening the names.
+%
+%    \begin{macrocode}  
 \newif\ifDING
 \newcommand\DING{\pkgname{bbding}}
 \IfStyFileExists{bbding}
@@ -914,11 +1691,250 @@ and the derived files              phd.ins,
    \usepackage{bbding}
    \restoresymbol{ding}{Cross} \restoresymbol{ding}{Square}
   }
-  {}
+  {}     
+
+\newcount\c@lumnsleft
+\newcount\t@talcolumns
+\newdimen\c@lumnwidth
+\newenvironment{commandsInColumns}[1]{%
+  \t@talcolumns=#1\advance\t@talcolumns-1\c@lumnsleft=\t@talcolumns%
+  \c@lumnwidth=-2em\multiply\c@lumnwidth by \t@talcolumns%
+  \advance\c@lumnwidth by\hsize \divide\c@lumnwidth by #1%
+  \vskip\z@     % Ensures vertical mode
+  \catcode`\^^M=12%
+  \hbox\bgroup%
+  \st@rtenv%
+}
+{\ifnum\c@lumnsleft=\t@talcolumns \egroup
+ \else \egroup \fi}
+
+{\catcode`\^^M=12%
+ \gdef\st@rtenv{\@ifnextchar^^M{\dr@pnext\doNextComm@nd}{\doNextComm@nd}}%
+ \gdef\setComm@nd#1#2^^M{%
+   \hbox to \c@lumnwidth%
+     {\hbox to .5cm{#1\hss}\hbox{\expandafter\setn@me\string#1.}\hss}%
+   \advance\c@lumnsleft-1%
+   \ifnum\c@lumnsleft>0%
+     \hskip2em%
+   \else%
+     \egroup%
+     \hbox\bgroup%
+     \c@lumnsleft\t@talcolumns%
+   \fi%
+   \doNextComm@nd%
+  }}
+\def\dr@pnext#1#2{#1}
+\def\doNextComm@nd{\@ifnextchar\end{}{\setComm@nd}}%
+\def\setn@me#1#2.{\CSname{#2}}
+
+
+\newcommand{\CSname}[1]{\texttt{\protect\bslash#1}}
+%    \end{macrocode}
+% \end{macro}
+
+
+% \begin{figure}[tbp] \small 
+% \begin{commandsInColumns}{2}
+%   \ScissorRight
+%   \ScissorRightBrokenBottom
+%   \ScissorRightBrokenTop
+%   \ScissorHollowRight
+%   \ScissorLeft
+%   \ScissorLeftBrokenBottom
+%   \ScissorLeftBrokenTop
+%   \ScissorHollowLeft
+% \end{commandsInColumns}
+% \caption{Scissors from the \texttt{bbding} package.}
+% \end{figure}
+%
+% \begin{figure} \small 
+% \begin{commandsInColumns}{3}
+%   \HandRight
+%   \HandRightUp
+%   \HandCuffRight
+%   \HandCuffRightUp
+%   \HandLeft
+%   \HandLeftUp
+%   \HandCuffLeft
+%   \HandCuffLeftUp
+%   \HandPencilLeft
+% \end{commandsInColumns}
+% \caption{Hands}
+% \end{figure}
+%
+% \begin{figure} \small 
+% \begin{commandsInColumns}{3}
+%   \PencilRight
+%   \PencilRightUp
+%   \PencilRightDown
+%   \PencilLeft
+%   \PencilLeftUp
+%   \PencilLeftDown
+%   \NibRight
+%   \NibSolidRight
+%   \NibLeft
+%   \NibSolidLeft
+% \end{commandsInColumns}
+% \caption{Writing tools}
+% \end{figure}
+%
+% \begin{figure} \small 
+% \begin{commandsInColumns}{3}
+%   \XSolid
+%   \XSolidBold
+%   \XSolidBrush
+%   \Plus
+%   \PlusOutline
+%   \PlusCenterOpen
+%   \PlusThinCenterOpen
+%   \Cross
+%   \CrossOpenShadow
+%   \CrossOutline
+%   \CrossBoldOutline
+%   \CrossClowerTips
+%   \CrossMaltese
+% \end{commandsInColumns}
+% \caption{Crosses, plusses and the like}
+% \end{figure}
+%
+% \begin{figure} \small 
+% \begin{commandsInColumns}{3}
+%   \DavidStar
+%   \DavidStarSolid
+%   \JackStar
+%   \JackStarBold
+%   \FourStar
+%   \FourStarOpen
+%   \FiveStar
+%   \FiveStarLines
+%   \FiveStarOpen
+%   \FiveStarOpenCircled
+%   \FiveStarCenterOpen
+%   \FiveStarOpenDotted
+%   \FiveStarOutline
+%   \FiveStarOutlineHeavy
+%   \FiveStarConvex
+%   \FiveStarShadow
+%   \SixStar
+%   \EightStar
+%   \EightStarBold
+%   \EightStarTaper
+%   \EightStarConvex
+%   \TwelweStar
+%   \SixteenStarLight
+%   \Asterisk
+%   \AsteriskBold
+%   \AsteriskCenterOpen
+%   \AsteriskThin
+%   \AsteriskThinCenterOpen
+%   \AsteriskRoundedEnds
+%   \FourAsterisk
+%   \EightAsterisk
+% \end{commandsInColumns}
+% \caption{All kind of stars}
+% \end{figure}
+%
+% \begin{figure} \small 
+% \begin{commandsInColumns}{2}
+%   \FiveFlowerOpen
+%   \FiveFlowerPetal
+%   \SixFlowerOpenCenter
+%   \SixFlowerRemovedOpenPetal
+%   \SixFlowerAlternate
+%   \SixFlowerAltPetal
+%   \SixFlowerPetalDotted
+%   \SixFlowerPetalRemoved
+%   \EightFlowerPetalRemoved
+%   \EightFlowerPetal
+%   \FourClowerOpen
+%   \FourClowerSolid
+%   \Sparkle
+%   \SparkleBold
+%   \SnowflakeChevron
+%   \SnowflakeChevronBold
+%   \Snowflake
+% \end{commandsInColumns}
+% \caption{Flowers, snowflakes and the like}
+% \end{figure}
+%
+% \begin{figure} \small 
+% \begin{commandsInColumns}{2}
+%   \CircleSolid
+%   \CircleShadow
+%   \HalfCircleRight
+%   \HalfCircleLeft
+%   \Ellipse
+%   \EllipseSolid
+%   \EllipseShadow
+%   \Square
+%   \SquareSolid
+%   \SquareShadowBottomRight
+%   \SquareShadowTopRight
+%   \SquareShadowTopLeft
+%   \SquareCastShadowBottomRight
+%   \SquareCastShadowTopRight
+%   \SquareCastShadowTopLeft
+%   \TriangleUp
+%   \TriangleDown
+%   \DiamondSolid
+%   \OrnamentDiamondSolid
+%   \RectangleThin
+%   \Rectangle
+%   \RectangleBold
+% \end{commandsInColumns}
+% \caption{Geometrical Shapes}
+% \end{figure}
+%
+% \begin{figure} \small 
+% \begin{commandsInColumns}{3}
+%   \Phone
+%   \PhoneHandset
+%   \Tape
+%   \Plane
+%   \Envelope
+%   \Peace
+%   \Checkmark
+%   \CheckmarkBold
+%   \SunshineOpenCircled
+%   \ArrowBoldRightStrobe
+%   \ArrowBoldUpRight
+%   \ArrowBoldDownRight
+%   \ArrowBoldRightShort
+%   \ArrowBoldRightCircled
+% \end{commandsInColumns}
+% \caption{Miscellaneous}
+% \end{figure}
+% 
+% \subsection{The \texttt{manfnt} package.}
+% 
+% The \TeX{} and metafont manuals use some special symbols not found in
+% the normal CM-fonts. Most of these symbols will be of little use for
+% the average author, but some, like the ``Dangerous Bend'' sign may be
+% approriate for some textbooks. As the author states, these symbols tend
+% to detract the user; I have included them for the sake of the dangerbend
+% symbol. The package maintainer is Axel Kielhorn.
+%
+%    \begin{macrocode}
+\newif\ifMAN
+\newcommand\MAN{\pkgname{manfnt}}
+\IfStyFileExists{manfnt}
+  {\MANtrue\usepackage{manfnt}}
+  {}   
 %    \end{macrocode}
 
+% \begin{figure} \small 
+% \begin{commandsInColumns}{3}
+%   \dbend
+%   \lhdbend
+%  \reversedvideodbend
+% \end{commandsInColumns}
+% \caption{Double bend warning signs from the manfnt package.}
+% \end{figure}
 
-%    
+% I am not too sure if I should leave the package here for the long
+% term or remove it, perhaps make a "bundle" for LaTeX authors.
+
+
 % \subsection{The \texttt{undertilde} package}      
 %    \begin{macrocode}    
 \newif\ifUTILD
@@ -956,10 +1972,71 @@ and the derived files              phd.ins,
 %    \end{macrocode}
 % \end{macro}
 % The |ifsym| package can produce some fancy symbols such as \Cube{1},\Cube{6} etc. a cross \Cross
-% a \TriangleUp      {\color{red}\TriangleDown}             
-%  
+% a \TriangleUp      {\color{red}\TriangleDown}. The documentation is in postscript?  \PulseHigh \showclock{0}{45}
 
-
+% \subsection{Weather Symbols}
+% \begin{figure}[h] \small 
+% \begin{commandsInColumns}{3}
+% \Sun
+% \HalfSun
+% \NoSun
+% \Fog
+% \ThinFog
+% \Rain
+% \WeakRain
+% \Hail
+% \Sleet
+% \Snow
+% \Lightning
+% \Cloud
+% \RainCloud
+% \WeakRainCloud
+% \SunCloud
+% \SnowCloud
+% \FilledCloud
+% \FilledRainCloud
+% \FilledWeakRainCloud
+% \FilledSunCloud
+% \FilledSnowCloud
+%\end{commandsInColumns}
+% \allCubes
+% \caption{ifsym Weather symbols}
+% \end{figure}
+%
+% \begin{figure}[h] \small 
+% \begin{commandsInColumns}{3}
+% \Telephone
+% \SectioningDiamond
+% \FilledSectioningDiamond
+% \PaperPortrait
+% \PaperLandscape
+% \Irritant
+% \Fire
+% \Radiation
+% \StrokeOne
+% \StrokeTwo
+% \StrokeThree
+% \StrokeFour
+% \StrokeFive
+%\end{commandsInColumns}
+% {\Huge\color{yellow!60}\Radiation}
+% \caption{ifsym misc symbols}
+% \end{figure}
+%
+% \begin{figure}[h] \small 
+% \begin{commandsInColumns}{3}
+%\Taschenuhr
+%\VarTaschenuhr
+%\StopWatchStart
+%\StopWatchEnd
+%\Interval
+%\Wecker
+%\VarClock
+%\end{commandsInColumns}
+% 
+% \caption{ifsym clock option symbols symbols}
+% \end{figure}
+%
 % \section{Epigraphs and quotations}
 % \subsection{Epigraphs}
 %    \begin{macrocode}
@@ -3109,6 +4186,35 @@ go back to the beginning of current section\;
 %</test-algorithms>
 % \fi
 % ^^A\addtocontents{toc}{\protect\end{multicols}}
+%\begin{thebibliography}{1}
+%\raggedright
+%
+%\bibitem{companion}
+%Frank Mittelbach et al.:
+%\textit{The LaTeX Companion}.\\
+%2nd edition. Addison Wesley, 2004.
+%
+%%\bibitem{gcompanion}
+%%Michel Goossens, Sebastian Rahtz, and
+%%Frank Mittelbach:\\
+%%\textit{The LaTeX Graphics Companion}.\\
+%%Addison Wesley Longman, 1997.
+%
+%\bibitem{fntguide}
+%\LaTeX3 Project Team (Ed.):
+%\textit{LaTeX2e font selection.}\\
+%CTAN: \path{macros/latex/doc/fntguide.pdf}\\
+%(Part of the \LaTeX{} online documentation)
+%
+%\bibitem{marvosym}
+%Thomas Henlich,Mojca Miklavec:
+%\textit{The MarVoSym Font Package}
+%
+%\end{thebibliography}
+
+
+
+
 % \Finale
 % \PrintIndex
 
