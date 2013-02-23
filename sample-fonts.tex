@@ -1,8 +1,9 @@
 \documentclass{article}
-\usepackage{lipsum,url}
-\usepackage{textcomp}
-\usepackage{amsfonts,amsmath}
-\usepackage{ifpdf}
+\usepackage{phd}
+%\usepackage{lipsum,url}
+%\usepackage{textcomp}
+%\usepackage{amsfonts,amsmath}
+%\usepackage{ifpdf}
 \ifpdf
    \pdfmapfile{+mathgifg.map}
 \fi
@@ -111,13 +112,13 @@ not have \texttt{\string\jmath}, so we took one from CM.
 
 Math Italic (\texttt{\string\mathnormal})
 \def\test#1{\mathnormal{#1},}
-\begin{eqnarray*}
+\begin{align*}
   && {\testnums}\\
   && {\testupper}\\
   && {\testlower}\\ 
   && {\testupgreek}\\
   && {\testlowgreek}
-\end{eqnarray*}%
+\end{align*}%
 
 Math Roman (\texttt{\string\mathrm})
 \def\test#1{\mathrm{#1},}
