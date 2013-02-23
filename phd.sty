@@ -14,11 +14,65 @@
 %% 
 
 
-%%
+
 
 \NeedsTeXFormat{LaTeX2e}% LaTeX 2.09 can't be used (nor non-LaTeX)
 [1994/12/01]% LaTeX date must be December 1994 or later
 \ProvidesPackage{phd}[2013/2/26 v1.0 less preamble (YL)]
+
+\newcommand*{\savesymbol}[1]{%
+  \expandafter\let\csname orig#1\expandafter\endcsname\csname#1\endcsname
+  \expandafter\let\csname #1\endcsname\relax
+}
+\newcommand*{\restoresymbol}[2]{%
+  \expandafter\global\expandafter\let\csname#1#2\expandafter\endcsname%
+    \csname#2\endcsname
+  \expandafter\global\expandafter\let\csname#2\expandafter\endcsname%
+    \csname orig#2\endcsname
+}
+\newcommand*{\renamerobustsymbol}[2]{%
+  \expandafter\let\expandafter\origrealcommand
+    \csname #2\space\endcsname
+  \expandafter\global\expandafter\let\csname#1#2\endcsname=\origrealcommand
+}
+\def\ifnotsavedsym@helper#1#2!{\expandafter\ifx\csname orig#2\endcsname\relax}
+\newcommand*{\ifnotsavedsym}[1]{%
+  \expandafter\ifnotsavedsym@helper\string#1!%
+}
+\newif\ifcomplete
+\newif\ifloadpackages
+\loadpackagestrue
+\newcommand{\missingpkgs}{}
+\newcommand{\foundpkgs}{}
+\newcommand{\if@sty@file@exists@star}[3]{%
+  \ifloadpackages
+    \IfFileExists{#1.sty}{#2}{#3}%
+  \else
+    #3%
+  \fi
+}
+\newcommand{\if@sty@file@exists}[3]{%
+  \ifloadpackages
+    \IfFileExists{#1.sty}%
+                 {#2\@cons\foundpkgs{{#1}}}%
+                 {#3\completefalse\@cons\missingpkgs{{#1}}}%
+  \else
+    #3\completefalse\@cons\missingpkgs{{#1}}%
+  \fi
+}
+\newcommand{\IfStyFileExists}{%
+  \@ifstar{\if@sty@file@exists@star}{\if@sty@file@exists}%
+}
+
+
+\def\symbols{\flushleft}
+\def\endsymbols{\endflushleft}
+\def\dosymbol#1{%
+   \leavevmode\hbox to .33\textwidth{%
+    \hbox to 1.2em%
+    {\hss$#1$\hfil}%
+   \footnotesize\texttt{\string#1}\hss}%
+   \penalty10}
 \RequirePackage{fixltx2e}                % LaTeX2e fixes
 \RequirePackage{pgf,pgfkeys}               % before onlyasmath
 \newcommand\cxset{\pgfqkeys{/phd }} %Notice this is pgf q keys
@@ -66,8 +120,11 @@
 \newcounter{step}
 \def\resetinc{\setcounter{step}{0}}
 \def\inc{\stepcounter{step}\thestep}
-\RequirePackage{array}
 \RequirePackage{tabularx}
+
+\RequirePackage{delarray}
+\RequirePackage{array}
+
 
 \RequirePackage{dcolumn}
 \RequirePackage{longtable}
@@ -78,52 +135,10 @@
 \RequirePackage{threeparttable}
 \RequirePackage{pdflscape}
 
-\newcommand*{\savesymbol}[1]{%
-  \expandafter\let\csname orig#1\expandafter\endcsname\csname#1\endcsname
-  \expandafter\let\csname #1\endcsname\relax
-}
-\newcommand*{\restoresymbol}[2]{%
-  \expandafter\global\expandafter\let\csname#1#2\expandafter\endcsname%
-    \csname#2\endcsname
-  \expandafter\global\expandafter\let\csname#2\expandafter\endcsname%
-    \csname orig#2\endcsname
-}
-\newcommand*{\renamerobustsymbol}[2]{%
-  \expandafter\let\expandafter\origrealcommand
-    \csname #2\space\endcsname
-  \expandafter\global\expandafter\let\csname#1#2\endcsname=\origrealcommand
-}
-\def\ifnotsavedsym@helper#1#2!{\expandafter\ifx\csname orig#2\endcsname\relax}
-\newcommand*{\ifnotsavedsym}[1]{%
-  \expandafter\ifnotsavedsym@helper\string#1!%
-}
-\newif\ifcomplete
-\newif\ifloadpackages
-\loadpackagestrue
-\newcommand{\missingpkgs}{}
-\newcommand{\foundpkgs}{}
-\newcommand{\if@sty@file@exists@star}[3]{%
-  \ifloadpackages
-    \IfFileExists{#1.sty}{#2}{#3}%
-  \else
-    #3%
-  \fi
-}
-\newcommand{\if@sty@file@exists}[3]{%
-  \ifloadpackages
-    \IfFileExists{#1.sty}%
-                 {#2\@cons\foundpkgs{{#1}}}%
-                 {#3\completefalse\@cons\missingpkgs{{#1}}}%
-  \else
-    #3\completefalse\@cons\missingpkgs{{#1}}%
-  \fi
-}
-\newcommand{\IfStyFileExists}{%
-  \@ifstar{\if@sty@file@exists@star}{\if@sty@file@exists}%
-}
-
+\RequirePackage[allowspaces]{empheq} %defines harpoon macros
 \PassOptionsToPackage{leqno}{mathtools}
 \RequirePackage{mathtools}
+\RequirePackage{nicefrac}
 \cxset{tag left bracket/.store in = \leftbracket@cx,
        tag right bracket/.store in = \rightbracket@cx,
        tag font-weight/.store in = \tagfontweight@cx,
@@ -140,6 +155,9 @@
 
 \RequirePackage{amssymb}[2002/01/22]
 \RequirePackage{amsthm}[2002/01/22]
+\RequirePackage{amsopn}
+\RequirePackage{empheq}
+
 \newif\ifXPFEIL
 \newcommand\XPFEIL{\pkgname{extpfeil}}
 \IfStyFileExists{extpfeil}
@@ -177,6 +195,9 @@
 \RequirePackage{textcomp}
 \PassOptionsToPackage{mathcomp}{rmdefault}
 \RequirePackage{mathcomp}
+
+\RequirePackage{exscale}
+\RequirePackage{relsize}
 
 \newcommand{\tabitem}[2]{%
   \texttt{\symbol{`\\}#1} & \@nameuse{#1} & \bfseries\@nameuse{#1}&
@@ -463,6 +484,19 @@ ProvidesClass,IfFileExists,RequirePackage,ifthenelse,chapter,includegraphics, ne
 \RequirePackage{ragged2e}
 \RequirePackage{soul}
 \RequirePackage{ulem}
+\RequirePackage{cancel}
+\RequirePackage{framed}
+\RequirePackage{mdframed}
+\RequirePackage{varioref}
+\newcommand\hcancel[2][black]{\setbox0=\hbox{#2}%
+\rlap{\raisebox{.45\ht0}{\textcolor{#1}{\rule{\wd0}{1pt}}}}#2}
+
+
+
+\RequirePackage{varwidth}
+\RequirePackage{comment}
+\RequirePackage{alltt}[1997/06/16]
+\RequirePackage{pgfplots}
 \newif\ifCCLIC
 \newcommand\CCLIC{\pkgname{cclicenses}}
 \IfStyFileExists{cclicenses}
@@ -1988,12 +2022,6 @@ ProvidesClass,IfFileExists,RequirePackage,ifthenelse,chapter,includegraphics, ne
   Zeit-schrift
 }
 \fi
-%%\bibitem{gcompanion}
-%%Michel Goossens, Sebastian Rahtz, and
-%%Frank Mittelbach:\\
-%%\textit{The LaTeX Graphics Companion}.\\
-%%Addison Wesley Longman, 1997.
-
 
 %% 
 %% Copyright (C) 2011 by Dr. Yiannis Lazarides <yannislaz@gmail.com>
