@@ -139,6 +139,9 @@
 % that make sense.
 \def\panel#1{{\inc\space\space\small\texttt{#1}}}
 
+\makeatletter
+\def\chaptername{CHAPTER}
+\makeatother
 \begin{document}
 
 %\input{./Sections/definitions}
@@ -153,16 +156,17 @@
 \listoffigures
 \listoftables
 
-\input{./Sections/update-04}
-\mainmatter
 
+\mainmatter
+\input{./Sections/update-04}
+\input{./sections/firealarm}
 \input{./Sections/firefighting-02}
 \input{./Sections/staircasepressurization-01}
 \input{./Sections/kitchenextract-01}
 \input{./Sections/chilledwater-01}
 
-\input{./Sections/electrical-02}
-\input{./Sections/CCTV}
+%\input{./Sections/electrical-02}
+%\input{./Sections/CCTV}
 \end{document}
 \input{./Sections/HVAC}
 \input{./Sections/towers-rotana-02}
