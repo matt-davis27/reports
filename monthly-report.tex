@@ -17,9 +17,9 @@
 
 \usepackage{verbatim}
 \usepackage{caption}
-\DeclareCaptionFont{blue}{\color{black}}
+\DeclareCaptionFont{blue}{\color{black}\small}
 
-%\setup{justification=raggedright, singlelinecheck=false,font={blue,sf,small}}
+\captionsetup{justification=raggedright, singlelinecheck=false,font={blue,sf,small}}
 
 
 
@@ -129,7 +129,7 @@
 % that make sense.
 \def\panel#1{{\inc\space\space\small\texttt{#1}}}
 
-
+\def\EI#1{\texttt{EI}}
 \begin{document}
 
 %\input{./Sections/definitions}
@@ -148,8 +148,7 @@
 \mainmatter
 
 \input{./Sections/update-04}
-\end{document}
-
+\input{./sections/civildefence}
 \input{./sections/firealarm}
 \input{./Sections/firefighting-02}
 \input{./Sections/staircasepressurization-01}
