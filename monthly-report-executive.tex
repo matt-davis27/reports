@@ -1,0 +1,251 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+
+\documentclass[a4paper, oneside, justified=true, sfsidenotes]{tufte-book} 
+
+\usepackage[utf8]{inputenc} % set input encoding to utf8
+\usepackage[english]{babel}[2005/11/23]
+\usepackage{phd}
+%% Bibliography
+\usepackage{natbib}
+% useful to write files on the fly
+
+\bibliographystyle{plainnat} % note the change here
+\bibpunct{(}{)}{;}{a}{,}{,}
+
+
+\usepackage{verbatim}
+\usepackage{caption}
+\DeclareCaptionFont{blue}{\color{black}}
+
+%\setup{justification=raggedright, singlelinecheck=false,font={blue,sf,small}}
+
+
+%overwrite tufte and have numbering
+\setcounter{secnumdepth}{5}
+
+
+%% Change some of the looks
+%%% CHAPTER STYLES AND SECTION STYLES
+\pagestyle{fancy}
+\renewcommand{\chaptermark}[1]%
+{\markboth{\MakeUppercase{\chaptertitlename\ \thechapter\ #1}}{}} 
+\renewcommand{\sectionmark}[1]%
+{\markright{\MakeUppercase{\thesection~\ #1}}}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0pt}
+\newcommand{\helv}{%
+\fontfamily{phv}\fontseries{b}\fontsize{9}{11}\selectfont}
+\fancyhf{}
+\fancyhead[LE,RO]{\helv \thepage}
+\fancyhead[LO]{\helv \rightmark}
+\fancyhead[RE]{\helv \leftmark}
+
+
+% Typesets the font size, leading, and measure in the form of 10/12x26 pc.
+\newcommand{\measure}[3]{#1/#2$\times$\unit[#3]{pc}}
+
+% Macros for typesetting the documentation
+
+
+\newcommand{\hlred}[1]{\textcolor{Maroon}{#1}}% prints in red
+
+\newcommand{\hlmaroon}[1]{\textcolor{Maroon}{#1}}%print maroon
+
+
+%\newcommand{\hangleft}[1]{\makebox[0pt][r]{#1}}
+
+
+
+
+\newcommand{\hairsp}{\hspace{1pt}}% hair space
+\newcommand{\hquad}{\hskip0.5em\relax}% half quad space
+\newcommand{\TODO}{\textcolor{red}{\bf TODO!}\xspace}
+
+\newcommand{\ie}{\textit{i.\hairsp{}e.}\xspace}
+\newcommand{\eg}{\textit{e.\hairsp{}g.}\xspace}
+
+
+
+
+
+% Generates the index we use before the
+% out
+\usepackage{makeidx}
+\makeindex
+
+
+
+%%% ACTIVITY DATES
+%% Define a new command for activity key-dates
+%% this can be saved for shipout later
+\newcommand{\keydate}[2]{#1  #2 \\}
+\newcommand{\out}[2]{%
+  {\index{key dates!#1}% add to index
+\immediate\write\tempfile{\noexpand\keydate{ #1}{#2}}}}
+
+
+%% We open the file to  to write the key-dates
+%% we will use it later to import
+\newwrite\tempfile
+\immediate\openout\tempfile=keydates.tex
+
+
+\usepackage{fancyvrb}
+
+
+
+
+%%% Set some local commands and colors
+%\usepackage{colortbl}
+%\definecolor{green}{rgb}{0.1,0.1,0.1}
+%%\color{green!40!yellow})
+
+
+
+
+
+\makeatletter
+\def\chapter{\clearpage\thispagestyle{plain}\global\@topnum
+  \z@\@afterindentfalse
+  \secdef\@chapter\@schapter
+}
+\makeatother
+
+
+\title{CLOSURE \\ STRATEGY FOR MEP}
+\author{City Center Phase 3a \&3b}
+\publisher{Habtoor Leighton Specon llc}
+\date{January 2011} % Delete this line to display the current date
+
+%\newcounter{step}
+%\def\inc{\stepcounter{step}\thestep}
+
+% shorthands for typing equipment numbers
+% that make sense.
+\def\panel#1{{\inc\space\space\small\texttt{#1}}}
+
+
+\begin{document}
+
+%\input{./Sections/definitions}
+%\input{./sections/RO-MCC}\end{document}
+%\SetBgContents{Update $26^{th}$ Jan}
+%\BgThispage
+% Front matter
+\frontmatter
+
+\maketitle
+%\tableofcontents
+%\listoffigures
+%\listoftables
+
+
+\mainmatter
+
+\input{./Sections/update-04}
+\end{document}
+
+\input{./sections/firealarm}
+\input{./Sections/firefighting-02}
+\input{./Sections/staircasepressurization-01}
+\input{./Sections/kitchenextract-01}
+\input{./Sections/chilledwater-01}
+\input{./Sections/UPS-02}
+\input{./Sections/bms-02} 
+\input{./Sections/pabx}
+\input{./Sections/HVAC}
+\input{./Sections/electrical-02}
+\input{./Sections/carparkventilation-02}
+
+
+\input{./Sections/drainage-02}
+\input{./Sections/CCTV}
+\input{./Sections/generators-02}
+\input{./Sections/domestic-02}
+\input{./Sections/domestichot-02}
+\input{./Sections/towers-rotana-02}
+\input{./Sections/towers-shangrila-02}
+\input{./Sections/towers-merweb-02}
+\end{document}
+
+
+
+
+\end{document}
+%Main files start here
+\mainmatter %% Very important to include
+%\input{./Sections/CTC}
+%\input{./Sections/Materials}
+\input{./Sections/introduction}
+%\input{./Sections/towers}
+
+%
+%
+\input{./Sections/Podium-03}
+%
+
+%\input{./Sections/kahraama}
+%
+%
+
+%\input{./Sections/smokeexhaust}
+
+
+
+
+%
+
+
+%\input{./Sections/listofservices-02}
+
+
+%\input{./Sections/lvsystems}
+
+
+%% ADD SIGNAGE
+
+%\input{./Sections/civildefence}
+\end{document}
+%\input{./Sections/municipalconnections}
+
+%\input{./sections/logistics}
+%\appendix
+
+
+%\input{./Sections/gantcharts}
+%\input{./Sections/charts}
+%\input{/.Sections/heatgains}
+
+\input{./Sections/mechanicalengineers}
+%% Example
+%% 
+   
+   \out{Close Ceilings Rotana Floor 10}{Line 2}
+   \out{Rotana,  power-on}{12$^{th}$ Sept 2010}
+   \out{Rotana Qatar Cool switch-on}{12th September}
+
+
+%% we now read the file and dostuff with it
+%% 
+\chapter{Summary of  Key Dates}
+\immediate\closeout\tempfile
+\input{keydates}
+
+
+
+\backmatter
+%\bibliography{sample-handout}
+%\bibliographystyle{plainnat}
+\printindex
+
+
+
+%% finally we close the file
+%%
+
+
+
+
+\end{document}
