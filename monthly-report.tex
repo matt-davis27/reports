@@ -18,7 +18,8 @@
 \usepackage{verbatim}
 \usepackage{caption}
 \DeclareCaptionFont{blue}{\color{black}}
-\captionsetup{justification=raggedright, singlelinecheck=false,font={blue,sf,small}}
+
+%\setup{justification=raggedright, singlelinecheck=false,font={blue,sf,small}}
 
 
 
@@ -54,6 +55,7 @@
 \newcommand{\hlred}[1]{\textcolor{Maroon}{#1}}% prints in red
 
 \newcommand{\hlmaroon}[1]{\textcolor{Maroon}{#1}}%print maroon
+
 
 %\newcommand{\hangleft}[1]{\makebox[0pt][r]{#1}}
 
@@ -138,14 +140,15 @@
 \frontmatter
 
 \maketitle
-\tableofcontents
-\listoffigures
-\listoftables
+%\tableofcontents
+%\listoffigures
+%\listoftables
 
 
 \mainmatter
 
 \input{./Sections/update-04}
+\end{document}
 
 \input{./sections/firealarm}
 \input{./Sections/firefighting-02}
@@ -158,6 +161,8 @@
 \input{./Sections/HVAC}
 \input{./Sections/electrical-02}
 \input{./Sections/carparkventilation-02}
+
+
 \input{./Sections/drainage-02}
 \input{./Sections/CCTV}
 \input{./Sections/generators-02}
