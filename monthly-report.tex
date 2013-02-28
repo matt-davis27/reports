@@ -2,7 +2,8 @@
 % !TEX encoding = UTF-8 Unicode
 
 
-\documentclass[a4paper, oneside, justified=true, sfsidenotes]{tufte-book} 
+\documentclass[a4paper, oneside, 
+               justified=true, sfsidenotes]{tufte-book} 
 
 \usepackage[utf8]{inputenc} % set input encoding to utf8
 \usepackage[english]{babel}[2005/11/23]
@@ -104,7 +105,20 @@
 %%\color{green!40!yellow})
 
 
+\newcounter{sectionstep}
+\setcounter{sectionstep}{0}
 
+\def\tablesection{%
+  \midrule
+  \stepcounter{step}%
+  \setcounter{sectionstep}{-1}%
+  \setcounter{sectionstep}{-1}%
+}
+
+\def\Inc{%
+  \stepcounter{sectionstep}%
+\thestep.0\thesectionstep%
+}
 
 
 \makeatletter
