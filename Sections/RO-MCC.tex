@@ -1,13 +1,14 @@
+\newpage
 \setcounter{step}{0}
 
-
+\captionof{table}[Rotana SMD T\&C]{Testing and Commissioning of Rotana SMDB \& MCC Panels, Podium. \textcircled{1} physical installation, \textcircled{2} WIR for physical installation, \textcircled{3} cabling physical installation, \textcircled{4} cable testing, \textcircled{5} panel pre-commissioning, \WIR Live Test and Inspection.
 \begin{longtable}{p{2cm}lllllllp{3.8cm}}
 
 \toprule
 Floor/Activity& &\textcircled{1}&\textcircled{2}
                &\textcircled{3}&\textcircled{4}
 
-               &\textcircled{5}&\textcircled{6}&Remarks\\
+               &\textcircled{5}&\WIR&Remarks\\
 \midrule
 
 Level 7       &\panel{SMDB-RO7-EPP1}&\checkmark&\checkmark&\checkmark&\checkmark
@@ -17,10 +18,10 @@ Level 7       &\panel{SMDB-RO7-EPP1}&\checkmark&\checkmark&\checkmark&\checkmark
 &\checkmark&\checkmark&\\
 
 &\panel{SMDB-RO7-LP1}&\checkmark&\checkmark&\checkmark&\checkmark
-&\checkmark&&Live Test, 6 Feb 13\\
+&\checkmark&\checkmark&\\
 
 &\panel{SMDB-RO7-UP1}&\checkmark&\checkmark&\checkmark&\checkmark
-&\checkmark& &Live Test, 6 Feb 13\\
+&\checkmark& &UPS Power required.\\
 
 
 \midrule
@@ -31,16 +32,16 @@ Level 6       &\panel{SMDB-RO6-LP1}&\checkmark&\checkmark&\checkmark&\checkmark
 &\checkmark&\checkmark&\\
 
 &\panel{SMDB-RO6-ELP1}&\checkmark&\checkmark&\checkmark&\checkmark
-&& & Live Test, 5 Feb 13\\
+&\checkmark&\checkmark & \\
 
 &\panel{SMDB-RO6-EEP1}&\checkmark&\checkmark&\checkmark&\checkmark
-&& &Live Test, 5 Feb 13\\
+&\checkmark&\checkmark &\\
 
 &\panel{MCC-RO-PL6}&\checkmark&\checkmark&\checkmark&\checkmark
-&& &Live Test, 5 Feb 13\\
+&\checkmark&\checkmark &\\
 
 &\panel{MCC-RO-PL13}&\checkmark&\checkmark&\checkmark&\checkmark
-&& &Live Test, 5 Feb 13\\
+&\checkmark&\checkmark &\\
 
 \midrule
 Level 5
@@ -54,7 +55,7 @@ Level 5
    &\panel{MCC-RO-AC2}&\checkmark&\checkmark&\checkmark&\checkmark
    &\checkmark&\checkmark &\\
    &\panel{MCC-RO-F1}&\checkmark&\checkmark&\checkmark&\checkmark
-   &\checkmark&\checkmark & WIR FA\\
+   &\checkmark&\checkmark & \\
 
 
 \midrule
@@ -75,13 +76,13 @@ Level 4
    &\checkmark&\checkmark &\\
 
   &\panel{SMDB-RO4-ELP1}&\checkmark&\checkmark&\checkmark&\checkmark
-   &\checkmark& &Live Test, 5 Feb 13\\
+   &\checkmark&\checkmark &Live Test, 5 Feb 13\\
 
    &\panel{SMDB-RO4-PP3}&\checkmark&\checkmark&\checkmark&\checkmark
-   &&&Live Test, 7 Feb 13\\
+   &\checkmark&\checkmark&Live Test, 7 Feb 13\\
 
    &\panel{SMDB-RO4-EPP3}&\checkmark&\checkmark&\checkmark&\checkmark
-   &&&Live Test, 7 Feb 13\\
+   &\checkmark&\checkmark&Live Test, 7 Feb 13\\
 
    &\panel{MCC-RO4-PL9}&\checkmark&\checkmark&\checkmark&\checkmark
    &\checkmark&\checkmark &\\
@@ -94,7 +95,7 @@ Level 4
    &\checkmark&\checkmark &\\
 
    &\panel{MCC-RO4-F1}&\checkmark&\checkmark&\checkmark&\checkmark
-   &\checkmark& &Live Test, 5 Feb 13\\
+   &\checkmark&  &Live Test, 5 Mar 13\\
 
 
 
@@ -103,18 +104,18 @@ Level 3
    &\panel{SMDB-RO3-LP1}&\checkmark&\checkmark&\checkmark&\checkmark
    &\checkmark&\checkmark &\\
    &\panel{SMDB-RO3-EPP1}&\checkmark&\checkmark&\checkmark&\checkmark
-   &&& Live Test, 5 Feb 13\\
+   &\checkmark&\checkmark& \\
    &\panel{SMDB-RO3-UP1}&\checkmark&\checkmark&\checkmark&\checkmark
-   &\checkmark& &Live Test, 4 Feb 13\\
+   &\checkmark& &UPS Power.\\
    &\panel{MCC-L3-RO-F1}&\checkmark&\checkmark&\checkmark&\checkmark
-   &\checkmark& &Live Test, 4 Feb 13\\
+   &\checkmark& &Verger mods.\\
 
 \midrule
 Level2   &\panel{SMDB-RO2-LP1}&\checkmark&\checkmark&\checkmark&\checkmark
-   &\checkmark& &Live Test 8 Feb 13\\
+   &\checkmark&\checkmark &Live Test 8 Feb 13\\
 
    &\panel{SMDB-RO2-ELP1}&\checkmark&\checkmark&\checkmark&\checkmark
-   &\checkmark& &\\
+   &\checkmark&\checkmark &\\
 
    &\panel{SMDB-RO2PP1}&\checkmark&\checkmark&\checkmark&\checkmark
    &&& Dragoni constraint\\
@@ -123,14 +124,14 @@ Level2   &\panel{SMDB-RO2-LP1}&\checkmark&\checkmark&\checkmark&\checkmark
    &\checkmark&&Live Test 3 Feb 13\\
 
    &\panel{SMDB-RO2UP1}&\checkmark&\checkmark&\checkmark&\checkmark
-   &\checkmark&&Live Test 3 Feb 13\\
+   &\checkmark&& Needs UPS Power\\
 
 \midrule
 Level 1    &\panel{SMDB-RO1-LP1}&\checkmark&\checkmark&\checkmark&\checkmark
-   &\checkmark&\checkmark & 3 Feb 13\\
+   &\checkmark&\checkmark & \\
 
  &\panel{SMDB-RO1-UP1}&\checkmark&\checkmark&\checkmark&\checkmark
-   &\checkmark&\checkmark &3 Feb 13\\
+   &\checkmark&UPS Power &\\
 
  &\panel{SMDB-RO1-PP1}&\checkmark&\checkmark&\checkmark&\checkmark
    &\checkmark& & Dragoni\\
@@ -142,16 +143,16 @@ Level 1    &\panel{SMDB-RO1-LP1}&\checkmark&\checkmark&\checkmark&\checkmark
    &\checkmark&\checkmark & Dragoni\\
 
  &\panel{SMDB-RO1-EPP2}&\checkmark&\checkmark&\checkmark&\checkmark
-   && &15 Feb 13\\
+   &\checkmark&\checkmark &\\
 
  &\panel{SMDB-RO1-AV1}&\checkmark&\checkmark&\checkmark&\checkmark
-   && & 15 Feb 13\\
+   && & 30 Mar  13\\
 
  &\panel{SMDB-RO1-AV2}&\checkmark&\checkmark&\checkmark&\checkmark
-   && &15 Feb 13\\
+   && &30 Mar 13\\
 
  &\panel{SMDB-RO1-AV3}&\checkmark&\checkmark&\checkmark&\checkmark
-   & & &15 Feb 13\\
+   & & &30 Mar 13\\
 
 
 \midrule
@@ -172,25 +173,25 @@ Level GF    &\panel{SMDB-ROG-LP1}&\checkmark&\checkmark&\checkmark&\checkmark
 
 \midrule
 Level B1   &\panel{SMDB-RO-B1-UP1}&\checkmark&\checkmark&\checkmark&\checkmark
-   && & Live Test 3 Feb 13\\
+   &\checkmark&\checkmark & \\
 
 &\panel{SMDB-RO-B1-LP1}&\checkmark&\checkmark&\checkmark&\checkmark
-   &\checkmark& &Live Test 1 Feb 13\\
+   &\checkmark&\checkmark &\\
 
 &\panel{SMDB-RO-B1-ELP1}&\checkmark&\checkmark&\checkmark&\checkmark
-   &\checkmark& &Live Test 1 Feb 13\\
+   &\checkmark&\checkmark &\\
 
 &\panel{SMDB-RO-B1-PP1}&\checkmark&\checkmark&\checkmark&\checkmark
-   && &Live Test 7.2.13\\
+   &\checkmark&\checkmark &\\
 
 &\panel{SMDB-RO-B1-PP2}&\checkmark&\checkmark&\checkmark&\checkmark
-   &&&Live Test 7.2.2013\\
+   &\checkmark&\checkmark&\\
 
 &\panel{SMDB-RO-B1-EPP1}&\checkmark&\checkmark&\checkmark&\checkmark
-   &\checkmark& &Live Test 1 Feb 13\\
+   &\checkmark&\checkmark &\\
 
 &\panel{SMDB-RO-B1-EPP2}&\checkmark&\checkmark&\checkmark&\checkmark
-   && &Live Test 1 Feb 13\\
+   &\checkmark&\checkmark &\\
 
 
 &\panel{MCC-RO-B1-ROPL4}&\checkmark&\checkmark&\checkmark&\checkmark
@@ -205,7 +206,7 @@ level B2      &\panel{SMDB-RO-B2-LP1}&\checkmark&\checkmark&\checkmark&\checkmar
  &\panel{SMDB-RO-B2-EPP1}&\checkmark&\checkmark&\checkmark&\checkmark
    &\checkmark&\checkmark &\\
  &\panel{SMDB-RO-B2-F1}&\checkmark&\checkmark&\checkmark&\checkmark
-   &\checkmark& & Add CO monitor wire. Raise WIR. 30 Jan 13\\
+   &\checkmark& & Add CO monitor wire. Raise WIR. 10 Mar 13\\
 
 \midrule
 Level B3    &\panel{SMDB-RO-B3-LP1}&\checkmark&\checkmark&\checkmark&\checkmark
@@ -216,7 +217,7 @@ Level B3    &\panel{SMDB-RO-B3-LP1}&\checkmark&\checkmark&\checkmark&\checkmark
 &\panel{MCC-RO-AC1}&\checkmark&\checkmark&\checkmark&\checkmark
    &\checkmark&\checkmark &\\
 &\panel{MCC-RO-B3-F1}&\checkmark&\checkmark&\checkmark&\checkmark
-   &\checkmark&\checkmark &  WIR FA\\
+   &\checkmark&\checkmark &  \\
 &\panel{MCC-RO-B3-FP1}&\checkmark&\checkmark&\checkmark&\checkmark
    &\checkmark&\checkmark &\\
 &\panel{MCC-RO-B3-PL2}&\checkmark&\checkmark&\checkmark&\checkmark
@@ -225,7 +226,6 @@ Level B3    &\panel{SMDB-RO-B3-LP1}&\checkmark&\checkmark&\checkmark&\checkmark
    &\checkmark&\checkmark &\\
 \bottomrule
 \end{longtable}
-\captionof{table}[Rotana SMD T\&C]{Testing and Commissioning of Rotana SMDB \& MCC Panels, Podium. \textcircled{1} physical installation, \textcircled{2} WIR for physical installation, \textcircled{3} cabling physical installation, \textcircled{4} cable testing, \textcircled{5} panel pre-commissioning, \textcircled{6} Live Test and Inspection.
 }
 \label{tbl:ROpanels}
 

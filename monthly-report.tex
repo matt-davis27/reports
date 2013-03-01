@@ -8,6 +8,7 @@
 \usepackage[utf8]{inputenc} % set input encoding to utf8
 \usepackage[english]{babel}[2005/11/23]
 \usepackage{phd}
+
 %% Bibliography
 \usepackage{natbib}
 % useful to write files on the fly
@@ -129,7 +130,7 @@
 \makeatother
 
 
-\title{CLOSURE \\ STRATEGY FOR MEP}
+\title{CLOSURE \\AND\\COMMISSIONING\\PLAN FOR MEP}
 \author{City Center Phase 3a \&3b}
 \publisher{Habtoor Leighton Specon llc}
 \date{January 2011} % Delete this line to display the current date
@@ -145,6 +146,33 @@
 \DeclareRobustCommand\refs[1]{\S\hskip0.5pt\ref{#1}}
 
 \DeclareRobustCommand\WIR{{\Large\WritingHand}}
+
+
+\usepackage[smaller,printonlyused,withpage]{acronym}
+
+\usepackage{hyperref}
+\hypersetup{%draft, % = no hyperlinking at all (useful in b/w printouts)
+    colorlinks=true, linktocpage=true, pdfstartpage=3, pdfstartview=FitV,%
+    % uncomment the following line if you want to have black links (e.g., for printing)
+    %colorlinks=false, linktocpage=false, pdfborder={0 0 0}, pdfstartpage=3, pdfstartview=FitV,% 
+linktocpage=true,  breaklinks=true, pdfpagemode=UseNone, pageanchor=true,  pdfpagemode=UseOutlines,%
+    plainpages=false, bookmarksnumbered, bookmarksopen=true, bookmarksopenlevel=1,%
+    hypertexnames=true, pdfhighlight=/O,hyperfootnotes=true,%nesting=true,%frenchlinks,%
+    urlcolor=webbrown, linkcolor=RoyalBlue, citecolor=webgreen, %pagecolor=RoyalBlue,%
+    %urlcolor=Black, linkcolor=Black, citecolor=Black, %pagecolor=Black,%
+    pdftitle={},%
+    pdfauthor={Dr Y Lazarides},%
+    pdfsubject={},%
+    pdfkeywords={},%
+    pdfcreator={pdfLaTeX},%
+    pdfproducer={LaTeX with hyperref and classicthesis}%
+} 
+  
+\let\ch\checkmark
+\def\fire{{\LARGE\color{red}\Fire}}
+\def\Danger{{\LARGE\color{red}\danger}}
+\long\def\askar{\parbox{4cm}{\Danger \RaggedRight Askar condensers.}}
+
 \begin{document}
 
 %\input{./Sections/definitions}
@@ -185,6 +213,30 @@
 \input{./Sections/towers-rotana-02}
 \input{./Sections/towers-shangrila-02}
 \input{./Sections/towers-merweb-02}
+
+\addcontentsline{toc}{chapter}{Acronyms and Abbreviations}
+\chapter*{Acronyms and Abbreviations}
+
+\begin{acronym}[TDMA]
+\acro{ATS}{Automatic Transfer Switch}
+\acro{PABX}{Private Automatic Branch Exchange}
+\acro{BMS}{Building Management System}
+\acro{ECU}{Ecological Unit}
+\acro{EI}{Engineer's Instruction}
+\acro{FCU}{Fan Coil Unit}
+\acro{AHU}{Air Handling Unit}
+\acro{HWS}{Hot Water System}
+\acro{MDF}{Medium Distribution Frame}
+\acro{IDF}{Individual Distribution Frame}
+\acro{ELV}{Electrical Low Voltage}
+\acro{TC}{Testing and Commissioning}
+\acro{UPS}{Uninterruptable Power Supply}
+\acro{ODC}{Owner's Direct Subcontractor}
+\acro{RCU}{Room Control Unit}
+\acro{TRO}{Tower Rotana}
+\acro{HLS}{Habtoor Leighton Specon llc}
+\acro{HLG}{Habtoor Leighton Group}
+\end{acronym}
 \end{document}
 
 
