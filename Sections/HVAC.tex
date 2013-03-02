@@ -38,191 +38,232 @@ A detailed list of target dates is shown in Tables \ref{tbl:AHUrotana}, \ref{tbl
 
 The fact is that the Podia have suffered as a result of the shifting of our personnel to the Towers to compensate for the failures of the subcontractors. 
 
-\begin{table}[htbp]
+\protect\def\Bend{\fbox{\raise4pt\hbox to 1.8em{\vbox{\small\color{red}\dbend}}}}
+
+\DeclareRobustCommand\pulleys{\Bend Pulleys ordered.}
+\DeclareRobustCommand\snags{\Bend Rectification works.}
+
+\section{AHU Commissioning Status}
+
 \setcounter{step}{0}
 \label{tbl:AHUrotana}
 \footnotesize
-\caption{Rotana Air Handling Unit installation target dates}
-\begin{tabular}{lll c c p{1.8cm}}
+\captionof{table}{Rotana Air Handling Unit T\&C target dates}
+{\small\RaggedRight\fboxrule0pt\fboxsep0pt
+\begin{longtable}{lll c c c p{3cm}}
 \toprule
-Ref.	  &AHU tag 	 &Area	 &Installed	  &T\&C   & Remarks\\
+Ref.	  &AHU tag 	 &Area	 &Installed	  &T\&C &\WIR  & Remarks\\
 \midrule
- \inc	 &B2-RO-AH-001   &Main Kitchen TFA    &\checkmark  & &\\	
+ \inc	 &B2-RO-AH-001   &Main Kitchen TFA    &\checkmark  &\ch &\ch &\snags\\	
  
 \midrule 
- \inc	 &B1-RO-AH-001	 &Mech. Room	 & \checkmark	  &\checkmark & closed\\
- \inc	 &B1-RO-AH-002	 &BMS/ENG	      &\checkmark	  &\checkmark & closed\\
+ \inc	 &B1-RO-AH-001	 &Mech. Room	 & \checkmark	  &\checkmark &\checkmark \\
+ \inc	 &B1-RO-AH-002	 &BMS/ENG	      &\checkmark	  &\checkmark &\checkmark \\
  \inc	 &B1-RO-AH-003	 &Staff Canteen	 &\checkmark	 	 
       &\checkmark 
-      &\\
- \inc	  &B1-RO-AH-004	 &TFA Locakers	 &\checkmark	 	 &&\\
- \inc	  &B1-RO-AH-005  &Ballroom Prefunction     &\checkmark	 	 &&\\
+      &\ch&\snags\\
+
+ \inc	  &B1-RO-AH-004	 &TFA Lockers	 &\checkmark	 	 &\ch&\ch&\\
+
+ \inc	  &B1-RO-AH-005  &Ballroom Prefunction     &\checkmark	 	 &\ch&\ch&\snags\\
 
 
 \midrule
- \inc	  &GR-RO-AH-001	 &Electrical Rooms	 &\checkmark	 	 &&\\
+ \inc	  &GR-RO-AH-001	 &Electrical Rooms	 &\checkmark	 	 &\ch&\ch&\snags\\
 
-\inc	  &GR-RO-AH-002	 &Banquet Kitchen	 &\checkmark	 	 &&\\
-\inc	  &GR-RO-AH-003	 &Cafe/Lobby	        &\checkmark	    &&\\
-\inc	 	 &GR-RO-AH-004	 &Rotana Lobby	 &\checkmark	 	 &&\\
-
-\midrule
-\inc	 	 &L1-RO-AH-001    &Lebanese Kitchen	    &\checkmark	 && \\
-\inc	 	 &L1-RO-AH-002	  &Boston Bar	       &\checkmark	 &&\\
-\inc	 	 &L1-RO-AH-003	  &Ballroom 2	       &\checkmark	 &&\\
-\inc	 	 &L1-RO-AH-004	  &All Day Restaurant	 &\checkmark	 &&\\
-
-
+\inc	  &GR-RO-AH-002	 &Banquet Kitchen	 &\checkmark	 	 &&&\\
+\inc	  &GR-RO-AH-003	 &Cafe/Lobby	        &\checkmark	    &&&\\
+\inc	 	 &GR-RO-AH-004	 &Rotana Lobby	 &\checkmark	 	 &&&\\
 
 \midrule
-\inc 	 	 &L2-RO-AH-001	 &Teatro Lobby/Corridor &\checkmark	   &&\\	 
-\inc	 	 &L2-RO-AH-002	 &Meeting Room TFA	     &\checkmark	&&\\
+
+\inc	 	 &L1-RO-AH-001    &Lebanese Kitchen	    &\checkmark	 &\ch&\ch& \\
+
+\inc	 	 &L1-RO-AH-002	  &Boston Bar	       &\checkmark	 &\ch&\ch&\\
+
+\inc	 	 &L1-RO-AH-003	  &Ballroom 2	       &\checkmark	 &&&\pulleys\\
+\inc	 	 &L1-RO-AH-004	  &All Day Restaurant	 &\checkmark	 &&&\\
+
+
 
 \midrule
-\inc	 &L4-RO-AH-001	 &Teatro Restaurant	 &\checkmark	    &&\\
-\inc	 &L4-RO-AH-002	 &MV Panel Room	    &\checkmark	 	 &&        \\
+\inc 	 	 &L2-RO-AH-001	 &Teatro Lobby/Corridor &\checkmark	   &&&\\	 
+\inc	 	 &L2-RO-AH-002	 &Meeting Room TFA	     &\checkmark	&\ch&\ch&\snags\\
 
 \midrule
-\inc	 &L5-RO-AH-001	 &Guestroom TFA	    &\checkmark	 	   && \\
-\inc	 &L5-RO-AH-002	 &HX Tertiary Plantroom	 &\checkmark	 && \\
-\inc	 &L5-RO-AH-003	 &HX-Pant	 &\checkmark	 	               & & \\
-\inc	 &L5-RO-AH-004	 &Admin/Reception	&\checkmark  &&  	 \\
-\inc	 &L5-RO-AH-005	 &Fitness Area	 &\checkmark	 	 &&\\
+\inc	 &L4-RO-AH-001	 &Teatro Restaurant	 &\checkmark	    &\ch&\ch&\\
+\inc	 &L4-RO-AH-002	 &MV Panel Room	    &\checkmark	 	 &\ch&\ch&        \\
+
+\midrule
+\inc	 &L5-RO-AH-001	 &Guestroom TFA	    &\checkmark	 	   &&& \\
+\inc	 &L5-RO-AH-002	 &HX Tertiary Plantroom	 &\checkmark	 &\ch&\ch&\\
+
+\inc	 &L5-RO-AH-003	 &HX-Plant	 &\checkmark	 	 &\ch&\ch&\\
+
+\inc	 &L5-RO-AH-004	 &Admin/Reception	&\checkmark  &&&  	 \\
+\inc	 &L5-RO-AH-005	 &Fitness Area	 &\checkmark	 	 &&&\\
 \inc	 &L5-RO-AH-006	 &Change Room	&\checkmark	 	 &\\
-\inc	 &L5-RO-AH-007	 &Teatro Restaurant	 &\checkmark	 &&\\	 
-\inc	 &L5-RO-AH-008    & Guestroom TFA	 &\checkmark  &&\\	 	 
+
+\inc	 &L5-RO-AH-007	 &Teatro Restaurant	 &\checkmark	 &\ch&\ch&\\	 
+\inc	 &L5-RO-AH-008    & Guestroom TFA	 &\checkmark  &\ch&&\snags\\	 	 
 
 \midrule
-\inc	 &L6-RO-AH-001	 &Ballroom 1	           &\checkmark	 	         &&\\
-\inc	 &L6-RO-AH-002	 &Ballroom 3	           &\checkmark	 	         &&\\
-\inc	 &L6-RO-AH-003	 &Lebanese Restaurant	 &\checkmark	 	         &&\\
-\inc	 &L6-RO-AH-004	 &Teatro Kitchen	    &\checkmark	 	         &&\\
-\inc	 &L6-RO-AH-005	 &Swimming Pool Plant	 &\checkmark	 	         &&\\
+\inc	 &L6-RO-AH-001	 &Ballroom 1	           &\checkmark	 	         &\ch&\ch&\snags\\
+
+\inc	 &L6-RO-AH-002	 &Ballroom 3	           &\checkmark	 	         &\checkmark&\ch&\pulleys\\
+
+\inc	 &L6-RO-AH-003	 &Lebanese Restaurant	 &\checkmark	 	         &\ch&\ch&\snags\\
+
+
+\inc	 &L6-RO-AH-004	 &Teatro Kitchen	    &\checkmark	 	         &\ch&\ch&\\
+\inc	 &L6-RO-AH-005	 &Swimming Pool Plant	 &\checkmark	 	         &\ch&\ch&\snags\\
 
 \midrule
-\inc	 &L7-RO-AH-001	 &Pool Kitchen	    &\checkmark     &&\\
+\inc	 &L7-RO-AH-001	 &Pool Kitchen	    &\checkmark     &\ch&&\snags\\
 \midrule
-\inc	    &L46-RO-AH-001 &Guestroom TFA	 &\checkmark	 	 &&\\
-\inc	 	 &L46-RO-AH-002 &Guestroom TFA	 &\checkmark	 	 &&\\
+\inc &L44-RO-AH-001     & Plant area         &\ch   &\ch &\ch &\ch\\
+
 \midrule
-\inc	    &L47-RO-AH-001 &Mechanical Room	 &\checkmark	 	 &&\\
+\inc	    &L46-RO-AH-001 &Guestroom TFA	 &\checkmark	 	 &\ch&\ch&\snags\\
+\inc	 	 &L46-RO-AH-002 &Guestroom TFA	 &\checkmark	 	 &\ch&\ch&\snags\\
+\midrule
+\inc	    &L47-RO-AH-001 &Mechanical Room	 &\checkmark	 	 &\ch&\ch&\ch\\
 
 \bottomrule
-\end{tabular}
-
-\end{table}
-
+\end{longtable}
+}
 
 
+\section{Shangrila AHU T\&C status}
 
-\begin{table}[htbp]
-\setcounter{step}{0}
+
+
+
 \label{tbl:AHUSL}
-\footnotesize
-\caption{Shangri-la Air Handling Unit installation target dates}
-\begin{tabular}{llp{3.2cm} c c l}
+
+\captionof{table}{Shangri-la Air Handling Unit installation target dates}
+{\small\RaggedRight\fboxrule0pt\fboxsep0pt
+\begin{longtable}{lll c c c p{3cm}}
 \toprule
- Ser.	 	 &AHU tag 	 &Area	 			&Installed	&T\&C &Remarks \\
+ Ser.	 	 &AHU tag 	 &Area	 			&Installed	&T\&C&\WIR &Remarks \\
 \midrule
 
  
- \inc	 	 &B3-SL-AH2	 &Plumbing Plantroom	 	 &\checkmark	 && \\
+ \inc	 	 &B3-SL-AH2	 &Plumbing Plantroom	 	 &\checkmark	 &\ch&\ch& \\
 \midrule
- \inc	 	 &B2-SL-AH1     &Boiler	 	  	 &\checkmark &&\\
+ \inc	 	 &B2-SL-AH1     &Boiler	 	  	 &\checkmark &\ch&\ch&\\
  
-\midrule
-
- \inc	 	 &B1-SL-AH1	 &Staff Canteen		  &\checkmark   && \\
- \inc	 	 &B1-SL-AH2	 &Housekeeping Uniform	  &\checkmark   && \\
- \inc	 	 &B1-SL-AH3	 &Kitchen		 	  &\checkmark   && \\
- \inc	 	 &B1-SL-AH4	 &Main Kitchen	 		  &&  & \\
- \inc	 	 &B1-SL-AH5	 &Laundry	 	 	  &\checkmark  & &\\
-
-\inc	 	 &B1-SL-AH7    &TFA for EPABX		  &\checkmark&  & \\
-\inc	 	 &B1-SL-AH8	 &TFA Offices	            	  &\checkmark&  & \\
-\inc	 	 &B1-SL-AH9	 &HR	 	 		  &\checkmark  & &\\
-\inc	 	 &B1-SL-AH10	 &Engineering	 	 	  &\checkmark&  & \\
- 
-\inc	 	 &B1-SL-AH13	 &Lift Lobby/Corridor	 	&\checkmark &  & \\
-\inc	 	 &B1-SL-AH14	 &Purchase	 	 	 &\checkmark & &\\
-\inc	 	 &B1-SL-AH15	 &TFA for Lockers	 	 &\checkmark & & \\
-
 \midrule
 
- 
-\inc	 	 &GR-SL-AH2	 &Ballroom Kitchen TFA	 &\checkmark&&\\
+ \inc	 	 &B1-SL-AH1	 &Staff Canteen		  &\checkmark   &\ch&\ch& \\
+ \inc	 	 &B1-SL-AH2	 &Housekeeping Uniform	  &\checkmark &\ch&\ch& \\
+ \inc	 	 &B1-SL-AH3	 &Kitchen		 	  &\checkmark   &\ch&\ch& \\
+ \inc	 	 &B1-SL-AH4	 &Main Kitchen	  &\ch&\ch &\ch&FA \\
 
-\inc	 	 &GR-SL-AH4	 &Cafe/Lounge	 	&\checkmark &&\\
+ \inc	 	 &B1-SL-AH5	 &Laundry	 	 	  &\checkmark  &\ch &\ch&\snags\\
+
+
+\inc	 	 &B1-SL-AH7    &TFA for EPABX		  &\checkmark&  && \\
+\inc	 	 &B1-SL-AH8	 &TFA Offices	            	  &\checkmark &&  & \\
+\inc	 	 &B1-SL-AH9	 &HR	 	 		  &\checkmark  & &&\\
+\inc	 	 &B1-SL-AH10	 &Engineering	 	 	  &\checkmark&&  & \\
  
-\inc	 	 &GR-SL-AH7	 &Shangri-la Lobby	 	&\checkmark& &\\
-\inc	 	 &GR-SL-AH8	 &	 	 	 	&\checkmark & &\\
+\inc	 	 &B1-SL-AH13	 &Lift Lobby/Corridor	 	&\checkmark & & & \\
+\inc	 	 &B1-SL-AH14	 &Purchase	 	 	 &\checkmark & & &\\
+\inc	 	 &B1-SL-AH15	 &TFA for Lockers	 	 &\checkmark & & &\\
+
+\midrule
+
+ 
+\inc	 	 &GR-SL-AH2	 &Ballroom Kitchen TFA	 &\checkmark &&&\\
+
+\inc	 	 &GR-SL-AH4	 &Cafe/Lounge	 	&\checkmark &&&\\
+ 
+\inc	 	 &GR-SL-AH7	 &Shangri-la Lobby	 	&\checkmark&& &\\
+\inc	 	 &GR-SL-AH8	 &	 	 	 	&\checkmark && &\\
 \midrule
 
 
-\inc	 	 &L1-SL-AH2	 &Ballroom No. 2	 	&\checkmark  & &\\
-\inc	 	 &L1-SL-AH3	 &Ballroom No.3	 	&\checkmark  & &\\
-\inc	 	 &L1-SL-AH4	 &Prefunction	 	 	&\checkmark && \\
+\inc	 	 &L1-SL-AH-001	 &Ballroom No. 2	 	&\checkmark  &\ch &\ch&\\
+\inc	 	 &L1-SL-AH-002	 &Ballroom No.3	 	&\checkmark  &\ch&\ch&\snags\\
+
+\inc	 	 &L1-SL-AH-003	 &Prefunction	 	 	&\checkmark &\ch&\ch&\snags \\
  
-\inc	 	 &L1-SL-AH7	 &Sea Food + Kitchen	 	&\checkmark&  &\\
+\inc	 	 &L1-SL-AH-004	 &Sea Food + Kitchen	&\checkmark&\ch&\ch&\snags\\
  
-\inc	 	 &L1-SL-AH10	 &Argentina Kitchen	 	&\checkmark & &\\
+\inc	 	 &L1-SL-AH-005	 &Argentina Kitchen	&\checkmark &\ch&\ch&\\
  
-\inc	 	 &L1-SL-AH12	 &Corridor	 	 	&\checkmark  & &\\
+\inc	 	 &L1-SL-AH-006	 &Corridor	 	 	&\checkmark  &&& Ceiling\\
 \midrule
 
-\inc	 	 &L2-SL-AH1	 &TFA Meeting + Retail	&\checkmark && \\
-\inc	 	 &L2-SL-AH2	 &Meeting Room (244)*	& \checkmark	 && \\
-\inc	 	 &L2-SL-AH3	 &Meeting Room (245 A)*	 &\checkmark&	 & \\
-\inc	 	 &L2-SL-AH4	 &Meeting Room (245 B)*	 &\checkmark && \\
-\inc	 	 &L2-SL-AH5	 &Meeting Room Corridor	 &\checkmark  && \\
 
-\inc	 	 &L2-Sl-AH10	 &Storage L5 or L2	 	&\checkmark & &\\
-\inc  	 &L2-SL-AH11	 &Kitchen	 	 	&\checkmark  && \\
+
+\inc	 	 &L2-SL-AH-001	 &TFA Meeting + Retail	&\checkmark &&& \\
+\inc	 	 &L2-SL-AH-002	 &Meeting Room (244)	& \checkmark	& && \\
+\inc	 	 &L2-SL-AH-003	 &Meeting Room (245A)	 &\checkmark&&	 & \\
+\inc	 	 &L2-SL-AH-004	 &Meeting Room (245B)	 &\checkmark &&& \\
+\inc	 	 &L2-SL-AH-005	 &Kitchen &\checkmark  &&& \\
+
+\inc	 	 &L2-Sl-AH-006	 &Prefunction	 	&\checkmark&\ch &\ch &\snags\\
+
 \midrule 
 
-\inc  	 &L4-SL-AH1	 &All Day Restaurant Office	&\checkmark &    &\\
-\inc	 	 &L4-SL-AH2	 &Plumbing Plantroom	 	&\checkmark  & &\\
-\inc	 	 &L4-SL-AH3	 &Admin Office Reception	 &\checkmark  &&\\
-\inc	 	 &L4-SL-AH4	 &Argentinian	 	 	 &\checkmark & &\\
+\inc  	 &L4-SL-AH1	 &All Day Restaurant Office	&\checkmark &   & &Ceiling\\
+
+\inc	 	 &L4-SL-AH2	 &Plumbing Plantroom	 	&\checkmark  &\ch&\ch&\\
+
+\inc	 	 &L4-SL-AH3	 &Argentinian	 	 	 &\checkmark &\ch&\ch&\snags\\
 \midrule 
 
-\inc 	 &L5-SL-AH1	 &Change Room 107	 	 &\checkmark & &\\
-\inc	 	 &L5-SL-AH2	 &Change Room 107	 	 &\checkmark	& & \\
-\inc	 	 &L5-SL-AH3	 &Admin Office + Recap	 &\checkmark	 &&\\
-\inc	 	 &L5-SL-AH4	 &Fitness Area	  		 &\checkmark	 &&\\
-\inc	 	 &L5-SL-AH5	 &All Day Rest. Office L02	&\checkmark &	 &\\
-\inc	 	 &L5-SL-AH6	 &Passage Massage	 	 &\checkmark	 & &\\
-\inc	 	 &L5-SL-AH7	 &HX Tertiary Plantroom	 &\checkmark	 &&\\
-\inc	 	 &L5-SL-AH8	 &HX Tertiary Plantroom	 &\checkmark	 & &\\
-\inc	 	 &L5-SL-AH9	 &Shangri-la (TFA)	 	 &\checkmark	 & &\\
-\inc	 	 &L5-SL-AH10	 &Shangri-la (TFA)	 	 &\checkmark	 & &\\
+\inc 	 &L5-SL-AH1	 &Change Room 107	 	 &\checkmark & &&\\
+\inc	 	 &L5-SL-AH2	 &Change Room 107	 	 &\checkmark	& & &\\
+\inc	 	 &L5-SL-AH3	 &Admin Office + Recap	 &\checkmark	 &&&\\
+
+\inc	 	 &L5-SL-AH4	 &Fitness Area	  		 &\checkmark	 &&&\\
+\inc	 	 &L5-SL-AH5	 &All Day Rest. Office L02	&\checkmark &	 &&\\
+\inc	 	 &L5-SL-AH6	 &Passage Massage	 	 &\checkmark	 & &&\\
+
+\inc	 	 &L5-SL-AH7	 &HX Tertiary Plantroom	 &\checkmark	 &&&\\
+\inc	 	 &L5-SL-AH8	 &HX Tertiary Plantroom	 &\checkmark	 & &&\\
+
+\inc	 	 &L5-SL-AH9	 &Shangri-la (TFA)	 	 &\checkmark	 & &&\\
+\inc	 	 &L5-SL-AH10	 &Shangri-la (TFA)	 	 &\checkmark	 & &&\\
 
 
  
 \midrule
-\inc	 	 &L6-SL-AH3	 &Pool Chemical Store 612	 &\checkmark  && \\
-\inc	 	 &L6-SL-AH4	 &Corridor 621	 	 	 &\checkmark & &\\
+\inc	 	 &L6-SL-AH-002	 & Swimming Pool	 &\checkmark  &&&?\\
+\inc	 	 &L6-SL-AH-002	 &Pool Chemical Store 612	 &\checkmark  &&&CML \\
+\inc	 	 &L6-SL-AH-003	 &Corridor 621	 	 	 &\checkmark &\ch&\ch &\\
 \midrule
 
 
 
-\inc	 	 &L7-SL-AH1	 &Pool Kitchen	 	 	  &\checkmark  & &\\
- 
-\inc	 	 &L7-SL-AH3	 &Corridor	 	 	 &\checkmark  & &\\
-\inc	 &L41-SL-AH1	 &Gym	 	 	  	 &\checkmark	 & &\\
-\inc	 &L44-SL-AH1	 &TFA Kitchen	 	 	 &\checkmark& 	 & \\	 
-\inc	 	 &L44-SL-AH2	 &Chinese Rest \& TFA Lounge	 &\checkmark	&  & \\ 	  	 	 
-\inc	 	 &L44-SL-AH3	 &Horizontal Lounge	 	 	&\checkmark  & &\\	 	 
-\inc	 	 &L44-SL-AH4	 &Chinese Restaurant + Private	&\checkmark&  & \\	 	 
-\inc	 	 &L44-SL-AH5	 &Kitchen	 	 	  	&\checkmark 	& & \\ 
+\inc	 	 &L7-SL-AH-001	 &Pool Kitchen	 &\checkmark  &&& ceiling\\
+\inc	 	 &L7-SL-AH-002	 &Corridor	 	 &\checkmark  &&& ceiling\\
 \midrule
 
-\inc	 	 &L47-SL-AH1	 &Shangri-la Tower (TFA)	 	  	&\checkmark&	 &\\
-\inc	 	 &L47-SL-AH2	 &Shangri-la Tower (TFA)	 		&\checkmark&	 &\\
+\inc	 &L41-SL-AH1	 &Gym	 	 	  	 &\checkmark	 & &&\\
+\midrule
+
+\inc	 &L44-SL-AH1	 &TFA Kitchen	 	 	 &\checkmark& 	 && \\	 
+
+\inc	 	 &L44-SL-AH2	 &Chinese Rest \& TFA Lounge	 &\checkmark	&  && \\ 	  	 	 
+
+\inc	 	 &L44-SL-AH3	 &Horizon Lounge	 	 	&\checkmark  & &&\\	 	 
+\inc	 	 &L44-SL-AH4	 &Chinese Restaurant + Private	&\checkmark&  & &\\	 	 
+\midrule
+
+\inc	 	 &L45-SL-AH-001	 &Lift machine room	&\checkmark &&& CML\\ 
+\midrule
+
+\inc	 	 &L47-SL-AH1	 &Shangri-la Tower (TFA)	&\checkmark&&&\\
+
+\inc	 	 &L47-SL-AH2	 &Shangri-la Tower (TFA)	&\checkmark&&&\\
 \bottomrule
-\end{tabular}
+\end{longtable}
+}
 
-\end{table}
 
 
 
