@@ -1746,11 +1746,13 @@
   }
   {}
 
+%% Displays simple clocks
 \newif\ifCLOCK
 \newcommand\CLOCK{\pkgname{clock}}
 \IfStyFileExists{clock}
   {\CLOCKtrue\usepackage{clock}}
   {}
+
 
 % We define our own teubner package to try to minimize symbol conflicts.
 \newif\ifTEUB
@@ -1863,6 +1865,9 @@
    \DeclareRobustCommand{\RECYCrecycle}{{\recycle}}
   }
   {}
+
+
+
 
 \newif\ifDOTARR
 \newcommand\DOTARR{\pkgname{DotArrow}}
