@@ -1,58 +1,80 @@
+\newcommand\rec[1]{\textbf{rec.~#1}}
 
 \captionof{table}{Phase 3a, outstanding EIs}
 \label{EIsphase3a}
 \def\hcolor{\arrayrulecolor{LightGray}\midrule}
 \resetinc
-{
+{\RaggedRight
 
-
-\begin{longtable}{@{}lllp{5.5cm}l}
+\begin{longtable}{@{}r ll p{4.5cm}p{2.5cm}}
 \toprule
-Item  &Description &No  &Remarks & Targt date\\
+Cum.  &Description   & EI &Remarks & Target date\\
 \midrule
-\inc &Completed (100\%) &174 &\\
+
+\setcounter{step}{173}%
+\inc &Completed (100\%) 174 & &\\
 %\inc &EIS completed 85\%-95\%  & 174 &\\
-\inc &Completed 50\%-85\%  & 51 & Final fix. We expect ODCs to complete by 10 Apr 2013 in order for us to complete our works by the deadline. & 31 May 2013\\
+\setcounter{step}{224}%
+\inc &Completed (50\%-85\%) 51   && Final fix. We expect ODCs to complete by 10 Apr 2013 in order for us to complete our works on time. & 31 May 2013\\
 \midrule
-\inc &Outstanding EIS                          &22 &EI-822, TSL/TRO dishwasher extract system for Argentinean and Teatro Restaurant. (rec Nov 2012) & 15.06.13\\
+\inc &     &EI-822&TSL/TRO dishwasher extract system for Argentinean and Teatro Restaurant. (\rec{Nov~2012}) & 15.06.13\\
 \hcolor
-      &                                                 &     &\EI{EI-819}, TSL/TRO - CCTV System as per new MOI regulations.& Owner\\
+ 
+\inc     &                                          &EI-819&TSL/TRO - CCTV System as per new MOI regulations.& Owner\\
 \hcolor
-      &                                                 &     &\EI{EI-814}, TSL/TRO Power provision for external lighting. (rec Nov 2012)& 20 Apr 2013\\
-\hcolor
-      &                                                 &     &EI-745, TSL/TRO B1 \&L5, soft water boiler (on hold).&\\
-\hcolor
-      &                                                 &     &EI 750, TSL/TRO Tag details& on-going\\
-\hcolor
-       &                                                &     &EI-HLG-001 TSL Level 3 Revised office Layout (rec 2 Jan 2013)& 30 May 2013\\
-\hcolor
-      &                                                 &     &EI-HLG-002  TSL GR external signage power provisions (rec 2 Jan 2013)& 30 May 2013\\ 
-\hcolor
-      &      
-    &    &EI-HLG-003 F\&B Ansul Piranha Suppression and Fire Alarm (rec 5 Jan 2013)&\fire  30 Apr 2013\\
-\hcolor
-      &                                                 &     &EI-HLG-004 PABX Equipment dedicated clean earth. (rec 30 Dec 2013) & 15 Mar 2013\\
-      &       
-                                            &     &EI-HLG-005 Ansul Piranha Suppression \& Fire Alarm. (rec 5 Jan 2013)& \fire 30 Apr 2013\\
-\hcolor
-      &                                                 &     &EI DIWAN-002 Rotana Sewage tank. (rec 2 Feb 2013) & 30 May 2013\\\hcolor
-      &                                                 &     &EI DIWAN-003 Shangri-la All-Day Dining lights (rec 3 Feb 2013).& 30 May 2013\\\hcolor
-      &                                                 &     &EI-DIWAN-006 SL GF Additional flag poles. (rec 7 Feb 2013)& 30 May 2013\\\hcolor
-      &                                                 &    &EI-DIWAN-008a Rotana LPG changes (rec 3.03.2013)  &\fire 30 Apr 2013  \\\hcolor
-     &                                                 &    &EI-DIWAN-010 Rotana Provision of master switch (rec 14 Feb 2013) & 30 May 2013  \\\hcolor
-     &                                                 &    &EI-DIWAN-011 Rotana \& Shangrila Dishwasher Exhaust fans. (rec 16 Feb 2013)& 30 May 2013\\\hcolor
- &                                                 &    &EI-DIWAN-011a Rotana \& Shangrila Dishwasher Exhaust fans. (rec 26 Feb 2013)& 30 May 2013\\\hcolor
- &                                                 &    &EI-DIWAN-012 Shangrila Corridor Lighting Lvl 8-17 (rec 11 Feb 13) & 30 May 2013\\\hcolor
 
-&                                                 &    &EI-DIWAN-013 Lvl 42 Horizon Lounge (rec 13 Feb 2013) & 30 May 2013\\\hcolor
-&                                                 &    &EI-DIWAN-014 Ballroom Prefunction and bridal room (21 Feb 2013)  & 30 May 2013\\\hcolor
-&                                                 &    &EI-DIWAN-017 Staff Dining (rec 26 Feb 2013)  & 30 May 2013\\\hcolor
+\inc   &                                            &EI-814&TSL/TRO Power provision for external lighting. (\rec{Nov~2012})& 20 Apr 2013\\
+\hcolor
 
- &                                                     &    &EI-DIWAN-019 TSL Artwork Corridor (rec 26 Feb 2013)  &\Danger HLG inst. Not to Proceed  \\
+\inc      &                                         &EI-745&TSL/TRO B1 \&L5, soft water boiler (on hold).&\\
+\hcolor
+
+\inc  &        &EI-750&TSL/TRO Tag details& on-going\\
+\hcolor
+
+\inc &       &EI-HLG-001 &TSL Level 3 Revised office Layout (rec \rec{2~Jan~2013})& 30 May 2013\\
+\hcolor
+
+\inc  &      &EI-HLG-002  &TSL GR external signage power provisions (\rec{2~Jan~2013})& 30 May 2013\\ 
+\hcolor
+
+\inc   & 
+        &EI-HLG-003&\&B Ansul Piranha Suppression and Fire Alarm (\rec{5~Jan~2013})&\fire  30 Apr 2013\\
+\hcolor
+
+\inc                                                       &  &EI-HLG-004   &PABX Equipment dedicated clean earth. (\rec{30~Dec~2013}) & 15 Mar 2013\\\hcolor
+
+\inc             
+    &  &EI-HLG-005  &Ansul Piranha Suppression \& Fire Alarm. (\rec{5~Jan~2013})& \fire 30 Apr 2013\\
+\hcolor
+ 
+\inc                                                      &  &EI-DIWAN-002   &Rotana Sewage tank. (\rec{2~Feb~2013}) & 30 May 2013\\\hcolor
+
+\inc                                                       &  &EI-DIWAN-003   &Shangri-la All-Day Dining lights (\rec{3~Feb~2013}).& 30 May 2013\\\hcolor
+
+\inc                                                       &  &EI-DIWAN-006   &SL GF Additional flag poles. (\rec{7~Feb~2013})& 30 May 2013\\\hcolor
+
+\inc &      &EI-DIWAN-008a  &Rotana LPG changes (\rec{3~Mar~2013})  &\fire 30 Apr 2013  \\\hcolor
+
+\inc   &   &EI-DIWAN-010   &Rotana Provision of master switch (\rec{14~Feb~2013}) & 30 May 2013  \\\hcolor
+
+\inc  &   &EI-DIWAN-011   & Rotana \& Shangrila Dishwasher Exhaust fans. (\rec{16~Feb~2013})& 30 May 2013\\\hcolor
+
+\inc &      &EI-DIWAN-011a & Rotana \& Shangrila Dishwasher Exhaust fans. (\rec{26~Feb~2013})& 30 May 2013\\\hcolor
+
+\inc &                                                   & EI-DIWAN-012 &Shangrila Corridor Lighting Lvl 8-17 (\rec{11~Feb~13}) & 30 May 2013\\\hcolor
+
+\inc&                                                    &EI-DIWAN-013 & Lvl 42 Horizon Lounge (\rec{13~Feb~2013}) & 30 May 2013\\\hcolor
+
+\inc&                                                    &EI-DIWAN-014 &Ballroom Prefunction and bridal room (\rec{21~Feb~2013})  & 30 May 2013\\\hcolor
+
+\inc&                                                    &EI-DIWAN-017 & Staff Dining (\rec{26~Feb~2013})  & 30 May 2013\\\hcolor
+
+\inc &   &EI-DIWAN-019   &TSL Artwork Corridor (\rec{26~Feb~2013})  &\Danger HLG inst. Not to Proceed  \\
 
 \arrayrulecolor{black}
 \midrule
-\inc & Total                                         &247 &&\\
+ & Total                                         &247 &&\\
 \bottomrule
 \end{longtable}
 \vspace*{1.5cm}
@@ -60,6 +82,7 @@ Item  &Description &No  &Remarks & Targt date\\
 
 
 \pagebreak
+{\RaggedRight
 \caption{Phase 3b, outstanding EIs}
 \label{EIsphase3b}
 \resetinc
@@ -76,15 +99,15 @@ S.no. &Description &No  &EI    &Remarks    & Target Date\\
       & 31 May 2013 \\
 \midrule
 \inc &                       & &EI-232& B3 water for laundry boiler (on hold)&\\\hcolor
-\inc &                                                 &  &HLG-001& L24 Fire Alarm (9 Jan 2013) &\fire 30 Apr 2013  \\\hcolor
-\inc &                                                 &  &HLG-002& Merweb Sewage Tank (26 Jan 2013)& 30 May 2013    \\ \hcolor
-\inc &                                                 &  &HLG-003& Lvl 24 Electrical Enclosure (5 Feb 2013)& 30 May 2013\\                                                 \hcolor
-\inc &                                                 &  &HLG-005& Lvl 24 Services coordination (17 Feb 2013)&\fire 30 Mar 2013\\
+\inc &                                                 &  &HLG-001& L24 Fire Alarm (\rec{9~Jan~2013}) &\fire 30 Apr 2013  \\\hcolor
+\inc &                                                 &  &HLG-002& Merweb Sewage Tank (\rec{26~Jan~2013})& 30 May 2013    \\ \hcolor
+\inc &                                                 &  &HLG-003& Lvl 24 Electrical Enclosure (\rec{5~Feb~2013})& 30 May 2013\\                                                 \hcolor
+\inc &                                                 &  &HLG-005& Lvl 24 Services coordination (\rec{17~Feb~2013})&\fire 30 Mar 2013\\
 \arrayrulecolor{black}\midrule
 \inc & Total                                         & &\the\value{step}&\\
 \bottomrule
 \end{longtable}
-
+}
 \
 
 
